@@ -17,6 +17,31 @@
 	padding-left: 5px;
 	padding-right: 5px;
 }
+
+.icon-userSet{ 
+	background:url('resources/style/images/userSet.png') no-repeat; 
+}
+
+.icon-systemSet{ 
+	background:url('resources/style/images/systemSet.png') no-repeat; 
+}
+
+.icon-search_sel{ 
+	background:url('resources/style/images/search.png') no-repeat; 
+}
+
+.icon-fallback{ 
+	background:url('resources/style/images/fallback.png') no-repeat; 
+}
+
+.icon-upload{ 
+	background:url('resources/style/images/upload.png') no-repeat; 
+}
+
+.icon-menu{ 
+	background:url('resources/style/images/menu.png') no-repeat; 
+}
+
 </style>
 </head>
 
@@ -25,29 +50,29 @@
 		<a href="${path}/logout.jsp" class="easyui-linkbutton" style="position:absolute;top:55px;right:20px;">注销</a>  
 	</div>
     
-    <div data-options="region:'west',split:true,title:'快捷菜单'" style="width:210px;">
+    <div data-options="region:'west',split:true,title:'菜单导航',iconCls:'icon-menu'" style="width:210px;">
     	<div class="easyui-accordion" data-options="fit:true,border:false">
-    		<div iconCls="icon-search" title="材料接收和交递（法官）">
+    		<div iconCls="icon-upload" title="材料接收和交递（法官）">
     			<ul name="mtree" class="easyui-tree"
 	        		data-options="lines:true,url:'${path}/data/menu_1.json'"></ul>
 		    </div>  
-		    <div iconCls="icon-search" title="材料接收和交递（服务中心）">
+		    <div iconCls="icon-upload" title="材料接收和交递（服务中心）">
 		    	<ul name="mtree" class="easyui-tree"
 	        		data-options="lines:true,url:'${path}/data/menu_2.json'"></ul>
 		    </div>  
-		    <div iconCls="icon-search" title="退回材料处理">
+		    <div iconCls="icon-fallback" title="退回材料处理">
 		    	<ul name="mtree" class="easyui-tree"
 	        		data-options="lines:true,url:'${path}/data/menu_3.json'"></ul>
 		    </div>
-		    <div iconCls="icon-search" title="查询">
+		    <div iconCls="icon-search_sel" title="查询">
 		    	<ul name="mtree" class="easyui-tree"
 	        		data-options="lines:true,url:'${path}/data/menu_4.json'"></ul>
 		    </div>
-		    <div iconCls="icon-search" title="用户设置">
+		    <div iconCls="icon-userSet" title="用户设置">
 		    	<ul name="mtree" class="easyui-tree"
 	        		data-options="lines:true,url:'${path}/data/menu_5.json'"></ul>
 		    </div>
-		    <div iconCls="icon-search" title="系统设置">
+		    <div iconCls="icon-systemSet" title="系统设置">
 		    	<ul name="mtree" class="easyui-tree"
 	        		data-options="lines:true,url:'${path}/data/menu_6.json'"></ul>
 		    </div>
