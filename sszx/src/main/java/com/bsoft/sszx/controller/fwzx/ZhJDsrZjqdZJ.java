@@ -22,7 +22,7 @@ import com.bsoft.sszx.util.HttpHelper;
 
 import net.sf.json.JSONObject;
 @Controller
-public class zhJDsrZjqdZJ  {
+public class ZhJDsrZjqdZJ  {
 	@RequestMapping("zhJiaoDsrZzSj")
 	public String zhJiaoDsrZzSj(HttpServletRequest request,
 			HttpServletResponse response, HttpSession session)

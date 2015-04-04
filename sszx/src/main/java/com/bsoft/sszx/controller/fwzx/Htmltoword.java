@@ -28,7 +28,7 @@ import com.bsoft.sszx.util.HttpHelper;
 import net.sf.json.JSONObject;
 
 @Controller
-public class htmltoword  {
+public class Htmltoword  {
 	@ResponseBody
 	@RequestMapping("htmltoword")
 	public void execute(HttpServletRequest request,

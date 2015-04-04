@@ -18,7 +18,7 @@ import com.bsoft.sszx.dao.ZjqdDao;
 import com.bsoft.sszx.entity.clb.Clb;
 import com.bsoft.sszx.entity.zjqd.Zjqd;
 @Controller
-public class editDsrZjqd {
+public class EditDsrZjqd {
 	@RequestMapping("editDsrZzSj")
 	public String execute(HttpServletRequest request,
 			HttpServletResponse response, HttpSession session)

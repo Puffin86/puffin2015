@@ -21,7 +21,7 @@ import com.bsoft.sszx.util.HttpHelper;
 
 import net.sf.json.JSONObject;
 @Controller
-public class cxQd {
+public class CxQd {
 	@ResponseBody
 	@RequestMapping("cxQd")
 	public void execute(HttpServletRequest request,
