@@ -17,7 +17,6 @@ import com.bsoft.sszx.entity.zjqd.Zjqd;
 @Controller
 public class word  { 
 	
-	@ResponseBody
 	@RequestMapping("word")
 	public String execute(HttpServletRequest request,
 			HttpServletResponse response, HttpSession session)
@@ -25,7 +24,6 @@ public class word  {
 	String fydm=(String)session.getAttribute("fydm");
 	
 	String bh=request.getParameter("bh");
-	
 	
 	
 	Zjqd Zjqd=new ZjqdDao().findbyid(bh, fydm);
