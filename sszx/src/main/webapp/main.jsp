@@ -79,9 +79,17 @@
         </div>
     </div>
     
+    <div data-options="region:'center'" >
+    	<div id="Main_Tabs" class="easyui-tabs" data-options="fit:true,border:false">
+            <div title="我的主页" data-options="iconCls:'icon-home'">
+            	<iframe frameborder="0" width="100%" height="99%" src="${path}/home.jsp"></iframe>
+            </div>
+		</div>
+    </div>
+    
+    <!--
 	<div data-options="region:'center'" >
-    	<div id="Main_Tabs" class="easyui-tabs" 
-    		data-options="fit:true,border:false,tools:'#Main_Tabs_Tools'">
+    	<div id="Main_Tabs" class="easyui-tabs" data-options="fit:true,border:false,tools:'#Main_Tabs_Tools'">
             <div title="我的主页" data-options="iconCls:'icon-home'">
             	<iframe frameborder="0" width="100%" height="99%" src="${path}/home.jsp"></iframe>
             </div>
@@ -92,7 +100,7 @@
             	data-options="plain:true,iconCls:'icon-close'"></a>
         </div>
     </div>
-    
+    -->
 <script type="text/javascript">
 $(function(){
 	
