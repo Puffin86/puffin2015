@@ -1,4 +1,5 @@
 <%@ page language="java" pageEncoding="utf-8"%>
+<%@ page language="java" import="java.io.*,java.util.*,com.bsoft.sszx.dao.*,com.bsoft.sszx.entity.zjqd.*,com.bsoft.sszx.entity.fjb.*,com.bsoft.sszx.entity.clb.*" %>
 <%@ include file="/common/taglibs.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -12,10 +13,11 @@
 List clblist=(List)session.getAttribute("wordclb");
 if (clblist==null) clblist=new ArrayList();
 Zjqd zjqd=(Zjqd)session.getAttribute("wordZjqd");
+ZjqdId zjqdId=zjqd.getId();
 String zjr=zjqd.getZjr();
 String user=(String)session.getAttribute("user");
 String fydm=(String)session.getAttribute("fydm");
-String zjrXm=new userDao().findUserById(user, fydm).getYhxm();
+String zjrXm=new UserDao().findUserById(user, fydm).getYhxm();
 
 String path = getServletContext().getRealPath("/scan/jpg/");
 String nameF=zjqd.getId().getFydm()+"_"+zjqd.getId().getBh()+"_"+zjqd.getLclx()+".doc";             
@@ -23,7 +25,7 @@ String fileF=path+"\\"+nameF;
 File F =new File(fileF);
 int Fs=1;
 if(F.exists()){
-	Fjb Fjb= new fjDao().findFjbBymc(nameF, String.valueOf(zjqd.getId().getBh()), fydm);
+	Fjb Fjb= new FjDao().findFjbBymc(nameF, String.valueOf(zjqd.getId().getBh()), fydm);
 	if(Fjb!=null)
 	Fs=0;
 }
@@ -77,7 +79,7 @@ function saveWord(){
     	       alert("保存成功");
  	    	 else
     	       alert("保存失败"); 
- 	     window.location.href="word.jsp";
+ 	    	window.location.href="${path}/word.do?bh='<%=zjqdId.getBh()%>'";
  	     }});
 };
 
