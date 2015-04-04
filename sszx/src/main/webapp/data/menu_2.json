@@ -1,5 +1,5 @@
 [
-	{"id":4, "text":"接收当事人材料", "attributes":{"url": "dsrZzSj.jsp"}},
+	{"id":4, "text":"接收当事人材料", "attributes":{"url": "to_jsdsrzdsj.do"}},
 	{"id":5, "text":"登记业务庭转交材料", "attributes":{"url": "djywZj.jsp"}},
 	{"id":6, "text":"登记当事人领取材料", "attributes":{"url": "djdsrLq.jsp"}},
 	{"id":7, "text":"登记当事人预约提交材料", "attributes":{"url": "djdsrSj.jsp"}}
