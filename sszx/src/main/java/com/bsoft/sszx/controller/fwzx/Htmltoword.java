@@ -40,7 +40,7 @@ public class Htmltoword  {
     String content = "<html><head></head><body>" + body + "</body></html>";
     InputStream is = new ByteArrayInputStream(content.getBytes("GBK"));
 //    String path = ServletActionContext.getServletContext().getRealPath("/scan/jpg/");
-    String path = "afd";
+    String path = "temp";
     File dirPath = new File(path);
     if(!dirPath.exists()) dirPath.mkdirs();
     
