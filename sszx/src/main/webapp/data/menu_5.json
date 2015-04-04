@@ -1,0 +1,4 @@
+[
+	{"id":10, "text":"修改密码", "attributes":{"url": "pass.jsp"}},
+	{"id":11, "text":"设置联系电话", "attributes":{"url": "to_lxdh.do"}}
+]

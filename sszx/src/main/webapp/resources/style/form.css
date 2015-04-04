@@ -1,0 +1,26 @@
+@CHARSET "UTF-8";
+
+.from-rdo {
+	cursor: pointer;
+}
+
+.from-ckb {
+	cursor: pointer;
+}
+
+.from-txt {
+	width: 150px;
+	height: 18px;
+	line-height: 18px;
+	font-size: 12px;
+	font-family: "微软雅黑", "宋体", Verdana, Geneva, sans-serif;
+	border: 1px solid #ABADB3;
+}
+
+.from-ltxt {
+	width: 150px;
+	height: 60px;
+	font-size: 12px;
+	font-family: "微软雅黑", "宋体", Verdana, Geneva, sans-serif;
+	border: 1px solid #ABADB3;
+}

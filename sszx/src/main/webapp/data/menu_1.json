@@ -1,0 +1,5 @@
+[
+	{"id":1, "text":"接收材料", "attributes":{"url": "to_fgJsCl.do"}},
+	{"id":2, "text":"预约当事人领取材料", "attributes":{"url": "to_flq.do"}},
+	{"id":3, "text":"预约当事人提交材料", "attributes":{"url": "flj.jsp"}}
+]
