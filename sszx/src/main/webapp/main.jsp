@@ -22,7 +22,7 @@
 
 <body class="easyui-layout">
 	<div data-options="region:'north',border:false" style="height:90px;background-color:#f9f9f9;background-image:url('resources/style/images/title.png');">	
-		<a href="${path}/logout.jsp" class="easyui-linkbutton" style="position:absolute;top:15px;right:20px;">注销</a>  
+		<a href="${path}/logout.jsp" class="easyui-linkbutton" style="position:absolute;top:55px;right:20px;">注销</a>  
 	</div>
     
     <div data-options="region:'west',split:true,title:'快捷菜单'" style="width:210px;">
@@ -58,7 +58,7 @@
     	<div id="Main_Tabs" class="easyui-tabs" 
     		data-options="fit:true,border:false,tools:'#Main_Tabs_Tools'">
             <div title="我的主页" data-options="iconCls:'icon-home'">
-            	<iframe frameborder="0" width="100%" height="100%" src="${path}/home.jsp"></iframe>
+            	<iframe frameborder="0" width="100%" height="99%" src="${path}/home.jsp"></iframe>
             </div>
 		</div>
         

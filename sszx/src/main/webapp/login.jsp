@@ -20,7 +20,7 @@
 <table width="370" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td width="61" height="40" class="font14col4b91c6">用户名：</td>
-    <td width="187"><input id="txt_user" name="username" type="text" class="inputbg" value="Zhangdy"/></td>
+    <td width="187"><input id="txt_user" name="username" type="text" class="inputbg" value="zuh"/></td>
     <td width="80">&nbsp;</td>
     <td width="42">&nbsp;</td>
   </tr>
@@ -42,7 +42,7 @@
 </div>
 <div class="copyright moa">
 <p>为获得最佳浏览效果，建议使用IE6以上版本及1024*768分辨率</p>
-<p>版权所有&nbsp;&copy;&nbsp;2013-2015</p>
+<p>版权所有&nbsp;&copy;&nbsp;2015-2017</p>
 </div>
 </div>
 
