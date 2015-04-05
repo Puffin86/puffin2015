@@ -31,6 +31,7 @@ public class SearchFgSJ {
 
 		String djr = request.getParameter("djr");
 		String ah = request.getParameter("ah");
+		System.out.println(djr+"@"+ah);
 		int zt = Integer.valueOf(request.getParameter("zt")); // 状态
 
 		String user = (String) session.getAttribute("user");

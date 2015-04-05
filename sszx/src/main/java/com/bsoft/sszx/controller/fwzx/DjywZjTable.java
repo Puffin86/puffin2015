@@ -16,7 +16,7 @@ import com.bsoft.sszx.entity.zjqd.Zjqd;
 import com.bsoft.sszx.util.HttpHelper;
 
 @Controller
-public class djywZjTable {
+public class DjywZjTable {
 	
 	@RequestMapping("djywZjTable")
 	public void djywZjTable(Integer page, Integer rows, String user,

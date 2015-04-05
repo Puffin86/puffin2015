@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import net.sf.json.JSONObject;
 
@@ -12,7 +14,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bsoft.sszx.dao.ClbDao;
 import com.bsoft.sszx.dao.ZjqdDao;
+import com.bsoft.sszx.entity.clb.Clb;
 import com.bsoft.sszx.entity.zjqd.Zjqd;
 import com.bsoft.sszx.util.HttpHelper;
 
@@ -48,6 +52,23 @@ public class Fwzx_djdsryytjcl {
 	JSONObject resultObj=JSONObject.fromObject(map); //将map对象转换成为json对象
 	HttpHelper.renderJson(resultObj.toString(), response);
 	}
+	
+	@RequestMapping("djywJs")
+	public String execute(HttpServletRequest request,
+			HttpServletResponse response, HttpSession session)throws Exception
+	{  
+		String fydm=(String)session.getAttribute("fydm");
+		
+	    String id=request.getParameter("bh");
+		
+		Zjqd Zjqd=new ZjqdDao().findbyid(id,fydm);
+		List<Clb> list=new ClbDao().findByZjqd(id, fydm);
+		
+		session.setAttribute("djywZjqd", Zjqd);
+		session.setAttribute("djywZjqdClb", list);
+		return "fwzx/djywJs";
+	}
+	
 	
 	
 }

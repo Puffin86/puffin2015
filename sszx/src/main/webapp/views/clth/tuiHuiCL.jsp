@@ -4,17 +4,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>接收材料</title>
+<title>材料退回</title>
 <jsp:include page="/common/include.jsp" />
 </head>
-
-<%
-String fydm=(String)session.getAttribute("fydm");
-%>
+  
 <body style="background-color: #fff;" class="easyui-layout">
 
 	<div data-options="region:'center'">
-    <table id="dsrZzSjTable"></table> 
+    	<table id="dsrZzSjTable"></table> 
     </div>
 
     <div id="search" style="width:250px;">
@@ -24,13 +21,16 @@ String fydm=(String)session.getAttribute("fydm");
     </table>
     </div>
     
+    <div id="tuiHui" style="width:430px;height:230px;">
+    	<textarea id="thyj" rows="8" cols="50" style="margin-left:20px;margin-top:10px;font-size:12px;"></textarea>
+    </div>
+    
     
    
 <script>
 $(document).ready(function(){
-	 var user="${session.user}";
-     //var user="Chenl";
-	 var fydm='<%=fydm%>';
+	 var user = '${user}';
+	 var fydm = '${fydm}';
 
 	 $('#search').dialog('close');
 	 //$('#add_xinming').hide();
@@ -39,14 +39,14 @@ $(document).ready(function(){
 			rownumbers:false,
 			fit:true,
 			border:false,
-			title:'当事人自主提交材料列表',
+			title:'退回材料列表',
 			singleSelect:true,
 			striped:true,
 			fitColumns:true,
 			singleSelect:true,
 			idField:'itemid',
 			pagination:true,
-			url:"${path}/djdsrSjTable.do?user="+user+"&fydm="+fydm,
+			url:"${path}/tuiHuiCLTable.do?user="+user+"&fydm="+fydm,
 			
 			columns:[[
 		    {field:'id',title:'流水号',width:50,align:'center',
@@ -58,17 +58,19 @@ $(document).ready(function(){
 			{field:'sjrXm',title:'承办人',width:50,align:'center'},
 		    {field:'djr',title:'当事人',width:50,align:'center'},
 		    {field:'djrq',title:'递交日期',width:100,align:'center'},	
-		    {field:'action',title:'操作',width:150,align:'center',
+		    {field:'action',title:'操作',width:200,align:'center',
 				   formatter:function(value,row,index){
 					var sa=row.id.bh;
 					var s = '<a style="color:red\"'
-					        +'href=\"djdsrSjsj.do?bh='+sa+'\">确认/退回</a> ';
-					        var f = '<a style="color:red\"'
-						        +'href=\"#\" '
-						        +'onClick=\"Open('
-						        +sa+');">扫描</a> ';
-				  
-					return s+f;
+					        +'href=\"huiTuiXG.do?bh='+sa+'\">修改</a> ';
+					var c = '<a style="color:red\"'
+					        +'href=\"#\"'
+						    +'onClick=\"veiw('+sa+')\">退回原因</a> '; 
+		            var b = '<a style="color:red\"'
+					        +'href=\"cxtjTz.do?bh='+sa+'\">重新提交</a> ';  
+					var d = '<a style="color:red\"'
+						    +'href=\"cx2.do?bh='+sa+'\">撤销</a>';
+					return s+c+b+d;
 					}
 		    }
 			]],
@@ -77,6 +79,8 @@ $(document).ready(function(){
 			        {text:'查询',
 			        iconCls:'icon-search',
 			        handler:function(){
+			        	$('#djr').val('');
+        	    	    $('#ah').val('');
 			        	$('#search').dialog('open');
 			        }},
 			        
@@ -92,8 +96,8 @@ $(document).ready(function(){
 
 	 $('#allCL').click(function(event){
 	 	$('#dsrZzSjTable').datagrid('reload');
-		// window.location.href="djdsrSj.jsp";
-		// event.preventDefault();//ie6专用
+		// window.location.href="tuiHuiCL.jsp";
+		 //event.preventDefault();//ie6专用
 	 });
 	 }	 
 );
@@ -107,20 +111,32 @@ $('#search').dialog({
         text:'搜索',
         iconCls:'icon-ok',
         handler:function(){
-        	 //alert($('#add_xinming').val());
         	 $.ajax({
-        	     url:'searchDjyw.do',
+        	     url:'searchFgSJ.do',
         	     type:'POST',
-        	     data:{djr:encodeURI(encodeURI($('#djr').val())),
-        	    	   ah:encodeURI(encodeURI($('#ah').val())),
-        	    	   zt:10
+        	     data:{
+        	     	   djr:$('#djr').val(),
+        	    	   ah:$('#ah').val(),
+        	    	   //djr:encodeURI(encodeURI($('#djr').val())),
+        	    	   //ah:encodeURI(encodeURI($('#ah').val())),
+        	    	   zt:3
         	      },//注意大小写data
         	     dataType:'json',
         	     success:function (res) {
         	       $('#dsrZzSjTable').datagrid('loadData',res.data);
         	       $('#search').dialog('close');
         	     }
-        });
+        	});
+        	
+        	$.post('${path}/searchFgSJ.do', {
+	        		djr: $('#djr').val(),
+	        	    ah: $('#ah').val(),
+	        	    zt: 3
+	        	}, function (res) {
+        	        $('#dsrZzSjTable').datagrid('loadData',res.data);
+        	        $('#search').dialog('close');
+	        	}, 'json');
+        	
         }
     },{
         text:'取消',
@@ -130,14 +146,36 @@ $('#search').dialog({
         }
     }]
 });
+</script>
 
-function Open(bh){
-	 url='fj?bh='+bh;
-	 window.open(url,"new",
-			 "height=400px,width=400px,toolbar=no,status=no,menubar=no,scrollbars=no,resizable=no");
-	
+ <script>
+$('#tuiHui').dialog({
+    title:'退回原因',
+    iconCls:'icon-tip',
+    closed:true,
+    buttons:[{
+        text:'确定',
+        iconCls:'icon-ok',
+        handler:function(){
+            $('#tuiHui').dialog('close');
+        }
+    }]
+});
+
+function veiw(id){	
+	 $.ajax({
+	     url:'searchHtyj.do',
+	     type:'POST',
+	     data:{id:id
+	      },//注意大小写data
+	     dataType:'json',
+	     success:function (res) {
+	    	 $('#thyj').val(res.htyj);
+	    	 $('#thyj').attr('readOnly','true');
+	    	 $('#tuiHui').dialog('open');
+	     }
+});	
 }
-
 </script>
 
 

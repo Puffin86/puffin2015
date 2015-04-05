@@ -17,13 +17,14 @@ import com.bsoft.sszx.entity.clb.Clb;
 import com.bsoft.sszx.entity.zjqd.Zjqd;
 
 @Controller
-public class djdsrLqJs  {
+public class DjdsrLqJs  {
 	
 	@RequestMapping("djdsrLqJs")
 	public String execute(HttpServletRequest request,
 			HttpServletResponse response, HttpSession session)throws Exception
 	{  
 		String fydm=(String)session.getAttribute("fydm");
+		
 		
 	    String id=request.getParameter("bh");
 		
