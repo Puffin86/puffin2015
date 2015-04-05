@@ -22,6 +22,7 @@
 		<mapping resource="com/bsoft/sszx/entity/zjqd/Zjqd.hbm.xml" />
 		<mapping resource="com/bsoft/sszx/entity/clb/Clb.hbm.xml" />
 		<mapping resource="com/bsoft/sszx/entity/fjb/Fjb.hbm.xml" />
+		
 		<mapping resource="com/bsoft/sszx/entity/sms/Dxx.hbm.xml" />
 		<mapping resource="com/bsoft/sszx/entity/sms/Sms.hbm.xml" />
 	</session-factory>

@@ -1,4 +1,4 @@
-package com.bsoft.sszx.controller;
+package com.bsoft.sszx.controller.user;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,7 +25,7 @@ public class Lxdh {
 
 	@RequestMapping("to_lxdh")
 	public String setLxdh() {
-		return "lxdh";
+		return "user/lxdh";
 	}
 
 	@ResponseBody

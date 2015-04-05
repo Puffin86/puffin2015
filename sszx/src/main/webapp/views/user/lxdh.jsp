@@ -1,5 +1,5 @@
-<%@page import="com.bsoft.sszx.dao.UserDao"%>
-<%@page import="com.bsoft.sszx.entity.user.User"%>
+<%@ page import="com.bsoft.sszx.dao.UserDao"%>
+<%@ page import="com.bsoft.sszx.entity.user.User"%>
 <%@ page language="java" pageEncoding="utf-8"%>
 <%@ include file="/common/taglibs.jsp"%>
 
@@ -37,7 +37,7 @@
 	     
 	     <hr/>
 	     <div align="center">
-	     	<a id="reset" onclick="save()" iconCls="icon-ok">确定</a>
+	     	<a id="reset" class="easyui-linkbutton" onclick="save()" iconCls="icon-ok">确定</a>
 	     </div>
      </div>
      
