@@ -1,4 +1,4 @@
-package com.bsoft.sszx.controller.flq;
+package com.bsoft.sszx.controller.flj;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,52 +21,52 @@ import com.bsoft.sszx.entity.zjqd.Zjqd;
 import com.bsoft.sszx.util.HttpHelper;
 
 /**
- * 预约当事人领取材料
+ * 预约当事人提交材料
  */
 @Controller
-public class Flq {
+public class Flj {
 
-	@RequestMapping("to_flq")
+	@RequestMapping("to_flj")
 	public String toFlq() {
-		return "fg/flq";
-	}
-	
-	@RequestMapping("addFlq")
-	public String addFlq() {
-		return "fg/addFlq";
+		return "fg/flj";
 	}
 
-	@RequestMapping("editFlq")
-	public String editFlq(HttpServletRequest request, HttpSession session) {
+	@RequestMapping("addFlj")
+	public String addFljJsp() {
+		return "fg/addFlj";
+	}
+
+	@RequestMapping("editFlj")
+	public String editFlj(HttpServletRequest request, HttpSession session) {
 		String fydm = (String) session.getAttribute("fydm");
 		String id = request.getParameter("bh");
 
-		Zjqd Zjqd = new ZjqdDao().findbyid(id, fydm);
+		Zjqd zjqd = new ZjqdDao().findbyid(id, fydm);
 		List<Clb> list = new ClbDao().findByZjqd(id, fydm);
 
-		session.setAttribute("editFlq", Zjqd);
-		session.setAttribute("editFlqClb", list);
+		session.setAttribute("editFlj", zjqd);
+		session.setAttribute("editFljClb", list);
 
-		return "fg/editFlq";
+		return "fg/editFlj";
 	}
 
 	@ResponseBody
-	@RequestMapping("flqTable")
+	@RequestMapping("fljTable")
 	public void findDsrZdSj(Integer page, Integer rows, String user,
-			String fydm, HttpServletResponse response) {
-
+			String fydm, HttpServletResponse response) throws Exception {
 		// 当前页
 		int intPage = (page == null || page == 0) ? 1 : page;
 		// 每页显示条数
 		int number = (rows == null || rows == 0) ? 10 : rows;
-		// 每页的开始记录 第一页为1, 第二页为number +1
+		// 每页的开始记录 第一页为1 第二页为number +1
 		int start = (intPage - 1) * number;
 
 		Map<String, Object> map = new HashMap<String, Object>();
 
 		ZjqdDao zjqdDao = new ZjqdDao();
-		List<Zjqd> al = zjqdDao.findDsrZzSJbyPage(start, number, user, 5, fydm);// 每页的数据，放入list
-		List<Zjqd> all = zjqdDao.findDsrZzSJ(user, 5, fydm);
+
+		List<Zjqd> al = zjqdDao.findDsrZzSJbyPage(start, number, user, 9, fydm);
+		List<Zjqd> all = zjqdDao.findDsrZzSJ(user, 9, fydm);
 
 		map.put("total", all.size());
 		map.put("rows", al);
