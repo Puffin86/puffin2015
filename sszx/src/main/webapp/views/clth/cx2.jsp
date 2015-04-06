@@ -33,7 +33,7 @@ $('#QR').dialog({
         iconCls:'icon-ok',
         handler:function(){
         	 $.ajax({
-        	     url:'cxQd',
+        	     url:'cxQd.do',
         	     type:'POST',
         	     data:{bh:<%=bh%>,
         	    	   fydm:<%=fydm%>
@@ -42,7 +42,8 @@ $('#QR').dialog({
         	     success:function (res) {
         	       if(res.after==1)
         	         alert("撤销成功");
-        	       window.location.href="tuiHuiCL.jsp";
+        	       //window.location.href="tuiHuiCL.jsp";
+        	       window.location.href="${path}/to_tuiHuiCL.do";
         	     }
         });
         }
@@ -54,8 +55,8 @@ $('#QR').dialog({
 });
 
 $('#quxiao').click(function(event){
-	 window.location.href="tuiHuiCL.jsp";
-	 event.preventDefault();//ie6专用
+	 window.location.href="${path}/to_tuiHuiCL.do";
+	 //event.preventDefault();//ie6专用
 });
 </script>
 

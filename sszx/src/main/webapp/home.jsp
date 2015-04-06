@@ -31,7 +31,7 @@
 
 <div iconCls="icon-tip" class="easyui-panel" title="消息提醒" style="width:300px;height:auto;padding:10px;">
 	<p style="color:#770000"> <%=userXm %>, 您好!</p>
-	<div id="thN">您有<a style="color:red" href="#" onclick="window.parent.addTab('处理退回材料','tuiHuiCL.jsp')">&nbsp;&nbsp;<%=htN %>&nbsp;&nbsp;</a>份材料被退回，请处理。</div> 
+	<div id="thN">您有<a style="color:red" href="#" onclick="window.parent.addTab('处理退回材料','to_tuiHuiCL.do')">&nbsp;&nbsp;<%=htN %>&nbsp;&nbsp;</a>份材料被退回，请处理。</div> 
     <div id="drN">您有<a style="color:red" href="#" onclick="window.parent.addTab('接收材料','to_fgJsCl.do')">&nbsp;&nbsp;<%=drN %>&nbsp;&nbsp;</a>份材料待接收，请处理。</div> 
     <div id="lxdh">您的联系手机号码还未设置，<a style="color:red" href="#" onclick="window.parent.addTab('设置联系电话','to_lxdh.do')">请设置</a>。</div>
 </div>

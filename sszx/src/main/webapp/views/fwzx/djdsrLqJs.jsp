@@ -215,7 +215,7 @@ $('#tuiHui').dialog({
            	       alert("操作成功");
            	     if(data.after==0)
            	       alert("操作失败");    	     
-          	     window.location.href="djdsrLq.jsp";
+          	     window.location.href="${path}/to_djdsrLq.do";
         	     }});
         }
     },
