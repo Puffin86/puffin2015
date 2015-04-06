@@ -22,40 +22,43 @@ import com.bsoft.sszx.util.Tree;
 import net.sf.json.JSONObject;
 
 @Controller
-public class UserSearch{ 
+public class UserSearch {
+
 	@ResponseBody
 	@RequestMapping("userSearch")
 	public void execute(HttpServletRequest request,
-			HttpServletResponse response, HttpSession session) throws Exception{
-	String fydm=(String)session.getAttribute("fydm");
-	String name=request.getParameter("name");
-	name = URLDecoder.decode(name, "UTF-8"); 
-	name = URLDecoder.decode(name, "UTF-8"); 
-	
-	List<User> al =(List<User>) new UserDao().findUserByName(fydm,name);
-	List<Tree> tree=(List<Tree>) new ArrayList();
-	for(int i=0; i<al.size();i++){
-		Tree leaf=new Tree();
-		leaf.setId(i);
-		leaf.setState("open");
-		
-		String yhbmid=al.get(i).getYhbm();
-		
-		String yhbm=new UserDao().findBm(yhbmid, fydm).getBmmc();
-		String text=al.get(i).getYhxm()+"："+yhbm;
-		leaf.setText(text);
-		
-		Map attributes=new HashMap<String, String>();
-		attributes.put("leaf", "true");
-		String yhid=al.get(i).getId().getYhid();
-		attributes.put("yhid", yhid);
-		attributes.put("yhbm", yhbmid);
-		leaf.setAttributes(attributes);
-		tree.add(leaf);
-	}
-	Map<String,Object> result = new HashMap<String,Object>();
-	result.put("data", tree);
-	JSONObject resultObj=JSONObject.fromObject(result); //将map对象转换成为json对象
-	HttpHelper.renderJson(resultObj.toString(), response);
+			HttpServletResponse response, HttpSession session) throws Exception {
+
+		String fydm = (String) session.getAttribute("fydm");
+		String name = request.getParameter("name");
+		name = URLDecoder.decode(name, "UTF-8");
+		name = URLDecoder.decode(name, "UTF-8");
+
+		List<User> al = (List<User>) new UserDao().findUserByName(fydm, name);
+		List<Tree> tree = new ArrayList<Tree>();
+		for (int i = 0; i < al.size(); i++) {
+			Tree leaf = new Tree();
+			leaf.setId(i);
+			leaf.setState("open");
+
+			String yhbmid = al.get(i).getYhbm();
+
+			String yhbm = new UserDao().findBm(yhbmid, fydm).getBmmc();
+			String text = al.get(i).getYhxm() + "：" + yhbm;
+			leaf.setText(text);
+
+			Map<String, String> attributes = new HashMap<String, String>();
+			attributes.put("leaf", "true");
+			String yhid = al.get(i).getId().getYhid();
+			attributes.put("yhid", yhid);
+			attributes.put("yhbm", yhbmid);
+			leaf.setAttributes(attributes);
+			
+			tree.add(leaf);
+		}
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("data", tree);
+		JSONObject resultObj = JSONObject.fromObject(result); // 将map对象转换成为json对象
+		HttpHelper.renderJson(resultObj.toString(), response);
 	}
 }
