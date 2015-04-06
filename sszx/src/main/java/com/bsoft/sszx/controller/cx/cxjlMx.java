@@ -14,7 +14,7 @@ import com.bsoft.sszx.dao.ZjqdDao;
 import com.bsoft.sszx.entity.zjqd.Zjqd;
 @Controller
 public class cxjlMx  {
-	@RequestMapping("")
+	@RequestMapping("cxjlMx")
 	public String execute(HttpServletRequest request,
 			HttpServletResponse response, HttpSession session) throws Exception
 	{		

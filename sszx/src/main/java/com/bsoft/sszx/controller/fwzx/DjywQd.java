@@ -27,7 +27,7 @@ import com.bsoft.sszx.util.HttpHelper;
 
 import net.sf.json.JSONObject;
 @Controller
-public class djywQd  {
+public class DjywQd  {
 	@ResponseBody
 	@RequestMapping("djywQd")
 	public void execute(HttpServletRequest request,

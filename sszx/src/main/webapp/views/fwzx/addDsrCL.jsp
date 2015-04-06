@@ -70,7 +70,7 @@
    <hr/>
    <div align="center">
      <a id="save" onclick="save()" iconCls="icon-save">保存</a>
-     <a id="cancel" onclick="window.location.href='to_jsdsrzdsj.do';" iconCls="icon-cancel">取消</a>
+     <a id="cancel" onclick="window.location.href='${path}/to_jsdsrzdsj.do';" iconCls="icon-cancel">取消</a>
    </div>
    <!-- <a onclick="test()">test</a> -->
    <script>

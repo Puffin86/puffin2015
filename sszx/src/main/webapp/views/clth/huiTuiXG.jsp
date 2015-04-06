@@ -287,7 +287,7 @@ ZjqdId zjqdId = zjqd.getId();
    function Open(){
 	     //var bh="${session.editHuiTuiZjqd.id.bh}";
 	     var bh="<%=zjqdId.getBh()%>";
-		 url='fj?bh='+bh;
+		 url='fj.do?bh='+bh;
 		 window.open(url,"new",
 				 "height=400px,width=400px,toolbar=no,status=no,menubar=no,scrollbars=no,resizable=no");
 		
