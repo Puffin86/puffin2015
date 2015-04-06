@@ -39,7 +39,7 @@ $(document).ready(function(){
 			rownumbers:false,
 			fit:true,
 			border:false,
-			title:'待接收材料列表',
+			title:'登记当事人领取材料',
 			singleSelect:true,
 			striped:true,
 			fitColumns:true,

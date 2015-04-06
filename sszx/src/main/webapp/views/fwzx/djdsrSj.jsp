@@ -39,7 +39,7 @@ $(document).ready(function(){
 			rownumbers:false,
 			fit:true,
 			border:false,
-			title:'当事人自主提交材料列表',
+			title:'登记当事人预约提交材料',
 			singleSelect:true,
 			striped:true,
 			fitColumns:true,

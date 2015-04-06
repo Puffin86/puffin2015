@@ -35,7 +35,7 @@ $(document).ready(function(){
 			rownumbers:false,
 			fit:true,
 			border:false,
-			title:'待接收材料列表',
+			title:'登记业务庭转交材料',
 			singleSelect:true,
 			striped:true,
 			fitColumns:true,
