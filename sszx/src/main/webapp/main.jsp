@@ -1,3 +1,4 @@
+<%@page import="com.bsoft.sszx.dao.UserDao"%>
 <%@ page language="java" pageEncoding="utf-8"%>
 <%@ page language="java" import="com.bsoft.sszx.dao.*"%>
 <%@ include file="/common/taglibs.jsp"%>
@@ -57,13 +58,19 @@
 
 </head>
 
+<%
+	String user=(String)session.getAttribute("user");
+	String fydm=(String)session.getAttribute("fydm");
+	String lx = new UserDao().findUserById(user, fydm).getJs();
+%>  
+    
 <body class="easyui-layout">
 	<div data-options="region:'north',border:false" style="height:90px;background-color:#f9f9f9;background-image:url('resources/style/images/title.png');">	
 		<a href="${path}/logout.jsp" class="easyui-linkbutton" iconCls='icon-logout' style="position:absolute;top:55px;right:20px;">注销</a>  
 	</div>
     
-    <div id="menu" data-options="region:'west',split:true,title:'菜单导航',iconCls:'icon-menu'" style="width:210px;">
-    	<div class="easyui-accordion" data-options="fit:true,border:false">
+    <div data-options="region:'west',split:true,title:'菜单导航',iconCls:'icon-menu'" style="width:210px;">
+    	<div id="ac" class="easyui-accordion" data-options="fit:true,border:false">
     		<div iconCls="icon-upload" title="材料接收和交递（法官）">
     			<ul name="mtree" class="easyui-tree"
 	        		data-options="lines:true,url:'${path}/data/menu_1.json'"></ul>
@@ -115,7 +122,16 @@
     
 <script type="text/javascript">
 $(function(){
-	
+	var lx='<%=lx%>';
+	if(lx=='2' || lx=='4'){
+    	$("#ac").accordion("remove", "材料接收和交递（服务中心）");
+    	$("#ac").accordion("remove", "系统设置");
+    }
+    if(lx=='3'){
+    	$("#ac").accordion("remove", "材料接收和交递（法官）");
+    	$("#ac").accordion("remove", "系统设置");
+    }
+    
 	$('ul[name="mtree"]').each(function(i, o) {
 		$(o).tree({
 			onClick: function(node) {
