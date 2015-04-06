@@ -14,7 +14,9 @@
 <div align="center">
 	<table style="font-size:12px;margin-left:10px;" id="ssclzjqd">
 		<tr>
-			<td style="background-color:#AAAAAA; font-size:14px; font-weight:bold; color:#FF5511" colspan="4">密码设置</td>
+			<td align="center" style="background-color:#E0ECFF; font-size:14px; font-weight:bold; color:#FF5511" colspan="4">
+				密码设置
+			</td>
 		</tr>
 		<tr>
 			<td>
@@ -30,7 +32,7 @@
 	
 	<hr/>
 	<div align="center">
-		<a id="reset" class="easyui-linkbutton" onclick="save()" iconCls="icon-ok">确定</a>
+		<a id="reset" class="easyui-linkbutton" onclick="save()" iconCls="icon-save">保存</a>
 	</div>
 </div>
      

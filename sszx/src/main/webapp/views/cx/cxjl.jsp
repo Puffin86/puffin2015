@@ -16,14 +16,14 @@
     String lx=u.getJs();//得到角色
     String sjrbm=u.getYhbm();
   %>  
-  <body>        
-    <div class="easyui-accordion" style="margin-left:10px;width:600px;height:400px;"> 
-    <div style="margin-left:20px;margin-top:5px;" iconCls="icon-search" title="查询案件材料递交记录">
-       案号：<input id="ah" style="width:100px" type="text">
-   &nbsp;&nbsp;当事人：<input style="width:100px"  id="dsr" type="text">
-       <a id="research" onclick="searchAj()" iconCls="icon-search"></a>
-       <ul id="searchList"></ul>
-    </div></div>
+  <body style="background-color: #fff;" class="easyui-layout">     
+    <div id="p" class="easyui-panel" data-options="region:'center'" title="查询案件材料递交记录" style="width:100%;height:100%;padding:7px;">
+    	 案号：<input id="ah" style="width:100px" type="text">
+	   &nbsp;&nbsp;当事人：<input style="width:100px"  id="dsr" type="text">
+	       <a id="research" onclick="searchAj()" iconCls="icon-search"></a>
+	       <ul id="searchList"></ul>
+    </div>
+    
 </body>
 
 <script>
