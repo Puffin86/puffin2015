@@ -5,14 +5,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>index</title>
+<title>警告</title>
 <jsp:include page="/common/include.jsp" />
 </head>
 
-<body>
-练习。。。。。。。。。。。。。
-${path}
-
+<body >
+系统已过试用期，请联系puffin<511635157@qq.com>获取正式版，谢谢~
 <script type="text/javascript">
 </script>
 </body>

@@ -1,5 +1,8 @@
-package com.bsoft.sszx.controller;
+package com.bsoft.sszx.controller.cx;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,14 +20,12 @@ import com.bsoft.sszx.dao.FyDao;
 import com.bsoft.sszx.dao.UserDao;
 import com.bsoft.sszx.entity.user.User;
 import com.bsoft.sszx.util.HttpHelper;
-
 @Controller
-public class Login {
-
+public class Trial {
 	@ResponseBody
 	@RequestMapping("login")
 	public void login(HttpServletRequest request, HttpServletResponse response,
-			HttpSession session) {
+			HttpSession session) throws Exception {
 		String fymc = request.getParameter("fymc"); // 法院名称
 		String user = request.getParameter("user");
 		String pass = request.getParameter("pass");
@@ -43,11 +44,24 @@ public class Login {
 
 		if (u != null) {
 			if (u.getPass().equals(pass)) {
-				session.setAttribute("user", user);
-				session.setAttribute("fydm", fydm);
-
-				result.put("success", true);
-				result.put("after", "1");
+				String str="2035-4-1";
+				SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
+				Date date =sdf.parse(str);
+				Calendar calendar = Calendar.getInstance();
+				calendar.setTime(date);
+				Calendar today = Calendar.getInstance();
+				int s = today.compareTo(calendar);
+				if(s==-1){
+					session.setAttribute("user", user);
+					session.setAttribute("fydm", fydm);
+					
+					result.put("success", true);
+					result.put("after", "1");
+				}else{
+					result.put("success", true);
+					result.put("after", "2");
+				}
+				
 			} else {
 				result.put("success", true);
 				result.put("after", "0");
@@ -56,9 +70,9 @@ public class Login {
 			result.put("success", true);
 			result.put("after", "0");
 		}
-
+		
+		
 		JSONObject json = JSONObject.fromObject(result);
 		HttpHelper.renderJson(json.toString(), response);
 	}
-
 }

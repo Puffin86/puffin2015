@@ -1,11 +1,12 @@
 <%@ page language="java" pageEncoding="utf-8"%>
+<%@ page language="java" import="com.bsoft.sszx.dao.*"%>
 <%@ include file="/common/taglibs.jsp"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>main</title>
+<title>诉讼服务中心信息管理系统</title>
 <jsp:include page="/common/include.jsp" />
 <style type="text/css">
 .layout-split-west {
@@ -47,6 +48,13 @@
 }
 
 </style>
+
+ <%
+    String user=(String)session.getAttribute("user");
+    String fydm=(String)session.getAttribute("fydm");
+    String lx=new UserDao().findUserById(user, fydm).getJs();
+    %>  
+
 </head>
 
 <body class="easyui-layout">
@@ -54,7 +62,7 @@
 		<a href="${path}/logout.jsp" class="easyui-linkbutton" iconCls='icon-logout' style="position:absolute;top:55px;right:20px;">注销</a>  
 	</div>
     
-    <div data-options="region:'west',split:true,title:'菜单导航',iconCls:'icon-menu'" style="width:210px;">
+    <div id="menu" data-options="region:'west',split:true,title:'菜单导航',iconCls:'icon-menu'" style="width:210px;">
     	<div class="easyui-accordion" data-options="fit:true,border:false">
     		<div iconCls="icon-upload" title="材料接收和交递（法官）">
     			<ul name="mtree" class="easyui-tree"
@@ -82,7 +90,7 @@
 		    </div>
         </div>
     </div>
-    
+     <!--
     <div data-options="region:'center'" >
     	<div id="Main_Tabs" class="easyui-tabs" data-options="fit:true,border:false">
             <div title="我的主页" data-options="iconCls:'icon-home'">
@@ -90,8 +98,8 @@
             </div>
 		</div>
     </div>
-    
-    <!--
+    -->
+   
 	<div data-options="region:'center'" >
     	<div id="Main_Tabs" class="easyui-tabs" data-options="fit:true,border:false,tools:'#Main_Tabs_Tools'">
             <div title="我的主页" data-options="iconCls:'icon-home'">
@@ -104,7 +112,7 @@
             	data-options="plain:true,iconCls:'icon-close'"></a>
         </div>
     </div>
-    -->
+    
 <script type="text/javascript">
 $(function(){
 	

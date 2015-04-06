@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>登录</title>
+<title>诉讼服务中心信息管理系统</title>
 <link type="text/css" rel="stylesheet" href="${path}/resources/style/login.css" />
 <script type="text/javascript" src="${path}/resources/easyui/jquery-1.8.0.min.js"></script>
 </head>
@@ -20,7 +20,7 @@
 <table width="370" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td width="61" height="40" class="font14col4b91c6">用户名：</td>
-    <td width="187"><input id="txt_user" name="username" type="text" class="inputbg" value="Zhangdy"/></td>
+    <td width="187"><input id="txt_user" name="username" type="text" class="inputbg" value="zhangdy"/></td>
     <td width="80">&nbsp;</td>
     <td width="42">&nbsp;</td>
   </tr>
@@ -41,6 +41,7 @@
 </div>
 </div>
 <div class="copyright moa">
+<p>测试版1.0</p>
 <p>为获得最佳浏览效果，建议使用IE6以上版本及1024*768分辨率</p>
 <p>版权所有&nbsp;&copy;&nbsp;2015-2017</p>
 </div>
@@ -62,8 +63,10 @@ function login(){
 		}, function(data){
 			if(data.after==1){
   	    	    window.location.href="${path}/main.jsp";
-			}else{
+			}else if(data.after==0){
        	       alert("用户名或密码不正确！"); 
+			}else{
+				window.location.href="${path}/index.jsp";
 			}
 		}, 'json');   
 	}else{
