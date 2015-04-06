@@ -39,7 +39,7 @@ $(document).ready(function(){
 			rownumbers:false,
 			fit:true,
 			border:false,
-			title:'当事人自主提交材料列表',
+			title:'登记当事人预约提交材料',
 			singleSelect:true,
 			striped:true,
 			fitColumns:true,
@@ -62,7 +62,7 @@ $(document).ready(function(){
 				   formatter:function(value,row,index){
 					var sa=row.id.bh;
 					var s = '<a style="color:red\"'
-					        +'href=\"djdsrSjsj?bh='+sa+'\">确认/退回</a> ';
+					        +'href=\"djdsrSjsj.do?bh='+sa+'\">确认/退回</a> ';
 					        var f = '<a style="color:red\"'
 						        +'href=\"#\" '
 						        +'onClick=\"Open('
@@ -132,7 +132,7 @@ $('#search').dialog({
 });
 
 function Open(bh){
-	 url='fj?bh='+bh;
+	 url='fj.do?bh='+bh;
 	 window.open(url,"new",
 			 "height=400px,width=400px,toolbar=no,status=no,menubar=no,scrollbars=no,resizable=no");
 	

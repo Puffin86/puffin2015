@@ -17,9 +17,9 @@ import com.bsoft.sszx.entity.clb.Clb;
 import com.bsoft.sszx.entity.zjqd.Zjqd;
 
 @Controller
-public class djdsrLqJs  {
+public class DjywSjsj  {
 	
-	@RequestMapping("djdsrLqJs")
+	@RequestMapping("djdsrSjsj")
 	public String execute(HttpServletRequest request,
 			HttpServletResponse response, HttpSession session)throws Exception
 	{  
@@ -30,9 +30,9 @@ public class djdsrLqJs  {
 		Zjqd Zjqd=new ZjqdDao().findbyid(id,fydm);
 		List<Clb> list=new ClbDao().findByZjqd(id, fydm);
 		
-		session.setAttribute("djdsrLqZjqd", Zjqd);
-		session.setAttribute("djdsrLqZjqdClb", list);
-		return "fwzx/djdsrLqJs";
+		session.setAttribute("djdsrSjZjqd", Zjqd);
+		session.setAttribute("djdsrSjZjqdClb", list);
+		return "fwzx/djdsrSjsj";
 	}
 
 }

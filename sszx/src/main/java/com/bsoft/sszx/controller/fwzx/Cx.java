@@ -14,7 +14,7 @@ import com.bsoft.sszx.entity.zjqd.Zjqd;
 @Controller
 public class Cx  {
 	@RequestMapping("cx")
-	public String execute(HttpServletRequest request,
+	public String cx(HttpServletRequest request,
 			HttpServletResponse response, HttpSession session)
 			throws Exception { 
 		
@@ -23,6 +23,17 @@ public class Cx  {
 		Zjqd Zjqd=new ZjqdDao().findbyid(id,fydm);
 		session.setAttribute("cxZzSj", Zjqd);
 		return "fwzx/cx";
+	}
+	
+	@RequestMapping("cx2")
+	public String cx2(HttpServletRequest request,
+			HttpServletResponse response, HttpSession session)
+			throws Exception { 
+		String fydm=(String)session.getAttribute("fydm");
+	    String id=request.getParameter("bh");
+		Zjqd Zjqd=new ZjqdDao().findbyid(id,fydm);
+		session.setAttribute("cxZzSj", Zjqd);
+		return "clth/cx2";
 	}
 
 }

@@ -39,6 +39,10 @@
 	background:url('resources/style/images/upload.png') no-repeat; 
 }
 
+.icon-menu{ 
+	background:url('resources/style/images/menu.png') no-repeat; 
+}
+
 .icon-logout{ 
 	background:url('resources/style/images/logout.png') no-repeat; 
 }

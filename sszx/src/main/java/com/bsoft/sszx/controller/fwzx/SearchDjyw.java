@@ -20,7 +20,7 @@ import com.bsoft.sszx.entity.zjqd.Zjqd;
 import com.bsoft.sszx.util.HttpHelper;
 
 @Controller
-public class searchDjyw {
+public class SearchDjyw {
 	
 	@ResponseBody
 	@RequestMapping("searchDjyw")

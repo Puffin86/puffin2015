@@ -35,7 +35,7 @@ $(document).ready(function(){
 			rownumbers:false,
 			fit:true,
 			border:false,
-			title:'待接收材料列表',
+			title:'登记业务庭转交材料',
 			singleSelect:true,
 			striped:true,
 			fitColumns:true,
@@ -59,7 +59,7 @@ $(document).ready(function(){
 				   formatter:function(value,row,index){
 					var sa=row.id.bh;
 					var s = '<a style="color:red\"'
-					        +'href=\"djywJs?bh='+sa+'\">确认/退回</a>';
+					        +'href=\"djywJs.do?bh='+sa+'\">确认/退回</a>';
 					return s;
 					}
 		    }
