@@ -1,4 +1,4 @@
-<%@page import="com.bsoft.sszx.dao.UserDao"%>
+<%@ page import="com.bsoft.sszx.dao.UserDao"%>
 <%@ page language="java" pageEncoding="utf-8"%>
 <%@ page language="java" import="com.bsoft.sszx.dao.*"%>
 <%@ include file="/common/taglibs.jsp"%>
@@ -49,13 +49,6 @@
 }
 
 </style>
-
- <%
-    String user=(String)session.getAttribute("user");
-    String fydm=(String)session.getAttribute("fydm");
-    String lx=new UserDao().findUserById(user, fydm).getJs();
-    %>  
-
 </head>
 
 <%
