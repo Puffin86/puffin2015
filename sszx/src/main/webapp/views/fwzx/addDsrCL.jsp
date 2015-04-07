@@ -1,4 +1,5 @@
 <%@ page language="java" pageEncoding="utf-8"%>
+<%@ page language="java" import="java.util.*,com.bsoft.sszx.dao.*"%>
 <%@ include file="/common/taglibs.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -7,7 +8,10 @@
 <title>接收材料</title>
 <jsp:include page="/common/include.jsp" />
 </head>
-
+<%
+String fydm=(String)session.getAttribute("fydm");
+int bh=new ZjqdDao().getMaxId(fydm);
+%>
 <body style="font-size:12px;">
     <div id="cbr_dg" style="width:250px;height:150px;">
      <input id="userSearch" style="margin-left:5px;margin-top:5px" type="text">
@@ -66,7 +70,7 @@
    <hr/>
    <div align="center">
      <a id="save" onclick="save()" iconCls="icon-save">保存</a>
-     <a id="scan" onclick="scan()" iconCls="icon-save">扫描</a>
+     <a id="scan" onclick="scan(<%=bh%>)" iconCls="icon-scan">扫描</a>
      <a id="cancel" onclick="window.location.href='${path}/to_jsdsrzdsj.do';" iconCls="icon-cancel">取消</a>
    </div>
    <!-- <a onclick="test()">test</a> -->
@@ -75,6 +79,7 @@
    $('#cl_remove').linkbutton({});
    $('#cl_add').linkbutton({});
    $('#save').linkbutton({});
+   $('#scan').linkbutton({});
    $('#cancel').linkbutton({});
    $('#cbr_search').linkbutton({});
    $('#search_bt').linkbutton({});   
@@ -117,9 +122,10 @@
    
    <script>
    
-   function scan(){
-	   
-	   
+   function scan(bh){
+			 url='${path}/fj.do?bh='+bh;
+			 window.open(url,"new",
+					 "height=600px,width=650px,toolbar=no,status=no,menubar=no,scrollbars=yes,resizable=yes");
    }
    
    function save(){

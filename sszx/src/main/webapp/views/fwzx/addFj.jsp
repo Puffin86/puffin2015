@@ -72,7 +72,6 @@ if(fjb==null)
      <div align="center">
           <a id="fj_sm" onclick="$('#fjsm').dialog('open')" iconCls="icon-scan">扫描附件</a>
           &nbsp;&nbsp;<a id="fj_sc" onclick="$('#fjsc').dialog('open')" iconCls="icon-upload">上传本地文件</a>
-          &nbsp;&nbsp;<a id="fj_return" onclick="window.location.href='${path}/to_jsdsrzdsj.do'" iconCls="icon-return">返回</a>
      </div>
      
      

@@ -49,8 +49,6 @@ $(function(){
 			singleSelect:true,
 			idField:'itemid',
 			pagination:true,
-			sortName:'ah',
-			sortOrder:'desc',
 			url:"${path}/jsdsrzdsj.do?user="+user+"&fydm="+fydm,
 			
 			columns:[[
@@ -58,29 +56,29 @@ $(function(){
 		    	 formatter:function(id){
 						return id.bh;
 			}},
-			{field:'ah',title:'案号',width:200,align:'center'},
+			{field:'ah',title:'案号',width:200,align:'center',sortable:"true"},
 			{field:'sjrBmmc',title:'承办部门',width:100,align:'center'},
 			{field:'sjrXm',title:'承办人',width:80,align:'center'},
 		    {field:'djr',title:'当事人',width:80,align:'center'},
-		    {field:'djrq',title:'递交日期',width:90,align:'center'},	
+		    {field:'djrq',title:'递交日期',width:90,align:'center',sortable:"true"},	
 		    {field:'action',title:'操作',width:158,align:'center',
 				   formatter:function(value,row,index){
 					var sa=row.id.bh;
+					var d = '<a style="color:red\"'
+				        +'href=\"${path}/zhJiaoDsrZzSj.do?bh='+sa+'\">转交</a> ';
 					var s = '<a style="color:red\"'
 					        +'href=\"${path}/editDsrZzSj.do?bh='+sa+'\">修改</a> ';
-					var d = '<a style="color:red\"'
-					        +'href=\"${path}/zhJiaoDsrZzSj.do?bh='+sa+'\">转交</a> ';
+			        var f = '<a style="color:red\"'
+				        +'href=\"#\" '
+				        +'onClick=\"Open('
+				        +sa+');">扫描</a> ';
+			        var e = '<a style="color:red\"'
+				        +'href=\"#\" '
+				        +'onClick=\"Word('
+				        +sa+');">转接单</a> ';
 					var c = '<a style="color:red\"'
-				        +'href=\"${path}/cx.do?bh='+sa+'\">撤销</a> ';
-				    var f = '<a style="color:red\"'
-					        +'href=\"#\" '
-					        +'onClick=\"Open('
-					        +sa+');">扫描</a> ';
-				    var e = '<a style="color:red\"'
-						        +'href=\"#\" '
-						        +'onClick=\"Word('
-						        +sa+');">表单</a> ';
-					return s+d+c+e+f;
+				        +'href=\"${path}/cx.do?bh='+sa+'\">删除</a> ';
+					return d+s+f+e+c;
 					}
 		    }
 			]],
@@ -118,12 +116,14 @@ $(function(){
 	
 	
 	function Open(bh){
-	 window.location.href='${path}/fj.do?bh='+bh;
-	 
+	 //window.location.href='${path}/fj.do?bh='+bh;
+	 url='${path}/fj.do?bh='+bh;
+	 window.open(url,"new",
+			 "height=600px,width=650px,toolbar=no,status=no,menubar=no,scrollbars=yes,resizable=yes");
 	}
 	
 	function Word(bh){
-		 url='word.do?bh='+bh;
+		 url='${path}/word.do?bh='+bh;
 		 window.open(url,"new",
 				 "height=600px,width=650px,toolbar=no,status=no,menubar=no,scrollbars=yes,resizable=yes");
 		

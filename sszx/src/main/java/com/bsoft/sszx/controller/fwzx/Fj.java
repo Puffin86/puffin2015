@@ -18,9 +18,7 @@ public class Fj  {
 			HttpServletResponse response, HttpSession session)
 			throws Exception { 
 	String fydm=(String)session.getAttribute("fydm");
-	
 	String bh=request.getParameter("bh");
-	
 	session.setAttribute("fjbh",bh);
 	return "fwzx/addFj";
 	}
