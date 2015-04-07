@@ -19,43 +19,7 @@
 	padding-left: 5px;
 	padding-right: 5px;
 }
-
-.icon-userSet{ 
-	background:url('resources/style/images/userSet.png') no-repeat; 
-}
-
-.icon-systemSet{ 
-	background:url('resources/style/images/systemSet.png') no-repeat; 
-}
-
-.icon-search_sel{ 
-	background:url('resources/style/images/search.png') no-repeat; 
-}
-
-.icon-fallback{ 
-	background:url('resources/style/images/fallback.png') no-repeat; 
-}
-
-.icon-upload{ 
-	background:url('resources/style/images/upload.png') no-repeat; 
-}
-
-.icon-menu{ 
-	background:url('resources/style/images/menu.png') no-repeat; 
-}
-
-.icon-logout{ 
-	background:url('resources/style/images/logout.png') no-repeat; 
-}
-
 </style>
-
- <%
-    String user=(String)session.getAttribute("user");
-    String fydm=(String)session.getAttribute("fydm");
-    String lx=new UserDao().findUserById(user, fydm).getJs();
-    %>  
-
 </head>
 
 <%
