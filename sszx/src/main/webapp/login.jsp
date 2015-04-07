@@ -66,7 +66,7 @@ function login(){
 			}else if(data.after==0){
        	       alert("用户名或密码不正确！"); 
 			}else{
-				window.location.href="${path}/index.jsp";
+				window.location.href="${path}/trial.jsp";
 			}
 		}, 'json');   
 	}else{
