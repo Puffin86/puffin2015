@@ -19,39 +19,46 @@
 	String userBm=userDao.findBm(Us.getYhbm(), fydm).getBmmc();
 %>
   
-<body style="font-size:12px;background:#fff;">
+<body style="background:#fff;">
 
-    <table style="font-size:12px;margin-left:10px;" id="ssclzjqd">
+    <table width="100%" id="ssclzjqd" border="0" cellpadding="2" cellspacing="0" style="font-size:12px;">
      <tr>
        <td width="20%">案号：</td>
-       <td>
+       <td width="30%">
 	       	<input class="easyui-validatebox" required="true" name="ah" type="text"/>
-	       	<input name="ahdm" style="display:none;" type="text"/>
-	       	<a id="research" onClick="$('#ah_se').dialog('open');" style="margin-top:-5px" iconCls="icon-search"></a>
+	       	<input name="ahdm" type="hidden"/>
+	       	<a id="research" class="easyui-linkbutton" onClick="$('#ah_se').dialog('open');" iconCls="icon-search"></a>
+       </td>
+       <td width="20%">&nbsp;</td>
+       <td width="30%">&nbsp;</td>
+     </tr>
+     <tr>
+       <td>承办人：</td>
+       <td>
+       		<input class="easyui-validatebox" required="true" readOnly="readOnly" name="sjrXm" type="text"/>
+            <input style="display:none;" name="sjr" type="text"/>
+       </td>
+       <td>承办部门：</td>
+       <td>
+       		<input class="easyui-validatebox" required="true" readOnly="readOnly" name="sjrbmMc" type="text"/>
+            <input style="display:none;" name="sjrbm" type="text"/>
        </td>
      </tr>
      <tr>
-       <td width="20%" >承办人：</td>
-       <td><input class="easyui-validatebox" required="true" readOnly="readOnly" name="sjrXm" type="text"></input>
-           <input style="display:none;" name="sjr" type="text"></input></td>
-       <td width="20%" >&nbsp;&nbsp;承办部门：</td>
-       <td><input class="easyui-validatebox" required="true" readOnly="readOnly" name="sjrbmMc" type="text"></input>
-           <input style="display:none;" name="sjrbm" type="text"></input>
+       <td>当事人：</td>
+       <td>
+	       <input class="easyui-validatebox" required="true" name="tjr" type="text"/>
+	       <input style="display:none;" type="text"/>
+	       <a id="dsr_bt" onClick="searchDsr()" iconCls="icon-add"></a>
        </td>
-     </tr>
-     <tr>
-       <td width="20%" >当事人：</td>
-       <td><input class="easyui-validatebox" required="true" name="tjr" type="text"></input>
-       <input style="display:none;" type="text"></input>
-       <a id="dsr_bt" onClick="$('#dsr_se').dialog('open');" style="margin-top:-5px" iconCls="icon-add"></a></td>
-       <td width="20%">&nbsp;&nbsp;当事人联系电话：</td>
-       <td><input name="tjrlxdh" type="text"></input></td>
+       <td>当事人联系电话：</td>
+       <td><input name="tjrlxdh" type="text"/></td>
      </tr> 
      <tr>
-       <td width="20%">当事人证件号码：</td>
-       <td><input name="djrsfz" type="text"></input></td>
-       <td width="20%">&nbsp;&nbsp;递交日期：</td>
-       <td><input editable="false" class="easyui-datebox" id="djrq" name="djrq" type="text"></input></td>
+       <td>当事人证件号码：</td>
+       <td><input name="djrsfz" type="text"/></td>
+       <td>递交日期：</td>
+       <td><input editable="false" class="easyui-datebox" id="djrq" name="djrq" type="text"/></td>
      </tr>
      </table>
      <hr/> 
@@ -62,7 +69,7 @@
        <div>材料名称：<input name="clmc" type="text"></input>
        &nbsp;&nbsp;份数： <input name="clfs"  style="width:30px" type="text"></input>
        &nbsp;&nbsp;页数： <input name="clys" style="width:30px" type="text"></input>      
-       <a id="cl_remove" class="remove" style="margin-top:-7px" iconCls="icon-remove"></a></div>
+       <a id="cl_remove" class="remove" style="margin-top:-7px" iconCls="icon-cancel"></a></div>
      </div>
    </div>
    
@@ -148,6 +155,11 @@ function save(){
    		cl+=clfull;	   
    	}
    	
+   	if(cl == ''){
+   		alert('请至少录入一条材料记录！');
+   		return;
+   	}
+   	
     var sjrbm=$('input[name=sjrbm]').val();
 	var sjrXm=$('input[name=sjrXm]').val();
 	var sjrbmMc=$('input[name=sjrbmMc]').val();
@@ -193,18 +205,23 @@ function save(){
 }
 </script>
    
-<div id="ah_se" style="width:400px;height:300px;padding:5px;">
-   <table style="font-size:12px">
+<div id="ah_se" style="width:600px;height:300px;padding:5px;">
+   <table style="font-size:12px" width="100%" border="0" cellpadding="2" cellspacing="0">
 	   	<tr>
 	   		<td>年份：</td>
-	   		<td><input id="ahN" style="margin-left:5px;margin-top:5px" type="text"/></td>
+	   		<td><input id="ahN" type="text"/></td>
+	   		<td>当事人：</td>
+	   		<td><input id="ahDsr" type="text"/></td>
 	   	</tr>
 	    <tr>
 	    	<td>关键字：</td>
 	    	<td>
-		    	<input id="ahG" style="margin-left:5px;margin-top:5px" type="text"/>
-		        <a id="search_ah" class="easyui-linkbutton" onclick="searchAh()" iconCls="icon-search"></a>
+		    	<input id="ahG" type="text"/>
 	        </td>
+	        <td>
+		        <a id="search_ah" class="easyui-linkbutton" onclick="searchAh()">查询</a>
+	        </td>
+	        <td>&nbsp;</td>
 	    </tr>
    </table>
    <hr/>
@@ -214,9 +231,10 @@ function save(){
    
 <script>
 $('#ah_se').dialog({
-    title:'添加案号',
-    iconCls:'icon-search',
-    closed:true
+    title: '添加案号',
+    iconCls: 'icon-search',
+    closed: true,
+    modal: true
 });
  
 $('#ah_searchList').tree({  
@@ -236,14 +254,16 @@ $('#ah_searchList').tree({
 function searchAh(){
 	var ahN=$('#ahN').val();
 	var ahG=$('#ahG').val();
+	var ahDsr=$('#ahDsr').val();
 	
 	if(ahN != '' && ahG != ''){
 		$.ajax({
 	  	     url:'${path}/ahSearch.do',
 	  	     type:'POST',
 	  	     data:{
-	  	    	ahN:encodeURI(encodeURI(ahN)),
-	  	    	ahG:encodeURI(encodeURI(ahG)),
+	  	    	ahN: encodeURI(encodeURI(ahN)),
+	  	    	ahG: encodeURI(encodeURI(ahG)),
+	  	    	ahDsr: encodeURI(encodeURI(ahDsr)),
 	  	    	lx:1
 	  	     },
 	  	     dataType:'json',
@@ -256,9 +276,14 @@ function searchAh(){
 </script>
    
 <div id="dsr_se" style="width:400px;height:300px;padding:5px;">
-	<div style="margin-left:5px;">
-		载入当事人列表：<a id="search_dsr" class="easyui-linkbutton" onclick="searchDsr()" iconCls="icon-search"></a>
-	</div>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0">
+		<tr>
+			<td>载入当事人列表：</td>
+			<td align="right">
+				<a id="search_dsr" class="easyui-linkbutton" onclick="$('#dsr_se').dialog('close');">取消</a>
+			</td>
+		</tr>
+	</table>
 	<hr/>
 	<ul id="dsr_searchList"></ul>
 </div>
@@ -280,7 +305,7 @@ $('#dsr_searchList').tree({
 		}
     }
 });  
- 
+
 function searchDsr(){
     var ah=$('input[name=ah]').val();
     
@@ -292,6 +317,7 @@ function searchDsr(){
 	 	     dataType:'json',
 	 	     success:function (data) {
 	 	     	$('#dsr_searchList').tree('loadData', data.data);
+	 	     	$('#dsr_se').dialog('open');
 	 	     }
 	 	});
 	}else{
