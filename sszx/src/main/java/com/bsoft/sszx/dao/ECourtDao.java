@@ -17,13 +17,13 @@ public class ECourtDao {
 	Session session = null;
 	Transaction tx = null;
 
-	public List findAh(String cxn, String AnHao) {
+	public List findAh(String cxn, String AnHao,String dsr) {
 		List list = null;
 		try {
 			session = HibernateSybase.getSession();
 			session.beginTransaction();
 			Query query = session.createQuery("from Eaj where ah like '%" + cxn
-					+ "%" + AnHao + "%'");
+					+ "%" + AnHao + "%' and dsr like '%"+dsr+"'%");
 			session.getTransaction().commit();
 			list = query.list();
 		} catch (Exception e) {
@@ -68,13 +68,13 @@ public class ECourtDao {
 		}
 	}
 
-	public List findAhByUser(String cxn, String AnHao, String user) {
+	public List findAhByUser(String cxn, String AnHao,String dsr, String user) {
 		List list = null;
 		try {
 			session = HibernateSybase.getSession();
 			session.beginTransaction();
 			Query query = session.createQuery("from Eaj where ah " + "like '%"
-					+ cxn + "%" + AnHao + "%'" + " and cbr='" + user + "'");
+					+ cxn + "%" + AnHao + "%'" + " and cbr='" + user + "' and dsr like '%"+dsr+"'%");
 			session.getTransaction().commit();
 			list = query.list();
 		} catch (Exception e) {

@@ -118,8 +118,6 @@ $(function(){
 	
 	
 	function Open(bh){
-	 //url='fj.do?bh='+bh;
-	 //window.open(url,"new","height=400px,width=400px,toolbar=no,status=no,menubar=no,scrollbars=no,resizable=no");
 	 window.location.href='${path}/fj.do?bh='+bh;
 	 
 	}

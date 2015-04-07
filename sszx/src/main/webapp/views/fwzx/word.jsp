@@ -7,11 +7,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>接收材料</title>
 <jsp:include page="/common/include.jsp" />
-<style type="text/css">
-.icon-word{ 
-	background:url('resources/style/images/word.png') no-repeat; 
-}
-</style>
 </head>
 
 <%

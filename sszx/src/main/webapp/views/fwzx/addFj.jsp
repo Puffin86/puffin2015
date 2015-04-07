@@ -7,21 +7,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>接收材料</title>
 <jsp:include page="/common/include.jsp" />
-<style type="text/css">
-
-.icon-return{ 
-	background:url('resources/style/images/return_1.png') no-repeat; 
-}
-
-.icon-upload{ 
-	background:url('resources/style/images/upload_1.png') no-repeat; 
-}
-
-.icon-scan{ 
-	background:url('resources/style/images/sacn.png') no-repeat; 
-}
-
-</style>
 </head>
 
 <%
