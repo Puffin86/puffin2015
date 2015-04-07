@@ -49,7 +49,15 @@
 
 <script type="text/javascript">
 $(function(){
+	window.document.onkeydown = disableRefresh;
 });
+
+function disableRefresh(evt){
+	evt = (evt) ? evt : window.event;
+	if (evt.keyCode && evt.keyCode == 13) {
+		   login();
+	}
+}
 
 function login(){
 	var user = $('#txt_user').val();

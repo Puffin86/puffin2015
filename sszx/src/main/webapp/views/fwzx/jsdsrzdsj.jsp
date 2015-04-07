@@ -79,8 +79,8 @@ $(function(){
 				    var e = '<a style="color:red\"'
 						        +'href=\"#\" '
 						        +'onClick=\"Word('
-						        +sa+');">表单</a>';
-					return s+d+c+f+e;
+						        +sa+');">表单</a> ';
+					return s+d+c+e+f;
 					}
 		    }
 			]],
@@ -118,9 +118,10 @@ $(function(){
 	
 	
 	function Open(bh){
-	 url='fj.do?bh='+bh;
-	 window.open(url,"new",
-			 "height=400px,width=400px,toolbar=no,status=no,menubar=no,scrollbars=no,resizable=no");
+	 //url='fj.do?bh='+bh;
+	 //window.open(url,"new","height=400px,width=400px,toolbar=no,status=no,menubar=no,scrollbars=no,resizable=no");
+	 window.location.href='${path}/fj.do?bh='+bh;
+	 
 	}
 	
 	function Word(bh){
