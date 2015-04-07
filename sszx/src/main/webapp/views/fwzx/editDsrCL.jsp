@@ -65,7 +65,7 @@ ZjqdId zjqdId = zjqd.getId();
        <div>材料名称：<input name="clmc" type="text"></input>
        &nbsp;&nbsp;份数： <input name="clfs"  style="width:30px" type="text"></input>
        &nbsp;&nbsp;页数： <input name="clys" style="width:30px" type="text"></input>      
-       <a id="cl_remove" class="remove" style="margin-top:-7px" iconCls="icon-remove"></a></div>
+       <a id="cl_remove" class="remove" style="margin-top:-7px" iconCls="icon-cancel"></a></div>
      </div>
    </div>
    
@@ -166,6 +166,10 @@ ZjqdId zjqdId = zjqd.getId();
       
        var cl='';
        var alerString='';
+       if($('input[name=clmc]').length==1){
+    	   alerString="请至少录入一条材料记录！";
+    	   return;
+       }
    	for(var i=1;i<$('input[name=clmc]').length;i++){//input要使用name属性辨别
    		var clmc=$('input[name=clmc]').eq(i).val();
    	    if(clmc==''){
@@ -265,11 +269,25 @@ ZjqdId zjqdId = zjqd.getId();
    </script>
    
    <div id="ah_se" style="width:400px;height:300px;">
-   <table style="font-size:12px"><tr><td>年份：</td>
-   <td><input id="ahN" style="margin-left:5px;margin-top:5px" type="text"><br/></td>
-     <tr><td>关键字：</td><td><input id="ahG" style="margin-left:5px;margin-top:5px" type="text">
-       <a id="search_ah" onclick="searchAh()" iconCls="icon-search"></a></td></tr></table>
-       <hr/><ul id="ah_searchList"></ul>
+	   <table style="font-size:12px">
+	   	<tr>
+	   		<td>年份：</td>
+	   		<td><input id="ahN" style="margin-left:5px;margin-top:5px" type="text"></td>
+	   	</tr>
+	    <tr>
+	   		<td>当事人：</td>
+	   		<td><input id="ahdsr" style="margin-left:5px;margin-top:5px" type="text"></td>
+	   	</tr>
+	    <tr>
+	    	<td>关键字：</td>
+	    	<td >
+	    		<input id="ahG" style="margin-left:5px;margin-top:5px" type="text"/>
+	       		<a id="search_ah" onclick="searchAh()" >查询</a>
+	       	</td>
+	     </tr>
+	    </table>
+       <hr/>
+       <ul id="ah_searchList"></ul>
     </div>
    <script>
    $('#search_ah').linkbutton({}); 
@@ -296,16 +314,21 @@ ZjqdId zjqdId = zjqd.getId();
   function searchAh(){
 		var ahN=$('#ahN').val();
 		var ahG=$('#ahG').val();
+		var ahdsr=$('#ahdsr').val();
 		if(ahN!=''&&ahG!=''){
-		$.ajax({
-	  	     url:'ahSearch.do',
-	  	     type:'POST',
-	  	     data:{ahN:encodeURI(encodeURI(ahN)),
-	  	    	ahG:encodeURI(encodeURI(ahG))},//注意大小写data
-	  	     dataType:'json',
-	  	     success:function (data) {
-	  	       $('#ah_searchList').tree('loadData',data.data);
-	  	     }});
+			$.ajax({
+		  	     url:'ahSearch.do',
+		  	     type:'POST',
+		  	     data:{
+		  	     	ahN:encodeURI(encodeURI(ahN)),
+		  	    	ahG:encodeURI(encodeURI(ahG)),
+		  	    	ahDsr:encodeURI(encodeURI(ahdsr)),
+		  	    	lx:0},//注意大小写data
+		  	     dataType:'json',
+		  	     success:function (data) {
+		  	       $('#ah_searchList').tree('loadData',data.data);
+		  	     }
+		  	 });
 		}
 	}
    

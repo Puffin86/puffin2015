@@ -9,14 +9,10 @@
 <jsp:include page="/common/include.jsp" />
 </head>
 
-<body>    
-
-<div class="easyui-accordion" style="margin-left:30px;width:250px;height:400px;"> 
-	<div iconCls="icon-edit" title="设置短消息">
+<body style="background-color: #fff;" class="easyui-layout">    
+	<div id="p" class="easyui-panel" data-options="region:'center'" title="短信息设置" style="width:100%;height:100%;padding:7px;">
 		<ul id="dxxList"></ul>
 	</div>
-</div>
-	
 <script>
 $('#dxxList').tree({ 
 	url: '${path}/dxxList.do',

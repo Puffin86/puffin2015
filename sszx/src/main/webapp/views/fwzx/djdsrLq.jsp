@@ -61,13 +61,13 @@ $(document).ready(function(){
 		    {field:'action',title:'操作',width:150,align:'center',
 				   formatter:function(value,row,index){
 					var sa=row.id.bh;
-					var s = '<a style="color:red\"'
+					var s = ' <a style="color:red\"'
 					        +'href=\"djdsrLqJs.do?bh='+sa+'\">确认/退回</a> ';
-					        var e = '<a style="color:red\"'
-						        +'href=\"#\" '
-						        +'onClick=\"Word('
-						        +sa+');">表单</a>';
-					return s+e;
+			        var e = ' <a style="color:red\"'
+				        +'href=\"#\" '
+				        +'onClick=\"Word('
+				        +sa+');">表单</a> ';
+					return e+s;
 					}
 		    }
 			]],

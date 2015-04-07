@@ -45,15 +45,19 @@ public class AhSearch {
 		String ahG = request.getParameter("ahG");
 		ahG = URLDecoder.decode(ahG, "UTF-8");
 		ahG = URLDecoder.decode(ahG, "UTF-8");
+		
+		String ahDsr = request.getParameter("ahDsr");
+		ahDsr = URLDecoder.decode(ahDsr, "UTF-8");
+		ahDsr = URLDecoder.decode(ahDsr, "UTF-8");
 
 		String user = fydm + (String) session.getAttribute("user");
 
 		List<Eaj> al = null;
 		String lx = request.getParameter("lx");
 		if (lx.equals("1")) {
-			al = (List<Eaj>) new ECourtDao().findAhByUser(ahN, ahG, user);
+			al = (List<Eaj>) new ECourtDao().findAhByUser(ahN, ahG, ahDsr, user);
 		} else {
-			al = (List<Eaj>) new ECourtDao().findAh(ahN, ahG);
+			al = (List<Eaj>) new ECourtDao().findAh(ahN, ahG,ahDsr);
 		}
 
 		List<Tree> tree = new ArrayList<Tree>();

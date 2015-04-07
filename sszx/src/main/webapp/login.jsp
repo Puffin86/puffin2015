@@ -49,7 +49,15 @@
 
 <script type="text/javascript">
 $(function(){
+	window.document.onkeydown = disableRefresh;
 });
+
+function disableRefresh(evt){
+	evt = (evt) ? evt : window.event;
+	if (evt.keyCode && evt.keyCode == 13) {
+		   login();
+	}
+}
 
 function login(){
 	var user = $('#txt_user').val();
@@ -66,7 +74,7 @@ function login(){
 			}else if(data.after==0){
        	       alert("用户名或密码不正确！"); 
 			}else{
-				window.location.href="${path}/index.jsp";
+				window.location.href="${path}/trial.jsp";
 			}
 		}, 'json');   
 	}else{

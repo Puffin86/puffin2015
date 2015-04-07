@@ -45,3 +45,47 @@
 .icon-trash {
 	background: url("icons/trash.png") no-repeat center center;
 }
+
+.icon-userSet{ 
+	background:url('images/userSet.png') no-repeat; 
+}
+
+.icon-systemSet{ 
+	background:url('images/systemSet.png') no-repeat; 
+}
+
+.icon-search_sel{ 
+	background:url('images/search.png') no-repeat; 
+}
+
+.icon-fallback{ 
+	background:url('images/fallback.png') no-repeat; 
+}
+
+.icon-upload{ 
+	background:url('images/upload.png') no-repeat; 
+}
+
+.icon-menu{ 
+	background:url('images/menu.png') no-repeat; 
+}
+
+.icon-logout{ 
+	background:url('images/logout.png') no-repeat; 
+}
+
+.icon-return{ 
+	background:url('images/return_1.png') no-repeat; 
+}
+
+.icon-upload{ 
+	background:url('images/upload_1.png') no-repeat; 
+}
+
+.icon-scan{ 
+	background:url('images/sacn.png') no-repeat; 
+}
+
+.icon-word{ 
+	background:url('images/word.png') no-repeat; 
+}

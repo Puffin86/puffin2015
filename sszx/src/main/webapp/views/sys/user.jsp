@@ -8,22 +8,19 @@
 <title>设置权限</title>
 <jsp:include page="/common/include.jsp" />
 </head>
-
-<body>    
-<div class="easyui-accordion" style="margin-left:150px;width:200px;height:400px;"> 
-	<div iconCls="icon-edit" title="设置用户角色">
+  <body style="background-color: #fff;" class="easyui-layout">     
+    <div id="p" class="easyui-panel" data-options="region:'center'" title="用户权限设置" style="width:100%;height:100%;padding:7px;">
+    	<input id="userSearch" style="margin-left:5px;margin-top:5px" type="text"/>
+    	<a id="research" onclick="searchUser()" iconCls="icon-search">查询</a>
+    	<a id="searchAll" onclick="searchAllUser()" iconCls="icon-search">全部</a>
 		<ul id="userList"></ul>
-	</div>  
-	
-	<div iconCls="icon-search" title="搜索">
-		<input id="userSearch" style="margin-left:5px;margin-top:5px" type="text"/>
-		<a id="research" onclick="searchUser()" iconCls="icon-search"></a>
-		<ul id="searchList"></ul>
-	</div>
-</div>
+    </div>
+    
+</body>
 
 <script>
 $('#research').linkbutton({});
+$('#searchAll').linkbutton({});
 
 $('#userList').tree({  
     checkbox: false,  
@@ -58,28 +55,30 @@ $('#userList').tree({
     }
 });  
 
-$('#searchList').tree({  
-    checkbox: false,
-    onClick: function(node){		 
-		if(node.attributes.leaf=="true"){
-			 url='${path}/jueSeFP.do?yhid='+node.attributes.yhid;
-			 window.open(url, "new", "height=400px,width=400px,toolbar=no,status=no,menubar=no,scrollbars=no,resizable=no");
-		}
-    }
-});  
-
 function searchUser(){
 	var userName=$('#userSearch').val();
 	if(userName!=''){
+		$.ajax({
+	  	     url:'${path}/userSearch.do',
+	  	     type:'POST',
+	  	     data:{name:encodeURI(encodeURI(userName))},
+	  	     dataType:'json',
+	  	     success:function (data) {
+	  	        $('#userList').tree('loadData', data.data);
+	  	     }});
+	}
+}
+
+function searchAllUser(){
+	$('#userSearch').val('');
 	$.ajax({
-  	     url:'${path}/userSearch.do',
+  	     url:'${path}/bmList.do',
   	     type:'POST',
-  	     data:{name:encodeURI(encodeURI(userName))},
   	     dataType:'json',
   	     success:function (data) {
-  	        $('#searchList').tree('loadData', data.data);
+  	        $('#userList').tree('loadData', data.data);
   	     }});
-	}
+	
 }
 </script>
 
