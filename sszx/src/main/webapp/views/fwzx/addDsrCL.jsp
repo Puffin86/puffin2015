@@ -1,4 +1,5 @@
 <%@ page language="java" pageEncoding="utf-8"%>
+<%@ page language="java" import="java.util.*,com.bsoft.sszx.dao.*"%>
 <%@ include file="/common/taglibs.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -122,7 +123,7 @@ int bh=new ZjqdDao().getMaxId(fydm);
    <script>
    
    function scan(bh){
-	  url='${path}/fj.do?bh='+bh;
+			 url='${path}/fj.do?bh='+bh;
 			 window.open(url,"new",
 					 "height=600px,width=650px,toolbar=no,status=no,menubar=no,scrollbars=yes,resizable=yes");
    }

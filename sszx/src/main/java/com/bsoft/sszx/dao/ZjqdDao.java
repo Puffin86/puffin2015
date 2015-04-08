@@ -145,6 +145,27 @@ public class ZjqdDao {
 		}
 		return list;
 	}
+	
+	public List<Zjqd> findDsrZzSJbyPage(int start, int number, String user,
+			int zt, String fydm,String sort,String order) {// 查找当事人主动送件
+		List<Zjqd> list = null;
+		try {
+			session = HibernateUtil.getSession(); // 获取Session
+			session.beginTransaction(); // 开启事物
+			String sql = "from Zjqd " + "where dqcyr='" + user + "' and zt="
+					+ zt + " and id.fydm='" + fydm + "' order by "+sort+" "+order;
+			Query query = session.createQuery(sql);
+			query.setFirstResult(start);
+			query.setMaxResults(number);
+			list = query.list();
+			session.getTransaction().commit();// 提交事物
+		} catch (Exception e) {
+			e.printStackTrace(); // 打印错误信息
+		} finally {
+			HibernateUtil.closeSession(session); // 关闭Session
+		}
+		return list;
+	}
 
 	public List<Zjqd> findDsrZzSJbyPage_2(int start, int number, int zt,
 			String fydm) {// 查找当事人主动送件
