@@ -19,10 +19,11 @@
 		UserDao userDao = new UserDao();
 		//用户姓名
 		String userXm = userDao.findUserById(user, fydm).getYhxm();
+		String userBm = userDao.findUserById(user, fydm).getYhbm();
 		//根据状态获取
 		int htN=new ZjqdDao().countByZt(fydm, user, 3);
 		int drN=new ZjqdDao().countByZt(fydm, user, 1);
-		
+		int jsN=new ZjqdDao().countByZt8(fydm, userBm, 8);
 		//联系电话是否设置
 		int lxdh=0;
 		if(userDao.findUserById(user, fydm).getLxdh()!=null)
@@ -32,7 +33,8 @@
 <div iconCls="icon-tip" class="easyui-panel" title="消息提醒" style="width:300px;height:auto;padding:10px;">
 	<p style="color:#770000"> <%=userXm %>, 您好!</p>
 	<div id="thN">您有<a style="color:red" href="#" onclick="window.parent.addTab('处理退回材料','to_tuiHuiCL.do')">&nbsp;&nbsp;<%=htN %>&nbsp;&nbsp;</a>份材料被退回，请处理。</div> 
-    <div id="drN">您有<a style="color:red" href="#" onclick="window.parent.addTab('接收材料','to_fgJsCl.do')">&nbsp;&nbsp;<%=drN %>&nbsp;&nbsp;</a>份材料待接收，请处理。</div> 
+    <div id="drN">您有<a style="color:red" href="#" onclick="window.parent.addTab('待接收材料','to_fgJsCl.do')">&nbsp;&nbsp;<%=drN %>&nbsp;&nbsp;</a>份材料待接收，请处理。</div>
+    <div id="jsN">您有<a style="color:red" href="#" onclick="window.parent.addTab('已接收材料','to_fgYjsCl.do')">&nbsp;&nbsp;<%=jsN %>&nbsp;&nbsp;</a>份材料已被接收。</div> 
     <div id="lxdh">您的联系手机号码还未设置，<a style="color:red" href="#" onclick="window.parent.addTab('设置联系电话','to_lxdh.do')">请设置</a>。</div>
 </div>
 
@@ -46,10 +48,12 @@
 $(function(){
    var htN="<%=htN%>";
    var drN="<%=drN%>";
+   var jsN="<%=jsN%>";
    var lxdh="<%=lxdh%>";
    
    if(htN==0) $('#thN').hide();
    if(drN==0) $('#drN').hide();
+   if(jsN==0) $('#jsN').hide();
    if(lxdh==1) $('#lxdh').hide();	   
 });
 </script>

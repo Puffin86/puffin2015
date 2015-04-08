@@ -285,5 +285,24 @@ public class ZjqdDao {
 			HibernateUtil.closeSession(session); // 关闭Session
 		}
 	}
+	
+	public int countByZt8(String fydm, String user, int zt) {
+		try {
+			session = HibernateUtil.getSession(); // 获取Session
+			session.beginTransaction();
+			String sql = "from Zjqd where id.fydm='" + fydm + "'"
+					+ " and sjrbm='" + user + "' and zt=" + zt;
+			List list = session.createQuery(sql).list();
+			session.getTransaction().commit();
+			return list.size();
+
+		} catch (Exception e) {
+			e.printStackTrace();// 打印错误信息
+			return 0;
+		} finally {
+			HibernateUtil.closeSession(session); // 关闭Session
+		}
+	}
+	
 
 }

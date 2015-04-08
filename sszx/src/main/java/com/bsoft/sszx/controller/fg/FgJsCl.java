@@ -26,6 +26,11 @@ public class FgJsCl {
 	public String toFgJsCl(){
 		return "fg/fgJsCL";
 	}
+	
+	@RequestMapping("to_fgYjsCl")
+	public String toFgYjsCl(){
+		return "fg/fgYjsCL";
+	}
 
 	@ResponseBody
 	@RequestMapping("fgJsCl")
