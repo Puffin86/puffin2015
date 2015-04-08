@@ -9,6 +9,7 @@
 <script type="text/javascript" src="${path}/resources/easyui/jquery-1.8.0.min.js"></script>
 <script type="text/javascript" src="${path}/resources/easyui/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="${path}/resources/easyui/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="${path}/resources/easyui/jquery.form.js"></script>
 
 <!--
 <link rel="stylesheet" type="text/css" href="${path}/resources/easyui1.4/themes/default/easyui.css" />
