@@ -32,7 +32,7 @@ public class Zjqd implements java.io.Serializable {
 	private String lzjl;
 	private String sjrXm;
 	private String sjrBmmc;
-	private String ywlx;
+	private Integer ywlx;
 	private Integer sx;
 	private Timestamp sxsj;
 
@@ -54,7 +54,7 @@ public class Zjqd implements java.io.Serializable {
 			String sjrbm, Timestamp sendtime, Integer zt, String htyj,
 			String sjrlxdh, String lclx, String dqcyr, String qscyr,
 			String hscyr, String dsrsfzhm, String lzjl, String sjrXm,
-			String sjrBmmc,String ywlx,Integer sx,Timestamp sxsj) {
+			String sjrBmmc,Integer ywlx,Integer sx,Timestamp sxsj) {
 		this.id = id;
 		this.ah = ah;
 		this.sjr = sjr;
@@ -260,12 +260,28 @@ public class Zjqd implements java.io.Serializable {
 		this.sjrBmmc = sjrBmmc;
 	}
 
-	public String getYwlx() {
+	public Integer getYwlx() {
 		return ywlx;
 	}
 
-	public void setYwlx(String ywlx) {
+	public void setYwlx(Integer ywlx) {
 		this.ywlx = ywlx;
+	}
+
+	public Integer getSx() {
+		return sx;
+	}
+
+	public void setSx(Integer sx) {
+		this.sx = sx;
+	}
+
+	public Timestamp getSxsj() {
+		return sxsj;
+	}
+
+	public void setSxsj(Timestamp sxsj) {
+		this.sxsj = sxsj;
 	}
 
 }

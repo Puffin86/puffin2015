@@ -117,18 +117,18 @@
                 <comment>收件人部门名称</comment>
             </column>
         </property>
-        <property name="ywlx" type="java.lang.String">
-            <column name="ywlx" length="100">
+        <property name="ywlx" type="java.lang.Integer">
+            <column name="ywlx" length="1">
                 <comment>业务类型</comment>
             </column>
         </property>
         <property name="sx" type="java.lang.Integer">
-            <column name="sx">
+            <column name="sx" length="10">
                 <comment>状态（0：主动提交；1：预约领取；2：预约提交；）</comment>
             </column>
         </property>
         <property name="sxsj" type="java.sql.Timestamp">
-            <column name="sxsj" length="19" />
+            <column name="sxsj"  />
         </property>
     </class>
 </hibernate-mapping>
