@@ -50,7 +50,7 @@
 	</div>
   
 	<div id="p" class="easyui-panel" data-options="region:'center'" title="字典设置" style="width:100%;height:100%; padding-top: 7px;">
-		<div style="width:100%;height:40px; padding-left: 7px;" >
+		<div style="width:100%;height:40px;" >
 			字典列表：
 			<input id="cc" name="zdList" >
 			<a id="add"  iconCls="icon-save">新增</a>
@@ -67,10 +67,16 @@ $(function(){
 	 $('#update').linkbutton({});
 	 $('#del').linkbutton({});
 	 
-	 $('#cc').combobox({ 
+	 $('#cc').combobox({
 		    url:'zdcx.do',    
 		    valueField:'zdbm',    
-		    textField:'zdmc'   
+		    textField:'zdmc' ,
+		    onLoadSuccess:function(data){
+		    	if(data.length!=0){
+		    		$("#cc").combobox('select',data[0].zdbm);
+		    		
+		    	}
+		    }
 		});  
 	 
 	 $('#zdedit').dialog({
@@ -90,7 +96,14 @@ $(function(){
 		          	     },//注意大小写data
 		          	     dataType:'json',
 		          	     success:function (data) {
-		          	    	$('#cc').combobox('reload'); 
+		          	    	$('#cc').combobox({
+		          			    url:'zdcx.do',    
+		          			    valueField:'zdbm',    
+		          			    textField:'zdmc' ,
+		          			    onLoadSuccess:function(data){
+		          			    	$("#cc").combobox('select',$('#zdbm').val());
+		          			    }
+		          			});  
 		          	    	$('#zdedit').dialog('close');
 		          	     }
 		          	 });
@@ -115,7 +128,7 @@ $(function(){
 		        iconCls:'icon-ok',
 		        handler:function(){
 		        	$.ajax({
-		          	     url:'editZdmx.do',
+		          	     url:'saveZdmx.do',
 		          	     type:'POST',
 		          	     data:{
 		          	    	 zdbm:$('#cc').combobox('getValue'),
@@ -125,7 +138,7 @@ $(function(){
 		          	     },//注意大小写data
 		          	     dataType:'json',
 		          	     success:function (data) {
-		          	    	$('#zdmxgrid').combobox('reload'); 
+		          	    	$('#zdmxgrid').combobox('reload');
 		          	    	$('#zdmxedit').dialog('close');
 		          	     }
 		          	 });
@@ -156,8 +169,8 @@ $(function(){
 			sortOrder:'desc',
 			url:"${path}/zdmxcx.do",
 			queryParams : {
-				zdbm : "aaa",
-				zdmc : ""
+				zdbm : $('#cc').combobox('getValue'),
+				zdmc : $('#cc').combobox('getText')
 			},
 			columns:[[
 			    {field:'id',title:'ID',width:100,align:'center'},
@@ -166,10 +179,9 @@ $(function(){
 				{field:'parent',title:'父编码',width:120,align:'center',sortable:"true"},
 		    	{field:'action',title:'操作',width:120,align:'center',
 				    formatter:function(value,row,index){
-						var sa = row.id.bh;
 						var s = ' <a style="color:red\"'
 					        +'href=\"#\" '
-					        +'onClick=\"editZdmx();">编辑</a> ';
+					        +'onClick=\"editZdmx('+row+');\">编辑</a> ';
 				        var e = ' <a style="color:red\"'
 					        +'href=\"#\" '
 					        +'onClick=\"delZdmx();">删除</a> ';
@@ -204,8 +216,7 @@ $(function(){
      });  
      
 	$("#del").bind("click",function(){
-		
-		if($('#cc').combobox('getValue')==''){
+		if($('#cc').combobox('getData').length==0){
 			return;
 		}
 		
@@ -218,13 +229,31 @@ $(function(){
      	     },//注意大小写data
      	     dataType:'json',
      	     success:function (data) {
-     	    	$('#cc').combobox('reload'); 
+     	    	//重新渲染解决combobox的数据删除BUG
+     	    	$('#cc').combobox({ 
+     			    url:'zdcx.do',    
+     			    valueField:'zdbm',    
+     			    textField:'zdmc',
+     			   onLoadSuccess : function(data){
+     				  if(data.length!=0){
+     			    		$("#cc").combobox('select',data[0].zdbm);
+     			    	}
+     			   }
+     			});
      	     }
      	 });
 	});  
-     
-	 
 })
+
+function editZdmx(row){
+	$('#zdbm').val($('#cc').combobox('getValue'));
+    $('#zdmc').val($('#cc').combobox('getText'));
+    
+    
+	$('#zdedit').dialog('open');
+}
+
+
 </script>
 
 </body>
