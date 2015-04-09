@@ -49,31 +49,37 @@ $(function(){
 		singleSelect:true,
 		idField:'itemid',
 		pagination:true,
-		sortName:'ah',
+		sortName:'ywlx',
 		sortOrder:'desc',
-		url:"${path}/fgJsCl.do?user="+user+"&fydm="+fydm,
+		url:"${path}/fgYjsCl.do?user="+user+"&fydm="+fydm,
 				
 		columns:[[
-		    {field:'id',title:'流水号',width:100,align:'center',
+		    {field:'id',title:'流水号',width:100,align:'center',hidden:true,
 		    	formatter:function(id){
 					return id.bh;
 				}
 		    },
-			{field:'ah',title:'案号',width:120,align:'center'},
+		    {field:'ywlx',title:'业务类型',width:120,align:'center',sortable:"true"},
+			{field:'sx',title:'时限',width:120,align:'center'},
+			{field:'ah',title:'案号',width:120,align:'center',sortable:"true"},
 			{field:'sjrBmmc',title:'承办部门',width:100,align:'center'},
 			{field:'sjrXm',title:'承办人',width:80,align:'center'},
 	    	{field:'djr',title:'当事人',width:80,align:'center'},
-	    	{field:'djrq',title:'递交日期',width:100,align:'center'},	
+	    	{field:'zxjbr',title:'中心经办人',width:80,align:'center'},
+	    	{field:'zxjbrq',title:'递交日期',width:100,align:'center',sortable:"true"},	
 	    	{field:'action',title:'操作',width:120,align:'center',
 			    formatter:function(value,row,index){
 					var sa = row.id.bh;
-					var s = '<a href=\"to_fgQrJs.do?bh='+sa+'\">确认/退回</a>';
+					var s = ' <a style="color:red\"'
+				        +'href=\"#\" '
+				        +'onClick=\"Word('
+				        +sa+');">送达回证</a> ';
 					return s;
 			    }
 	    	}
-		]],
-		
-		toolbar:[{
+		]]
+		/*
+		,toolbar:[{
 			text:'查询',
 	        iconCls:'icon-search',
 	        handler:function(){
@@ -86,9 +92,17 @@ $(function(){
 	        	$('#dsrZzSjTable').datagrid('reload');
 	        }
 	    }]
+		*/
 	});
 	
 });
+
+function Word(bh){
+	 url='${path}/word.do?bh='+bh;
+	 window.open(url,"new",
+			 "height=600px,width=650px,toolbar=no,status=no,menubar=no,scrollbars=yes,resizable=yes");
+	
+}
 </script>
 </head>
 

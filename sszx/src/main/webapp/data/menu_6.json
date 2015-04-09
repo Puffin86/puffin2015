@@ -1,4 +1,5 @@
 [
 	{"id":12, "text":"设置权限", "attributes":{"url": "to_user.do"}},
+	{"id":14, "text":"字典维护", "attributes":{"url": "to_zd.do"}},
 	{"id":13, "text":"短信维护", "attributes":{"url": "to_dxx.do"}}
 ]
