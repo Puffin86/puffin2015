@@ -25,6 +25,9 @@
 		
 		<mapping resource="com/bsoft/sszx/entity/sms/Dxx.hbm.xml" />
 		<mapping resource="com/bsoft/sszx/entity/sms/Sms.hbm.xml" />
+		
+		<mapping resource="com/bsoft/sszx/entity/zd/Zd.hbm.xml" />
+		<mapping resource="com/bsoft/sszx/entity/zd/ZdMx.hbm.xml" />
 	</session-factory>
 
 </hibernate-configuration>
