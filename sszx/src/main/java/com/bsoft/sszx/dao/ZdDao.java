@@ -97,6 +97,21 @@ public class ZdDao {
 		}finally{
 			HibernateUtil.closeSession(session);		//关闭Session
      } 
+   }
+	
+	
+	public void saveOrUpdateZdMx(ZdMx zdmx){
+    	try{
+    		session = HibernateUtil.getSession();		//获取Session
+			session.beginTransaction();		
+	    	session.merge(zdmx);//应用save()方法将留言信息保存到数据
+	    	session.getTransaction().commit();
+    	} catch (Exception e) {
+			e.printStackTrace();						//打印错误信息
+		}finally{
+			HibernateUtil.closeSession(session);		//关闭Session
+     } 
    } 
+	
 
 }
