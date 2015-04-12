@@ -26,6 +26,11 @@ public class FgJsCl {
 	public String toFgJsCl(){
 		return "fg/fgJsCL";
 	}
+	
+	@RequestMapping("to_fgYjsCl")
+	public String toFgYjsCl(){
+		return "fg/fgYjsCL";
+	}
 
 	@ResponseBody
 	@RequestMapping("fgJsCl")
@@ -50,5 +55,31 @@ public class FgJsCl {
 		JSONObject json = JSONObject.fromObject(map);
 		HttpHelper.renderJson(json.toString(), response);
 	}
+	
+	
+	@ResponseBody
+	@RequestMapping("fgYjsCl")
+	public void fgYjsCl(String sort,String order,Integer page, Integer rows, String user,
+			String fydm, HttpServletResponse response) {
+		// 当前页
+		int intPage = (page == null || page == 0) ? 1 : page;
+		// 每页显示条数
+		int number = (rows == null || rows == 0) ? 10 : rows;
+		// 每页的开始记录 第一页为1, 第二页为number +1
+		int start = (intPage - 1) * number;
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		ZjqdDao zjqdDao = new ZjqdDao();
+		List<Zjqd> al = zjqdDao.findDsrZzYSJbyPage(start, number, user, 8, fydm,sort,order);
+		List<Zjqd> all = zjqdDao.findDsrZzYSJ(user, 8, fydm);
+
+		map.put("total", all.size());
+		map.put("rows", al);
+
+		JSONObject json = JSONObject.fromObject(map);
+		HttpHelper.renderJson(json.toString(), response);
+	}
+	
 
 }

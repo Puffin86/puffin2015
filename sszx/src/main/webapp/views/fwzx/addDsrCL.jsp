@@ -70,7 +70,7 @@ int bh=new ZjqdDao().getMaxId(fydm);
    <hr/>
    <div align="center">
      <a id="save" onclick="save()" iconCls="icon-save">保存</a>
-     <a id="scan" onclick="scan(<%=bh%>)" iconCls="icon-scan">扫描</a>
+     <!-- <a id="scan" onclick="scan(<%=bh%>)" iconCls="icon-scan">扫描</a> -->
      <a id="cancel" onclick="window.location.href='${path}/to_jsdsrzdsj.do';" iconCls="icon-cancel">取消</a>
    </div>
    <!-- <a onclick="test()">test</a> -->
@@ -193,11 +193,25 @@ int bh=new ZjqdDao().getMaxId(fydm);
 	   	     },//注意大小写data
 	   	     dataType:'json',
 	   	     success:function (data) {
-	   	    	 if(data.after==1)
-	    	       alert("保存成功");
-	    	     if(data.after==0)
-	    	       alert("保存失败");    	     
-	   	    	window.location.href="${path}/to_jsdsrzdsj.do";
+	   	    	 if(data.after==1){
+	   	    		$.messager.confirm('Confirm',
+	   	    				'是否需要添加附件?',
+	   	    				function(r){
+	   	    					if (r){
+	   	    						$('#save').hide();
+	   	    						$('#cancel').linkbutton({   
+	   	    							text: '返回'  
+	   	    						});  
+	   	    						scan(<%=bh%>);
+	   	    					}else{
+	   	    						window.location.href="${path}/to_jsdsrzdsj.do";
+	   	    					}
+	   	    				}
+	   	    		);
+	   	    	 }else{
+	   	    		 alert("保存失败");  
+	   	    	 }
+	   	    	
 	   	     }});
        }else 
     	   alert('请输入必输项'+alerString);}

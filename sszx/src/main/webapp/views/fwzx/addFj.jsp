@@ -23,7 +23,7 @@ if(fjb==null)
               &nbsp;&nbsp;附件名称: <input class="easyui-validatebox" required="true" id="fjmc" style="margin-left:10px;width:150px" type="text"></input>      
      </div>
      <div id="fjsc" style="font-size:12px;width:320px;height:150px;">
-     		<form id="fjForm" method="POST" enctype="multipart/form-data"  theme="simple">
+     		<form id="fjForm" method="post" enctype="multipart/form-data"  theme="simple">
      			<input name="bh" style="display:none" type="text" value="<%=bh%>"/>
    				<table>
    				<tr>
@@ -110,53 +110,45 @@ if(fjb==null)
 		        text:'上传',
 		        iconCls:'icon-ok',
 		        handler:function(){
-		        	/*
 		        	if ($('#fjmc2').val()==""){
 		        		alert("请输入文件名称");
+		        		return;
 		        	}else if($('#fileToUpload').val()==""){
 		        		alert("请选择上传文件");
+		        		return;
 		        	}else{
 		        		var fileNameArr = $('#fileToUpload').val().split(".");
 		        		var prefix = fileNameArr[fileNameArr.length-1];
-		        		if(prefix=='doc'||prefix=='docx'){
-		        			fjForm.submit();
-		        		}else{
-		        			alert("只能上传word文档");
-		        		}
+		        		$("#fjForm").ajaxSubmit({
+		                    type: 'post',  
+		                    url: "${path}/fileUpload.do" ,  
+		                    success: function(data){  
+		                    	if(data=="success"){
+		                    		alert("上传文件成功")
+		                    	}else{
+		                    		alert("上传文件失败，请重试...")
+		                    	}
+		                    	window.location.href='${path}/fj.do?bh='+<%=bh%>;
+		                    },  
+		                    error: function(XmlHttpRequest, textStatus, errorThrown){  
+		                    	alert("上传文件失败，请重试...")
+		                    	window.location.href='${path}/fj.do?bh='+<%=bh%>;
+		                    }  
+		                }); 
 		        	}
-		        	*/
-		        	$("#fjForm").ajaxSubmit({
-	                    type: 'post',  
-	                    url: "${path}/fileUpload.do" ,  
-	                    success: function(data){  
-	                    	if(data=="success"){
-	                    		alert("上传文件成功")
-	                    	}else{
-	                    		alert("上传文件失败，请重试...")
-	                    	}
-	                    	window.location.href='${path}/fj.do?bh='+<%=bh%>;
-	                    },  
-	                    error: function(XmlHttpRequest, textStatus, errorThrown){  
-	                    	alert("上传文件失败，请重试...")
-	                    	window.location.href='${path}/fj.do?bh='+<%=bh%>;
-	                    }  
-	                }); 
-		        	
-		        	
-		        	
 		        }
 		    }]
 	   });
 	   
 	   $('#smq').click(function(event){
-			 window.location.href='${path}/addFj.do';
+			 window.location.href='${path}/fj.do?bh='+<%=bh%>;
 			 //event.preventDefault();//ie6专用
 		});
    
    function delFj(xh,bh){
 	   var fydm='<%=fydm%>';
 	   $.ajax({
-    	     url:'delFj.do',
+    	     url:'${path}/delFj.do',
     	     type:'POST',
     	     data:{bh:bh
                   ,fydm:fydm
@@ -168,7 +160,7 @@ if(fjb==null)
 	      	       alert("删除成功");
 	      	     if(data.after==0)
 	      	       alert("删除失败");    	     
-	     	     window.location.href='${path}/addFj.do';
+	     	     window.location.href='${path}/fj.do?bh='+<%=bh%>;
    	     		}
     	     });	   
    }

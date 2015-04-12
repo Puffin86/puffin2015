@@ -91,6 +91,25 @@ public class ZjqdDao {
 		}
 		return list;
 	}
+	
+	
+	public List<Zjqd> findDsrZzYSJ(String user, int zt, String fydm) {// 查找当事人主动送件
+		List<Zjqd> list = null;
+		try {
+			session = HibernateUtil.getSession(); // 获取Session
+			session.beginTransaction(); // 开启事物
+			String sql = "from Zjqd where sjr='" + user + "' and zt=" + zt
+					+ " and fydm=" + fydm;
+			list = (List<Zjqd>) session.createQuery(sql).list();
+			session.getTransaction().commit();// 提交事物
+		} catch (Exception e) {
+			e.printStackTrace(); // 打印错误信息
+		} finally {
+			HibernateUtil.closeSession(session); // 关闭Session
+		}
+		return list;
+	}
+	
 
 	public List<Zjqd> findDsrZzSJ(String user, int zt, String fydm) {// 查找当事人主动送件
 		List<Zjqd> list = null;
@@ -133,6 +152,32 @@ public class ZjqdDao {
 			session.beginTransaction(); // 开启事物
 			String sql = "from Zjqd " + "where dqcyr='" + user + "' and zt="
 					+ zt + " and id.fydm='" + fydm + "'";
+			Query query = session.createQuery(sql);
+			query.setFirstResult(start);
+			query.setMaxResults(number);
+			list = query.list();
+			session.getTransaction().commit();// 提交事物
+		} catch (Exception e) {
+			e.printStackTrace(); // 打印错误信息
+		} finally {
+			HibernateUtil.closeSession(session); // 关闭Session
+		}
+		return list;
+	}
+	
+	public List<Zjqd> findDsrZzYSJbyPage(int start, int number, String user,
+			int zt, String fydm,String sort,String order) {// 查找当事人主动送件
+		List<Zjqd> list = null;
+		try {
+			session = HibernateUtil.getSession(); // 获取Session
+			session.beginTransaction(); // 开启事物
+			String sql = "from Zjqd " + "where sjr='" + user + "' and zt="
+					+ zt + " and id.fydm='" + fydm + "'";
+			
+			if(sort!=null ||!"".equals(sort)){
+				sql += "  order by "+sort+" "+order;
+			}
+			
 			Query query = session.createQuery(sql);
 			query.setFirstResult(start);
 			query.setMaxResults(number);
@@ -285,5 +330,24 @@ public class ZjqdDao {
 			HibernateUtil.closeSession(session); // 关闭Session
 		}
 	}
+	
+	public int countByZt8(String fydm, String user, int zt) {
+		try {
+			session = HibernateUtil.getSession(); // 获取Session
+			session.beginTransaction();
+			String sql = "from Zjqd where id.fydm='" + fydm + "'"
+					+ " and sjrbm='" + user + "' and zt=" + zt;
+			List list = session.createQuery(sql).list();
+			session.getTransaction().commit();
+			return list.size();
+
+		} catch (Exception e) {
+			e.printStackTrace();// 打印错误信息
+			return 0;
+		} finally {
+			HibernateUtil.closeSession(session); // 关闭Session
+		}
+	}
+	
 
 }

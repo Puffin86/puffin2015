@@ -66,7 +66,7 @@ $(document).ready(function(){
 			        var e = ' <a style="color:red\"'
 				        +'href=\"#\" '
 				        +'onClick=\"Word('
-				        +sa+');">表单</a> ';
+				        +sa+');">送达回证</a> ';
 					return e+s;
 					}
 		    }

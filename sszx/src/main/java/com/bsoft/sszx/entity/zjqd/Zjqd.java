@@ -32,6 +32,9 @@ public class Zjqd implements java.io.Serializable {
 	private String lzjl;
 	private String sjrXm;
 	private String sjrBmmc;
+	private Integer ywlx;
+	private Integer sx;
+	private Timestamp sxsj;
 
 	// Constructors
 
@@ -51,7 +54,7 @@ public class Zjqd implements java.io.Serializable {
 			String sjrbm, Timestamp sendtime, Integer zt, String htyj,
 			String sjrlxdh, String lclx, String dqcyr, String qscyr,
 			String hscyr, String dsrsfzhm, String lzjl, String sjrXm,
-			String sjrBmmc) {
+			String sjrBmmc,Integer ywlx,Integer sx,Timestamp sxsj) {
 		this.id = id;
 		this.ah = ah;
 		this.sjr = sjr;
@@ -74,6 +77,9 @@ public class Zjqd implements java.io.Serializable {
 		this.lzjl = lzjl;
 		this.sjrXm = sjrXm;
 		this.sjrBmmc = sjrBmmc;
+		this.ywlx = ywlx;
+		this.sx=sx;
+		this.sxsj=sxsj;
 	}
 
 	// Property accessors
@@ -252,6 +258,30 @@ public class Zjqd implements java.io.Serializable {
 
 	public void setSjrBmmc(String sjrBmmc) {
 		this.sjrBmmc = sjrBmmc;
+	}
+
+	public Integer getYwlx() {
+		return ywlx;
+	}
+
+	public void setYwlx(Integer ywlx) {
+		this.ywlx = ywlx;
+	}
+
+	public Integer getSx() {
+		return sx;
+	}
+
+	public void setSx(Integer sx) {
+		this.sx = sx;
+	}
+
+	public Timestamp getSxsj() {
+		return sxsj;
+	}
+
+	public void setSxsj(Timestamp sxsj) {
+		this.sxsj = sxsj;
 	}
 
 }
