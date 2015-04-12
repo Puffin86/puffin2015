@@ -10,17 +10,11 @@
 <title>诉讼服务中心信息管理系统</title>
 <jsp:include page="/common/include.jsp" />
 <style type="text/css">
-.layout-split-west {
-    border-right: 5px solid #f9f9f9;
-}
-
 #Main_Tabs .panel-body{
 	padding-top: 5px;
 	padding-left: 5px;
 	padding-right: 5px;
 }
-
-
 </style>
 </head>
 
