@@ -60,11 +60,24 @@
        <td>递交日期：</td>
        <td><input editable="false" class="easyui-datebox" id="djrq" name="djrq" type="text"/></td>
      </tr>
+     <tr>
+       <td>领取时限：</td>
+       <td><input name="lqsx" type="text"/></td>
+       <td>&nbsp;</td>
+       <td>&nbsp;</td>
+     </tr>
      </table>
      <hr/> 
      
-     <div style="margin-left:10px;">     
-     <div>添加材料信息：<a id="cl_add" class="add" iconCls="icon-add"></a></div>
+     <div>   
+     <table width="100%" border="0" cellpadding="2" cellspacing="0" style="font-size:12px;">
+     	<tr>
+     		<td width="20%">添加材料信息：<a id="cl_add" class="add" iconCls="icon-add"></a></td>
+     		<td width="20%">常用材料清单：<a id="cl_chose" class="easyui-linkbutton">选择</a></td>
+     		<td width="60%">&nbsp;</td>
+     	</tr>
+     </table>  
+     
      <div class="cl" id="clmxtr" style="visibility:hidden;margin-top:5px">
        <div>材料名称：<input name="clmc" type="text"></input>
        &nbsp;&nbsp;份数： <input name="clfs"  style="width:30px" type="text"></input>

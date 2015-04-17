@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.bsoft.sszx.entity.clb.Clqd" table="clqd" catalog="sszx">
+		<id name="clbh" type="java.lang.Integer">
+            <column name="clbh" />
+			<generator class="identity" />
+		</id>
+		<property name="clmc" type="java.lang.String">
+			<column name="clmc" length="200">
+				<comment>材料名称</comment>
+			</column>
+		</property>
+	</class>
+</hibernate-mapping>
