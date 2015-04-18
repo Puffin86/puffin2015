@@ -83,14 +83,14 @@
 <script type="text/javascript">
 $(function(){
 	var lx='<%=lx%>';
-	/*if(lx=='2' || lx=='4'){
+	if(lx=='2' || lx=='4'){
     	$("#ac").accordion("remove", "材料接收和交递（服务中心）");
     	$("#ac").accordion("remove", "系统设置");
     }
     if(lx=='3'){
     	$("#ac").accordion("remove", "材料接收和交递（法官）");
     	$("#ac").accordion("remove", "系统设置");
-    }*/
+    }
     
 	$('ul[name="mtree"]').each(function(i, o) {
 		$(o).tree({

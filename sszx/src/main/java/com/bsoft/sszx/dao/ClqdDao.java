@@ -6,7 +6,6 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.bsoft.sszx.entity.clb.Clqd;
-import com.bsoft.sszx.entity.sms.Sms;
 import com.bsoft.sszx.hibernate.HibernateUtil;
 
 /**
@@ -31,18 +30,46 @@ public class ClqdDao {
 		}
 		return list;
 	}
-
+	
 	public void save(Clqd clqd) {
 		try {
-			session = HibernateUtil.getSession(); // 获取Session
+			session = HibernateUtil.getSession();
 			session.beginTransaction();
 			session.save(clqd);
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			e.printStackTrace(); // 打印错误信息
+			e.printStackTrace();
 		} finally {
-			HibernateUtil.closeSession(session); // 关闭Session
+			HibernateUtil.closeSession(session);
 		}
+	}
+
+	public String update(Clqd bean) {
+		try {
+			session = HibernateUtil.getSession();
+			session.beginTransaction();
+			session.update(bean);
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			HibernateUtil.closeSession(session);
+		}
+		return null;
+	}
+
+	public String delete(Clqd bean) {
+		try {
+			session = HibernateUtil.getSession();
+			session.beginTransaction();
+			session.delete(bean);
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			HibernateUtil.closeSession(session);
+		}
+		return null;
 	}
 
 }

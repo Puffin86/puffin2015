@@ -9,7 +9,6 @@
 <jsp:include page="/common/include.jsp" />
 <script type="text/javascript">
 $(function(){
-
 });
 
 function actions(value, row, index){
@@ -19,12 +18,20 @@ function actions(value, row, index){
 	return s1+s2;
 }
 
-function editAction(id){
-	alert(id)
-}
-
 function delAction(id){
-	alert(id)
+	if(!confirm('确定删除？')){
+		return;
+	}
+	
+	$.get('${path }/clqd/delete.do', {
+		id : id
+	}, function(data){
+		if(data.success){
+			$('#datagrid1').datagrid('reload');
+		}else{
+			$.messager.alert('提示', '删除失败', 'error');
+		}
+	}, 'json');
 }
 </script>
 </head>
@@ -51,6 +58,7 @@ function delAction(id){
     </div>
     
     <jsp:include page="add_clqd.jsp" />
+    <jsp:include page="edit_clqd.jsp" />
   
 </body>
 </html>
