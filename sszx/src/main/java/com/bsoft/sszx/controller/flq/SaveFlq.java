@@ -117,8 +117,9 @@ public class SaveFlq {
 			cl = URLDecoder.decode(cl, "UTF-8");
 			cl = URLDecoder.decode(cl, "UTF-8");
 			if (cl.contains(";")) {
-				String[] clist = cl.split(";");
 				ClbDao clbDao = new ClbDao();
+				String[] clist = cl.split(";");
+				
 				for (int i = 0; i < clist.length; i++) {
 					String[] clnr = clist[i].split(",");
 					Clb clb = new Clb();
@@ -130,6 +131,7 @@ public class SaveFlq {
 					clb.setClmc(clnr[0]);
 					clb.setFs(Integer.valueOf(clnr[1]));
 					clb.setYs(Integer.valueOf(clnr[2]));
+					
 					clbDao.saveClb(clb);
 				}
 			}

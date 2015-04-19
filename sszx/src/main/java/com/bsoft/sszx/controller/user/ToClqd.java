@@ -1,5 +1,6 @@
 package com.bsoft.sszx.controller.user;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +34,23 @@ public class ToClqd {
 	public void list(HttpServletResponse response) {
 		List<Clqd> list = new ClqdDao().findAll();
 		HttpHelper.renderJson(JSONArray.fromObject(list).toString(), response);
+	}
+	
+	@ResponseBody
+	@RequestMapping("clqd/tree")
+	public void tree(HttpServletResponse response) {
+		List<Map<String, Object>> tree = new ArrayList<Map<String,Object>>();
+		
+		List<Clqd> list = new ClqdDao().findAll();
+		for(Clqd bean : list){
+			Map<String, Object> node = new HashMap<String, Object>();
+			node.put("id", bean.getClbh());
+			node.put("text", bean.getClmc());
+			
+			tree.add(node);
+		}
+		
+		HttpHelper.renderJson(JSONArray.fromObject(tree).toString(), response);
 	}
 	
 	@ResponseBody

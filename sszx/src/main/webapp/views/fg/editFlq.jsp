@@ -16,41 +16,41 @@
 %>
   
 <body style="font-size:12px;background:#fff;">
-    <table style="font-size:12px;margin-left:10px;" id="ssclzjqd">
+    <table width="100%" border="0" cellpadding="2" cellspacing="0" style="font-size:12px;" id="ssclzjqd">
 	      <tr>
-	       <td width="20%">案号：</td>
-	       <td>
+	       <td width="15%">案号：</td>
+	       <td colspan="3">
 	       		<input class="easyui-validatebox" required="true" name="ah" type="text"/>
-	       		<input name="ahdm" style="display:none;" type="text"></input>
+	       		<input name="ahdm" style="display:none;" type="text"/>
 	       		<a id="research" class="easyui-linkbutton" onClick="$('#ah_se').dialog('open');" style="margin-top:-5px" iconCls="icon-search"></a>
 	       </td>
 	     </tr>
 	     <tr>
-	       <td width="20%" >承办人：</td>
-	       <td>
+	       <td width="15%">承办人：</td>
+	       <td width="35%">
 	       	   <input class="easyui-validatebox" required="true" readOnly="readOnly" name="sjrXm" type="text"/>
 	           <input style="display:none;" name="sjr" type="text"/>
 	       </td>
-	       <td width="20%" >&nbsp;&nbsp;承办部门：</td>
-	       <td>
+	       <td width="15%">&nbsp;&nbsp;承办部门：</td>
+	       <td width="35%">
 	       	   <input class="easyui-validatebox" required="true" readOnly="readOnly" name="sjrbmMc" type="text"/>
 	           <input style="display:none;" name="sjrbm" type="text"/>
 	       </td>
 	     </tr>
 	     <tr>
-	       <td width="20%" >当事人：</td>
+	       <td>当事人：</td>
 	       <td>
 		       <input class="easyui-validatebox" required="true" name="tjr" type="text"/>
 		       <input style="display:none;" type="text"/>
 		       <a id="dsr_bt" class="easyui-linkbutton" onClick="$('#dsr_se').dialog('open');" style="margin-top:-5px" iconCls="icon-add"></a>
 		   </td>
-	       <td width="20%">&nbsp;&nbsp;当事人联系电话：</td>
+	       <td>&nbsp;&nbsp;当事人联系电话：</td>
 	       <td><input name="tjrlxdh" type="text"/></td>
 	     </tr> 
 	     <tr>
-	       <td width="20%">当事人证件号码：</td>
+	       <td>当事人证件号码：</td>
 	       <td><input name="djrsfz" type="text"/></td>
-	       <td width="20%">&nbsp;&nbsp;递交日期：</td>
+	       <td>&nbsp;&nbsp;递交日期：</td>
 	       <td><input class="easyui-datebox" editable="false" id="djrq" name="djrq" type="text"/></td>
 	     </tr>
      </table>
