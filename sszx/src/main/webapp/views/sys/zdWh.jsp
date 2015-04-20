@@ -68,7 +68,7 @@ $(function(){
 		    	});
 		    },
 		    onLoadSuccess:function(data){
-		    	if(data.length!=0){
+		    	//if(data.length!=0){
 		    		$('#zdmxgrid').datagrid({
 		    			rownumbers:false,
 		    			fit:true,
@@ -78,7 +78,7 @@ $(function(){
 		    			striped:true,
 		    			fitColumns:true,
 		    			singleSelect:true,
-		    			idField:'id',
+		    			idField:'zdmxbm',
 		    			pagination:true,
 		    			url:"zdmxcx.do",
 		    			queryParams : {
@@ -86,7 +86,7 @@ $(function(){
 		    				zdmc : $('#cc').combobox('getText')
 		    			},
 		    			columns:[[
-		    			    {field:'id',title:'内码',width:100,align:'center'},
+		    			    //{field:'id',title:'内码',width:100,align:'center'},
 		    			    {field:'zdmxbm',title:'字典项编码',width:120,align:'center',sortable:"true"},
 		    				{field:'zdmxmc',title:'字典项名称',width:120,align:'center'},
 		    				{field:'parent',title:'父编码',width:120,align:'center',sortable:"true"}
@@ -147,7 +147,7 @@ $(function(){
 		    			}]
 		    			
 		    		});
-		    	}
+		    	//}
 		    }
 		});  
 	 
@@ -174,6 +174,9 @@ $(function(){
 		          			    textField:'zdmc' ,
 		          			    onLoadSuccess:function(data){
 		          			    	$("#cc").combobox('select',$('#zdbm').val());
+		          			    	$('#zdmxgrid').datagrid('load',{
+		        			    		zdbm : $('#cc').combobox('getValue')
+		        			    	});
 		          			    }
 		          			});  
 		          	    	$('#zdedit').dialog('close');
@@ -269,6 +272,10 @@ $(function(){
 		     				  if(data.length!=0){
 		     			    		$("#cc").combobox('select',data[0].zdbm);
 		     			    	}
+		     				  
+		     				 $('#zdmxgrid').datagrid('load',{
+	        			    		zdbm : $('#cc').combobox('getValue')
+	        			     });
 		     			   }
 		     			});
 		     	     }
