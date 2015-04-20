@@ -24,16 +24,8 @@
 			</table>
 		 </div>
 		 
-	<div id="zdmxedit" style="width:280px;height:200px;">
+	<div id="zdmxedit" style="width:280px;height:150px;">
 			<table>
-				<tr>
-					<td>字典编码：</td>
-					<td><input class="easyui-validatebox" required="true" id="zdmx_zdbm"  style="margin-left:10px;width:150px" type="text"></input></td>
-				</tr>
-				<tr>
-					<td>字典名称：</td>
-					<td><input class="easyui-validatebox" required="true" id="zdmx_zdmc"  style="margin-left:10px;width:150px" type="text"></input></td>
-				</tr>
 				<tr>
 					<td>字典项编码：</td>
 					<td><input class="easyui-validatebox" required="true" id="zdmxbm"  style="margin-left:10px;width:150px" type="text"></input></td>
@@ -49,17 +41,15 @@
 			</table>
 	</div>
   
-	<div id="p" class="easyui-panel" data-options="region:'center'" title="字典设置" style="width:100%;height:100%; padding-top: 7px;">
+	<div id="p" class="easyui-panel" data-options="region:'center'" title="字典设置" style="padding-top: 7px;">
 		<div style="width:100%;height:40px;" >
 			字典列表：
-			<input id="cc" name="zdList" >
-			<a id="add"  iconCls="icon-save">新增</a>
+			<input id="cc" name="zdList" />
+			<a id="add"  iconCls="icon-add">新增</a>
 			<a id="update"  iconCls="icon-save">编辑</a>
 			<a id="del"  iconCls="icon-save">删除</a>
 		</div>
-		<div style="width:100%;height:100%" >
-			<table id="zdmxgrid" ></table> 
-		</div>
+		<table id="zdmxgrid" style="width:100%;height:100%"></table> 
 	</div>
 <script>
 $(function(){
@@ -71,10 +61,92 @@ $(function(){
 		    url:'zdcx.do',    
 		    valueField:'zdbm',    
 		    textField:'zdmc' ,
+		    onSelect :function(record){
+		    	$('#zdmxgrid').datagrid('load',{
+		    		zdbm : record.zdbm,
+    				zdmc : record.zdmc
+		    	});
+		    },
 		    onLoadSuccess:function(data){
 		    	if(data.length!=0){
-		    		$("#cc").combobox('select',data[0].zdbm);
-		    		
+		    		$('#zdmxgrid').datagrid({
+		    			rownumbers:false,
+		    			fit:true,
+		    			border:true,
+		    			title:'字典明细',
+		    			singleSelect:true,
+		    			striped:true,
+		    			fitColumns:true,
+		    			singleSelect:true,
+		    			idField:'id',
+		    			pagination:true,
+		    			url:"zdmxcx.do",
+		    			queryParams : {
+		    				zdbm : $('#cc').combobox('getValue'),
+		    				zdmc : $('#cc').combobox('getText')
+		    			},
+		    			columns:[[
+		    			    {field:'id',title:'内码',width:100,align:'center'},
+		    			    {field:'zdmxbm',title:'字典项编码',width:120,align:'center',sortable:"true"},
+		    				{field:'zdmxmc',title:'字典项名称',width:120,align:'center'},
+		    				{field:'parent',title:'父编码',width:120,align:'center',sortable:"true"}
+		    			]]
+		    			,toolbar:[{
+		    				text:'新增',
+		    		        iconCls:'icon-add2',
+		    		        handler:function(){
+		    		        	$('#zdmxbm').val('');
+		    		        	$('#zdmxmc').val('');
+		    		        	$('#parent').val('');
+		    		        	$('#zdmxedit').dialog('open');
+		    		        }
+		    			},{
+		    				text:'编辑',
+		    		        iconCls:'icon-add',
+		    		        handler:function(){
+		    		        	var row = $('#zdmxgrid').datagrid('getSelected');
+		    		        	$('#zdmxbm').val(row.zdmxbm);
+		    		            $('#zdmxmc').val(row.zdmxmc);
+		    		        	$('#zdmxedit').dialog('open');
+		    		        }
+		    			},{
+		    				text:'删除',
+		    		        iconCls:'icon-add',
+		    		        handler:function(){
+		    		        	var row = $('#zdmxgrid').datagrid('getSelected');
+		    		        	var mxbm = row.zdmxbm;
+		    		        	var mxmc = row.zdmxmc;
+		    		        	$.messager.confirm('确认框', '确定要删除该字典项吗？', function(r){
+		    		        		if (r){
+		    		        			$.ajax({
+		    		        	     	     url:'delzdmx.do',
+		    		        	     	     type:'POST',
+		    		        	     	     data:{  
+		    		        	     	    	zdbm:$('#cc').combobox('getValue'),
+		    		        	     	    	zdmxbm:mxbm,
+		    		        	     	    	zdmxmc:mxmc
+		    		        	     	     },//注意大小写data
+		    		        	     	     dataType:'json',
+		    		        	     	     success:function (data) {
+		    		        	     	    	$('#zdmxgrid').datagrid('load',{
+		    		        			    		zdbm : $('#cc').combobox('getValue')
+		    		        			    	});
+		    		        	     	     }
+		    		        	     	 });
+		    		        		}
+		    		        	});
+		    		        }
+		    			},{
+		    				text:'刷新',
+		    		        iconCls:'icon-add',
+		    		        handler:function(){
+		    		        	$('#zdmxgrid').datagrid('load',{
+	        			    		zdbm : $('#cc').combobox('getValue')
+	        			    	});
+		    		        }
+		    			}]
+		    			
+		    		});
 		    	}
 		    }
 		});  
@@ -111,7 +183,7 @@ $(function(){
 		        }
 		    },{
 		        text:'取消',
-		        iconCls:'icon-ok',
+		        iconCls:'icon-cancel',
 		        handler:function(){
 		        	$('#zdedit').dialog('close');
 		        }
@@ -138,15 +210,17 @@ $(function(){
 		          	     },//注意大小写data
 		          	     dataType:'json',
 		          	     success:function (data) {
-		          	    	$('#zdmxgrid').combobox('reload');
 		          	    	$('#zdmxedit').dialog('close');
+		          	    	$('#zdmxgrid').datagrid('load',{
+        			    		zdbm : $('#cc').combobox('getValue')
+        			    	});
 		          	     }
 		          	 });
 		        	     
 		        }
 		    },{
 		        text:'取消',
-		        iconCls:'icon-ok',
+		        iconCls:'icon-cancel',
 		        handler:function(){
 		        	$('#zdmxedit').dialog('close');
 		        }
@@ -154,52 +228,7 @@ $(function(){
 	   }).dialog('close');
 	 
 	 
-	 $('#zdmxgrid').datagrid({
-			rownumbers:false,
-			fit:true,
-			border:true,
-			title:'字典明细',
-			singleSelect:true,
-			striped:true,
-			fitColumns:true,
-			singleSelect:true,
-			idField:'itemid',
-			pagination:true,
-			sortName:'zdmxbm',
-			sortOrder:'desc',
-			url:"${path}/zdmxcx.do",
-			queryParams : {
-				zdbm : $('#cc').combobox('getValue'),
-				zdmc : $('#cc').combobox('getText')
-			},
-			columns:[[
-			    {field:'id',title:'ID',width:100,align:'center'},
-			    {field:'zdmxbm',title:'编码',width:120,align:'center',sortable:"true"},
-				{field:'zdmxmc',title:'名称',width:120,align:'center'},
-				{field:'parent',title:'父编码',width:120,align:'center',sortable:"true"},
-		    	{field:'action',title:'操作',width:120,align:'center',
-				    formatter:function(value,row,index){
-						var s = ' <a style="color:red\"'
-					        +'href=\"#\" '
-					        +'onClick=\"editZdmx('+row+');\">编辑</a> ';
-				        var e = ' <a style="color:red\"'
-					        +'href=\"#\" '
-					        +'onClick=\"delZdmx();">删除</a> ';
-						return s+e;
-				    }
-		    	}
-			]]
-			,toolbar:[{
-				text:'新增',
-		        iconCls:'icon-add',
-		        handler:function(){
-		        	$('#zdmx_zdbm').val($('#cc').combobox('getValue'));
-		   	     	$('#zdmx_zdmc').val($('#cc').combobox('getText'));
-		        	$('#zdmxedit').dialog('open');
-		        }
-			}]
-			
-		});
+	 
 	 
 	 
 	 
@@ -220,39 +249,35 @@ $(function(){
 			return;
 		}
 		
-		$.ajax({
-     	     url:'delZd.do',
-     	     type:'POST',
-     	     data:{  
-     	    	 zdbm:$('#cc').combobox('getValue'),
-     	    	 zdmc : $('#cc').combobox('getText')
-     	     },//注意大小写data
-     	     dataType:'json',
-     	     success:function (data) {
-     	    	//重新渲染解决combobox的数据删除BUG
-     	    	$('#cc').combobox({ 
-     			    url:'zdcx.do',    
-     			    valueField:'zdbm',    
-     			    textField:'zdmc',
-     			   onLoadSuccess : function(data){
-     				  if(data.length!=0){
-     			    		$("#cc").combobox('select',data[0].zdbm);
-     			    	}
-     			   }
-     			});
-     	     }
-     	 });
+		$.messager.confirm('确认框', '确定要删除该字典吗？', function(r){
+			if (r){
+				$.ajax({
+		     	     url:'delZd.do',
+		     	     type:'POST',
+		     	     data:{  
+		     	    	 zdbm:$('#cc').combobox('getValue'),
+		     	    	 zdmc : $('#cc').combobox('getText')
+		     	     },//注意大小写data
+		     	     dataType:'json',
+		     	     success:function (data) {
+		     	    	//重新渲染解决combobox的数据删除BUG
+		     	    	$('#cc').combobox({ 
+		     			    url:'zdcx.do',    
+		     			    valueField:'zdbm',    
+		     			    textField:'zdmc',
+		     			   onLoadSuccess : function(data){
+		     				  if(data.length!=0){
+		     			    		$("#cc").combobox('select',data[0].zdbm);
+		     			    	}
+		     			   }
+		     			});
+		     	     }
+		     	 });
+			}
+		});
+		
 	});  
 })
-
-function editZdmx(row){
-	$('#zdbm').val($('#cc').combobox('getValue'));
-    $('#zdmc').val($('#cc').combobox('getText'));
-    
-    
-	$('#zdedit').dialog('open');
-}
-
 
 </script>
 
