@@ -35,24 +35,33 @@ public class clSearch {
 			HttpServletResponse response, HttpSession session) throws Exception
 	{
 	String fydm=(String)session.getAttribute("fydm");
+	String user=(String)session.getAttribute("user");
 	Map map = new HashMap();
 	String ah=request.getParameter("ah");
-	ah = URLDecoder.decode(ah, "UTF-8"); 
-	ah = URLDecoder.decode(ah, "UTF-8"); 
-	
 	String dsr=request.getParameter("dsr");
-	dsr = URLDecoder.decode(dsr, "UTF-8"); 
-	dsr = URLDecoder.decode(dsr, "UTF-8"); 
-	
 	String sjrbm=request.getParameter("sjrbm");
-	sjrbm = URLDecoder.decode(sjrbm, "UTF-8"); 
-	sjrbm = URLDecoder.decode(sjrbm, "UTF-8"); 
-	
-	String user=(String)session.getAttribute("user");
 	String lx=request.getParameter("lx");
 	
-	List<Zjqd> al =(List<Zjqd>) new ZjqdDao()
-	    .findCljl(user, lx, dsr, ah, fydm, sjrbm);
+	String cbr=request.getParameter("cbr");
+	String cbbm=request.getParameter("cbbm");
+	String jbr=request.getParameter("jbr");
+	String jbsj=request.getParameter("jbsj");
+	String ywlx=request.getParameter("ywlx");
+//	int sx=Integer.parseInt(request.getParameter("sx").toString());
+	
+	String sql = "";
+	if (lx.equals("2")){
+		sql = "from Zjqd where sjr='" + user + "'" + " and djr like '%"
+				+ dsr + "%'";
+	}else if (lx.equals("1") || lx.equals("3")){
+		sql = "from Zjqd where " + " djr like '%" + dsr
+				+ "%'";
+	}else if (lx.equals("4")){
+		sql = "from Zjqd where sjrbm='" + sjrbm + "'"
+				+ " and djr like '%" + dsr + "%'";
+	}
+	
+	List<Zjqd> al =(List<Zjqd>) new ZjqdDao().findCljl(user, lx, dsr, ah, fydm, sjrbm);
 	
 	
 	List<Tree> tree=(List<Tree>) new ArrayList();

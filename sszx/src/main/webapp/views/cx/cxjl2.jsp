@@ -15,6 +15,9 @@
     User u=userDao.findUserById(user, fydm);
     String lx=u.getJs();//得到角色
     String sjrbm=u.getYhbm();
+    
+    
+    
   %>  
   <body style="background-color: #fff;" class="easyui-layout">     
     <div id="p" class="easyui-panel" data-options="region:'center'" title="查询案件材料递交记录" style="width:100%;height:100%;padding-top:7px;">
@@ -27,15 +30,22 @@
 	    	</tr>
 	    	<tr>
 	    		<td>承办人：</td>
-	    		<td><input style="width:150px"  id="cbr" type="text"/></td>
+	    		<td>
+	    			<input style="width:150px"  id="cbrText" type="text" readOnly="readOnly"/>
+	    			<a id="cbr_search" style="margin-top:-5px"  iconCls="icon-add" onClick="openSearch()"></a>
+	    			<input   id="cbr" style="display:none;" type="text" />
+	    		</td>
 	    		<td>承办部门：</td>
-	    		<td><input style="width:150px"  id="cbbm" type="text"/></td>
+	    		<td>
+	    			<input style="width:150px"  id="cbbmText" type="text" readOnly="readOnly"/>
+	    			<input  id="cbbm" type="text" style="display:none;"/>
+	    		</td>
 	    	</tr>
 	    	<tr>
 	    		<td>中心经办人：</td>
 	    		<td><input style="width:150px"  id="zxjbr" type="text"/></td>
 	    		<td>中心经办时间：</td>
-	    		<td><input style="width:150px"  id="zxjbsj" type="text"/></td>
+	    		<td><input editable="false" class="easyui-datebox" id="zxjbsj" type="text"/></td>
 	    	</tr>
 	    	<tr>
 	    		<td>业务类型：</td>
@@ -53,22 +63,32 @@
 	    </table>
 		<table id="grid" style="width:100%;height:100%"></table> 
     </div>
-    
+    <div id="cbr_dg" style="width:250px;height:150px;">
+     <input id="userSearch" style="margin-left:5px;margin-top:5px" type="text">
+       <a id="search_bt" onclick="searchUser()" iconCls="icon-search"></a>
+       <ul id="searchList"></ul>
+    </div> 
 </body>
 
 <script>
 
 $('#ywlx').combobox({
-    url:'zdcx.do',    
-    valueField:'zdbm',    
-    textField:'zdmc' 
+    url:'ywlxcx.do',    
+    valueField:'zdmxbm',    
+    textField:'zdmxmc' 
 });
 
 $('#searchBtn').linkbutton({});
 $('#exportBtn').linkbutton({});
 $('#printBtn').linkbutton({});
+$('#cbr_search').linkbutton({});
+$('#search_bt').linkbutton({});
 
 
+$('#cbr_dg').dialog({
+    title:'添加承办人',
+    iconCls:'icon-search',
+    closed:true}).dialog('close');
 
 $('#grid').datagrid({
 	rownumbers:false,
@@ -81,10 +101,18 @@ $('#grid').datagrid({
 	singleSelect:true,
 	idField:'ah',
 	pagination:true,
-	url:"zdmxcx.do",
+	url:"clSearch.do",
 	queryParams : {
-		zdbm : 'aa',
-		zdmc : ''
+		ah:$('#ah').val(),
+		dsr:$('#dsr').val(),
+		cbr:$('#cbr').val(),
+		cbbm:$('#cbbm').val(),
+		jbr:$('#zxjbr').val(),
+		jbsj:$('#zxjbsj').val(),
+		ywlx:$('#ywlx').combobox('getValue'),
+		sx:$('#sx').val(),
+		lx:'<%=lx%>',
+	    sjrbm:'<%=sjrbm%>'
 	},
 	columns:[[
 	    {field:'lclx',title:'业务类型',width:120,align:'center',sortable:"true"},
@@ -106,24 +134,44 @@ $('#grid').datagrid({
 	]]
 });
 
-
+$('#searchList').tree({  
+    checkbox: false,
+    onClick: function(node){		 
+		if(node.attributes.leaf=="true"){
+			 var name=node.text.split("：");
+			 var bm=name[1];				 
+			 $('input[id=cbbmText]').val(bm);
+			 var xm=name[0];				 
+			 $('input[id=cbrText]').val(xm);
+			 $('input[id=cbbmbm]').val(node.attributes.yhbm);
+			 $('input[id=cbr]').val(node.attributes.yhid);
+			 $('#cbr_dg').dialog('close');
+		 }
+    }
+}); 
 
 function searchAj(){
-	var ah='';
-	var dsr='';
-	if(ah!=''||dsr!=''){
-	$.ajax({
-  	     url:'clSearch.do',
-  	     type:'POST',
-  	     data:{ah:encodeURI(encodeURI(ah)),
-  	    	 dsr:encodeURI(encodeURI(dsr)),
-  	    	 lx:'<%=lx%>',
-  	    	 sjrbm:'<%=sjrbm%>'},//注意大小写data
-  	     dataType:'json',
-  	     success:function (data) {
-  	      	alert(123);
-  	     }
-  	  });
+	
+}
+
+function openSearch(){
+	$('#userSearch').val('');
+	$('#cbr_dg').dialog('open');
+	$('#userSearch').focus();
+}
+
+function searchUser(){
+	var userName=$('#userSearch').val();
+	if(userName!=''){
+		$.ajax({
+	  	     url:'userSearch.do',
+	  	     type:'POST',
+	  	     data:{name:encodeURI(encodeURI(userName))},//注意大小写data
+	  	     dataType:'json',
+	  	     success:function (data) {
+	  	       $('#searchList').tree('loadData',data.data);
+	  	     }
+	  	});
 	}
 }
 

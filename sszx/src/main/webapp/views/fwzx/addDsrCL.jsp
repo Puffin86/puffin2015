@@ -19,7 +19,7 @@ int bh=new ZjqdDao().getMaxId(fydm);
        <ul id="searchList"></ul>
     </div>    
 
-    <table style="font-size:12px;margin-left:10px;" id="ssclzjqd">
+    <table width="100%" style="font-size:12px;margin-left:10px;" id="ssclzjqd">
      <tr>
        <td width="20%">案号：</td>
        <td>
