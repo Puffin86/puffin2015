@@ -12,6 +12,6 @@ public class Cxjl {
 	 */
 	@RequestMapping("to_cxjl")
 	public String tuiHuiCL(){
-		return "cx/cxjl";
+		return "cx/cxjl2";
 	}
 }

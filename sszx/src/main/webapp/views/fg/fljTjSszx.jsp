@@ -27,6 +27,7 @@
 	String fymc=new FyDao().fymc(fydm);//法院名称
 	String dsr=zjdq.getDjr();//当事人姓名
 	String cbr=zjdq.getSjrXm();//承办人姓名
+	int sx = zjdq.getSx();//时限
 	String ah=zjdq.getAh();//案号
 	String zjr=new UserDao().findUserById(uid, fydm).getYhxm();//转交人
 
@@ -35,11 +36,13 @@
 	String c3="[承办人]";
 	String c4="[案号]";
 	String c5="[转交人]";
+	String c6="[时限]";
 	nr=nr.replace(c1, fymc);
 	nr=nr.replace(c2, dsr);
 	nr=nr.replace(c3, cbr);
 	nr=nr.replace(c4, ah);
 	nr=nr.replace(c5, zjr);
+	nr=nr.replace(c6, sx+"");
 %>
 
 <body style="background:#fff;">

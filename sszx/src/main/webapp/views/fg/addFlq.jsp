@@ -23,14 +23,14 @@
 
     <table width="100%" id="ssclzjqd" border="0" cellpadding="2" cellspacing="0" style="font-size:12px;">
      <tr>
-       <td width="20%">案号：</td>
-       <td width="30%">
+       <td width="15%">案号：</td>
+       <td width="35%">
 	       	<input class="easyui-validatebox" required="true" name="ah" type="text"/>
 	       	<input name="ahdm" type="hidden"/>
 	       	<a id="research" class="easyui-linkbutton" onClick="$('#ah_se').dialog('open');" iconCls="icon-search"></a>
        </td>
-       <td width="20%">&nbsp;</td>
-       <td width="30%">&nbsp;</td>
+       <td width="15%">&nbsp;</td>
+       <td width="35%">&nbsp;</td>
      </tr>
      <tr>
        <td>承办人：</td>
@@ -60,21 +60,37 @@
        <td>递交日期：</td>
        <td><input editable="false" class="easyui-datebox" id="djrq" name="djrq" type="text"/></td>
      </tr>
+     <tr>
+       <td>领取时限：</td>
+       <td><input name="lqsx" type="text"/></td>
+       <td>&nbsp;</td>
+       <td>&nbsp;</td>
+     </tr>
      </table>
      <hr/> 
      
-     <div style="margin-left:10px;">     
-     <div>添加材料信息：<a id="cl_add" class="add" iconCls="icon-add"></a></div>
+     <div>   
+     <table width="100%" border="0" cellpadding="2" cellspacing="0" style="font-size:12px;">
+     	<tr>
+     		<td width="20%">添加材料信息：<a id="cl_add" class="add" iconCls="icon-add"></a></td>
+     		<td width="20%">常用材料清单：<a onclick="choseClqd()" class="easyui-linkbutton">选择</a></td>
+     		<td width="60%">&nbsp;</td>
+     	</tr>
+     </table>  
+     
      <div class="cl" id="clmxtr" style="visibility:hidden;margin-top:5px">
-       <div>材料名称：<input name="clmc" type="text"></input>
-       &nbsp;&nbsp;份数： <input name="clfs"  style="width:30px" type="text"></input>
-       &nbsp;&nbsp;页数： <input name="clys" style="width:30px" type="text"></input>      
-       <a id="cl_remove" class="remove" style="margin-top:-7px" iconCls="icon-cancel"></a></div>
+       <div>
+	       	材料名称：<input name="clmc" type="text"/>&nbsp;&nbsp;
+	       	份数： <input name="clfs"  style="width:30px" type="text"/>&nbsp;&nbsp;
+	       	页数： <input name="clys" style="width:30px" type="text"/>&nbsp;&nbsp;      
+	       	<a id="cl_remove" class="remove" style="margin-top:-7px" iconCls="icon-cancel"></a>
+       </div>
      </div>
    </div>
    
    <hr/>
    <div align="center">
+     <a onclick="sdhzclqd()" class="easyui-linkbutton">送达回证材料清单</a>
      <a id="save" onclick="save()" iconCls="icon-save">保存</a>
      <a id="cancel" href="${path}/to_flq.do" iconCls="icon-cancel">取消</a>
    </div>
@@ -124,7 +140,7 @@ $(document).ready(function(){
    }); 
 });   
 </script>
-   
+
 <script>
 function save(){
     var ah=$('input[name=ah]').val();
@@ -172,6 +188,8 @@ function save(){
 			tr+=1;
 	}
 	
+	var lqsx = $('input[name=lqsx]').val();
+	
 	if(tr==0 && alerString==''){
         $.ajax({
    	     	url:'${path}/saveFlq.do',
@@ -189,6 +207,7 @@ function save(){
                  ,sjrbm:encodeURI(encodeURI(sjrbm))
                  ,sjrXm:encodeURI(encodeURI(sjrXm))
                  ,sjrbmMc:encodeURI(encodeURI(sjrbmMc))
+                 ,lqsx:encodeURI(encodeURI(lqsx))
    	     	},
    	     	dataType:'json',
    	     	success: function(data) {
@@ -204,7 +223,86 @@ function save(){
      }
 }
 </script>
-   
+
+<!-- 常用材料清单 -->
+<div id="clqd_dialog" class="easyui-dialog" title="常用材料清单" 
+	style="width:300px;height:200px;" data-options="modal:true,closed:true">  
+    <ul id="clqd_tree" class="easyui-tree" 
+    	data-options="checkbox:true,url:'${path }/clqd/tree.do'"></ul>  
+</div> 
+
+<script>
+$('#clqd_dialog').dialog({
+	buttons:[{
+		text:'确定',
+		handler:function(){
+			var arr = $('#clqd_tree').tree('getChecked');
+			for(var i in arr){
+				var s = buildClxx(arr[i].text);
+				$('#clmxtr').parent().append(s);
+			}
+			$('#clqd_dialog').dialog('close');
+		}
+	},{
+		text:'取消',
+		handler:function(){
+			$('#clqd_dialog').dialog('close');
+		}
+	}]
+});
+
+function choseClqd(){
+	$('#clqd_dialog').dialog('open');
+}
+
+function buildClxx(clmc){
+	var s = '<div class="cl" id="clmxtr" style="margin-top:5px"><div>'
+		+ '材料名称：<input name="clmc" type="text" value="' +clmc+ '"/>&nbsp;&nbsp;'
+		+ '份数： <input name="clfs"  style="width:30px" type="text"/>&nbsp;&nbsp;'
+    	+ '页数： <input name="clys" style="width:30px" type="text"/>&nbsp;&nbsp;'
+    	+ '<a id="cl_remove" class="remove" style="margin-top:-7px" iconCls="icon-cancel"></a>'
+    	+ '</div></div>';
+    return s;
+}
+</script>
+
+<!-- 送达回证材料明细 -->
+<div id="sdhzcl_dialog" class="easyui-dialog" title="送达回证材料明细" 
+	style="width:300px;height:160px;" data-options="modal:true,closed:true">  
+	<textarea id="mxnr" rows="5" cols="30"></textarea>
+</div> 
+
+<script>
+$('#sdhzcl_dialog').dialog({
+	buttons:[{
+		text:'确定',
+		handler:function(){
+			//....
+			$('#sdhzcl_dialog').dialog('close');
+		}
+	},{
+		text:'取消',
+		handler:function(){
+			$('#sdhzcl_dialog').dialog('close');
+		}
+	}]
+});
+
+function sdhzclqd(){
+	var s='';
+	var arr = $('input[name=clmc]');
+	for(var i=0; i<arr.length; i++){
+		var v = $(arr[i]).val();
+		if(v!=null && v!=''){
+			s+=v+',';
+		}
+	}
+	
+	$('#mxnr').html(s.substring(0, s.length-1));
+	$('#sdhzcl_dialog').dialog('open');
+}
+</script>
+
 <div id="ah_se" style="width:600px;height:300px;padding:5px;">
    <table style="font-size:12px" width="100%" border="0" cellpadding="2" cellspacing="0">
 	   	<tr>

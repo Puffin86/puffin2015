@@ -53,9 +53,6 @@ public class ToZD {
 		zd.setZdmc(zdmc);
 		 new ZdDao().saveOrUpdateZd(zd);
 		
-//		JSONObject resultObj = JSONObject.fromObject(map);
-//		JSONArray resultObj = JSONArray.fromObject(al);
-//		HttpHelper.renderJson(resultObj.toString(), response);
 	}
 	
 	
@@ -76,7 +73,6 @@ public class ToZD {
 			HttpServletResponse response, HttpSession session) throws Exception {
 		
 		if(request.getParameter("zdbm")==null){
-			System.out.println("rrrrrrrrrrrrrrrrrrrr");
 			return;
 		}else{
 			String zdbm = (String)request.getParameter("zdbm");
@@ -93,9 +89,27 @@ public class ToZD {
 	public void delzdmx(HttpServletRequest request,
 			HttpServletResponse response, HttpSession session) throws Exception {
 		String zdbm = (String)request.getParameter("zdbm");
-		List<ZdMx> al = new ZdDao().findZdMx(zdbm);
-		JSONArray resultObj = JSONArray.fromObject(al);
-		HttpHelper.renderJson(resultObj.toString(), response);
+		String zdmxbm = (String)request.getParameter("zdmxbm");
+		ZdMx zdmxBean = new ZdMx();
+		zdmxBean.setZdbm(zdbm);
+		zdmxBean.setZdmxbm(zdmxbm);
+		new ZdDao().delZdMx(zdmxBean);
+	}
+	
+	@RequestMapping("saveZdmx")
+	public void saveZdmx(HttpServletRequest request,
+			HttpServletResponse response, HttpSession session) throws Exception {
+		String zdbm = (String)request.getParameter("zdbm");
+		String zdmxbm = (String)request.getParameter("zdmxbm");
+		String zdmxmc = (String)request.getParameter("zdmxmc");
+		String parent = (String)request.getParameter("parent");
+		
+		ZdMx zdmxBean = new ZdMx();
+		zdmxBean.setParent(parent);
+		zdmxBean.setZdbm(zdbm);
+		zdmxBean.setZdmxbm(zdmxbm);
+		zdmxBean.setZdmxmc(zdmxmc);
+		new ZdDao().saveOrUpdateZdMx(zdmxBean);
 	}
 	
 }

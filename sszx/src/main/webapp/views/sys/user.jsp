@@ -8,19 +8,32 @@
 <title>设置权限</title>
 <jsp:include page="/common/include.jsp" />
 </head>
-  <body style="background-color: #fff;" class="easyui-layout">     
-    <div id="p" class="easyui-panel" data-options="region:'center'" title="用户权限设置" style="width:100%;height:100%;padding:7px;">
-    	<input id="userSearch" style="margin-left:5px;margin-top:5px" type="text"/>
-    	<a id="research" onclick="searchUser()" iconCls="icon-search">查询</a>
-    	<a id="searchAll" onclick="searchAllUser()" iconCls="icon-search">全部</a>
-		<ul id="userList"></ul>
-    </div>
-    
-</body>
+
+<body style="background-color:#fff;" class="easyui-layout">     
+  
+  <div id="p1" class="easyui-panel" data-options="region:'west',split:true" 
+  	title="批量设置" style="width:200px;">
+  	<ul id="roleList" class="easyui-tree" data-options="url:'${path }/data/roles.json'"></ul>
+  </div>
+  
+  <div id="p" class="easyui-panel" data-options="region:'center'" title="用户权限设置" 
+  	style="width:100%;">
+  	<input id="userSearch" style="margin-left:5px;margin-top:5px" type="text"/>
+  	<a id="research" onclick="searchUser()" iconCls="icon-search">查询</a>
+  	<a id="searchAll" onclick="searchAllUser()" iconCls="icon-search">全部</a>
+	<ul id="userList"></ul>
+  </div>
 
 <script>
 $('#research').linkbutton({});
 $('#searchAll').linkbutton({});
+
+$('#roleList').tree({
+	onClick: function(node){
+		//alert(node.id +';'+ node.text);
+		location.href='${path}/to_plsz.do?roleId=' + node.id;
+	}
+});
 
 $('#userList').tree({  
     checkbox: false,  

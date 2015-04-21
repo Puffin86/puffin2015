@@ -23,14 +23,14 @@
 
     <table style="font-size:12px;" id="ssclzjqd" width="100%" border="0" cellpadding="2" cellspacing="0">
      <tr>
-       <td width="20%">案号：</td>
-       <td width="30%">
+       <td width="15%">案号：</td>
+       <td width="35%">
 	       <input class="easyui-validatebox" required="true" name="ah" type="text"/>
 	       <input name="ahdm" style="display:none;" type="text"/>
 	       <a id="research" onClick="$('#ah_se').dialog('open');" iconCls="icon-search"></a>
        </td>
-       <td width="20%">&nbsp;</td>
-       <td width="30%">&nbsp;</td>
+       <td width="15%">&nbsp;</td>
+       <td width="35%">&nbsp;</td>
      </tr>
      <tr>
        <td>承办人：</td>
@@ -51,24 +51,31 @@
 	       <input style="display:none;" type="text"/>
 	       <a id="dsr_bt" onClick="searchDsr()" iconCls="icon-add"></a>
 	   </td>
-       <td width="20%">&nbsp;&nbsp;当事人联系电话：</td>
+       <td>&nbsp;&nbsp;当事人联系电话：</td>
        <td><input name="tjrlxdh" type="text"/></td>
      </tr> 
      <tr>
-       <td width="20%">当事人证件号码：</td>
+       <td>当事人证件号码：</td>
        <td><input name="djrsfz" type="text"/></td>
-       <td width="20%">&nbsp;&nbsp;递交日期：</td>
+       <td>&nbsp;&nbsp;递交日期：</td>
        <td><input class="easyui-datebox" editable="false" id="djrq" name="djrq" type="text"/></td>
+     </tr>
+     <tr>
+       <td>提交时限：</td>
+       <td><input name="lqsx" type="text"/></td>
+       <td>&nbsp;</td>
+       <td>&nbsp;</td>
      </tr>
     </table>
     <hr/> 
      
-   <div style="margin-left:10px;">     
+   <div>     
      <div>添加材料信息：<a id="cl_add" class="add" iconCls="icon-add"></a></div>
      <div class="cl" id="clmxtr" style="visibility:hidden;margin-top:5px">
-       <div>材料名称：<input name="clmc" type="text"/>
-       		&nbsp;&nbsp;份数： <input name="clfs"  style="width:30px" type="text"/>
-       		<input name="clys" style="width:30px;display:none;" type="text" value="0"/>      
+       <div>
+       		材料名称：<input name="clmc" type="text"/>&nbsp;&nbsp;
+       		份数： <input name="clfs"  style="width:30px" type="text"/>&nbsp;&nbsp;
+       		<input name="clys" style="width:30px;display:none;" type="text" value="0"/>    
        		<a id="cl_remove" class="remove" style="margin-top:-7px" iconCls="icon-remove"></a>
        </div>
      </div>
@@ -166,6 +173,8 @@ function save(){
 			tr+=1;
 	}
 	
+	var lqsx = $('input[name=lqsx]').val();
+	
 	if(tr==0 && alerString==''){
         $.ajax({
 	   	    url:'${path}/saveFlj.do',
@@ -183,6 +192,7 @@ function save(){
                 ,sjrbm:encodeURI(encodeURI(sjrbm))
                 ,sjrXm:encodeURI(encodeURI(sjrXm))
                 ,sjrbmMc:encodeURI(encodeURI(sjrbmMc))
+                ,lqsx:encodeURI(encodeURI(lqsx))
    	     	},
    	     	dataType:'json',
    	     	success:function (data) {

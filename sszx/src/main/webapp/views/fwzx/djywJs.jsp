@@ -25,6 +25,7 @@ String uid=(String)session.getAttribute("user");
 String fymc=new FyDao().fymc(fydm);//法院名称
 String dsr=zjqd.getDjr();//当事人姓名
 String cbr=zjqd.getSjrXm();//承办人姓名
+int sx = zjqd.getSx();//时限
 String ah=zjqd.getAh();//案号
 String zjr=new UserDao().findUserById(uid, fydm).getYhxm();//转交人
 
@@ -33,11 +34,13 @@ String c2="[当事人]";
 String c3="[承办人]";
 String c4="[案号]";
 String c5="[转交人]";
+String c6="[时限]";
 nr=nr.replace(c1, fymc);
 nr=nr.replace(c2, dsr);
 nr=nr.replace(c3, cbr);
 nr=nr.replace(c4, ah);
 nr=nr.replace(c5, zjr);
+nr=nr.replace(c6, sx+"");
 %>
   
 <body style="font-size:12px;">
@@ -67,6 +70,12 @@ nr=nr.replace(c5, zjr);
        <td><input name="djrsfz" type="text"></input></td>
        <td width="25%">&nbsp;&nbsp;递交日期：</td>
        <td><input class="easyui-datebox" required="true" id="djrq" name="djrq" type="text"></input></td>
+     </tr>
+     <tr>
+       <td width="20%">时限：</td>
+       <td><input name="lqsx" type="text"></input></td>
+       <td width="25%">&nbsp;&nbsp;</td>
+       <td>&nbsp;</td>
      </tr>
      <tr><td colspan="4"><br/><span>是否发送短消息【预览/编辑】：</span>
         <input id="r_1" type="radio" name="identity" value="0" />是
@@ -144,6 +153,9 @@ nr=nr.replace(c5, zjr);
 	   
 	   var qscyr='<%=zjrXm%>';
 	   $('input[name=qscyr]').attr('value',qscyr);
+	   
+	   var lqsx='<%=sx%>';
+	   $('input[name=lqsx]').attr('value',lqsx);
 	   
 	   $(".add").bind("click",function(){ 
 		   $s=$('#clmxtr').clone(true);

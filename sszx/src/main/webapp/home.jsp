@@ -1,5 +1,7 @@
-<%@ page import="com.bsoft.sszx.dao.ZjqdDao"%>
+<%@ page import="com.bsoft.sszx.dao.HomeDao"%>
 <%@ page import="com.bsoft.sszx.dao.UserDao"%>
+<%@ page import="com.bsoft.sszx.entity.user.User"%>
+<%@ page import="java.util.*"%>
 <%@ page language="java" pageEncoding="utf-8"%>
 <%@ include file="/common/taglibs.jsp"%>
 
@@ -18,12 +20,19 @@
 		String fydm = (String) session.getAttribute("fydm");
 		UserDao userDao = new UserDao();
 		//用户姓名
-		String userXm = userDao.findUserById(user, fydm).getYhxm();
-		String userBm = userDao.findUserById(user, fydm).getYhbm();
+		User userBean = userDao.findUserById(user, fydm);
+		String userXm = userBean.getYhxm();
+		String userBm = userBean.getYhbm();
 		//根据状态获取
-		int htN=new ZjqdDao().countByZt(fydm, user, 3);
-		int drN=new ZjqdDao().countByZt(fydm, user, 1);
-		int jsN=new ZjqdDao().countByZt8(fydm, userBm, 8);
+		HomeDao home = new HomeDao();
+		Map<String,Integer> info = home.getHomeData(fydm,user,userBm);
+		int htN=info.get("htN");
+		int drN=info.get("drN");
+		int jsN=info.get("jsN");
+		int jjlqsx=info.get("jjlqsx");
+		int cglqsx=info.get("cglqsx");
+		int jjtjsx=info.get("jjtjsx");
+		int cgtjsx=info.get("cgtjsx");
 		//联系电话是否设置
 		int lxdh=0;
 		if(userDao.findUserById(user, fydm).getLxdh()!=null)
@@ -35,6 +44,10 @@
 	<div id="thN">您有<a style="color:red" href="#" onclick="window.parent.addTab('处理退回材料','to_tuiHuiCL.do')">&nbsp;&nbsp;<%=htN %>&nbsp;&nbsp;</a>份材料被退回，请处理。</div> 
     <div id="drN">您有<a style="color:red" href="#" onclick="window.parent.addTab('待接收材料','to_fgJsCl.do')">&nbsp;&nbsp;<%=drN %>&nbsp;&nbsp;</a>份材料待接收，请处理。</div>
     <div id="jsN">您有<a style="color:red" href="#" onclick="window.parent.addTab('已接收材料','to_fgYjsCl.do')">&nbsp;&nbsp;<%=jsN %>&nbsp;&nbsp;</a>份材料已被接收。</div> 
+    <div id="jjlqsx">您有<a style="color:red" href="#" onclick="window.parent.addTab('接近领取时限','to_clsx.do?op=1')">&nbsp;&nbsp;<%=jjlqsx %>&nbsp;&nbsp;</a>份待当事人领取的材料，已接近领取时限。</div> 
+    <div id="cglqsx">您有<a style="color:red" href="#" onclick="window.parent.addTab('超过领取时限','to_clsx.do?op=2')">&nbsp;&nbsp;<%=cglqsx %>&nbsp;&nbsp;</a>份待当事人领取的材料，已超过领取时限。</div> 
+    <div id="jjtjsx">您有<a style="color:red" href="#" onclick="window.parent.addTab('接近提交时限','to_clsx.do?op=3')">&nbsp;&nbsp;<%=jjtjsx %>&nbsp;&nbsp;</a>份待当事人提交的材料，已接近提交时限。</div> 
+    <div id="cgtjsx">您有<a style="color:red" href="#" onclick="window.parent.addTab('超过提交时限','to_clsx.do?op=4')">&nbsp;&nbsp;<%=cgtjsx %>&nbsp;&nbsp;</a>份待当事人提交的材料，已超过提交时限。</div> 
     <div id="lxdh">您的联系手机号码还未设置，<a style="color:red" href="#" onclick="window.parent.addTab('设置联系电话','to_lxdh.do')">请设置</a>。</div>
 </div>
 
@@ -50,11 +63,20 @@ $(function(){
    var drN="<%=drN%>";
    var jsN="<%=jsN%>";
    var lxdh="<%=lxdh%>";
+   var jjlqsx="<%=jjlqsx%>";
+   var cglqsx="<%=cglqsx%>";
+   var jjtjsx="<%=jjtjsx%>";
+   var cgtjsx="<%=cgtjsx%>";
    
    if(htN==0) $('#thN').hide();
    if(drN==0) $('#drN').hide();
    if(jsN==0) $('#jsN').hide();
-   if(lxdh==1) $('#lxdh').hide();	   
+   if(lxdh==1) $('#lxdh').hide();
+   
+   if(jjlqsx==0) $('#jjlqsx').hide();	
+   if(cglqsx==0) $('#cglqsx').hide();	
+   if(jjtjsx==0) $('#jjtjsx').hide();	
+   if(cgtjsx==0) $('#cgtjsx').hide();	
 });
 </script>
 </body>

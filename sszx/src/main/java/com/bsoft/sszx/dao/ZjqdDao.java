@@ -1,5 +1,6 @@
 package com.bsoft.sszx.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -330,6 +331,80 @@ public class ZjqdDao {
 			HibernateUtil.closeSession(session); // 关闭Session
 		}
 	}
+	
+	public int countjjsx(String fydm, String user,String lclx,int zt) {
+		try {
+			session = HibernateUtil.getSession(); // 获取Session
+			session.beginTransaction();
+			String sql = " FROM Zjqd WHERE TIMESTAMPDIFF(DAY,CURDATE(),sxsj)<=CEILING(sx/3) and TIMESTAMPDIFF(DAY,CURDATE(),sxsj)>=0 and id.fydm='"+fydm+"' and sjr='"+user+"' and lclx='"+lclx+"'";
+			List list = session.createQuery(sql).list();
+			session.getTransaction().commit();
+			return list.size();
+
+		} catch (Exception e) {
+			e.printStackTrace();// 打印错误信息
+			return 0;
+		} finally {
+			HibernateUtil.closeSession(session); // 关闭Session
+		}
+	}
+	
+	public List<Zjqd> findjjsx(String fydm, String user,String lclx,int start,int number,int zt) {
+		List<Zjqd> list = new ArrayList<Zjqd>();
+		try {
+			session = HibernateUtil.getSession(); // 获取Session
+			session.beginTransaction();
+			String sql = " FROM Zjqd WHERE TIMESTAMPDIFF(DAY,CURDATE(),sxsj)<=CEILING(sx/3) and TIMESTAMPDIFF(DAY,CURDATE(),sxsj)>=0 and id.fydm='"+fydm+"' and sjr='"+user+"' and lclx='"+lclx+"'";
+			Query query = session.createQuery(sql);
+			query.setFirstResult(start);
+			query.setMaxResults(number);
+			list = (List<Zjqd>)query.list();
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();// 打印错误信息
+		} finally {
+			HibernateUtil.closeSession(session); // 关闭Session
+			return list;
+		}
+	}
+	
+	public int countcgsx(String fydm, String user,String lclx,int zt) {
+		try {
+			session = HibernateUtil.getSession(); // 获取Session
+			session.beginTransaction();
+			String sql = " FROM Zjqd WHERE TIMESTAMPDIFF(DAY,CURDATE(),sxsj)<0 and id.fydm='"+fydm+"' and sjr='"+user+"' and lclx='"+lclx+"'";
+			List list = session.createQuery(sql).list();
+			session.getTransaction().commit();
+			return list.size();
+
+		} catch (Exception e) {
+			e.printStackTrace();// 打印错误信息
+			return 0;
+		} finally {
+			HibernateUtil.closeSession(session); // 关闭Session
+		}
+	}
+	
+	
+	public List<Zjqd> findcgsx(String fydm, String user,String lclx,int start,int number,int zt) {
+		List<Zjqd> list = new ArrayList<Zjqd>();
+		try {
+			session = HibernateUtil.getSession(); // 获取Session
+			session.beginTransaction();
+			String sql = " FROM Zjqd WHERE TIMESTAMPDIFF(DAY,CURDATE(),sxsj)<0 and id.fydm='"+fydm+"' and sjr='"+user+"' and lclx='"+lclx+"'";
+			Query query = session.createQuery(sql);
+			query.setFirstResult(start);
+			query.setMaxResults(number);
+			list = (List<Zjqd>)query.list();
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();// 打印错误信息
+		} finally {
+			HibernateUtil.closeSession(session); // 关闭Session
+			return list;
+		}
+	}
+	
 	
 	public int countByZt8(String fydm, String user, int zt) {
 		try {

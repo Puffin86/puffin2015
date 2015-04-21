@@ -53,7 +53,7 @@ $(document).ready(function(){
 							return id.bh;
 					 }
 			    },
-				{field:'ah',title:'案号',width:200,align:'center'},
+				{field:'ah',title:'案号',width:200,sortable:true,align:'center'},
 				{field:'sjrBmmc',title:'承办部门',width:80,align:'center'},
 				{field:'sjrXm',title:'承办人',width:80,align:'center'},
 			    {field:'djr',title:'当事人',width:80,align:'center'},

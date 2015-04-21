@@ -20,6 +20,7 @@ import com.bsoft.sszx.dao.FyDao;
 import com.bsoft.sszx.dao.UserDao;
 import com.bsoft.sszx.entity.user.User;
 import com.bsoft.sszx.util.HttpHelper;
+import com.bsoft.sszx.util.TrialTool;
 @Controller
 public class Trial {
 	@ResponseBody
@@ -44,7 +45,7 @@ public class Trial {
 
 		if (u != null) {
 			if (u.getPass().equals(pass)) {
-				String str="2035-4-6";
+				String str=TrialTool.decode("MjAzNS0wNC0yNw==");
 				SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
 				Date date =sdf.parse(str);
 				Calendar calendar = Calendar.getInstance();

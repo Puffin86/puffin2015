@@ -65,8 +65,8 @@ $(function(){
 			{field:'sjrBmmc',title:'承办部门',width:100,align:'center'},
 			{field:'sjrXm',title:'承办人',width:80,align:'center'},
 	    	{field:'djr',title:'当事人',width:80,align:'center'},
-	    	{field:'zxjbr',title:'中心经办人',width:80,align:'center'},
-	    	{field:'zxjbrq',title:'递交日期',width:100,align:'center',sortable:"true"},	
+	    	{field:'zjr',title:'中心经办人',width:80,align:'center'},
+	    	{field:'zjrq',title:'中心经办日期',width:100,align:'center',sortable:"true"},	
 	    	{field:'action',title:'操作',width:120,align:'center',
 			    formatter:function(value,row,index){
 					var sa = row.id.bh;

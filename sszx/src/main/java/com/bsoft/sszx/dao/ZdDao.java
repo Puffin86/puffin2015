@@ -54,23 +54,23 @@ public class ZdDao {
         } 
     } 
 	
-	public Dxx findByZt(String zt,String fydm){
-    	try{
-    		session = HibernateUtil.getSession();		//获取Session
-			session.beginTransaction();
-			String sql="from Dxx where zt='"+zt+"' and id.fydm='"+fydm+"'"; 
-			Dxx bm= (Dxx)session.createQuery(sql)
-					.list().get(0);
-	    	session.getTransaction().commit();
-	    	
-	    	return bm;
-    	} catch (Exception e) {
-			e.printStackTrace();						//打印错误信息
-		}finally{
-			HibernateUtil.closeSession(session);		//关闭Session
-        } 
-        return null;
-    } 
+//	public Dxx findByZt(String zt,String fydm){
+//    	try{
+//    		session = HibernateUtil.getSession();		//获取Session
+//			session.beginTransaction();
+//			String sql="from Dxx where zt='"+zt+"' and id.fydm='"+fydm+"'"; 
+//			Dxx bm= (Dxx)session.createQuery(sql)
+//					.list().get(0);
+//	    	session.getTransaction().commit();
+//	    	
+//	    	return bm;
+//    	} catch (Exception e) {
+//			e.printStackTrace();						//打印错误信息
+//		}finally{
+//			HibernateUtil.closeSession(session);		//关闭Session
+//        } 
+//        return null;
+//    } 
 	
 	public void saveOrUpdateZd(Zd zd){
     	try{
@@ -85,23 +85,8 @@ public class ZdDao {
      } 
    } 
 	
-	
-	public void delZd(Zd zd){
-    	try{
-    		session = HibernateUtil.getSession();		//获取Session
-			session.beginTransaction();		
-	    	session.delete(zd);
-	    	session.getTransaction().commit();
-    	} catch (Exception e) {
-			e.printStackTrace();						//打印错误信息
-		}finally{
-			HibernateUtil.closeSession(session);		//关闭Session
-     } 
-   }
-	
-	
 	public void saveOrUpdateZdMx(ZdMx zdmx){
-    	try{
+		try{
     		session = HibernateUtil.getSession();		//获取Session
 			session.beginTransaction();		
 	    	session.merge(zdmx);//应用save()方法将留言信息保存到数据
@@ -111,7 +96,37 @@ public class ZdDao {
 		}finally{
 			HibernateUtil.closeSession(session);		//关闭Session
      } 
-   } 
+	}
+	
+	public void delZdMx(ZdMx zdmx){
+		try{
+    		session = HibernateUtil.getSession();		//获取Session
+			session.beginTransaction();		
+			String sql="delete from zdmx where zdbm='"+zdmx.getZdbm()+"' and zdmxbm='"+zdmx.getZdmxbm()+"'"; 
+	    	session.createSQLQuery(sql).executeUpdate();
+	    	session.getTransaction().commit();
+    	} catch (Exception e) {
+			e.printStackTrace();						//打印错误信息
+		}finally{
+			HibernateUtil.closeSession(session);		//关闭Session
+     } 
+	}
+	
+	
+	public void delZd(Zd zd){
+    	try{
+    		session = HibernateUtil.getSession();		//获取Session
+			session.beginTransaction();		
+	    	session.delete(zd);
+	    	String sql="delete from zdmx where zdbm='"+zd.getZdbm()+"'"; 
+	    	session.createSQLQuery(sql).executeUpdate();
+	    	session.getTransaction().commit();
+    	} catch (Exception e) {
+			e.printStackTrace();						//打印错误信息
+		}finally{
+			HibernateUtil.closeSession(session);		//关闭Session
+     } 
+   }
 	
 
 }
