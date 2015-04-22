@@ -208,7 +208,19 @@ function exportAj(){
 		var s = obj.title+"@"+obj.field;
 		columnArr.push(s);
 	}
-	var url = "export_cxjl.do?lx="+<%=lx%>;
+	
+	var ah = $('#ah').val();
+	var dsr=$('#dsr').val();
+	var cbr=$('#cbr').val();
+	var cbbm=$('#cbbm').val();
+	var jbr=$('#zxjbr').val();
+	var jbsj=$('#zxjbsj').datebox('getValue');
+	var ywlx=$('#ywlx').combobox('getValue');
+	var sx=$('#sx').val();
+	
+	var url = "export_cxjl.do?lx="+<%=lx%>+"&ah="+ah+"&dsr="+dsr
+			+"&cbr="+cbr+"&cbbm="+cbbm+"&jbr="+jbr+"&jbsj="+jbsj
+			+"&ywlx="+ywlx+"&sx="+sx;
 	window.location.href = url;
 	
 }

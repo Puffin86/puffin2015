@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.bsoft.sszx.dao.ZjqdDao;
 import com.bsoft.sszx.entity.zjqd.Zjqd;
 import com.bsoft.sszx.util.ExportExcel;
+import com.bsoft.sszx.util.ExportExcelUtil;
 import com.bsoft.sszx.util.HttpHelper;
 import com.bsoft.sszx.util.Tree;
 
@@ -103,17 +104,19 @@ public class clSearch {
 	public void exportjl(HttpServletRequest request,
 			HttpServletResponse response, HttpSession session) throws Exception{
 		//获取数据
-		List<Zjqd> al =getZjqd(request,session);
+		List<Zjqd> dataset =getZjqd(request,session);
 		//获取表头
-		String[] jsonArr = request.getParameterValues("columns[]"); 
-	    String[] hearders = new String[] {"序号", "企业编号", "企业名称", "所属省市", "详细地址", "邮政编码","优先级", "登记时间","状态"};//表头数组  
-	    ExportExcel<Zjqd> ex = new ExportExcel<Zjqd>(); 
+	    String[] headers = new String[] {"业务类型", "时限", "案号", "承办部门", "承办人", "当事人","中心经办人", "中心经办日期"};//表头数组
+	    String[] fields = new String[] {"lclx", "sx", "ah", "sjrBmmc", "sjrXm", "djr","zjr", "zjrq"};//数据填充数组  
+//	    ExportExcel<Zjqd> ex = new ExportExcel<Zjqd>(); 
+	    ExportExcelUtil<Zjqd> ex = new ExportExcelUtil<Zjqd>();
 	    SimpleDateFormat timeFormat = new SimpleDateFormat("yyyyMMddHHmmss");  
 	    String filename = timeFormat.format(new Date())+".xls";  
 	    response.setContentType("application/ms-excel;charset=UTF-8");  
 	    response.setHeader("Content-Disposition", "attachment;filename=".concat(String.valueOf(URLEncoder.encode(filename, "UTF-8"))));  
 	    OutputStream out = response.getOutputStream();  
-        ex.exportExcel(hearders, al, out);  
+//        ex.exportExcel(headers, dataset, out);  
+	    ex.exportExcel("数据列表", headers, fields, dataset, out);
         out.close();  
         System.out.println("excel导出成功！");
 	}
