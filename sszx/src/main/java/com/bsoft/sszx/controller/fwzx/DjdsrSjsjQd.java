@@ -50,6 +50,7 @@ public class DjdsrSjsjQd  {
 		Zjqd.setLzjl(lzjl);
 		
 		Zjqd.setDqcyr(Zjqd.getSjr());
+		Zjqd.setZjr(user);
 		Zjqd.setZjrq(new GetTime().gettime());
 		
 		new ZjqdDao().saveZjqd(Zjqd);

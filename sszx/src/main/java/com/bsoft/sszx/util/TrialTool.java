@@ -22,8 +22,8 @@ public class TrialTool {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println(encode("2035-04-27"));
-		System.out.println(decode("MjAxNS0wNC0yNw=="));
+		System.out.println(encode("2015-12-30"));
+		System.out.println(decode("MjAxNS0wNC0yNg=="));
 	}
 
 }

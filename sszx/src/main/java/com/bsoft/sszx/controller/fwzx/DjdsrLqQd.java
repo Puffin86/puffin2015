@@ -42,13 +42,13 @@ public class DjdsrLqQd  {
 		String dqcyrName=userDao.findUserById(user, fydm).getYhxm();
 		String sjr=Zjqd.getSjr();
 		String cbrlxdh=userDao.findUserById(sjr, fydm).getLxdh();		
-		Zjqd.setZjr(dqcyrName);
 		String lzjl=Zjqd.getLzjl()+"材料由转交人【"+dqcyrName+"】交当事人【"+Zjqd.getDjr()+"】于【"
 				+new GetTime().gettime()
 				+"】接收;";
 		Zjqd.setLzjl(lzjl);
 		
 		Zjqd.setDqcyr("dsr");		
+		Zjqd.setZjr(user);
 		Zjqd.setZjrq(new GetTime().gettime());
 		new ZjqdDao().saveZjqd(Zjqd);
 		

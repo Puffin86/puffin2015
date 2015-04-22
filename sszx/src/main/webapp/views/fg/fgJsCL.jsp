@@ -59,7 +59,7 @@ $(function(){
 					return id.bh;
 				}
 		    },
-		    {field:'ywlx',title:'业务类型',width:120,align:'center',sortable:"true"},
+		    {field:'lclx',title:'业务类型',width:120,align:'center',sortable:"true"},
 		    {field:'sx',title:'时限',width:120,align:'center'},
 			{field:'ah',title:'案号',width:120,align:'center',sortable:"true"},
 			{field:'sjrBmmc',title:'承办部门',width:100,align:'center'},
