@@ -56,14 +56,14 @@
 	    	<tr>
 	    		<td colspan="4" align="center">
 	    			<a id="searchBtn" onclick="searchAj()" >查询</a>
-	    			<a id="exportBtn" onclick="export()" >导出</a>
+	    			<a id="exportBtn" onclick="exportAj()" >导出</a>
 	    			<a id="printBtn" onclick="print()" >打印</a>
 	    		</td>
 	    	</tr>
 	    </table>
 		<table id="grid" style="width:100%;height:100%"></table> 
     </div>
-    <div id="cbr_dg" style="width:250px;height:150px;">
+    <div id="cbr_dg" style="width:250px;height:300px;">
      <input id="userSearch" style="margin-left:5px;margin-top:5px" type="text">
        <a id="search_bt" onclick="searchUser()" iconCls="icon-search"></a>
        <ul id="searchList"></ul>
@@ -79,8 +79,8 @@ $('#ywlx').combobox({
 });
 
 $('#searchBtn').linkbutton({});
-$('#exportBtn').linkbutton({});
-$('#printBtn').linkbutton({});
+$('#exportBtn').linkbutton({}).hide();
+$('#printBtn').linkbutton({}).hide();
 $('#cbr_search').linkbutton({});
 $('#search_bt').linkbutton({});
 
@@ -89,6 +89,10 @@ $('#cbr_dg').dialog({
     title:'添加承办人',
     iconCls:'icon-search',
     closed:true}).dialog('close');
+    
+$('#zxjbsj').datebox({    
+    required:false   
+});  
 
 $('#grid').datagrid({
 	rownumbers:false,
@@ -108,21 +112,45 @@ $('#grid').datagrid({
 		cbr:$('#cbr').val(),
 		cbbm:$('#cbbm').val(),
 		jbr:$('#zxjbr').val(),
-		jbsj:$('#zxjbsj').val(),
+		jbsj:$('#zxjbsj').datebox('getValue'),
 		ywlx:$('#ywlx').combobox('getValue'),
 		sx:$('#sx').val(),
 		lx:'<%=lx%>',
 	    sjrbm:'<%=sjrbm%>'
 	},
+	onLoadSuccess : function(){
+		var len = $('#grid').datagrid('getData').rows.length;
+		if(len>0){
+			$('#exportBtn').show();
+			$('#printBtn').hide();
+		}else{
+			$('#exportBtn').hide();
+			$('#printBtn').hide();
+		}
+	},
+	onDblClickRow :function(rowIndex, rowData){
+		 var url='cxjlMx.do?yhid='+rowData.id.bh;
+		 window.open(url,"new","height=400px,width=600px,toolbar=no,status=no,menubar=no,scrollbars=no,resizable=no");
+	},
 	columns:[[
-	    {field:'lclx',title:'业务类型',width:120,align:'center',sortable:"true"},
+	    {field:'lclx',title:'业务类型',width:120,align:'center',sortable:"true",
+	    	formatter:function(lclx){
+				if(lclx=="dzz"){
+					return "主动送件";
+				}else if(lclx=="flq"){
+					return "预约领取";
+				}else if(lclx=="flj"){
+					return "预约提交";
+				}
+			 }	
+	    },
 	    {field:'sx',title:'时限',width:120,align:'center'},
-	    {field:'ah',title:'案号',width:120,align:'center'},
-	    {field:'cbbm',title:'承办部门',width:120,align:'center'},
-	    {field:'cbr',title:'承办人',width:120,align:'center'},
-	    {field:'dsr',title:'当事人',width:120,align:'center'},
-	    {field:'zxjbr',title:'中心经办人',width:120,align:'center'},
-	    {field:'zxjbrq',title:'中心经办日期',width:120,align:'center'},
+	    {field:'ah',title:'案号',width:120,align:'center',sortable:"true"},
+	    {field:'sjrBmmc',title:'承办部门',width:120,align:'center'},
+	    {field:'sjrXm',title:'承办人',width:120,align:'center'},
+	    {field:'djr',title:'当事人',width:120,align:'center'},
+	    {field:'zjr',title:'中心经办人',width:120,align:'center'},
+	    {field:'zjrq',title:'中心经办日期',width:120,align:'center'},
 		{field:'action',title:'操作',width:120,align:'center',
 	    	formatter:function(value,row,index){
 				var sa=row.id.bh;
@@ -151,13 +179,38 @@ $('#searchList').tree({
 }); 
 
 function searchAj(){
-	
+	$('#grid').datagrid('load',{
+		ah:$('#ah').val(),
+		dsr:$('#dsr').val(),
+		cbr:$('#cbr').val(),
+		cbbm:$('#cbbm').val(),
+		jbr:$('#zxjbr').val(),
+		jbsj:$('#zxjbsj').datebox('getValue'),
+		ywlx:$('#ywlx').combobox('getValue'),
+		sx:$('#sx').val(),
+		lx:'<%=lx%>',
+	    sjrbm:'<%=sjrbm%>'
+	});
 }
 
 function openSearch(){
 	$('#userSearch').val('');
 	$('#cbr_dg').dialog('open');
 	$('#userSearch').focus();
+}
+
+function exportAj(){
+	var ss = $('#grid').datagrid('options').columns[0];
+	var columnArr = new Array();
+	
+	for (var i=0;i<ss.length;i++){
+		var obj = ss[i];
+		var s = obj.title+"@"+obj.field;
+		columnArr.push(s);
+	}
+	var url = "export_cxjl.do?lx="+<%=lx%>;
+	window.location.href = url;
+	
 }
 
 function searchUser(){

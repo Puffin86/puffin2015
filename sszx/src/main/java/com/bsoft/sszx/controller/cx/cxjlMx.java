@@ -23,7 +23,8 @@ public class cxjlMx  {
 	
 	Zjqd zjqd =(Zjqd) new ZjqdDao().findbyid(id, fydm);
 	session.setAttribute("cljlMx",zjqd);
-	
+	zjqd.setLzjl(zjqd.getLzjl().replaceAll(";", ";\r\n"));
+	System.out.println(zjqd.getLzjl());
 	return "cx/cxjlMx";
 	}
 }

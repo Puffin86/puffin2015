@@ -53,7 +53,7 @@ public class ZjqdDao {
 		try {
 			session = HibernateUtil.getSession(); // 获取Session
 			session.beginTransaction(); // 开启事物
-			String sql = "from Zjqd where id.bh=" + id + " and fydm=" + fydm;
+			String sql = "from Zjqd where id.bh=" + id + " and fydm like '%" + fydm+"%'";
 			list = (List<Zjqd>) session.createQuery(sql).list();
 			session.getTransaction().commit();// 提交事物
 		} catch (Exception e) {
@@ -285,6 +285,22 @@ public class ZjqdDao {
 		return null;
 	}
 
+	public List<Zjqd> findCljlBySQL(String sql) {
+		List<Zjqd> list = null;
+		try {
+			session = HibernateUtil.getSession(); // 获取Session
+			session.beginTransaction(); // 开启事物
+			list = (List<Zjqd>) session.createQuery(sql).list();
+			session.getTransaction().commit();// 提交事物
+		} catch (Exception e) {
+			e.printStackTrace(); // 打印错误信息
+		} finally {
+			HibernateUtil.closeSession(session); // 关闭Session
+		}
+		return list;
+	}
+	
+	
 	public List<Zjqd> findCljl(String user, String lx, String dsr, String ah,
 			String fydm, String userBm) {
 		List<Zjqd> list = null;
