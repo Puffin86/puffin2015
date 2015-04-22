@@ -9,48 +9,52 @@
 <jsp:include page="/common/include.jsp" />
 </head>
 
-<body style="background-color: #fff;" class="easyui-layout">  
+<body style="background-color:#fff;" class="easyui-layout">  
 
 	<div id="zdedit" style="width:250px;height:150px;">
-			<table>
-				<tr>
-					<td>字典编码：</td>
-					<td><input class="easyui-validatebox" required="true" id="zdbm"  style="margin-left:10px;width:150px" type="text"></input></td>
-				</tr>
-				<tr>
-					<td>字典名称：</td>
-					<td><input class="easyui-validatebox" required="true" id="zdmc"  style="margin-left:10px;width:150px" type="text"></input></td>
-				</tr>
-			</table>
-		 </div>
+		<table>
+			<tr>
+				<td>字典编码：</td>
+				<td><input class="easyui-validatebox" required="true" id="zdbm"  style="margin-left:10px;width:150px" type="text"/></td>
+			</tr>
+			<tr>
+				<td>字典名称：</td>
+				<td><input class="easyui-validatebox" required="true" id="zdmc"  style="margin-left:10px;width:150px" type="text"/></td>
+			</tr>
+		</table>
+	</div>
 		 
 	<div id="zdmxedit" style="width:280px;height:150px;">
-			<table>
-				<tr>
-					<td>字典项编码：</td>
-					<td><input class="easyui-validatebox" required="true" id="zdmxbm"  style="margin-left:10px;width:150px" type="text"></input></td>
-				</tr>
-				<tr>
-					<td>字典项名称：</td>
-					<td><input class="easyui-validatebox" required="true" id="zdmxmc"  style="margin-left:10px;width:150px" type="text"></input></td>
-				</tr>
-				<tr>
-					<td>父节点编码：</td>
-					<td><input id="parent"  style="margin-left:10px;width:150px" type="text"></input></td>
-				</tr>
-			</table>
+		<table>
+			<tr>
+				<td>字典项编码：</td>
+				<td><input class="easyui-validatebox" required="true" id="zdmxbm"  style="margin-left:10px;width:150px" type="text"/></td>
+			</tr>
+			<tr>
+				<td>字典项名称：</td>
+				<td><input class="easyui-validatebox" required="true" id="zdmxmc"  style="margin-left:10px;width:150px" type="text"/></td>
+			</tr>
+			<tr>
+				<td>父节点编码：</td>
+				<td><input id="parent"  style="margin-left:10px;width:150px" type="text"/></td>
+			</tr>
+		</table>
 	</div>
   
-	<div id="p" class="easyui-panel" data-options="region:'center'" title="字典设置" style="padding-top: 7px;">
-		<div style="width:100%;height:40px;" >
-			字典列表：
-			<input id="cc" name="zdList" />
-			<a id="add"  iconCls="icon-add">新增</a>
-			<a id="update"  iconCls="icon-save">编辑</a>
-			<a id="del"  iconCls="icon-save">删除</a>
-		</div>
-		<table id="zdmxgrid" style="width:100%;height:100%"></table> 
+  
+	<div title="字典设置" data-options="region:'north',split:true" style="height:80px;padding:5px;">
+		字典列表：
+		<input id="cc" name="zdList" />
+		<a id="add"  iconCls="icon-add">新增</a>
+		<a id="update"  iconCls="icon-save">编辑</a>
+		<a id="del"  iconCls="icon-save">删除</a>
 	</div>
+		
+	<div id="p" data-options="region:'center'">
+		<table id="zdmxgrid" data-options="fit:true,border:false">
+		</table> 
+	</div>
+	
 <script>
 $(function(){
 	 $('#add').linkbutton({});
@@ -71,8 +75,6 @@ $(function(){
 		    	//if(data.length!=0){
 		    		$('#zdmxgrid').datagrid({
 		    			rownumbers:false,
-		    			fit:true,
-		    			border:true,
 		    			title:'字典明细',
 		    			singleSelect:true,
 		    			striped:true,
@@ -102,7 +104,7 @@ $(function(){
 		    		        }
 		    			},{
 		    				text:'编辑',
-		    		        iconCls:'icon-add',
+		    		        iconCls:'icon-edit',
 		    		        handler:function(){
 		    		        	var row = $('#zdmxgrid').datagrid('getSelected');
 		    		        	$('#zdmxbm').val(row.zdmxbm);
@@ -111,7 +113,7 @@ $(function(){
 		    		        }
 		    			},{
 		    				text:'删除',
-		    		        iconCls:'icon-add',
+		    		        iconCls:'icon-remove',
 		    		        handler:function(){
 		    		        	var row = $('#zdmxgrid').datagrid('getSelected');
 		    		        	var mxbm = row.zdmxbm;
@@ -125,7 +127,7 @@ $(function(){
 		    		        	     	    	zdbm:$('#cc').combobox('getValue'),
 		    		        	     	    	zdmxbm:mxbm,
 		    		        	     	    	zdmxmc:mxmc
-		    		        	     	     },//注意大小写data
+		    		        	     	     },
 		    		        	     	     dataType:'json',
 		    		        	     	     success:function (data) {
 		    		        	     	    	$('#zdmxgrid').datagrid('load',{
@@ -138,7 +140,7 @@ $(function(){
 		    		        }
 		    			},{
 		    				text:'刷新',
-		    		        iconCls:'icon-add',
+		    		        iconCls:'icon-reload',
 		    		        handler:function(){
 		    		        	$('#zdmxgrid').datagrid('load',{
 	        			    		zdbm : $('#cc').combobox('getValue')
@@ -284,8 +286,7 @@ $(function(){
 		});
 		
 	});  
-})
-
+});
 </script>
 
 </body>
