@@ -42,7 +42,10 @@ nr=nr.replace(c5, zjr);
   
 <body style="font-size:12px;">
     <div id="tuiHui" style="width:430px;height:250px;">
-    <textarea id="thyj" rows="8" cols="50" style="margin-top:20px;margin-left:20px;font-size:12px;"></textarea>
+    <div style="margin-left:20px;margin-top:10px;">
+	    	 退回原因:<input id="thList" style="width:100px" />
+	    </div>
+    	<textarea id="thyj" rows="8" cols="50" style="margin-left:20px;font-size:12px;"></textarea>
     </div>
     
     <table style="font-size:12px;margin-left:10px;" id="ssclzjqd">
@@ -101,14 +104,18 @@ nr=nr.replace(c5, zjr);
    $('#cancel').linkbutton({});
    $('#print').linkbutton({});
 
-   /*function test(){
-   	var s='';
-   	for(var i=0;i<$('input[name=clmc]').length;i++){//input要使用name属性辨别
-   		var ss=$('input[name=clmc]').eq(i).val();
-   	    s+=ss;	
-   	}
-   		alert(s);
-   }*/
+   $('#thList').combobox({
+	    url:'zdmxcx.do?zdbm=thyy',    
+	    valueField:'zdmxbm',    
+	    textField:'zdmxmc',
+	    onSelect :function(record){
+	    	var text = $('#thyj').val();
+	    	if(text=="")
+	    		$('#thyj').val(record.zdmxmc);
+	    	else
+	    		$('#thyj').val(text+","+record.zdmxmc);
+	    }
+	})
 
 
    //文档加载完成后要执行的内容 
@@ -230,6 +237,10 @@ $('#tuiHui').dialog({
         handler:function(){
         	 var bh="<%=bh%>";
         	 var htyj=$('#thyj').val();
+        	 if(htyj==""){
+        		 alert("必须填写退回原因！");
+        		 return;
+        	 }
              $.ajax({
         	     url:'tuiHuiCL.do',
         	     type:'POST',

@@ -30,6 +30,7 @@
 	    <div style="margin-left:20px;margin-top:10px;color:red;">
 	    	 <input id="r_1" type="radio" name="thlx" value="1" />退回诉讼服务中心
 	         <input id="r_2" type="radio" name="thlx" value="2" />退回当事人
+	         &nbsp;&nbsp;退回原因:<input id="thList" style="width:100px" />
 	    </div>
     	<textarea id="thyj" rows="8" cols="50" style="margin-left:20px;font-size:12px;"></textarea>
     </div>
@@ -121,7 +122,7 @@
    <script>
 
    //文档加载完成后要执行的内容 
-   $(document).ready(function(){ 
+   $(document).ready(function(){
 	   var ah="${fgQrJsZjqd.ah}";
 	   $('input[name=ah]').attr('value',ah);	   
 	   var sjr="${fgQrJsZjqd.sjrXm}";
@@ -178,6 +179,19 @@
    </script>
    
 <script>
+$('#thList').combobox({
+    url:'zdmxcx.do?zdbm=thyy',    
+    valueField:'zdmxbm',    
+    textField:'zdmxmc',
+    onSelect :function(record){
+    	var text = $('#thyj').val();
+    	if(text=="")
+    		$('#thyj').val(record.zdmxmc);
+    	else
+    		$('#thyj').val(text+","+record.zdmxmc);
+    }
+})
+
 $('#tuiHui').dialog({
     title:'退回原因',
     iconCls:'icon-tip',
@@ -188,11 +202,16 @@ $('#tuiHui').dialog({
         iconCls:'icon-ok',        
         handler:function(){
 	       	 var thdx=$('input[name=thlx]:checked').val();
-	       	 if(thdx==null)
+	       	 if(thdx==null){
 	       		 alert("请选择回退对象");
+	       		 return;
+	       	 }
 	       	 var bh="${fgQrJsZjqd.id.bh}";
 	       	 var htyj=$('#thyj').val();
-	       	 
+	       	 if(htyj==''){
+	       		alert("必须输入退回原因！");
+	       		return;
+	       	 }
 	         $.post('${path}/tuiHuiCL.do', {  
 	           	 bh:bh,
 	       	   	 htyj:htyj,
