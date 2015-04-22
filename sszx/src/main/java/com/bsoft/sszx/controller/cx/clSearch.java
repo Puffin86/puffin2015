@@ -99,6 +99,17 @@ public class clSearch {
 		return al;
 	}
 	
+	
+	@ResponseBody
+	@RequestMapping("totalSearch")
+	public void totalSearch(HttpServletRequest request,
+			HttpServletResponse response, HttpSession session) throws Exception
+	{
+		List<Zjqd> al =getZjqd(request,session);
+		JSONArray json = JSONArray.fromObject(al);
+		HttpHelper.renderJson(json.toString(), response);
+	}
+	
 	@ResponseBody
 	@RequestMapping("export_cxjl")
 	public void exportjl(HttpServletRequest request,

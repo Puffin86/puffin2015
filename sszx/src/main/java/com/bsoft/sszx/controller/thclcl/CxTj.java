@@ -55,45 +55,54 @@ public class CxTj  {
 		String lzjl="";
 		
 		if(Zjqd.getLclx().equals("dzz")){
-		UserDao userDao=new UserDao();
-		String zjrName=userDao.findUserById(dqcyr, fydm).getYhxm();
-		String hscyrName=userDao.findUserById(hscyr, fydm).getYhxm();
-		
-		lzjl=Zjqd.getLzjl()+"材料由转交人【"+zjrName+"】于【"
-				+new GetTime().gettime()
-				+"】修改后重新提交承办人【"+hscyrName+"】接收;";
-		}else if(Zjqd.getLclx().equals("flq")){
-		lzjl=Zjqd.getLzjl()+"材料由承办人【"+Zjqd.getSjrXm()+"】于【"
+			UserDao userDao=new UserDao();
+			String zjrName=userDao.findUserById(dqcyr, fydm).getYhxm();
+			String hscyrName=userDao.findUserById(hscyr, fydm).getYhxm();
+			
+			lzjl=Zjqd.getLzjl()+"材料由转交人【"+zjrName+"】于【"
 					+new GetTime().gettime()
-					+"】修改后重新提交【诉讼中心】接收;";
+					+"】修改后重新提交承办人【"+hscyrName+"】接收;";
+		}else if(Zjqd.getLclx().equals("flq")){
+			lzjl=Zjqd.getLzjl()+"材料由承办人【"+Zjqd.getSjrXm()+"】于【"
+						+new GetTime().gettime()
+						+"】修改后重新提交【诉讼中心】接收;";
 		}
 		Zjqd.setLzjl(lzjl);
 		
 		Zjqd.setDjrq(new GetTime().gettime());//修改递交日期
-		int lqsx = Zjqd.getSx();
-		//时限日期
-		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.DATE, lqsx);
-		Timestamp sxsj = new Timestamp(cal.getTimeInMillis());
-		Zjqd.setSxsj(sxsj);
+		
 		
 		
 		if(Zjqd.getLclx().equals("dzz")){
-		Zjqd.setDqcyr(hscyr);
-		Zjqd.setQscyr(dqcyr);
-		Zjqd.setHscyr("fg");//后手持有人为法官
+			Zjqd.setDqcyr(hscyr);
+			Zjqd.setQscyr(dqcyr);
+			Zjqd.setHscyr("fg");//后手持有人为法官
 		}
 		
 		if(Zjqd.getLclx().equals("flq")){
 			Zjqd.setDqcyr(hscyr);
 			Zjqd.setQscyr(dqcyr);
 			Zjqd.setHscyr("dsr");//后手持有人为法官
+			
+			int lqsx = Zjqd.getSx();
+			//时限日期
+			Calendar cal = Calendar.getInstance();
+			cal.add(Calendar.DATE, lqsx);
+			Timestamp sxsj = new Timestamp(cal.getTimeInMillis());
+			Zjqd.setSxsj(sxsj);
 		}
 		
 		if(Zjqd.getLclx().equals("flj")){
 			Zjqd.setDqcyr("sszx");
 			Zjqd.setQscyr(dqcyr);
 			Zjqd.setHscyr("sszx");//后手持有人为法官
+			
+			int lqsx = Zjqd.getSx();
+			//时限日期
+			Calendar cal = Calendar.getInstance();
+			cal.add(Calendar.DATE, lqsx);
+			Timestamp sxsj = new Timestamp(cal.getTimeInMillis());
+			Zjqd.setSxsj(sxsj);
 		}
 		
 		Zjqd.setZjrq(new GetTime().gettime());
