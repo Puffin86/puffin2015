@@ -14,7 +14,7 @@ public class ToPlSzJs {
 	@RequestMapping("to_plsz")
 	public String toPlsz(String roleId, Map<String, Object> model){
 		model.put("roleId", roleId);
-		return "sys/plsz";
+		return "sys/plsz2";
 	}
 
 }

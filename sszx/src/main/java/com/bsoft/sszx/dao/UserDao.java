@@ -2,9 +2,14 @@ package com.bsoft.sszx.dao;
 
 import java.util.List;
 
+import org.hibernate.Hibernate;
+import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.transform.Transformers;
 
+import com.bsoft.sszx.entity.user.BmBean;
 import com.bsoft.sszx.entity.user.Bmb;
 import com.bsoft.sszx.entity.user.User;
 import com.bsoft.sszx.hibernate.HibernateUtil;
@@ -148,6 +153,26 @@ public class UserDao {
 		}
 		return null;
 	}
+	
+	public List<BmBean> findBm(String fydm) {
+		try {
+			session = HibernateUtil.getSession(); // 获取Session
+			String sql = "select dwdm,bmdm,bmmc from bmb where dwdm='" + fydm+"'";
+			SQLQuery query = session.createSQLQuery(sql);
+			query.addScalar("dwdm",Hibernate.STRING);
+			query.addScalar("bmdm",Hibernate.STRING);
+			query.addScalar("bmmc",Hibernate.STRING);
+			query.setResultTransformer(Transformers.aliasToBean(BmBean.class));
+			List<BmBean> BmbList = (List<BmBean>) query.list();
+			return BmbList;
+		} catch (Exception e) {
+			e.printStackTrace(); // 打印错误信息
+		} finally {
+			HibernateUtil.closeSession(session); // 关闭Session
+		}
+		return null;
+	}
+	
 
 	public String saveOrUpdateUser(User user) {
 		try {

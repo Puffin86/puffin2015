@@ -14,10 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bsoft.sszx.dao.ClbDao;
+import com.bsoft.sszx.dao.UserDao;
 import com.bsoft.sszx.dao.ZjqdDao;
 import com.bsoft.sszx.entity.clb.Clb;
 import com.bsoft.sszx.entity.clb.ClbId;
+import com.bsoft.sszx.entity.user.User;
 import com.bsoft.sszx.entity.zjqd.Zjqd;
+import com.bsoft.sszx.util.GetTime;
 import com.bsoft.sszx.util.HttpHelper;
 
 import net.sf.json.JSONObject;
@@ -30,16 +33,27 @@ public class EditTuiHuiCL  {
 	{  
 		String fydm=(String)session.getAttribute("fydm");
 		String zjr=(String)session.getAttribute("user");//转交人
-		
+		User user = new UserDao().findUserById(zjr, fydm);
 	    try{
 	    String bh=request.getParameter("bh");
 	    ZjqdDao zjqdDao=new ZjqdDao();
 	    Zjqd Zjqd=zjqdDao.findbyid(bh, fydm);
+	    String oldAh = Zjqd.getAh();
 	    
 		String ah=request.getParameter("ah");
 		ah = URLDecoder.decode(ah, "UTF-8"); 
 		ah = URLDecoder.decode(ah, "UTF-8"); 
-		Zjqd.setAh(ah);		
+		
+		if(!oldAh.equals(ah)){
+			String lzjl = Zjqd.getLzjl()+"材料原相关案号"+oldAh+"号由转交人【"+user.getYhxm()+"】于【"+new GetTime().gettime()+"】调整为"+ah+"号;";
+			Zjqd.setLzjl(lzjl);
+		}
+		
+		Zjqd.setAh(ah);	
+		
+		Zjqd.setZjr(zjr);
+		Zjqd.setZjrXm(user.getYhxm());
+		
 		
 		String sjrXm=request.getParameter("sjrXm");
 		sjrXm = URLDecoder.decode(sjrXm, "UTF-8"); 
