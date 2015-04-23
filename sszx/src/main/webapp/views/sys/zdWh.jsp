@@ -41,18 +41,15 @@
 		</table>
 	</div>
   
-  
-	<div title="字典设置" data-options="region:'north',split:true" style="height:80px;padding:5px;">
+	<div id="p" class="easyui-panel" data-options="region:'center'" title="字典配置" style="width:100%;height:100%;padding-top:7px;">
 		字典列表：
 		<input id="cc" name="zdList" />
 		<a id="add"  iconCls="icon-add">新增</a>
 		<a id="update"  iconCls="icon-save">编辑</a>
 		<a id="del"  iconCls="icon-save">删除</a>
-	</div>
-		
-	<div id="p" data-options="region:'center'">
-		<table id="zdmxgrid" data-options="fit:true,border:false">
-		</table> 
+		<div style="position: absolute;top: 70px;right: 1px;bottom: 1px;left: 1px;">
+			<table id="zdmxgrid" data-options="fit:true,border:false"></table> 
+		</div>
 	</div>
 	
 <script>
