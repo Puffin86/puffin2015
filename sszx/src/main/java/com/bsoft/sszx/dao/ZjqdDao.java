@@ -3,9 +3,12 @@ package com.bsoft.sszx.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.transform.Transformers;
 
 import com.bsoft.sszx.entity.zjqd.Zjqd;
 import com.bsoft.sszx.hibernate.HibernateUtil;
@@ -291,6 +294,28 @@ public class ZjqdDao {
 			session = HibernateUtil.getSession(); // 获取Session
 			session.beginTransaction(); // 开启事物
 			list = (List<Zjqd>) session.createQuery(sql).list();
+			session.getTransaction().commit();// 提交事物
+		} catch (Exception e) {
+			e.printStackTrace(); // 打印错误信息
+		} finally {
+			HibernateUtil.closeSession(session); // 关闭Session
+		}
+		return list;
+	}
+	
+	public List<Zjqd> findCljlTotalBySQL(String sql) {
+		List<Zjqd> list = null;
+		try {
+			session = HibernateUtil.getSession(); // 获取Session
+			session.beginTransaction(); // 开启事物
+			SQLQuery query = session.createSQLQuery(sql);
+			query.addScalar("lclx", Hibernate.STRING);
+			query.addScalar("zjr", Hibernate.STRING);
+			query.addScalar("sjrBmmc", Hibernate.STRING);
+			query.addScalar("sjrXm", Hibernate.STRING);
+			query.addScalar("sl", Hibernate.INTEGER);
+			query.setResultTransformer(Transformers.aliasToBean(Zjqd.class));
+			list = (List<Zjqd>)query.list();
 			session.getTransaction().commit();// 提交事物
 		} catch (Exception e) {
 			e.printStackTrace(); // 打印错误信息

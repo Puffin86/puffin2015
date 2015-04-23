@@ -36,6 +36,7 @@ public class Zjqd implements java.io.Serializable {
 	private Integer ywlx;
 	private Integer sx;
 	private Timestamp sxsj;
+	private Integer sl;//数量 用于合计
 
 	// Constructors
 
@@ -55,7 +56,7 @@ public class Zjqd implements java.io.Serializable {
 			String sjrbm, Timestamp sendtime, Integer zt, String htyj,
 			String sjrlxdh, String lclx, String dqcyr, String qscyr,
 			String hscyr, String dsrsfzhm, String lzjl, String sjrXm,
-			String sjrBmmc,Integer ywlx,Integer sx,Timestamp sxsj) {
+			String sjrBmmc,Integer ywlx,Integer sx,Timestamp sxsj,Integer sl) {
 		this.id = id;
 		this.ah = ah;
 		this.sjr = sjr;
@@ -81,6 +82,7 @@ public class Zjqd implements java.io.Serializable {
 		this.ywlx = ywlx;
 		this.sx=sx;
 		this.sxsj=sxsj;
+		this.sl = sl;
 	}
 
 	// Property accessors
@@ -291,6 +293,14 @@ public class Zjqd implements java.io.Serializable {
 
 	public void setLclxText(String lclxText) {
 		this.lclxText = lclxText;
+	}
+
+	public Integer getSl() {
+		return sl;
+	}
+
+	public void setSl(Integer sl) {
+		this.sl = sl;
 	}
 
 }

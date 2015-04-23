@@ -105,9 +105,78 @@ public class clSearch {
 	public void totalSearch(HttpServletRequest request,
 			HttpServletResponse response, HttpSession session) throws Exception
 	{
-		List<Zjqd> al =getZjqd(request,session);
-		JSONArray json = JSONArray.fromObject(al);
+		List<Zjqd> al =getZjqdTotal(request,session);
+		int total = 0;
+		for(Zjqd item : al){
+			int sl = item.getSl();
+			total +=sl;
+		}
+		Map<String,Object> data = new HashMap<String, Object>();
+		data.put("data", al);
+		data.put("total", total);
+//		JSONArray json = JSONArray.fromObject(al);
+		JSONObject json = JSONObject.fromObject(data);
 		HttpHelper.renderJson(json.toString(), response);
+	}
+	
+	
+	private List<Zjqd> getZjqdTotal(HttpServletRequest request, HttpSession session){
+		List<Zjqd> al = new ArrayList<Zjqd>();
+		String fydm=(String)session.getAttribute("fydm");
+		String user=(String)session.getAttribute("user");
+		String ah=request.getParameter("ah");
+		String dsr=request.getParameter("dsr");
+		String sjrbm=request.getParameter("sjrbm");
+		String lx=request.getParameter("lx");
+		
+		String cbr=request.getParameter("cbr");
+		String cbbm=request.getParameter("cbbm");
+		String jbr=request.getParameter("jbr");
+		String jbsj=request.getParameter("jbsj");
+		String ywlx=request.getParameter("ywlx");
+		String sx=request.getParameter("sx");
+		
+		StringBuffer sqlBuf = new StringBuffer("select lclx,zjr,sjrXm,sjrBmmc,count(ah) as sl from zjqd ");
+		if (lx.equals("2")||"4".equals(lx)){//法官 内勤
+			sqlBuf.append(" where sjr='").append(user).append("' ");
+		}else if (lx.equals("1") || lx.equals("3")){//管理员 服务中心人员
+			sqlBuf.append(" where 1=1 ");
+		}
+		if(ah!=null && !"".equals(ah)){
+			sqlBuf.append(" and ah like '%").append(ah).append("%' ");
+		}
+		if(dsr!=null&&!"".equals(dsr)){
+			sqlBuf.append(" and djr like '%").append(dsr).append("%' ");
+		}
+		if(cbr!=null&&!"".equals(cbr)){
+			sqlBuf.append(" and sjr like '%").append(cbr).append("%' ");
+		}
+		if(cbbm!=null&&!"".equals(cbbm)){
+//			sqlBuf.append(" and sjrbmbm like '%").append(cbbm).append("' ");
+		}
+		if(jbr!=null&&!"".equals(jbr)){
+			sqlBuf.append(" and zjr like '%").append(jbr).append("%' ");
+		}
+		if(jbsj!=null&&!"".equals(jbsj)){
+			sqlBuf.append(" AND STR_TO_DATE(zjrq,'%Y-%c-%d') = STR_TO_DATE('").append(jbsj).append("','%Y-%c-%d')");
+		}
+		if(ywlx!=null&&!"".equals(ywlx)){
+			sqlBuf.append(" and lclx like '%").append(ywlx).append("%' ");
+		}
+		if(sx!=null&&!"".equals(sx)){
+			sqlBuf.append(" and sx =").append(Integer.parseInt(sx));
+		}
+		
+		String groupBy=request.getParameter("groupBy");
+		if(groupBy!=null && !"".equals(groupBy)){
+			groupBy = groupBy.substring(0, groupBy.length()-1);
+			sqlBuf.append(" group by ").append(groupBy);
+		}else{
+			sqlBuf.append(" group by ").append(" lclx,zjr,sjrBmmc,sjrXm ");
+		}
+		
+		al =(List<Zjqd>) new ZjqdDao().findCljlTotalBySQL(sqlBuf.toString());
+		return al;
 	}
 	
 	@ResponseBody
@@ -119,7 +188,6 @@ public class clSearch {
 		//获取表头
 	    String[] headers = new String[] {"业务类型", "时限", "案号", "承办部门", "承办人", "当事人","中心经办人", "中心经办日期"};//表头数组
 	    String[] fields = new String[] {"lclx", "sx", "ah", "sjrBmmc", "sjrXm", "djr","zjr", "zjrq"};//数据填充数组  
-//	    ExportExcel<Zjqd> ex = new ExportExcel<Zjqd>(); 
 	    ExportExcelUtil<Zjqd> ex = new ExportExcelUtil<Zjqd>();
 	    SimpleDateFormat timeFormat = new SimpleDateFormat("yyyyMMddHHmmss");  
 	    String filename = timeFormat.format(new Date())+".xls";  

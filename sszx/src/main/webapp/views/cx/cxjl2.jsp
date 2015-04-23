@@ -62,15 +62,18 @@
 	    		</td>
 	    	</tr>
 	    </table>
-		<table id="grid" style="width:100%;height:100%"></table> 
+	    <div style="position: absolute;top: 170px;right: 1px;bottom: 1px;left: 1px;">
+			<table id="grid" style="width:100%;height:100%"></table> 
+	    </div>
     </div>
+    
     <div id="cbr_dg" style="width:250px;height:300px;">
      <input id="userSearch" style="margin-left:5px;margin-top:5px" type="text">
        <a id="search_bt" onclick="searchUser()" iconCls="icon-search"></a>
        <ul id="searchList"></ul>
     </div> 
     
-    <div id="totalDataDiv" style="width:800px;height:600px;">
+    <div id="totalDataDiv" style="width:800px;height:500px;">
      	<table width="100%">
      		<tr>
      			<td>条件设置：</td>
@@ -84,12 +87,13 @@
      			</td>
      		</tr>
      	</table>
-     	<table id="totalgrid" style="width:700px;height:500px"></table> 
-     	<table width="100%">
-     		<tr>
-     			<td>合计：</td>
-     		</tr>
-     	</table>
+     	<div style="position: absolute;top: 60px;right: 7px;bottom: 30px;left: 7px;">
+	     	<table id="totalgrid" style="width:100%;height:100%"></table> 
+     	</div>
+     	<div id="showTotalDiv" style="position: absolute;top: 470px;right: 7px;bottom: 1px;left: 7px;">
+     		合计：0
+     	</div>
+     	
     </div> 
     
 </body>
@@ -303,7 +307,31 @@ function exportAj(){
 }
 
 function totalData(){
-	$('#totalDataDiv').dialog('open');
+	
+	$.ajax({
+ 	     url:'totalSearch.do',
+ 	     type:'POST',
+ 	     data:{
+ 	    	ah:$('#ah').val(),
+ 			dsr:$('#dsr').val(),
+ 			cbr:$('#cbr').val(),
+ 			cbbm:$('#cbbm').val(),
+ 			jbr:$('#zxjbr').val(),
+ 			jbsj:$('#zxjbsj').datebox('getValue'),
+ 			ywlx:$('#ywlx').combobox('getValue'),
+ 			sx:$('#sx').val(),
+ 			lx:'<%=lx%>'
+ 	     },//注意大小写data
+ 	     dataType:'json',
+ 	     success:function (data) {
+ 	    	$('#totalgrid').datagrid('loadData',data.data);
+ 	    	$('#showTotalDiv').html("合计："+data.total);
+ 	      	$('#totalDataDiv').dialog('open');
+ 	     }
+ 	});
+	
+	
+	
 }
 
 function dototal(){
@@ -324,18 +352,29 @@ function dototal(){
 			groupBy=groupBy+field+",";
 		}
 	}
-	$('#totalgrid').datagrid('load',{
-		ah:$('#ah').val(),
-		dsr:$('#dsr').val(),
-		cbr:$('#cbr').val(),
-		cbbm:$('#cbbm').val(),
-		jbr:$('#zxjbr').val(),
-		jbsj:$('#zxjbsj').datebox('getValue'),
-		ywlx:$('#ywlx').combobox('getValue'),
-		sx:$('#sx').val(),
-		lx:'<%=lx%>',
-		groupBy:groupBy
-	})
+	$.ajax({
+	     url:'totalSearch.do',
+	     type:'POST',
+	     data:{
+	    	ah:$('#ah').val(),
+			dsr:$('#dsr').val(),
+			cbr:$('#cbr').val(),
+			cbbm:$('#cbbm').val(),
+			jbr:$('#zxjbr').val(),
+			jbsj:$('#zxjbsj').datebox('getValue'),
+			ywlx:$('#ywlx').combobox('getValue'),
+			sx:$('#sx').val(),
+			lx:'<%=lx%>',
+			groupBy:groupBy
+	     },//注意大小写data
+	     dataType:'json',
+	     success:function (data) {
+	    	$('#totalgrid').datagrid('loadData',data.data);
+	    	$('#showTotalDiv').html("合计："+data.total);
+	      	$('#totalDataDiv').dialog('open');
+	     }
+	});
+	
 }
 
 function exportTotal(){

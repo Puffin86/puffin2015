@@ -78,7 +78,8 @@ $(function(){
 		    			fitColumns:true,
 		    			singleSelect:true,
 		    			idField:'zdmxbm',
-		    			pagination:true,
+		    			border:true,
+		    			//pagination:true,
 		    			url:"zdmxcx.do",
 		    			queryParams : {
 		    				zdbm : $('#cc').combobox('getValue'),
@@ -86,9 +87,9 @@ $(function(){
 		    			},
 		    			columns:[[
 		    			    //{field:'id',title:'内码',width:100,align:'center'},
-		    			    {field:'zdmxbm',title:'字典项编码',width:120,align:'center',sortable:"true"},
+		    			    {field:'zdmxbm',title:'字典项编码',width:120,align:'center'},
 		    				{field:'zdmxmc',title:'字典项名称',width:120,align:'center'},
-		    				{field:'parent',title:'父编码',width:120,align:'center',sortable:"true"}
+		    				{field:'parent',title:'父编码',width:120,align:'center'}
 		    			]]
 		    			,toolbar:[{
 		    				text:'新增',
