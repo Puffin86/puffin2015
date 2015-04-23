@@ -90,12 +90,8 @@
      	<div style="position: absolute;top: 60px;right: 7px;bottom: 30px;left: 7px;">
 	     	<table id="totalgrid" style="width:100%;height:100%"></table> 
      	</div>
-     	<div style="position: absolute;top: 470px;right: 7px;bottom: 1px;left: 7px;">
-     		<table width="100%">
-	     		<tr>
-	     			<td>合计：</td>
-	     		</tr>
-	     	</table>
+     	<div id="showTotalDiv" style="position: absolute;top: 470px;right: 7px;bottom: 1px;left: 7px;">
+     		合计：0
      	</div>
      	
     </div> 
@@ -311,7 +307,31 @@ function exportAj(){
 }
 
 function totalData(){
-	$('#totalDataDiv').dialog('open');
+	
+	$.ajax({
+ 	     url:'totalSearch.do',
+ 	     type:'POST',
+ 	     data:{
+ 	    	ah:$('#ah').val(),
+ 			dsr:$('#dsr').val(),
+ 			cbr:$('#cbr').val(),
+ 			cbbm:$('#cbbm').val(),
+ 			jbr:$('#zxjbr').val(),
+ 			jbsj:$('#zxjbsj').datebox('getValue'),
+ 			ywlx:$('#ywlx').combobox('getValue'),
+ 			sx:$('#sx').val(),
+ 			lx:'<%=lx%>'
+ 	     },//注意大小写data
+ 	     dataType:'json',
+ 	     success:function (data) {
+ 	    	$('#totalgrid').datagrid('loadData',data.data);
+ 	    	$('#showTotalDiv').html("合计："+data.total);
+ 	      	$('#totalDataDiv').dialog('open');
+ 	     }
+ 	});
+	
+	
+	
 }
 
 function dototal(){
@@ -332,18 +352,29 @@ function dototal(){
 			groupBy=groupBy+field+",";
 		}
 	}
-	$('#totalgrid').datagrid('load',{
-		ah:$('#ah').val(),
-		dsr:$('#dsr').val(),
-		cbr:$('#cbr').val(),
-		cbbm:$('#cbbm').val(),
-		jbr:$('#zxjbr').val(),
-		jbsj:$('#zxjbsj').datebox('getValue'),
-		ywlx:$('#ywlx').combobox('getValue'),
-		sx:$('#sx').val(),
-		lx:'<%=lx%>',
-		groupBy:groupBy
-	})
+	$.ajax({
+	     url:'totalSearch.do',
+	     type:'POST',
+	     data:{
+	    	ah:$('#ah').val(),
+			dsr:$('#dsr').val(),
+			cbr:$('#cbr').val(),
+			cbbm:$('#cbbm').val(),
+			jbr:$('#zxjbr').val(),
+			jbsj:$('#zxjbsj').datebox('getValue'),
+			ywlx:$('#ywlx').combobox('getValue'),
+			sx:$('#sx').val(),
+			lx:'<%=lx%>',
+			groupBy:groupBy
+	     },//注意大小写data
+	     dataType:'json',
+	     success:function (data) {
+	    	$('#totalgrid').datagrid('loadData',data.data);
+	    	$('#showTotalDiv').html("合计："+data.total);
+	      	$('#totalDataDiv').dialog('open');
+	     }
+	});
+	
 }
 
 function exportTotal(){
