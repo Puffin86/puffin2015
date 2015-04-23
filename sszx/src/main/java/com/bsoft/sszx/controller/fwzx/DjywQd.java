@@ -46,6 +46,8 @@ public class DjywQd  {
 		
 		String dqcyrName=userDao.findUserById(user, fydm).getYhxm();
 		
+		Zjqd.setZjr(user);
+		Zjqd.setZjrXm(dqcyrName);
 		String lzjl=Zjqd.getLzjl()+"材料由转交人【"+dqcyrName+"】于【"
 				+new GetTime().gettime()
 				+"】确认接收;";

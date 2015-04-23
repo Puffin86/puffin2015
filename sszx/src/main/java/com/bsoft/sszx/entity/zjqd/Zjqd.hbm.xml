@@ -44,6 +44,11 @@
                 <comment>转接人</comment>
             </column>
         </property>
+        <property name="zjrXm" type="java.lang.String">
+            <column name="zjrxm" length="100">
+                <comment>转接人姓名</comment>
+            </column>
+        </property>
         <property name="zjrq" type="java.lang.String">
             <column name="zjrq" length="100">
                 <comment>转接日期</comment>

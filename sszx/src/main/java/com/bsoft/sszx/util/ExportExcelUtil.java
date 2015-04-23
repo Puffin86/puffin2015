@@ -6,9 +6,11 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.text.SimpleDateFormat;
-import javax.swing.JOptionPane;
+
 import org.apache.poi.hssf.usermodel.*;
+import org.apache.poi.hssf.util.CellRangeAddress;
 import org.apache.poi.hssf.util.HSSFColor;
+import org.apache.poi.ss.util.Region;
 
 /**
  * 
@@ -29,7 +31,16 @@ import org.apache.poi.hssf.util.HSSFColor;
  */
 
 public class ExportExcelUtil<T> {
-//	public void exportExcel(Collection<T> dataset, OutputStream out) {
+	
+	private String footer="";
+	
+public String getFooter() {
+		return footer;
+	}
+	public void setFooter(String footer) {
+		this.footer = footer;
+	}
+	//	public void exportExcel(Collection<T> dataset, OutputStream out) {
 //		exportExcel("Sheet1", null, dataset, out, "yyyy-MM-dd");
 //	}
 	public void exportExcel(String title,String[] headers,String[] fields, Collection<T> dataset,OutputStream out) {
@@ -79,7 +90,7 @@ public class ExportExcelUtil<T> {
 		// 生成一个样式
 		HSSFCellStyle style = workbook.createCellStyle();
 		// 设置这些样式
-		style.setFillForegroundColor(HSSFColor.SKY_BLUE.index);
+		style.setFillForegroundColor(HSSFColor.WHITE.index);
 		style.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
 		style.setBorderBottom(HSSFCellStyle.BORDER_THIN);
 		style.setBorderLeft(HSSFCellStyle.BORDER_THIN);
@@ -88,7 +99,7 @@ public class ExportExcelUtil<T> {
 		style.setAlignment(HSSFCellStyle.ALIGN_CENTER);
 		// 生成一个字体
 		HSSFFont font = workbook.createFont();
-		font.setColor(HSSFColor.VIOLET.index);
+//		font.setColor(HSSFColor.VIOLET.index);
 		font.setFontHeightInPoints((short) 12);
 		font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
 		// 把字体应用到当前的样式
@@ -136,7 +147,6 @@ public class ExportExcelUtil<T> {
 			for (int i = 0; i < fields.length; i++) {
 				HSSFCell cell = row.createCell(i);
 				cell.setCellStyle(style2);
-//				Field field = fields[i];
 				String fieldName = fields[i];
 				String getMethodName = "get"+ fieldName.substring(0, 1).toUpperCase()+ fieldName.substring(1);
 				try {
@@ -220,6 +230,36 @@ public class ExportExcelUtil<T> {
 				}
 			}
 		}
+		
+		//添加合计行
+		if(!"".equals(footer)){
+			index++;
+			row = sheet.createRow(index);
+			for (int i = 0; i < fields.length; i++) {
+				HSSFCell cell = row.createCell(i);
+				cell.setCellStyle(style2);
+			}
+			sheet.addMergedRegion(new Region(index, (short)0, index,(short)(fields.length-1)));   
+			HSSFCell cell = row.createCell(0);
+			
+			HSSFCellStyle style3 = workbook.createCellStyle();
+			style3.setFillForegroundColor(HSSFColor.WHITE.index);
+			style3.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+			style3.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+			style3.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+			style3.setBorderRight(HSSFCellStyle.BORDER_THIN);
+			style3.setBorderTop(HSSFCellStyle.BORDER_THIN);
+			style3.setAlignment(HSSFCellStyle.ALIGN_LEFT);
+			style3.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);
+			style3.setFont(font);
+			cell.setCellStyle(style3);
+			HSSFRichTextString richString = new HSSFRichTextString(footer);
+			HSSFFont font3 = workbook.createFont();
+			font3.setColor(HSSFColor.BLACK.index);
+			richString.applyFont(font3);
+			cell.setCellValue(richString);
+		}
+		
 		try {
 			workbook.write(out);
 		} catch (IOException e) {

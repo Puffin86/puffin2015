@@ -59,13 +59,23 @@ $(function(){
 					return id.bh;
 				}
 		    },
-		    {field:'lclx',title:'业务类型',width:120,align:'center',sortable:"true"},
+		    {field:'lclx',title:'业务类型',width:120,align:'center',sortable:"true",
+		    	formatter:function(lclx){
+					if(lclx=="dzz"){
+						return "主动送件";
+					}else if(lclx=="flq"){
+						return "预约领取";
+					}else if(lclx=="flj"){
+						return "预约提交";
+					}
+				 }		
+		    },
 		    {field:'sx',title:'时限',width:120,align:'center'},
 			{field:'ah',title:'案号',width:120,align:'center',sortable:"true"},
 			{field:'sjrBmmc',title:'承办部门',width:100,align:'center'},
 			{field:'sjrXm',title:'承办人',width:80,align:'center'},
 	    	{field:'djr',title:'当事人',width:80,align:'center'},
-	    	{field:'zjr',title:'中心经办人',width:80,align:'center'},
+	    	{field:'zjrXm',title:'中心经办人',width:80,align:'center'},
 	    	{field:'zjrq',title:'中心经办日期',width:100,align:'center',sortable:"true"},	
 	    	{field:'action',title:'操作',width:120,align:'center',
 			    formatter:function(value,row,index){

@@ -51,6 +51,7 @@ public class DjdsrSjsjQd  {
 		
 		Zjqd.setDqcyr(Zjqd.getSjr());
 		Zjqd.setZjr(user);
+		Zjqd.setZjrXm(dqcyrName);
 		Zjqd.setZjrq(new GetTime().gettime());
 		
 		new ZjqdDao().saveZjqd(Zjqd);
@@ -93,7 +94,7 @@ public class DjdsrSjsjQd  {
 			sms.setNr(nr);
 			sms.setZt(0);
 			new SmsDao().save(sms);
-		}		
+		}
 		
 		
 		Map result = new HashMap();

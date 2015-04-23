@@ -56,6 +56,10 @@ public class ZhJDsrZjqdZJ  {
 		String lzjl=Zjqd.getLzjl()+"材料由转交人【"+zjrName+"】于【"
 				+new GetTime().gettime()
 				+"】通知承办人【"+hscyrName+"】接收;";
+		
+		Zjqd.setZjr(dqcyr);
+		Zjqd.setZjrXm(zjrName);
+		
 		Zjqd.setLzjl(lzjl);
 		
 		Zjqd.setDqcyr(hscyr);

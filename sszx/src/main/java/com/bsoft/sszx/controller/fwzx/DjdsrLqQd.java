@@ -49,6 +49,7 @@ public class DjdsrLqQd  {
 		
 		Zjqd.setDqcyr("dsr");		
 		Zjqd.setZjr(user);
+		Zjqd.setZjrXm(dqcyrName);
 		Zjqd.setZjrq(new GetTime().gettime());
 		new ZjqdDao().saveZjqd(Zjqd);
 		

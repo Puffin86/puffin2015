@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bsoft.sszx.dao.ClbDao;
+import com.bsoft.sszx.dao.UserDao;
 import com.bsoft.sszx.dao.ZjqdDao;
 import com.bsoft.sszx.entity.clb.Clb;
 import com.bsoft.sszx.entity.clb.ClbId;
+import com.bsoft.sszx.entity.user.User;
 import com.bsoft.sszx.entity.zjqd.Zjqd;
 import com.bsoft.sszx.entity.zjqd.ZjqdId;
 import com.bsoft.sszx.util.GetTime;
@@ -62,8 +64,9 @@ public class saveDsrZjqd  {
 		sjrbm = URLDecoder.decode(sjrbm, "UTF-8"); 
 		Zjqd.setSjrbm(sjrbm);
 		
+		User user = new UserDao().findUserById(zjr, fydm);
 		Zjqd.setZjr(zjr);//当前用户为转交人
-		
+		Zjqd.setZjrXm(user.getYhxm());
 		Zjqd.setLclx("dzz");//流程类型当事人自主提交
 		
 		Zjqd.setDqcyr(zjr);//当前持有人为转交人

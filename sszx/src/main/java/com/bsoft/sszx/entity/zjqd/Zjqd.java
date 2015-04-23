@@ -17,6 +17,7 @@ public class Zjqd implements java.io.Serializable {
 	private String djrq;
 	private String djrlxdh;
 	private String zjr;
+	private String zjrXm;
 	private String zjrq;
 	private String djrbm;
 	private String sjrbm;
@@ -301,6 +302,14 @@ public class Zjqd implements java.io.Serializable {
 
 	public void setSl(Integer sl) {
 		this.sl = sl;
+	}
+
+	public String getZjrXm() {
+		return zjrXm;
+	}
+
+	public void setZjrXm(String zjrXm) {
+		this.zjrXm = zjrXm;
 	}
 
 }

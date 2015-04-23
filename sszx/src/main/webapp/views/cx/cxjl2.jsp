@@ -78,7 +78,7 @@
      		<tr>
      			<td>条件设置：</td>
      			<td><input type="checkbox" value="lclx" name="cb"/>业务类型 </td>
-     			<td><input type="checkbox" value="zjr"  name="cb"/>中心经办人 </td>
+     			<td><input type="checkbox" value="zjrXm"  name="cb"/>中心经办人 </td>
      			<td><input type="checkbox" value="sjrBmmc"  name="cb"/>承办部门</td>
      			<td><input type="checkbox" value="sjrXm"  name="cb"/>承办人</td>
      			<td>
@@ -113,7 +113,7 @@ var columnsAll = [{field:'lclx',title:'业务类型',width:120,align:'center',
 },
 {field:'sjrBmmc',title:'承办部门',width:120,align:'center'},
 {field:'sjrXm',title:'承办人',width:120,align:'center'},
-{field:'zjr',title:'中心经办人',width:120,align:'center'},
+{field:'zjrXm',title:'中心经办人',width:120,align:'center'},
 {field:'sl',title:'数量',width:120,align:'center'}];
 
 $('#ywlx').combobox({
@@ -231,7 +231,7 @@ $('#grid').datagrid({
 	    {field:'sjrBmmc',title:'承办部门',width:120,align:'center'},
 	    {field:'sjrXm',title:'承办人',width:120,align:'center'},
 	    {field:'djr',title:'当事人',width:120,align:'center'},
-	    {field:'zjr',title:'中心经办人',width:120,align:'center'},
+	    {field:'zjrXm',title:'中心经办人',width:120,align:'center'},
 	    {field:'zjrq',title:'中心经办日期',width:120,align:'center'},
 		{field:'action',title:'操作',width:120,align:'center',
 	    	formatter:function(value,row,index){
@@ -308,6 +308,15 @@ function exportAj(){
 
 function totalData(){
 	
+	$("input[name='cb']").map(function () {
+        return $(this).attr("checked",false);
+    });
+	
+	for(var i=0;i<columnsAll.length;i++){
+		var field = columnsAll[i].field;
+		$('#totalgrid').datagrid('showColumn',field);
+	}
+	
 	$.ajax({
  	     url:'totalSearch.do',
  	     type:'POST',
@@ -378,6 +387,37 @@ function dototal(){
 }
 
 function exportTotal(){
+	
+	var qx = $("input[name='cb']:checked").map(function () {
+        return $(this).val();
+    }).get().join('#');
+	
+	var groupBy='';
+	for(var i=0;i<columnsAll.length;i++){
+		var field = columnsAll[i].field;
+		if(field=="sl"){
+			continue;
+		}else if(qx.indexOf(field)!=-1){
+			$('#totalgrid').datagrid('hideColumn',field);
+		}else{
+			$('#totalgrid').datagrid('showColumn',field);
+			groupBy=groupBy+field+",";
+		}
+	}
+	
+	var ah = $('#ah').val();
+	var dsr=$('#dsr').val();
+	var cbr=$('#cbr').val();
+	var cbbm=$('#cbbm').val();
+	var jbr=$('#zxjbr').val();
+	var jbsj=$('#zxjbsj').datebox('getValue');
+	var ywlx=$('#ywlx').combobox('getValue');
+	var sx=$('#sx').val();
+	
+	var url = "export_total.do?lx="+<%=lx%>+"&ah="+ah+"&dsr="+dsr
+	+"&cbr="+cbr+"&cbbm="+cbbm+"&jbr="+jbr+"&jbsj="+jbsj
+	+"&ywlx="+ywlx+"&sx="+sx+"&groupBy="+groupBy;
+	window.location.href = url;
 	
 }
 

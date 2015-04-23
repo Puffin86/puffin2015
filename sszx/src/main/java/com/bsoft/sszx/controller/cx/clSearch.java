@@ -1,7 +1,6 @@
 package com.bsoft.sszx.controller.cx;
 
 import java.io.OutputStream;
-import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -82,7 +81,7 @@ public class clSearch {
 //			sqlBuf.append(" and sjrbmbm like '%").append(cbbm).append("' ");
 		}
 		if(jbr!=null&&!"".equals(jbr)){
-			sqlBuf.append(" and zjr like '%").append(jbr).append("%' ");
+			sqlBuf.append(" and zjrXm like '%").append(jbr).append("%' ");
 		}
 		if(jbsj!=null&&!"".equals(jbsj)){
 			sqlBuf.append(" AND STR_TO_DATE(zjrq,'%Y-%c-%d') = STR_TO_DATE('").append(jbsj).append("','%Y-%c-%d')");
@@ -136,7 +135,7 @@ public class clSearch {
 		String ywlx=request.getParameter("ywlx");
 		String sx=request.getParameter("sx");
 		
-		StringBuffer sqlBuf = new StringBuffer("select lclx,zjr,sjrXm,sjrBmmc,count(ah) as sl from zjqd ");
+		StringBuffer sqlBuf = new StringBuffer("select lclx,zjrXm,sjrXm,sjrBmmc,count(ah) as sl from zjqd ");
 		if (lx.equals("2")||"4".equals(lx)){//法官 内勤
 			sqlBuf.append(" where sjr='").append(user).append("' ");
 		}else if (lx.equals("1") || lx.equals("3")){//管理员 服务中心人员
@@ -155,7 +154,7 @@ public class clSearch {
 //			sqlBuf.append(" and sjrbmbm like '%").append(cbbm).append("' ");
 		}
 		if(jbr!=null&&!"".equals(jbr)){
-			sqlBuf.append(" and zjr like '%").append(jbr).append("%' ");
+			sqlBuf.append(" and zjrXm like '%").append(jbr).append("%' ");
 		}
 		if(jbsj!=null&&!"".equals(jbsj)){
 			sqlBuf.append(" AND STR_TO_DATE(zjrq,'%Y-%c-%d') = STR_TO_DATE('").append(jbsj).append("','%Y-%c-%d')");
@@ -172,7 +171,7 @@ public class clSearch {
 			groupBy = groupBy.substring(0, groupBy.length()-1);
 			sqlBuf.append(" group by ").append(groupBy);
 		}else{
-			sqlBuf.append(" group by ").append(" lclx,zjr,sjrBmmc,sjrXm ");
+			sqlBuf.append(" group by ").append(" lclx,zjrXm,sjrBmmc,sjrXm ");
 		}
 		
 		al =(List<Zjqd>) new ZjqdDao().findCljlTotalBySQL(sqlBuf.toString());
@@ -187,7 +186,7 @@ public class clSearch {
 		List<Zjqd> dataset =getZjqd(request,session);
 		//获取表头
 	    String[] headers = new String[] {"业务类型", "时限", "案号", "承办部门", "承办人", "当事人","中心经办人", "中心经办日期"};//表头数组
-	    String[] fields = new String[] {"lclx", "sx", "ah", "sjrBmmc", "sjrXm", "djr","zjr", "zjrq"};//数据填充数组  
+	    String[] fields = new String[] {"lclx", "sx", "ah", "sjrBmmc", "sjrXm", "djr","zjrXm", "zjrq"};//数据填充数组  
 	    ExportExcelUtil<Zjqd> ex = new ExportExcelUtil<Zjqd>();
 	    SimpleDateFormat timeFormat = new SimpleDateFormat("yyyyMMddHHmmss");  
 	    String filename = timeFormat.format(new Date())+".xls";  
@@ -197,7 +196,60 @@ public class clSearch {
 //        ex.exportExcel(headers, dataset, out);  
 	    ex.exportExcel("数据列表", headers, fields, dataset, out);
         out.close();  
-        System.out.println("excel导出成功！");
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping("export_total")
+	public void export_total(HttpServletRequest request,
+			HttpServletResponse response, HttpSession session) throws Exception{
+		//获取数据
+		List<Zjqd> dataset =getZjqdTotal(request,session);
+		String groupBy=request.getParameter("groupBy");
+		String[] fields = null;
+		String[] headers = null;
+		if(groupBy!=null && !"".equals(groupBy)){
+			String[] groupByArr = groupBy.split(",");
+			headers = new String[groupByArr.length+1];
+			fields = new String[groupByArr.length+1];
+			for(int i=0;i<groupByArr.length;i++){
+				fields[i]=groupByArr[i];
+				if("lclx".equals(groupByArr[i])){
+					headers[i]="业务类型";
+				}else if("sjrBmmc".equals(groupByArr[i])){
+					headers[i]="承办部门";
+				}else if("sjrXm".equals(groupByArr[i])){
+					headers[i]="承办人";
+				}else if("zjrXm".equals(groupByArr[i])){
+					headers[i]="中心经办人";
+				}
+			}
+			
+			fields[groupByArr.length]="sl";
+			headers[groupByArr.length]="数量";
+			
+		}else{
+			headers = new String[] {"业务类型", "承办部门", "承办人", "中心经办人", "数量"};//表头数组
+			fields = new String[] {"lclx", "sjrBmmc", "sjrXm", "zjr", "sl"};//数据填充数组  
+		}
+		
+		int total = 0;
+		for(Zjqd item : dataset){
+			int sl = item.getSl();
+			total +=sl;
+		}
+		
+		//获取表头
+	    ExportExcelUtil<Zjqd> ex = new ExportExcelUtil<Zjqd>();
+	    ex.setFooter("合计："+total);
+	    SimpleDateFormat timeFormat = new SimpleDateFormat("yyyyMMddHHmmss");  
+	    String filename = timeFormat.format(new Date())+".xls";  
+	    response.setContentType("application/ms-excel;charset=UTF-8");  
+	    response.setHeader("Content-Disposition", "attachment;filename=".concat(String.valueOf(URLEncoder.encode(filename, "UTF-8"))));  
+	    OutputStream out = response.getOutputStream();  
+//        ex.exportExcel(headers, dataset, out);  
+	    ex.exportExcel("汇总列表", headers, fields, dataset, out);
+        out.close();  
 	}
 	
 }

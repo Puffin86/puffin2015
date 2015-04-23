@@ -310,7 +310,7 @@ public class ZjqdDao {
 			session.beginTransaction(); // 开启事物
 			SQLQuery query = session.createSQLQuery(sql);
 			query.addScalar("lclx", Hibernate.STRING);
-			query.addScalar("zjr", Hibernate.STRING);
+			query.addScalar("zjrXm", Hibernate.STRING);
 			query.addScalar("sjrBmmc", Hibernate.STRING);
 			query.addScalar("sjrXm", Hibernate.STRING);
 			query.addScalar("sl", Hibernate.INTEGER);

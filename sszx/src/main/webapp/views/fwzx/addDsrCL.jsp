@@ -33,7 +33,7 @@ int bh=new ZjqdDao().getMaxId(fydm);
        <td>
        		<input class="easyui-validatebox" required="true" readOnly="readOnly" name="sjrXm" type="text"></input>
            	<input style="display:none;" name="sjr" type="text"></input>
-       		<a id="cbr_search" style="margin-top:-5px"  iconCls="icon-add" onClick="$('#cbr_dg').dialog('open');"></a>
+       		<a id="cbr_search" style="margin-top:-5px"  iconCls="icon-add" onClick="openSearch()"></a>
        	</td>
        <td width="20%" >&nbsp;&nbsp;承办部门：</td>
        <td><input class="easyui-validatebox" required="true"  readOnly="readOnly" name="sjrbmMc" type="text"></input>
@@ -194,7 +194,7 @@ int bh=new ZjqdDao().getMaxId(fydm);
 	   	     dataType:'json',
 	   	     success:function (data) {
 	   	    	 if(data.after==1){
-	   	    		$.messager.confirm('Confirm',
+	   	    		$.messager.confirm('确认',
 	   	    				'是否需要添加附件?',
 	   	    				function(r){
 	   	    					if (r){
@@ -234,6 +234,7 @@ int bh=new ZjqdDao().getMaxId(fydm);
 				 $('input[name=sjrXm]').val(xm);
 				 $('input[name=sjrbm]').val(node.attributes.yhbm);
 				 $('input[name=sjr]').val(node.attributes.yhid);
+				 $('#cbr_dg').dialog('close');
 			 }
 	    }
 	});  
@@ -251,6 +252,12 @@ int bh=new ZjqdDao().getMaxId(fydm);
 	  	     }});
 		}
 	}
+   
+   function openSearch(){
+	   $('#userSearch').val('');
+		$('#cbr_dg').dialog('open');
+		$('#userSearch').focus();
+   }
    </script>
    <div id="ah_se" style="width:400px;height:300px;">
 	   <table style="font-size:12px">
