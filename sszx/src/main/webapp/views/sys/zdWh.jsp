@@ -41,18 +41,15 @@
 		</table>
 	</div>
   
-  
-	<div title="字典设置" data-options="region:'north',split:true" style="height:80px;padding:5px;">
+	<div id="p" class="easyui-panel" data-options="region:'center'" title="字典配置" style="width:100%;height:100%;padding-top:7px;">
 		字典列表：
 		<input id="cc" name="zdList" />
 		<a id="add"  iconCls="icon-add">新增</a>
 		<a id="update"  iconCls="icon-save">编辑</a>
 		<a id="del"  iconCls="icon-save">删除</a>
-	</div>
-		
-	<div id="p" data-options="region:'center'">
-		<table id="zdmxgrid" data-options="fit:true,border:false">
-		</table> 
+		<div style="position: absolute;top: 70px;right: 1px;bottom: 1px;left: 1px;">
+			<table id="zdmxgrid" data-options="fit:true,border:false"></table> 
+		</div>
 	</div>
 	
 <script>
@@ -81,7 +78,8 @@ $(function(){
 		    			fitColumns:true,
 		    			singleSelect:true,
 		    			idField:'zdmxbm',
-		    			pagination:true,
+		    			border:true,
+		    			//pagination:true,
 		    			url:"zdmxcx.do",
 		    			queryParams : {
 		    				zdbm : $('#cc').combobox('getValue'),
@@ -89,9 +87,9 @@ $(function(){
 		    			},
 		    			columns:[[
 		    			    //{field:'id',title:'内码',width:100,align:'center'},
-		    			    {field:'zdmxbm',title:'字典项编码',width:120,align:'center',sortable:"true"},
+		    			    {field:'zdmxbm',title:'字典项编码',width:120,align:'center'},
 		    				{field:'zdmxmc',title:'字典项名称',width:120,align:'center'},
-		    				{field:'parent',title:'父编码',width:120,align:'center',sortable:"true"}
+		    				{field:'parent',title:'父编码',width:120,align:'center'}
 		    			]]
 		    			,toolbar:[{
 		    				text:'新增',

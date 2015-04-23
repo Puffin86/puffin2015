@@ -62,15 +62,18 @@
 	    		</td>
 	    	</tr>
 	    </table>
-		<table id="grid" style="width:100%;height:100%"></table> 
+	    <div style="position: absolute;top: 170px;right: 1px;bottom: 1px;left: 1px;">
+			<table id="grid" style="width:100%;height:100%"></table> 
+	    </div>
     </div>
+    
     <div id="cbr_dg" style="width:250px;height:300px;">
      <input id="userSearch" style="margin-left:5px;margin-top:5px" type="text">
        <a id="search_bt" onclick="searchUser()" iconCls="icon-search"></a>
        <ul id="searchList"></ul>
     </div> 
     
-    <div id="totalDataDiv" style="width:800px;height:600px;">
+    <div id="totalDataDiv" style="width:800px;height:500px;">
      	<table width="100%">
      		<tr>
      			<td>条件设置：</td>
@@ -84,12 +87,17 @@
      			</td>
      		</tr>
      	</table>
-     	<table id="totalgrid" style="width:700px;height:500px"></table> 
-     	<table width="100%">
-     		<tr>
-     			<td>合计：</td>
-     		</tr>
-     	</table>
+     	<div style="position: absolute;top: 60px;right: 7px;bottom: 30px;left: 7px;">
+	     	<table id="totalgrid" style="width:100%;height:100%"></table> 
+     	</div>
+     	<div style="position: absolute;top: 470px;right: 7px;bottom: 1px;left: 7px;">
+     		<table width="100%">
+	     		<tr>
+	     			<td>合计：</td>
+	     		</tr>
+	     	</table>
+     	</div>
+     	
     </div> 
     
 </body>
