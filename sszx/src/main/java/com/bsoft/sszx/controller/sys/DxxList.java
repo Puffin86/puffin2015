@@ -40,7 +40,7 @@ public class DxxList {
 
 		for (int i = 0; i < al.size(); i++) {
 			Tree leaf = new Tree();
-			leaf.setId(i);
+			leaf.setId(i+"");
 			leaf.setState("open");
 			leaf.setText(al.get(i).getMc());
 

@@ -5,17 +5,17 @@ import java.util.Map;
 
 public class Tree {
 	
-	private int id;
+	private String id;
 	private String text;
 	private String state;
 	private List<Tree> children;
 	private Map<String, String> attributes;
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

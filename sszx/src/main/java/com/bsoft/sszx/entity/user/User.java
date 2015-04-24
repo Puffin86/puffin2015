@@ -10,9 +10,12 @@ public class User implements java.io.Serializable {
 
 	private UserId id;
 	private String yhxm;
+	private String yhid;
 	private String yhbm;
+	private String bmmc;
 	private String pass;
 	private String js;
+	private String jsmc;
 	private String lxdh;
 
 	// Constructors
@@ -86,6 +89,30 @@ public class User implements java.io.Serializable {
 
 	public void setLxdh(String lxdh) {
 		this.lxdh = lxdh;
+	}
+
+	public String getYhid() {
+		return yhid;
+	}
+
+	public void setYhid(String yhid) {
+		this.yhid = yhid;
+	}
+
+	public String getBmmc() {
+		return bmmc;
+	}
+
+	public void setBmmc(String bmmc) {
+		this.bmmc = bmmc;
+	}
+
+	public String getJsmc() {
+		return jsmc;
+	}
+
+	public void setJsmc(String jsmc) {
+		this.jsmc = jsmc;
 	}
 
 }

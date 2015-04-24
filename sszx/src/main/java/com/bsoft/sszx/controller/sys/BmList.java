@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.bsoft.sszx.dao.UserDao;
 import com.bsoft.sszx.entity.user.BmBean;
 import com.bsoft.sszx.entity.user.Bmb;
+import com.bsoft.sszx.entity.user.User;
 import com.bsoft.sszx.util.HttpHelper;
 import com.bsoft.sszx.util.Tree;
 
@@ -42,7 +43,7 @@ public class BmList {
 
 		for (int i = 0; i < al.size(); i++) {
 			Tree leaf = new Tree();
-			leaf.setId(i);
+			leaf.setId(i+"");
 			leaf.setState("open");
 			leaf.setText(al.get(i).getBmmc());
 
@@ -68,6 +69,61 @@ public class BmList {
 		List<BmBean> al = (List<BmBean>) new UserDao().findBm(fydm);
 //		al.add(new BmBean("all","all","全部"));
 		JSONArray resultObj = JSONArray.fromObject(al);
+		HttpHelper.renderJson(resultObj.toString(), response);
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping("bmryList")
+	public void bmryList(HttpServletRequest request,
+			HttpServletResponse response, HttpSession session) throws Exception {
+		String fydm = (String) session.getAttribute("fydm");
+
+		Map<String, Object> result = new HashMap<String, Object>();
+
+		List<Bmb> al = (List<Bmb>) new UserDao().findBmAll(fydm);
+		List<User> userList = (List<User>)new UserDao().findUserAll(fydm);
+		List<Tree> tree = new ArrayList<Tree>();
+
+		for (int i = 0; i < al.size(); i++) {
+			String bmdm = al.get(i).getId().getBmdm();
+			Tree leaf = new Tree();
+			leaf.setId(bmdm);
+			leaf.setState("closed");
+			leaf.setText(al.get(i).getBmmc());
+
+			Map<String, String> attributes = new HashMap<String, String>();
+//			attributes.put("opened", "false");
+			leaf.setAttributes(attributes);
+
+			for(User u : userList){
+				if(u.getYhbm().equals(bmdm)){
+					Tree userleaf = new Tree();
+					userleaf.setId(u.getId().getYhid());
+//					userleaf.setState("open");
+					userleaf.setText(u.getYhxm());
+
+					Map<String, String> userattributes = new HashMap<String, String>();
+//					userattributes.put("opened", "false");
+					userleaf.setAttributes(userattributes);
+					
+					List<Tree> children = leaf.getChildren();
+					if(children!=null){
+						children.add(userleaf);
+					}else{
+						children = new ArrayList<Tree>();
+						children.add(userleaf);
+						leaf.setChildren(children);
+					}
+				}
+			}
+			
+			tree.add(leaf);
+		}
+
+		result.put("data", tree);
+
+		JSONObject resultObj = JSONObject.fromObject(result);
 		HttpHelper.renderJson(resultObj.toString(), response);
 	}
 	

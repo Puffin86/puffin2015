@@ -41,7 +41,7 @@ public class DsrSearch {
 		List<Tree> tree = (List<Tree>) new ArrayList();
 		for (int i = 0; i < al.size(); i++) {
 			Tree leaf = new Tree();
-			leaf.setId(i);
+			leaf.setId(i+"");
 			leaf.setState("open");
 
 			String dsrxm = al.get(i).getMc();

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.springframework.stereotype.Controller;
@@ -45,7 +46,7 @@ public class UserList {
 		
 		for (int i = 0; i < al.size(); i++) {
 			Tree leaf = new Tree();
-			leaf.setId(i);
+			leaf.setId(i+"");
 			leaf.setState("open");
 			leaf.setText(al.get(i).getYhxm());
 
@@ -61,6 +62,21 @@ public class UserList {
 		map.put("data", tree);
 		
 		JSONObject resultObj = JSONObject.fromObject(map); 
+		HttpHelper.renderJson(resultObj.toString(), response);
+	}
+	
+	@ResponseBody
+	@RequestMapping("userListByJs")
+	public void userListByJs(HttpServletRequest request,
+			HttpServletResponse response, HttpSession session) throws Exception {
+
+		String fydm = (String) session.getAttribute("fydm");
+		String bmdm = request.getParameter("bmdm");
+		String js = request.getParameter("js");
+		
+		List<User> al = (List<User>) new UserDao().findUserByJs(js,fydm,bmdm);
+		
+		JSONArray resultObj = JSONArray.fromObject(al); 
 		HttpHelper.renderJson(resultObj.toString(), response);
 	}
 	

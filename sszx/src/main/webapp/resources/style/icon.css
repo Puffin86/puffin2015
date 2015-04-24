@@ -89,3 +89,15 @@
 .icon-word{ 
 	background:url('images/word.png') no-repeat; 
 }
+
+.icon-allselect{ 
+	background:url('images/allSelect.png') no-repeat; 
+}
+
+.icon-checked{ 
+	background:url('images/checked.png') no-repeat; 
+}
+
+.icon-unchecked{ 
+	background:url('images/unchecked.png') no-repeat; 
+}

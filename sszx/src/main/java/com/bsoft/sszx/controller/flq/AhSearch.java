@@ -63,7 +63,7 @@ public class AhSearch {
 		List<Tree> tree = new ArrayList<Tree>();
 		for (int i = 0; i < al.size(); i++) {
 			Tree leaf = new Tree();
-			leaf.setId(i);
+			leaf.setId(i+"");
 			leaf.setState("open");
 
 			String ah = al.get(i).getAh();

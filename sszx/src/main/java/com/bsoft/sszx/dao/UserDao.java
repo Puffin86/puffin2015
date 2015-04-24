@@ -138,6 +138,41 @@ public class UserDao {
 		return null;
 	}
 
+	
+	public List<User> findUserByJs(String js, String fydm,String bmdm) {
+		try {
+			session = HibernateUtil.getSession(); // 获取Session
+			session.beginTransaction();
+			StringBuffer sqlBuf = new StringBuffer();
+			sqlBuf.append("SELECT yhxm,yhid,yhbm,");
+			sqlBuf.append("(SELECT bmmc FROM bmb WHERE bmdm=a.yhbm) AS bmmc,");
+			sqlBuf.append("(SELECT zdmxmc FROM zdmx WHERE a.js=zdmxbm AND zdbm='js') AS jsmc,js");
+			sqlBuf.append(" FROM USER a");
+			sqlBuf.append(" where dwdm=").append(fydm);
+			sqlBuf.append(" and js=").append(js);
+			if(bmdm!=null&&!"".equals(bmdm)){
+				sqlBuf.append(" and yhbm=").append(bmdm);
+			}
+			sqlBuf.append(" order by yhbm");
+			SQLQuery query = session.createSQLQuery(sqlBuf.toString());
+			query.addScalar("yhxm", Hibernate.STRING);
+			query.addScalar("yhid", Hibernate.STRING);
+			query.addScalar("yhbm", Hibernate.STRING);
+			query.addScalar("bmmc", Hibernate.STRING);
+			query.addScalar("jsmc", Hibernate.STRING);
+			query.addScalar("js", Hibernate.STRING);
+			query.setResultTransformer(Transformers.aliasToBean(User.class));
+			List<User> userList = (List<User>)query.list();
+			session.getTransaction().commit();
+			return userList;
+		} catch (Exception e) {
+			e.printStackTrace(); // 打印错误信息
+		} finally {
+			HibernateUtil.closeSession(session); // 关闭Session
+		}
+		return null;
+	}
+	
 	public List<Bmb> findBmAll(String fydm) {
 		try {
 			session = HibernateUtil.getSession(); // 获取Session
