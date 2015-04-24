@@ -67,35 +67,35 @@ public class SaveJs {
 		String[] addItems = request.getParameterValues("addItems[]");
 		String[] delItems = request.getParameterValues("delItems[]");
 		String lx = request.getParameter("lx");
-//		
-//		UserDao userDao = new UserDao();
-//		Session hibSession = null;
-//		try {
-//			hibSession = HibernateUtil.getSession(); // 获取Session
-//			hibSession.beginTransaction();
-//			if(addItems!=null){
-//				for(int i=0;i<addItems.length;i++){
-//					String yhid = addItems[i];
-//					User user = userDao.findUserById(yhid, fydm);
-//					user.setJs(lx);
-//					hibSession.merge(user);// 应用save()方法将留言信息保存到数据
-//				}
-//			}
-//			if(delItems!=null){
-//				for(int i=0;i<delItems.length;i++){
-//					String yhid = delItems[i];
-//					User user = userDao.findUserById(yhid, fydm);
-//					user.setJs("0");
-//					hibSession.merge(user);// 应用save()方法将留言信息保存到数据
-//				}
-//			}
-//			
-//			hibSession.getTransaction().commit();
-//		} catch (Exception e) {
-//			e.printStackTrace(); // 打印错误信息
-//		} finally {
-//			HibernateUtil.closeSession(hibSession); // 关闭Session
-//		}
+		
+		UserDao userDao = new UserDao();
+		Session hibSession = null;
+		try {
+			hibSession = HibernateUtil.getSession(); // 获取Session
+			hibSession.beginTransaction();
+			if(addItems!=null){
+				for(int i=0;i<addItems.length;i++){
+					String yhid = addItems[i];
+					User user = userDao.findUserById(yhid, fydm);
+					user.setJs(lx);
+					hibSession.merge(user);// 应用save()方法将留言信息保存到数据
+				}
+			}
+			if(delItems!=null){
+				for(int i=0;i<delItems.length;i++){
+					String yhid = delItems[i];
+					User user = userDao.findUserById(yhid, fydm);
+					user.setJs("0");
+					hibSession.merge(user);// 应用save()方法将留言信息保存到数据
+				}
+			}
+			
+			hibSession.getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace(); // 打印错误信息
+		} finally {
+			HibernateUtil.closeSession(hibSession); // 关闭Session
+		}
 	}
 
 }
