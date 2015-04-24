@@ -104,21 +104,6 @@ public class UserDao {
 		return null;
 	}
 	
-	public List<User> findUserNotJs(String fydm,String js) {
-		try {
-			session = HibernateUtil.getSession(); // 获取Session
-			session.beginTransaction();
-			String sql = "from User where dwdm=" + fydm;
-			List<User> userList = (List<User>) session.createQuery(sql).list();
-			session.getTransaction().commit();
-			return userList;
-		} catch (Exception e) {
-			e.printStackTrace(); // 打印错误信息
-		} finally {
-			HibernateUtil.closeSession(session); // 关闭Session
-		}
-		return null;
-	}
 
 	public List<User> findUserByName(String fydm, String name) {
 		try {
