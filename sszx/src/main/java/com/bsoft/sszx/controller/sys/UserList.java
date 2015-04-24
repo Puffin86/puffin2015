@@ -74,7 +74,7 @@ public class UserList {
 		String bmdm = request.getParameter("bmdm");
 		String js = request.getParameter("js");
 		
-		List<User> al = (List<User>) new UserDao().findUserByJs(js,fydm,bmdm);
+		List<User> al = (List<User>) new UserDao().findUserByJs(js,fydm,bmdm,true);
 		
 		JSONArray resultObj = JSONArray.fromObject(al); 
 		HttpHelper.renderJson(resultObj.toString(), response);

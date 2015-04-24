@@ -103,6 +103,22 @@ public class UserDao {
 		}
 		return null;
 	}
+	
+	public List<User> findUserNotJs(String fydm,String js) {
+		try {
+			session = HibernateUtil.getSession(); // 获取Session
+			session.beginTransaction();
+			String sql = "from User where dwdm=" + fydm;
+			List<User> userList = (List<User>) session.createQuery(sql).list();
+			session.getTransaction().commit();
+			return userList;
+		} catch (Exception e) {
+			e.printStackTrace(); // 打印错误信息
+		} finally {
+			HibernateUtil.closeSession(session); // 关闭Session
+		}
+		return null;
+	}
 
 	public List<User> findUserByName(String fydm, String name) {
 		try {
@@ -139,7 +155,7 @@ public class UserDao {
 	}
 
 	
-	public List<User> findUserByJs(String js, String fydm,String bmdm) {
+	public List<User> findUserByJs(String js, String fydm,String bmdm,Boolean isjs) {
 		try {
 			session = HibernateUtil.getSession(); // 获取Session
 			session.beginTransaction();
@@ -149,9 +165,14 @@ public class UserDao {
 			sqlBuf.append("(SELECT zdmxmc FROM zdmx WHERE a.js=zdmxbm AND zdbm='js') AS jsmc,js");
 			sqlBuf.append(" FROM USER a");
 			sqlBuf.append(" where dwdm=").append(fydm);
-			sqlBuf.append(" and js=").append(js);
+			if(isjs){
+				sqlBuf.append(" and js=").append(js);
+			}else{
+				sqlBuf.append(" and js !=").append(js);
+			}
+			
 			if(bmdm!=null&&!"".equals(bmdm)){
-				sqlBuf.append(" and yhbm=").append(bmdm);
+				sqlBuf.append(" and yhbm like '%").append(bmdm).append("%'");
 			}
 			sqlBuf.append(" order by yhbm");
 			SQLQuery query = session.createSQLQuery(sqlBuf.toString());
@@ -178,6 +199,22 @@ public class UserDao {
 			session = HibernateUtil.getSession(); // 获取Session
 			session.beginTransaction();
 			String sql = "from Bmb where dwdm=" + fydm;
+			List<Bmb> BmbList = (List<Bmb>) session.createQuery(sql).list();
+			session.getTransaction().commit();
+			return BmbList;
+		} catch (Exception e) {
+			e.printStackTrace(); // 打印错误信息
+		} finally {
+			HibernateUtil.closeSession(session); // 关闭Session
+		}
+		return null;
+	}
+	
+	public List<Bmb> findBmByBmdm(String fydm,String bmdm) {
+		try {
+			session = HibernateUtil.getSession(); // 获取Session
+			session.beginTransaction();
+			String sql = "from Bmb where dwdm=" + fydm +" and bmdm like '%"+bmdm+"%'";
 			List<Bmb> BmbList = (List<Bmb>) session.createQuery(sql).list();
 			session.getTransaction().commit();
 			return BmbList;

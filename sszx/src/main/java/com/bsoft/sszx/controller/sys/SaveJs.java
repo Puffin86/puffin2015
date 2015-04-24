@@ -7,12 +7,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.hibernate.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bsoft.sszx.dao.UserDao;
 import com.bsoft.sszx.entity.user.User;
+import com.bsoft.sszx.hibernate.HibernateUtil;
 import com.bsoft.sszx.util.HttpHelper;
 
 import net.sf.json.JSONObject;
@@ -52,6 +54,48 @@ public class SaveJs {
 		
 		JSONObject json = JSONObject.fromObject(result);
 		HttpHelper.renderJson(json.toString(), response);
+	}
+	
+	
+	@SuppressWarnings("unused")
+	@ResponseBody
+	@RequestMapping("plszJs")
+	public void plszJs(HttpServletRequest request,
+			HttpServletResponse response, HttpSession session) throws Exception {
+
+		String fydm = (String) session.getAttribute("fydm");
+		String[] addItems = request.getParameterValues("addItems[]");
+		String[] delItems = request.getParameterValues("delItems[]");
+		String lx = request.getParameter("lx");
+//		
+//		UserDao userDao = new UserDao();
+//		Session hibSession = null;
+//		try {
+//			hibSession = HibernateUtil.getSession(); // 获取Session
+//			hibSession.beginTransaction();
+//			if(addItems!=null){
+//				for(int i=0;i<addItems.length;i++){
+//					String yhid = addItems[i];
+//					User user = userDao.findUserById(yhid, fydm);
+//					user.setJs(lx);
+//					hibSession.merge(user);// 应用save()方法将留言信息保存到数据
+//				}
+//			}
+//			if(delItems!=null){
+//				for(int i=0;i<delItems.length;i++){
+//					String yhid = delItems[i];
+//					User user = userDao.findUserById(yhid, fydm);
+//					user.setJs("0");
+//					hibSession.merge(user);// 应用save()方法将留言信息保存到数据
+//				}
+//			}
+//			
+//			hibSession.getTransaction().commit();
+//		} catch (Exception e) {
+//			e.printStackTrace(); // 打印错误信息
+//		} finally {
+//			HibernateUtil.closeSession(hibSession); // 关闭Session
+//		}
 	}
 
 }

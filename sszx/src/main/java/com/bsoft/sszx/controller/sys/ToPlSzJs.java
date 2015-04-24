@@ -12,8 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ToPlSzJs {
 
 	@RequestMapping("to_plsz")
-	public String toPlsz(String roleId, Map<String, Object> model){
+	public String toPlsz(String roleId,String roleText, Map<String, Object> model){
 		model.put("roleId", roleId);
+		model.put("roleText", roleText);
 		return "sys/plsz2";
 	}
 

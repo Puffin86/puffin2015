@@ -80,33 +80,27 @@ public class BmList {
 		String fydm = (String) session.getAttribute("fydm");
 
 		Map<String, Object> result = new HashMap<String, Object>();
-
-		List<Bmb> al = (List<Bmb>) new UserDao().findBmAll(fydm);
-		List<User> userList = (List<User>)new UserDao().findUserAll(fydm);
+		String bmdmPar = request.getParameter("bmdm");
+		String js = request.getParameter("js");
+		List<Bmb> al = (List<Bmb>) new UserDao().findBmByBmdm(fydm, bmdmPar);
+//		List<User> userList = (List<User>)new UserDao().findUserAll(fydm);
+		List<User> userList = (List<User>) new UserDao().findUserByJs(js,fydm,bmdmPar,false);
 		List<Tree> tree = new ArrayList<Tree>();
 
 		for (int i = 0; i < al.size(); i++) {
 			String bmdm = al.get(i).getId().getBmdm();
 			Tree leaf = new Tree();
 			leaf.setId(bmdm);
-			leaf.setState("closed");
 			leaf.setText(al.get(i).getBmmc());
-
-			Map<String, String> attributes = new HashMap<String, String>();
-//			attributes.put("opened", "false");
-			leaf.setAttributes(attributes);
 
 			for(User u : userList){
 				if(u.getYhbm().equals(bmdm)){
 					Tree userleaf = new Tree();
-					userleaf.setId(u.getId().getYhid());
-//					userleaf.setState("open");
+					userleaf.setId(u.getYhid());
 					userleaf.setText(u.getYhxm());
-
-					Map<String, String> userattributes = new HashMap<String, String>();
-//					userattributes.put("opened", "false");
-					userleaf.setAttributes(userattributes);
-					
+					Map<String, String> attributes = new HashMap<String, String>();
+					attributes.put("type", "ry");
+					userleaf.setAttributes(attributes);
 					List<Tree> children = leaf.getChildren();
 					if(children!=null){
 						children.add(userleaf);
@@ -116,6 +110,15 @@ public class BmList {
 						leaf.setChildren(children);
 					}
 				}
+			}
+			
+			Map<String, String> attributes = new HashMap<String, String>();
+			attributes.put("type", "bm");
+			leaf.setAttributes(attributes);
+			if(!"".equals(bmdmPar)){
+				leaf.setState("open");
+			}else if(leaf.getChildren()!=null){
+				leaf.setState("closed");
 			}
 			
 			tree.add(leaf);
