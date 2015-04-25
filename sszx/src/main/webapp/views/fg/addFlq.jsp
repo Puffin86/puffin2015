@@ -232,13 +232,18 @@ function save(){
 </div> 
 
 <script>
+
+var clqdObj={};//记录已经添加的材料清单
 $('#clqd_dialog').dialog({
 	buttons:[{
 		text:'确定',
 		handler:function(){
 			var arr = $('#clqd_tree').tree('getChecked');
 			for(var i in arr){
-				var s = buildClxx(arr[i].text);
+				if(clqdObj[arr[i].id]!=null){
+					continue;
+				}
+				var s = buildClxx(arr[i].text,arr[i].id);
 				$('#clmxtr').parent().append(s);
 			}
 			$('#clqd_dialog').dialog('close');
@@ -255,15 +260,32 @@ function choseClqd(){
 	$('#clqd_dialog').dialog('open');
 }
 
-function buildClxx(clmc){
-	var s = '<div class="cl" id="clmxtr" style="margin-top:5px"><div>'
+
+
+function buildClxx(clmc,cllx){
+	var divclmxtr = $('<div class="cl" id="clmxtr" style="margin-top:5px"></div>');
+	var indivStr = $('<div>'
 		+ '材料名称：<input name="clmc" type="text" value="' +clmc+ '"/>&nbsp;&nbsp;'
 		+ '份数： <input name="clfs"  style="width:30px" type="text"/>&nbsp;&nbsp;'
     	+ '页数： <input name="clys" style="width:30px" type="text"/>&nbsp;&nbsp;'
-    	+ '<a id="cl_remove" class="remove" style="margin-top:-7px" iconCls="icon-cancel"></a>'
-    	+ '</div></div>';
-    return s;
+    	+ '</div>');
+	
+	$('<a></a>').text('').appendTo(indivStr).linkbutton({iconCls:'icon-cancel'}).attr('cllx',cllx).on('click',function(){
+		var lx = $(this).attr('cllx');
+		var node = $('#clqd_tree').tree('find',lx);
+		$('#clqd_tree').tree('uncheck',node.target);
+		var td = $(this).parent();
+		td.empty();//清空父元素
+		td.remove();
+		delete clqdObj[lx];
+	});
+	clqdObj[cllx] = cllx;
+	indivStr.appendTo(divclmxtr);
+    return divclmxtr;
 }
+
+
+
 </script>
 
 <!-- 送达回证材料明细 -->
@@ -312,12 +334,12 @@ function sdhzclqd(){
 	   		<td><input id="ahDsr" type="text"/></td>
 	   	</tr>
 	    <tr>
-	    	<td>关键字：</td>
+	    	<td>案号：</td>
 	    	<td>
 		    	<input id="ahG" type="text"/>
 	        </td>
 	        <td>
-		        <a id="search_ah" class="easyui-linkbutton" onclick="searchAh()">查询</a>
+		        <a id="search_ah" class="easyui-linkbutton" onclick="searchAh()" iconCls="icon-search">查询</a>
 	        </td>
 	        <td>&nbsp;</td>
 	    </tr>
@@ -373,24 +395,57 @@ function searchAh(){
 }
 </script>
    
-<div id="dsr_se" style="width:400px;height:300px;padding:5px;">
-	<table width="100%" border="0" cellpadding="0" cellspacing="0">
-		<tr>
-			<td>载入当事人列表：</td>
-			<td align="right">
-				<a id="search_dsr" class="easyui-linkbutton" onclick="$('#dsr_se').dialog('close');">取消</a>
-			</td>
-		</tr>
-	</table>
-	<hr/>
-	<ul id="dsr_searchList"></ul>
-</div>
+<div id="dsr_se" style="width:400px;height:300px;">
+    	<table id="dsrgrid" ></table>
+   </div>
 
 <script>
+
+$('#dsrgrid').datagrid({
+	rownumbers:false,
+	striped:true,
+	fitColumns:true,
+	idField:'ah',
+	border:true,
+	singleSelect:true,
+	url:"dsrSearchList.do",
+	queryParams : {
+		ah : $('input[name=ah]').val()
+	},
+	columns:[[
+		{field:'mc',title:'当事人',width:120,align:'center'},
+		{field:'lx',title:'当事人类型',width:120,align:'center'},
+		{field:'lxdh',title:'联系电话',width:120,align:'center'},
+		{field:'sfzhm',title:'证件(机构)号码',width:120,align:'center'}
+	]]
+});
+
 $('#dsr_se').dialog({
-	title:'添加当事人',
-	iconCls:'icon-search',
-	closed:true
+    title:'当事人列表',
+    iconCls:'icon-search',
+    closed:true,
+    buttons:[{
+		text:'确定',
+		handler:function(){
+			var selRow = $('#dsrgrid').datagrid('getSelected');
+			if(selRow!=null){
+				if(selRow.lx=="09_01001-1"){//自然人
+					$('#changeText').html('当事人证件号码：');
+				}else{//非自然人
+					$('#changeText').html('当事人组织机构代码：');
+				}
+				$('input[name=tjr]').val(selRow.mc);
+				$('input[name=tjrlxdh]').val(selRow.lxdh);
+				$('input[name=djrsfz]').val(selRow.sfzhm);
+			}
+			$('#dsr_se').dialog('close');
+		}
+	},{
+		text:'取消',
+		handler:function(){
+			$('#dsr_se').dialog('close');
+		}
+	}]
 });
  
 $('#dsr_searchList').tree({  
@@ -405,22 +460,14 @@ $('#dsr_searchList').tree({
 });  
 
 function searchDsr(){
-    var ah=$('input[name=ah]').val();
-    
-	if(ah!=null && ah!=''){
-		$.ajax({
-	 	     url:'${path}/dsrSearch.do',
-	 	     type:'POST',
-	 	     data:{ah:encodeURI(encodeURI(ah))},
-	 	     dataType:'json',
-	 	     success:function (data) {
-	 	     	$('#dsr_searchList').tree('loadData', data.data);
-	 	     	$('#dsr_se').dialog('open');
-	 	     }
-	 	});
+	var ah=$('input[name=ah]').val();
+	if(ah!=''){
+		$('#dsrgrid').datagrid('reload');
+		$('#dsrgrid').datagrid('clearSelections');
+		$('#dsr_se').dialog('open');
 	}else{
 		alert("请先输入案号");
-	}
+	} 
 }
 </script>
    

@@ -76,7 +76,6 @@ $(function(){
 		    			singleSelect:true,
 		    			striped:true,
 		    			fitColumns:true,
-		    			singleSelect:true,
 		    			idField:'zdmxbm',
 		    			border:true,
 		    			//pagination:true,

@@ -195,5 +195,15 @@
 			<version>1.47.1</version>
 		</dependency>
 		
+		<dependency> 
+		    <groupId>com.sybase.jdbc3</groupId> 
+		    <artifactId>jconn</artifactId> 
+		    <version>3</version> 
+		    <type>jar</type> 
+		    <scope>system</scope> 
+		    <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/jconn3.jar</systemPath> 
+		</dependency>
+		
+		
 	</dependencies>
 </project>

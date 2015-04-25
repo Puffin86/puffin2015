@@ -44,12 +44,12 @@ int bh=new ZjqdDao().getMaxId(fydm);
        <td width="20%" >当事人：</td>
        <td><input class="easyui-validatebox" required="true" name="tjr" type="text"></input>
        <input style="display:none;" type="text"></input>
-       <a id="dsr_bt" onClick="$('#dsr_se').dialog('open');" style="margin-top:-5px" iconCls="icon-add"></a></td>
+       <a id="dsr_bt" onClick="searchDsr()" style="margin-top:-5px" iconCls="icon-add"></a></td>
        <td width="20%">&nbsp;&nbsp;当事人联系电话：</td>
        <td><input name="tjrlxdh" type="text"></input></td>
      </tr> 
      <tr>
-       <td width="20%">当事人证件号码：</td>
+       <td width="20%" id="changeText">当事人证件号码：</td>
        <td><input name="djrsfz" type="text"></input></td>
        <td width="20%">&nbsp;&nbsp;递交日期：</td>
        <td><input editable="false" class="easyui-datebox" id="djrq" name="djrq" type="text"></input></td>
@@ -73,7 +73,6 @@ int bh=new ZjqdDao().getMaxId(fydm);
      <!-- <a id="scan" onclick="scan(<%=bh%>)" iconCls="icon-scan">扫描</a> -->
      <a id="cancel" onclick="window.location.href='${path}/to_jsdsrzdsj.do';" iconCls="icon-cancel">取消</a>
    </div>
-   <!-- <a onclick="test()">test</a> -->
    <script>
    $('#research').linkbutton({});
    $('#cl_remove').linkbutton({});
@@ -84,15 +83,6 @@ int bh=new ZjqdDao().getMaxId(fydm);
    $('#cbr_search').linkbutton({});
    $('#search_bt').linkbutton({});   
    $('#dsr_bt').linkbutton({});
-   /*function test(){
-   	var s='';
-   	for(var i=0;i<$('input[name=clmc]').length;i++){//input要使用name属性辨别
-   		var ss=$('input[name=clmc]').eq(i).val();
-   	    s+=ss;	
-   	}
-   		alert(s);
-   }*/
-
 
    //文档加载完成后要执行的内容 
    $(document).ready(function(){ 
@@ -140,10 +130,8 @@ int bh=new ZjqdDao().getMaxId(fydm);
        
        var cl='';
        var alerString='';
-       
        if($('input[name=clmc]').length==1){
     	   alerString="请至少录入一条材料记录！";
-    	   return;
        }
    	for(var i=1;i<$('input[name=clmc]').length;i++){//input要使用name属性辨别
    		var clmc=$('input[name=clmc]').eq(i).val();
@@ -261,21 +249,22 @@ int bh=new ZjqdDao().getMaxId(fydm);
    </script>
    <div id="ah_se" style="width:400px;height:300px;">
 	   <table style="font-size:12px">
-	   	<tr>
-	   		<td>年份：</td>
-	   		<td><input id="ahN" style="margin-left:5px;margin-top:5px" type="text"></td>
-	   	</tr>
-	    <tr>
-	   		<td>当事人：</td>
-	   		<td><input id="ahdsr" style="margin-left:5px;margin-top:5px" type="text"></td>
-	   	</tr>
-	    <tr>
-	    	<td>关键字：</td>
-	    	<td >
-	    		<input id="ahG" style="margin-left:5px;margin-top:5px" type="text"/>
-	       		<a id="search_ah" onclick="searchAh()" >查询</a>
-	       	</td>
-	     </tr>
+		   	<tr>
+		   		<td>年份：</td>
+		   		<td><input id="ahN" style="width:100px;margin-left:5px;margin-top:5px" type="text"></td>
+		   		<td >案号：</td>
+		    	<td >
+		    		<input id="ahG" style="width:100px;margin-left:5px;margin-top:5px" type="text"/>
+		       	</td>
+		   	</tr>
+		    <tr>
+		   		<td>当事人：</td>
+		   		<td><input id="ahdsr" style="width:100px;margin-left:5px;margin-top:5px" type="text"></td>
+		   		<td>&nbsp;</td>
+		   		<td>
+		       		<a id="search_ah" onclick="searchAh()" iconCls="icon-search">查询</a>
+		       	</td>
+		   	</tr>
 	    </table>
        <hr/>
        <ul id="ah_searchList"></ul>
@@ -326,21 +315,62 @@ int bh=new ZjqdDao().getMaxId(fydm);
    </script>
    
    <div id="dsr_se" style="width:400px;height:300px;">
-    <div style="margin-left:5px;">载入当事人列表：<a id="search_dsr" onclick="searchDsr()" iconCls="icon-search"></a></div>
-    <hr/><ul id="dsr_searchList"></ul>
+    	<table id="dsrgrid" ></table>
    </div>
    <script>
-   $('#search_dsr').linkbutton({}); 
+   
+   $('#dsrgrid').datagrid({
+		rownumbers:false,
+		striped:true,
+		fitColumns:true,
+		idField:'ah',
+		border:true,
+		singleSelect:true,
+		url:"dsrSearchList.do",
+		queryParams : {
+			ah : $('input[name=ah]').val()
+		},
+		columns:[[
+			{field:'mc',title:'当事人',width:120,align:'center'},
+			{field:'lx',title:'当事人类型',width:120,align:'center'},
+			{field:'lxdh',title:'联系电话',width:120,align:'center'},
+			{field:'sfzhm',title:'证件(机构)号码',width:120,align:'center'}
+		]]
+   });
+   
    
    $('#dsr_se').dialog({
-	    title:'添加当事人',
+	    title:'当事人列表',
 	    iconCls:'icon-search',
-	    closed:true});
+	    closed:true,
+	    buttons:[{
+			text:'确定',
+			handler:function(){
+				var selRow = $('#dsrgrid').datagrid('getSelected');
+				if(selRow!=null){
+					if(selRow.lx=="09_01001-1"){//自然人
+						$('#changeText').html('当事人证件号码：');
+					}else{//非自然人
+						$('#changeText').html('当事人组织机构代码：');
+					}
+					$('input[name=tjr]').val(selRow.mc);
+					$('input[name=tjrlxdh]').val(selRow.lxdh);
+					$('input[name=djrsfz]').val(selRow.sfzhm);
+				}
+				$('#dsr_se').dialog('close');
+			}
+		},{
+			text:'取消',
+			handler:function(){
+				$('#dsr_se').dialog('close');
+			}
+		}]
+   });
   
   $('#dsr_searchList').tree({  
 	    checkbox: false,
 	    onClick: function(node){		 
-			if(node.attributes.leaf=="true"){				 
+			if(node.attributes.leaf=="true"){			
 				 $('input[name=tjrlxdh]').val(node.attributes.lxdh);				 			 
 				 $('input[name=djrsfz]').val(node.attributes.sfzhm);
 				 $('input[name=tjr]').val(node.attributes.dsrxm);
@@ -351,15 +381,12 @@ int bh=new ZjqdDao().getMaxId(fydm);
   function searchDsr(){
 	    var ah=$('input[name=ah]').val();
 		if(ah!=''){
-		$.ajax({
-	  	     url:'dsrSearch.do',
-	  	     type:'POST',
-	  	     data:{ah:encodeURI(encodeURI(ah))},//注意大小写data
-	  	     dataType:'json',
-	  	     success:function (data) {
-	  	       $('#dsr_searchList').tree('loadData',data.data);
-	  	     }});
-		}else alert("请先输入案号");
+			$('#dsrgrid').datagrid('reload');
+			$('#dsrgrid').datagrid('clearSelections');
+			$('#dsr_se').dialog('open');
+		}else{
+			alert("请先输入案号");
+		} 
 	}
    
    </script>

@@ -22,8 +22,7 @@ public class ECourtDao {
 		try {
 			session = HibernateSybase.getSession();
 			session.beginTransaction();
-			Query query = session.createQuery("from Eaj where ah like '%" + cxn
-					+ "%" + AnHao + "%' and dsr like '%"+dsr+"'%");
+			Query query = session.createQuery("from Eaj where ah like '%" +  AnHao + "%' and dsr like '%"+dsr+"'% and nd="+cxn);
 			session.getTransaction().commit();
 			list = query.list();
 		} catch (Exception e) {
@@ -55,10 +54,8 @@ public class ECourtDao {
 		List list = null;
 		try {
 			session = HibernateSybase.getSession();
-			session.beginTransaction();
 			Query query = session.createQuery("from Edsr where id.ahdm =" + "'"
 					+ ahdm + "'");
-			session.getTransaction().commit();
 			list = query.list();
 		} catch (Exception e) {
 			e.printStackTrace(); // 打印错误信息
@@ -73,8 +70,7 @@ public class ECourtDao {
 		try {
 			session = HibernateSybase.getSession();
 			session.beginTransaction();
-			Query query = session.createQuery("from Eaj where ah " + "like '%"
-					+ cxn + "%" + AnHao + "%'" + " and cbr='" + user + "' and dsr like '%"+dsr+"'%");
+			Query query = session.createQuery("from Eaj where ah " + "like '%"+ AnHao + "%'" + " and cbr='" + user + "' and dsr like '%"+dsr+"'%" +" and nd="+cxn);
 			session.getTransaction().commit();
 			list = query.list();
 		} catch (Exception e) {

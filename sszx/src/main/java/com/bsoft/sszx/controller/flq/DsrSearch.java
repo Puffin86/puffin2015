@@ -19,6 +19,7 @@ import com.bsoft.sszx.entity.edsr.Edsr;
 import com.bsoft.sszx.util.HttpHelper;
 import com.bsoft.sszx.util.Tree;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 @Controller
@@ -69,5 +70,43 @@ public class DsrSearch {
 		JSONObject resultObj = JSONObject.fromObject(map);
 		HttpHelper.renderJson(resultObj.toString(), response);
 	}
+	
+	
+	@ResponseBody
+	@RequestMapping("dsrSearchList")
+	public void dsrSearchList(HttpServletRequest request,
+			HttpServletResponse response, HttpSession session) throws Exception {
+
+		String fydm = (String) session.getAttribute("fydm");
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		String ah = request.getParameter("ah");
+		ah = URLDecoder.decode(ah, "UTF-8");
+		ah = URLDecoder.decode(ah, "UTF-8");
+
+//		String ahdm = new ECourtDao().findByAh(ah).getAhdm();
+//		List<Edsr> al = (List<Edsr>) new ECourtDao().findEdsr(ahdm);
+		List<Edsr> al = new ArrayList<Edsr>();
+		Edsr bean = new Edsr();
+		bean.setMc("大大的");
+		bean.setLxdh("12345");
+		bean.setSfzhm("33032490");
+		bean.setLx("09_01001-1");
+		al.add(bean);
+		
+		Edsr bean1 = new Edsr();
+		bean1.setMc("大大的111");
+		bean1.setLxdh("123");
+		bean1.setSfzhm("0000");
+		bean1.setLx("09_01001-3");
+		al.add(bean1);
+		
+		JSONArray resultObj = JSONArray.fromObject(al);
+		HttpHelper.renderJson(resultObj.toString(), response);
+	}
+	
+	
+	
+	
 
 }
