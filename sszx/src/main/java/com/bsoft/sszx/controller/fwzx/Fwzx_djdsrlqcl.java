@@ -42,6 +42,9 @@ public class Fwzx_djdsrlqcl {
 	Map<String, Object> map = new HashMap<String, Object>();
 	ZjqdDao zjqdDao= new ZjqdDao();
 	List<Zjqd> al = zjqdDao.findDsrZzSJbyPage_2(start,number,7,fydm);//每页的数据，放入list 
+	
+	
+	
 	List<Zjqd> all= zjqdDao.findDsrZzSJ_2(7, fydm);
 	map.put("total", all.size());
 	map.put("rows", al);

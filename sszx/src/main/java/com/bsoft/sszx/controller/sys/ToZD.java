@@ -1,5 +1,6 @@
 package com.bsoft.sszx.controller.sys;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +14,11 @@ import net.sf.json.JSONArray;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.bsoft.sszx.dao.ClqdDao;
+import com.bsoft.sszx.dao.UserDao;
 import com.bsoft.sszx.dao.ZdDao;
+import com.bsoft.sszx.entity.clb.Clqd;
+import com.bsoft.sszx.entity.user.User;
 import com.bsoft.sszx.entity.zd.Zd;
 import com.bsoft.sszx.entity.zd.ZdMx;
 import com.bsoft.sszx.util.HttpHelper;
@@ -80,10 +85,65 @@ public class ToZD {
 			JSONArray resultObj = JSONArray.fromObject(al);
 			HttpHelper.renderJson(resultObj.toString(), response);
 		}
-		
-		
 	}
 	
+	
+	@RequestMapping("zdmxcx_tree")
+	public void zdmxcx_tree(HttpServletRequest request,
+			HttpServletResponse response, HttpSession session) throws Exception {
+		if(request.getParameter("zdbm")==null){
+			return;
+		}else{
+			String zdbm = (String)request.getParameter("zdbm");
+			List<Map<String, Object>> tree = new ArrayList<Map<String,Object>>();
+			List<ZdMx> al = new ZdDao().findZdMx(zdbm);
+			for(ZdMx bean : al){
+				Map<String, Object> node = new HashMap<String, Object>();
+				node.put("id", bean.getZdmxbm());
+				node.put("text", bean.getZdmxmc());
+				tree.add(node);
+			}
+			HttpHelper.renderJson(JSONArray.fromObject(tree).toString(), response);
+		}
+	}
+	
+	@RequestMapping("zdmxcx_thyy")
+	public void zdmxcx_thyy(HttpServletRequest request,
+			HttpServletResponse response, HttpSession session) throws Exception {
+		String uid = (String)session.getAttribute("user");
+		String zdbm = "thyy";
+		String lclx = (String)request.getParameter("lclx");
+		String cbr = (String)request.getParameter("cbr");
+		List<ZdMx> al = new ZdDao().findZdMx(zdbm);
+		List<ZdMx> retal = new ArrayList<ZdMx>();
+		for(ZdMx zdmx : al){
+			
+			if(zdmx.getZdmxbm().equals("2")){//已过领取时效 
+				if("flq".equals(lclx)){
+					retal.add(zdmx);
+				}else{
+					continue;
+				}
+			}else if(zdmx.getZdmxbm().equals("3")){
+				if("flj".equals(lclx)){
+					retal.add(zdmx);
+				}else{
+					continue;
+				}
+			}else if(zdmx.getZdmxbm().equals("1")){
+				if(uid.equals(cbr)){
+					retal.add(zdmx);
+				}else{
+					continue;
+				}
+			}else{
+				retal.add(zdmx);
+			}
+			
+		}
+		JSONArray resultObj = JSONArray.fromObject(retal);
+		HttpHelper.renderJson(resultObj.toString(), response);
+	}
 	
 	@RequestMapping("delzdmx")
 	public void delzdmx(HttpServletRequest request,

@@ -20,6 +20,8 @@
 	String fydm = (String) session.getAttribute("fydm");
 	List<Clb> list = (List<Clb>) session.getAttribute("fgQrJsZjqdClb");
 	Zjqd zjdq = (Zjqd) session.getAttribute("fgQrJsZjqd");
+	String lclx = zjdq.getLclx();
+	String cbrid = zjdq.getSjr();
 	String qscyr = zjdq.getQscyr();
 	String zjrXm = new UserDao().findUserById(qscyr, fydm).getYhxm();
 %>
@@ -28,7 +30,7 @@
 
     <div id="tuiHui" style="width:430px;height:250px;">
 	    <div style="margin-left:20px;margin-top:10px;color:red;">
-	    	 <input id="r_1" type="radio" name="thlx" value="1" />退回诉讼服务中心
+	    	 <input id="r_1" type="radio" name="thlx" value="1" checked="checked"/>退回诉讼服务中心
 	         <input id="r_2" type="radio" name="thlx" value="2" />退回当事人
 	         &nbsp;&nbsp;退回原因:<input id="thList" style="width:100px" />
 	    </div>
@@ -179,8 +181,10 @@
    </script>
    
 <script>
+var cbrid = '<%=cbrid%>';
+var lclx = '<%=lclx%>';
 $('#thList').combobox({
-    url:'zdmxcx.do?zdbm=thyy',    
+	url:'zdmxcx_thyy.do?zdbm=thyy&cbr='+cbrid+"&lclx="+lclx,  
     valueField:'zdmxbm',    
     textField:'zdmxmc',
     onSelect :function(record){

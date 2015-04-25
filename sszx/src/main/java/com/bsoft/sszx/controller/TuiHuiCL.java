@@ -1,5 +1,7 @@
 package com.bsoft.sszx.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,7 +30,7 @@ public class TuiHuiCL {
 	@ResponseBody
 	@RequestMapping("tuiHuiCL")
 	public void execute(HttpServletRequest request,
-			HttpServletResponse response, HttpSession session) {
+			HttpServletResponse response, HttpSession session) throws UnsupportedEncodingException {
 
 		String fydm = (String) session.getAttribute("fydm");
 		String id = request.getParameter("bh");
@@ -104,6 +106,8 @@ public class TuiHuiCL {
 		}
 
 		String htyj = request.getParameter("htyj");
+		htyj = URLDecoder.decode(htyj, "UTF-8");
+		htyj = URLDecoder.decode(htyj, "UTF-8");
 		Zjqd.setHtyj(htyj);
 		Zjqd.setZjrq(GetTime.gettime());
 

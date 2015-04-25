@@ -76,7 +76,7 @@
        		材料名称：<input name="clmc" type="text"/>&nbsp;&nbsp;
        		份数： <input name="clfs"  style="width:30px" type="text"/>&nbsp;&nbsp;
        		<input name="clys" style="width:30px;display:none;" type="text" value="0"/>    
-       		<a id="cl_remove" class="remove" style="margin-top:-7px" iconCls="icon-remove"></a>
+       		<a id="cl_remove" class="remove" style="margin-top:-7px" iconCls="icon-cancel"></a>
        </div>
      </div>
    </div>
@@ -276,51 +276,64 @@ function searchAh(){
 }
 </script>
    
-<div id="dsr_se" style="width:400px;height:300px;padding:5px;">
-	<table width="100%" border="0" cellpadding="0" cellspacing="0">
-		<tr>
-			<td>载入当事人列表：</td>
-			<td align="right">
-				<a id="search_dsr" class="easyui-linkbutton" onclick="$('#dsr_se').dialog('close');">取消</a>
-			</td>
-		</tr>
-	</table>
-	<hr/>
-	<ul id="dsr_searchList"></ul>
+<div id="dsr_se" style="width:400px;height:300px;">
+    	<table id="dsrgrid" ></table>
 </div>
 
 <script>
 $('#dsr_se').dialog({
-    title:'添加当事人',
+    title:'当事人列表',
     iconCls:'icon-search',
-    closed:true
+    closed:true,
+    buttons:[{
+		text:'确定',
+		handler:function(){
+			var selRow = $('#dsrgrid').datagrid('getSelected');
+			if(selRow!=null){
+				if(selRow.lx=="09_01001-1"){//自然人
+					$('#changeText').html('当事人证件号码：');
+				}else{//非自然人
+					$('#changeText').html('当事人组织机构代码：');
+				}
+				$('input[name=tjr]').val(selRow.mc);
+				$('input[name=tjrlxdh]').val(selRow.lxdh);
+				$('input[name=djrsfz]').val(selRow.sfzhm);
+			}
+			$('#dsr_se').dialog('close');
+		}
+	},{
+		text:'取消',
+		handler:function(){
+			$('#dsr_se').dialog('close');
+		}
+	}]
 });
  
-$('#dsr_searchList').tree({  
-    checkbox: false,
-    onClick: function(node){		 
-		if(node.attributes.leaf=="true"){				 
-			 $('input[name=tjrlxdh]').val(node.attributes.lxdh);				 			 
-			 $('input[name=djrsfz]').val(node.attributes.sfzhm);
-			 $('input[name=tjr]').val(node.attributes.dsrxm);
-		 }
-    }
-});  
+$('#dsrgrid').datagrid({
+	rownumbers:false,
+	striped:true,
+	fitColumns:true,
+	idField:'ah',
+	border:true,
+	singleSelect:true,
+	url:"dsrSearchList.do",
+	queryParams : {
+		ah : $('input[name=ah]').val()
+	},
+	columns:[[
+		{field:'mc',title:'当事人',width:120,align:'center'},
+		{field:'lx',title:'当事人类型',width:120,align:'center'},
+		{field:'lxdh',title:'联系电话',width:120,align:'center'},
+		{field:'sfzhm',title:'证件(机构)号码',width:120,align:'center'}
+	]]
+}); 
  
 function searchDsr(){
-    var ah=$('input[name=ah]').val();
+	var ah=$('input[name=ah]').val();
 	if(ah!=''){
-	$.ajax({
-  	     url: '${path}/dsrSearch.do',
-  	     type: 'POST',
-  	     data: {
-  	    	 ah:encodeURI(encodeURI(ah))
-  	     },
-  	     dataType: 'json',
-  	     success:function (data) {
-  	       		$('#dsr_searchList').tree('loadData', data.data);
-  	     		$('#dsr_se').dialog('open');
-  	     }});
+		$('#dsrgrid').datagrid('reload');
+		$('#dsrgrid').datagrid('clearSelections');
+		$('#dsr_se').dialog('open');
 	}else{
 		alert("请先输入案号");
 	}

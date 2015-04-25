@@ -25,6 +25,8 @@ String uid=(String)session.getAttribute("user");
 String fymc=new FyDao().fymc(fydm);//法院名称
 String dsr=zjdq.getDjr();//当事人姓名
 String cbr=zjdq.getSjrXm();//承办人姓名
+String cbrid = zjdq.getSjr();
+String lclx = zjdq.getLclx();
 String ah=zjdq.getAh();//案号
 String zjr=new UserDao().findUserById(uid, fydm).getYhxm();//转交人
 
@@ -104,8 +106,10 @@ nr=nr.replace(c5, zjr);
    $('#cancel').linkbutton({});
    $('#print').linkbutton({});
 
+   var cbrid = '<%=cbrid%>';
+   var lclx = '<%=lclx%>';
    $('#thList').combobox({
-	    url:'zdmxcx.do?zdbm=thyy',    
+	   url:'zdmxcx_thyy.do?zdbm=thyy&cbr='+cbrid+"&lclx="+lclx,    
 	    valueField:'zdmxbm',    
 	    textField:'zdmxmc',
 	    onSelect :function(record){

@@ -25,6 +25,8 @@ String uid=(String)session.getAttribute("user");
 String fymc=new FyDao().fymc(fydm);//法院名称
 String dsr=zjdq.getDjr();//当事人姓名
 String cbr=zjdq.getSjrXm();//承办人姓名
+String cbrid=zjdq.getSjr();
+String lclx=zjdq.getLclx();
 String ah=zjdq.getAh();//案号
 String zjr=new UserDao().findUserById(uid, fydm).getYhxm();//转交人
 
@@ -42,7 +44,10 @@ nr=nr.replace(c5, zjr);
   
 <body style="font-size:12px;">
     <div id="tuiHui" style="width:430px;height:250px;">
-    <textarea id="thyj" rows="8" cols="50" style="margin-top:20px;margin-left:20px;font-size:12px;"></textarea>
+    	<div style="margin-left:20px;margin-top:10px;">
+	    	 退回原因:<input id="thList" style="width:100px" />
+	    </div>
+    	<textarea id="thyj" rows="8" cols="50" style="margin-left:20px;font-size:12px;"></textarea>
     </div>
     
     <table style="font-size:12px;margin-left:10px;" id="ssclzjqd">
@@ -91,22 +96,12 @@ nr=nr.replace(c5, zjr);
      <a id="back" onclick="back()" iconCls="icon-no">退回</a>
      <a id="cancel" onclick="cancel()" iconCls="icon-cancel">取消</a>
    </div>
-   <!-- <a onclick="test()">test</a> -->
    <script>
    $('#back').linkbutton({});
    $('#save').linkbutton({});
    $('#cancel').linkbutton({});
 
-   /*function test(){
-   	var s='';
-   	for(var i=0;i<$('input[name=clmc]').length;i++){//input要使用name属性辨别
-   		var ss=$('input[name=clmc]').eq(i).val();
-   	    s+=ss;	
-   	}
-   		alert(s);
-   }*/
-
-
+	
    //文档加载完成后要执行的内容 
    $(document).ready(function(){ 
 	   var lx='<%=lx%>';
@@ -191,6 +186,22 @@ nr=nr.replace(c5, zjr);
    </script>
    
    <script>
+   var cbrid='<%=cbrid%>';
+   var lclx='<%=lclx%>';
+   $('#thList').combobox({
+	    url:'zdmxcx_thyy.do?zdbm=thyy&cbr='+cbrid+"&lclx="+lclx,    
+	    valueField:'zdmxbm',    
+	    textField:'zdmxmc',
+	    onSelect :function(record){
+	    	var text = $('#thyj').val();
+	    	if(text=="")
+	    		$('#thyj').val(record.zdmxmc);
+	    	else
+	    		$('#thyj').val(text+","+record.zdmxmc);
+	    }
+	})
+   
+   
 $('#tuiHui').dialog({
     title:'退回原因',
     iconCls:'icon-tip',
@@ -199,7 +210,6 @@ $('#tuiHui').dialog({
         text:'确认',
         iconCls:'icon-ok',        
         handler:function(){
-        	 //var bh="${session.djdsrLqZjqd.id.bh}";
         	  var bh='<%=zjdqId.getBh()%>';
         	 var htyj=$('#thyj').val();
              $.ajax({

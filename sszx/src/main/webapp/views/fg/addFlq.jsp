@@ -228,9 +228,9 @@ function save(){
 <div id="clqd_dialog" class="easyui-dialog" title="常用材料清单" 
 	style="width:300px;height:200px;" data-options="modal:true,closed:true">  
     <ul id="clqd_tree" class="easyui-tree" 
-    	data-options="checkbox:true,url:'${path }/clqd/tree.do'"></ul>  
+    	data-options="checkbox:true,url:'${path}/zdmxcx_tree.do?zdbm=cyclqd'"></ul>  
 </div> 
-
+<%-- url:'${path}/zdmxcx_tree.do?zdbm=cyclqd' --%>
 <script>
 
 var clqdObj={};//记录已经添加的材料清单

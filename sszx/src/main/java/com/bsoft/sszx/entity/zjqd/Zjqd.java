@@ -38,6 +38,7 @@ public class Zjqd implements java.io.Serializable {
 	private Integer sx;
 	private Timestamp sxsj;
 	private Integer sl;//数量 用于合计
+	private Integer sfcs;//是否超时
 
 	// Constructors
 
@@ -310,6 +311,14 @@ public class Zjqd implements java.io.Serializable {
 
 	public void setZjrXm(String zjrXm) {
 		this.zjrXm = zjrXm;
+	}
+
+	public Integer getSfcs() {
+		return sfcs;
+	}
+
+	public void setSfcs(Integer sfcs) {
+		this.sfcs = sfcs;
 	}
 
 }

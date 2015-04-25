@@ -1,5 +1,4 @@
 [
 	{"id":10, "text":"修改密码", "attributes":{"url": "to_pass.do"}},
-	{"id":11, "text":"设置联系电话", "attributes":{"url": "to_lxdh.do"}},
-	{"id":15, "text":"常用材料清单", "attributes":{"url": "to_clqd.do"}}
+	{"id":11, "text":"设置联系电话", "attributes":{"url": "to_lxdh.do"}}
 ]

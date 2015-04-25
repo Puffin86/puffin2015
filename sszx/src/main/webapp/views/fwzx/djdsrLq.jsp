@@ -58,7 +58,7 @@ $(document).ready(function(){
 			{field:'sjrXm',title:'承办人',width:50,align:'center'},
 		    {field:'djr',title:'当事人',width:50,align:'center'},
 		    {field:'djrq',title:'递交日期',width:100,align:'center'},
-		    {field:'sx',title:'时限',width:100,align:'center'},	
+		    {field:'sx',title:'领取时限',width:100,align:'center'},	
 		    {field:'action',title:'操作',width:150,align:'center',
 				   formatter:function(value,row,index){
 					var sa=row.id.bh;

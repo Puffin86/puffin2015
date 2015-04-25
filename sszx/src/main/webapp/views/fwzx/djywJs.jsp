@@ -24,6 +24,8 @@ int lx=dxx.getZdfs();
 String uid=(String)session.getAttribute("user");
 String fymc=new FyDao().fymc(fydm);//法院名称
 String dsr=zjqd.getDjr();//当事人姓名
+String lclx = zjqd.getLclx();
+String cbrid = zjqd.getSjr();
 String cbr=zjqd.getSjrXm();//承办人姓名
 int sx = zjqd.getSx();//时限
 String ah=zjqd.getAh();//案号
@@ -106,6 +108,8 @@ nr=nr.replace(c6, sx+"");
    </div>
    <!-- <a onclick="test()">test</a> -->
    <script>
+   var cbrid = '<%=cbrid%>';
+   var lclx = '<%=lclx%>';
    $('#back').linkbutton({});
    $('#save').linkbutton({});
    $('#cancel').linkbutton({});
@@ -113,7 +117,7 @@ nr=nr.replace(c6, sx+"");
    $('#cl_add').linkbutton({});
 
    $('#thList').combobox({
-	    url:'zdmxcx.do?zdbm=thyy',    
+	    url:'zdmxcx_thyy.do?zdbm=thyy&cbr='+cbrid+"&lclx="+lclx,    
 	    valueField:'zdmxbm',    
 	    textField:'zdmxmc',
 	    onSelect :function(record){
@@ -123,7 +127,7 @@ nr=nr.replace(c6, sx+"");
 	    	else
 	    		$('#thyj').val(text+","+record.zdmxmc);
 	    }
-	})
+	});
 
 
    //文档加载完成后要执行的内容 
