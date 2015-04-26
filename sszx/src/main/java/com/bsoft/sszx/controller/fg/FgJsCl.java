@@ -81,17 +81,17 @@ public class FgJsCl {
 		List<Zjqd> al = new ArrayList<Zjqd>();
 		
 		if("jj".equals(type)&&"flq".equals(lclx)){
-			al = zjqdDao.findjjsx(fydm, user, lclx,start,number,7);
-			size = zjqdDao.countjjsx(fydm, user, lclx,7);
+			al = zjqdDao.findjjsx(fydm, user, lclx,start,number,"6,7");
+			size = zjqdDao.countjjsx(fydm, user, lclx,"6,7");
 		}else if("jj".equals(type)&&"flj".equals(lclx)){
-			al = zjqdDao.findjjsx(fydm, user, lclx,start,number,10);
-			size = zjqdDao.countjjsx(fydm, user, lclx,10);
+			al = zjqdDao.findjjsx(fydm, user, lclx,start,number,"10");
+			size = zjqdDao.countjjsx(fydm, user, lclx,"10");
 		}else if("cg".equals(type) && "flq".equals(lclx)){
-			al = zjqdDao.findcgsx(fydm, user, lclx,start,number,7);
-			size = zjqdDao.countcgsx(fydm, user, lclx,7);
+			al = zjqdDao.findcgsx(fydm, user, lclx,start,number,"6,7");
+			size = zjqdDao.countcgsx(fydm, user, lclx,"6,7");
 		}else if("cg".equals(type) && "flj".equals(lclx)){
-			al = zjqdDao.findcgsx(fydm, user, lclx,start,number,10);
-			size = zjqdDao.countcgsx(fydm, user, lclx,10);
+			al = zjqdDao.findcgsx(fydm, user, lclx,start,number,"10");
+			size = zjqdDao.countcgsx(fydm, user, lclx,"10");
 		}
 		
 		map.put("total", size);
@@ -129,7 +129,7 @@ public class FgJsCl {
 	@ResponseBody
 	@RequestMapping("fgYjsCl")
 	public void fgYjsCl(String sort,String order,Integer page, Integer rows, String user,
-			String fydm, HttpServletResponse response) {
+			String fydm,String lclx, HttpServletResponse response) {
 		// 当前页
 		int intPage = (page == null || page == 0) ? 1 : page;
 		// 每页显示条数
@@ -140,8 +140,8 @@ public class FgJsCl {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		ZjqdDao zjqdDao = new ZjqdDao();
-		List<Zjqd> al = zjqdDao.findDsrZzYSJbyPage(start, number, user, 8, fydm,sort,order);
-		List<Zjqd> all = zjqdDao.findDsrZzYSJ(user, 8, fydm);
+		List<Zjqd> al = zjqdDao.findDsrZzYSJbyPage(start, number, user, 8, fydm,lclx,sort,order);
+		List<Zjqd> all = zjqdDao.findDsrZzYSJ(user, 8, fydm,lclx);
 
 		map.put("total", all.size());
 		map.put("rows", al);

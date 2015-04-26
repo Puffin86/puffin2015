@@ -81,9 +81,13 @@ public class DsrSearch {
 		Map<String, Object> map = new HashMap<String, Object>();
 
 		String ah = request.getParameter("ah");
+		if(ah==null||"".equals(ah)){
+			return;
+		}
 		ah = URLDecoder.decode(ah, "UTF-8");
 		ah = URLDecoder.decode(ah, "UTF-8");
-
+		
+		
 //		String ahdm = new ECourtDao().findByAh(ah).getAhdm();
 //		List<Edsr> al = (List<Edsr>) new ECourtDao().findEdsr(ahdm);
 		List<Edsr> al = new ArrayList<Edsr>();

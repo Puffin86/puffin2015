@@ -50,7 +50,7 @@
 	    	<tr>
 	    		<td>业务类型：</td>
 	    		<td><input style="width:150px"  id="ywlx" /></td>
-	    		<td>时限：</td>
+	    		<td>剩余时限：</td>
 	    		<td><input style="width:150px"  id="sx" type="text"/></td>
 	    	</tr>
 	    	<tr>
@@ -226,7 +226,7 @@ $('#grid').datagrid({
 				}
 			 }	
 	    },
-	    {field:'sx',title:'时限',width:120,align:'center'},
+	    {field:'sysx',title:'剩余时限',width:120,align:'center'},
 	    {field:'ah',title:'案号',width:120,align:'center',sortable:"true"},
 	    {field:'sjrBmmc',title:'承办部门',width:120,align:'center'},
 	    {field:'sjrXm',title:'承办人',width:120,align:'center'},

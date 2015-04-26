@@ -44,9 +44,11 @@ public class Fwzx_djdsrlqcl {
 	ZjqdDao zjqdDao= new ZjqdDao();
 	List<Zjqd> al = zjqdDao.findDsrZzSJbyPage_2(start,number,7,fydm);//每页的数据，放入list 
 	
-	for(Zjqd bean : al){
-		int len = GetTime.checkOutTime(bean);
-		bean.setSfcs(len);
+	if(al!=null){
+		for(Zjqd bean : al){
+			int len = GetTime.checkOutTime(bean);
+			bean.setSfcs(len);
+		}
 	}
 	
 	List<Zjqd> all= zjqdDao.findDsrZzSJ_2(7, fydm);

@@ -44,7 +44,7 @@
             <input style="display:none;" name="sjrbm" type="text"/>
        </td>
      </tr>
-     <tr>
+     <!-- <tr>
        <td>当事人：</td>
        <td>
 	       <input class="easyui-validatebox" required="true" name="tjr" type="text"/>
@@ -57,15 +57,29 @@
      <tr>
        <td>当事人证件号码：</td>
        <td><input name="djrsfz" type="text"/></td>
+       <td>&nbsp;</td>
+       <td>&nbsp;</td>
+     </tr>
+      -->
+      <tr>
+       <td>领取时限：</td>
+       <td><input name="lqsx" type="text"/></td>
+       
        <td>递交日期：</td>
        <td><input editable="false" class="easyui-datebox" id="djrq" name="djrq" type="text"/></td>
      </tr>
+      <tr>
+       <td>当事人：<a id="dsr_bt" onClick="searchDsrList()" iconCls="icon-search"></a></td>
+       <td>&nbsp;</td>
+       <td>&nbsp;</td>
+       <td>&nbsp;</td>
+     </tr> 
      <tr>
-       <td>领取时限：</td>
-       <td><input name="lqsx" type="text"/></td>
-       <td>&nbsp;</td>
-       <td>&nbsp;</td>
+     	<td colspan="4">
+     		<table id="dsrgridList" ></table>
+     	</td>
      </tr>
+     
      </table>
      <hr/> 
      
@@ -145,12 +159,11 @@ $(document).ready(function(){
 function save(){
     var ah=$('input[name=ah]').val();
     var sjr=$('input[name=sjr]').val();
-    var tjr=$('input[name=tjr]').val();
     var djrq=$('input[name=djrq]').val();
-    var tjrlxdh=$('input[name=tjrlxdh]').val();
     var zjr=$('input[name=zjr]').val();
     var zjrq=$('input[name=zjrq]').val();
-    var djrsfzhm=$('input[name=djrsfz]').val();
+    
+    
        
     var cl='';
     var alerString='';
@@ -190,19 +203,36 @@ function save(){
 	
 	var lqsx = $('input[name=lqsx]').val();
 	
+	var tjrlxdh=$('input[name=tjrlxdh]').val();
+    var tjr=$('input[name=tjr]').val();
+    var djrsfzhm=$('input[name=djrsfz]').val();
+
+    var rows = $('#dsrgridList').datagrid("getChecked"); 
+    var tjrStr="";
+    for(var i=0; i<rows.length;i++){
+    	var row = rows[i];
+    	var rowStr = "{dsrmc:'"+row.mc+"',dsrlxdh:"+row.lxdh+",dsrsfzhm:"+row.sfzhm+"}";
+    	tjrStr +="@"+rowStr;
+    }
+    //return;
+    if(rows.length==0){
+    	alert("必须选择当事人！");
+    	return;
+    }
 	if(tr==0 && alerString==''){
         $.ajax({
-   	     	url:'${path}/saveFlq.do',
+   	     	url:'${path}/saveFlqList.do',
    	     	type:'POST',
    	     	data:{
    	     		 ah:encodeURI(encodeURI(ah))
                  ,sjr:encodeURI(encodeURI(sjr))
-                 ,tjr:encodeURI(encodeURI(tjr))
+                 ,tjrStr:encodeURI(encodeURI(tjrStr))
+                 //,tjr:encodeURI(encodeURI(tjr))
                  ,djrq:encodeURI(encodeURI(djrq))
-                 ,tjrlxdh:encodeURI(encodeURI(tjrlxdh))
+                 //,tjrlxdh:encodeURI(encodeURI(tjrlxdh))
                  ,zjr:encodeURI(encodeURI(zjr))
                  ,zjrq:encodeURI(encodeURI(zjrq))
-                 ,djrsfzhm:encodeURI(encodeURI(djrsfzhm))
+                 //,djrsfzhm:encodeURI(encodeURI(djrsfzhm))
                  ,cl:encodeURI(encodeURI(cl))
                  ,sjrbm:encodeURI(encodeURI(sjrbm))
                  ,sjrXm:encodeURI(encodeURI(sjrXm))
@@ -230,7 +260,6 @@ function save(){
     <ul id="clqd_tree" class="easyui-tree" 
     	data-options="checkbox:true,url:'${path}/zdmxcx_tree.do?zdbm=cyclqd'"></ul>  
 </div> 
-<%-- url:'${path}/zdmxcx_tree.do?zdbm=cyclqd' --%>
 <script>
 
 var clqdObj={};//记录已经添加的材料清单
@@ -394,13 +423,33 @@ function searchAh(){
 	}
 }
 </script>
-   
+   <!-- 
 <div id="dsr_se" style="width:400px;height:300px;">
     	<table id="dsrgrid" ></table>
-   </div>
-
+</div>
+ -->
 <script>
 
+$('#dsrgridList').datagrid({
+	rownumbers:false,
+	striped:true,
+	fitColumns:true,
+	title:"当事人列表",
+	idField:'mc',
+	border:true,
+	url:"dsrSearchList.do",
+	queryParams : {
+		ah : $('input[name=ah]').val()
+	},
+	columns:[[
+	    {field:'ck',checkbox:true }, 
+		{field:'mc',title:'当事人',width:120,align:'center'},
+		{field:'lx',title:'当事人类型',width:120,align:'center',hidden:'true'},
+		{field:'lxdh',title:'联系电话',width:120,align:'center'},
+		{field:'sfzhm',title:'证件(机构)号码',width:120,align:'center'}
+	]]
+});
+/*
 $('#dsrgrid').datagrid({
 	rownumbers:false,
 	striped:true,
@@ -419,6 +468,7 @@ $('#dsrgrid').datagrid({
 		{field:'sfzhm',title:'证件(机构)号码',width:120,align:'center'}
 	]]
 });
+
 
 $('#dsr_se').dialog({
     title:'当事人列表',
@@ -447,7 +497,7 @@ $('#dsr_se').dialog({
 		}
 	}]
 });
- 
+
 $('#dsr_searchList').tree({  
     checkbox: false,
     onClick: function(node){		 
@@ -469,6 +519,20 @@ function searchDsr(){
 		alert("请先输入案号");
 	} 
 }
+*/
+
+function searchDsrList(){
+	var ah=$('input[name=ah]').val();
+	if(ah!=''){
+		$('#dsrgridList').datagrid('load',{
+			ah : $('input[name=ah]').val()
+		});
+		$('#dsrgridList').datagrid('clearSelections');
+	}else{
+		alert("请先输入案号");
+	} 
+}
+
 </script>
    
 </body>

@@ -97,13 +97,13 @@ public class ZjqdDao {
 	}
 	
 	
-	public List<Zjqd> findDsrZzYSJ(String user, int zt, String fydm) {// 查找当事人主动送件
+	public List<Zjqd> findDsrZzYSJ(String user, int zt, String fydm,String lclx) {// 查找当事人主动送件
 		List<Zjqd> list = null;
 		try {
 			session = HibernateUtil.getSession(); // 获取Session
 			session.beginTransaction(); // 开启事物
 			String sql = "from Zjqd where sjr='" + user + "' and zt=" + zt
-					+ " and fydm=" + fydm;
+					+ " and fydm=" + fydm+" and lclx='"+lclx+"'";
 			list = (List<Zjqd>) session.createQuery(sql).list();
 			session.getTransaction().commit();// 提交事物
 		} catch (Exception e) {
@@ -170,13 +170,13 @@ public class ZjqdDao {
 	}
 	
 	public List<Zjqd> findDsrZzYSJbyPage(int start, int number, String user,
-			int zt, String fydm,String sort,String order) {// 查找当事人主动送件
+			int zt, String fydm,String lclx,String sort,String order) {// 查找当事人主动送件
 		List<Zjqd> list = null;
 		try {
 			session = HibernateUtil.getSession(); // 获取Session
 			session.beginTransaction(); // 开启事物
 			String sql = "from Zjqd " + "where sjr='" + user + "' and zt="
-					+ zt + " and id.fydm='" + fydm + "'";
+					+ zt + " and id.fydm='" + fydm + "'" +" and lclx='"+lclx+"'";
 			
 			if(sort!=null ||!"".equals(sort)){
 				sql += "  order by "+sort+" "+order;
@@ -373,11 +373,11 @@ public class ZjqdDao {
 		}
 	}
 	
-	public int countjjsx(String fydm, String user,String lclx,int zt) {
+	public int countjjsx(String fydm, String user,String lclx,String zt) {
 		try {
 			session = HibernateUtil.getSession(); // 获取Session
 			session.beginTransaction();
-			String sql = " FROM Zjqd WHERE TIMESTAMPDIFF(DAY,CURDATE(),sxsj)<=CEILING(sx/3) and TIMESTAMPDIFF(DAY,CURDATE(),sxsj)>=0 and id.fydm='"+fydm+"' and sjr='"+user+"' and lclx='"+lclx+"'";
+			String sql = " FROM Zjqd WHERE TIMESTAMPDIFF(DAY,CURDATE(),sxsj)<=CEILING(sx/3) and TIMESTAMPDIFF(DAY,CURDATE(),sxsj)>=0 and id.fydm='"+fydm+"' and sjr='"+user+"' and lclx='"+lclx+"' and zt in("+zt+")";
 			List list = session.createQuery(sql).list();
 			session.getTransaction().commit();
 			return list.size();
@@ -390,12 +390,12 @@ public class ZjqdDao {
 		}
 	}
 	
-	public List<Zjqd> findjjsx(String fydm, String user,String lclx,int start,int number,int zt) {
+	public List<Zjqd> findjjsx(String fydm, String user,String lclx,int start,int number,String zt) {
 		List<Zjqd> list = new ArrayList<Zjqd>();
 		try {
 			session = HibernateUtil.getSession(); // 获取Session
 			session.beginTransaction();
-			String sql = " FROM Zjqd WHERE TIMESTAMPDIFF(DAY,CURDATE(),sxsj)<=CEILING(sx/3) and TIMESTAMPDIFF(DAY,CURDATE(),sxsj)>=0 and id.fydm='"+fydm+"' and sjr='"+user+"' and lclx='"+lclx+"'";
+			String sql = " FROM Zjqd WHERE TIMESTAMPDIFF(DAY,CURDATE(),sxsj)<=CEILING(sx/3) and TIMESTAMPDIFF(DAY,CURDATE(),sxsj)>=0 and id.fydm='"+fydm+"' and sjr='"+user+"' and lclx='"+lclx+"' and zt in("+zt+")";
 			Query query = session.createQuery(sql);
 			query.setFirstResult(start);
 			query.setMaxResults(number);
@@ -409,11 +409,11 @@ public class ZjqdDao {
 		}
 	}
 	
-	public int countcgsx(String fydm, String user,String lclx,int zt) {
+	public int countcgsx(String fydm, String user,String lclx,String zt) {
 		try {
 			session = HibernateUtil.getSession(); // 获取Session
 			session.beginTransaction();
-			String sql = " FROM Zjqd WHERE TIMESTAMPDIFF(DAY,CURDATE(),sxsj)<0 and id.fydm='"+fydm+"' and sjr='"+user+"' and lclx='"+lclx+"'";
+			String sql = " FROM Zjqd WHERE TIMESTAMPDIFF(DAY,CURDATE(),sxsj)<0 and id.fydm='"+fydm+"' and sjr='"+user+"' and lclx='"+lclx+"' and zt in("+zt+")";
 			List list = session.createQuery(sql).list();
 			session.getTransaction().commit();
 			return list.size();
@@ -427,12 +427,12 @@ public class ZjqdDao {
 	}
 	
 	
-	public List<Zjqd> findcgsx(String fydm, String user,String lclx,int start,int number,int zt) {
+	public List<Zjqd> findcgsx(String fydm, String user,String lclx,int start,int number,String zt) {
 		List<Zjqd> list = new ArrayList<Zjqd>();
 		try {
 			session = HibernateUtil.getSession(); // 获取Session
 			session.beginTransaction();
-			String sql = " FROM Zjqd WHERE TIMESTAMPDIFF(DAY,CURDATE(),sxsj)<0 and id.fydm='"+fydm+"' and sjr='"+user+"' and lclx='"+lclx+"'";
+			String sql = " FROM Zjqd WHERE TIMESTAMPDIFF(DAY,CURDATE(),sxsj)<0 and id.fydm='"+fydm+"' and sjr='"+user+"' and lclx='"+lclx+"' and zt in ("+zt+")";
 			Query query = session.createQuery(sql);
 			query.setFirstResult(start);
 			query.setMaxResults(number);

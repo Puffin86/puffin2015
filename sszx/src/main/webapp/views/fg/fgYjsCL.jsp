@@ -51,7 +51,7 @@ $(function(){
 		pagination:true,
 		sortName:'ywlx',
 		sortOrder:'desc',
-		url:"${path}/fgYjsCl.do?user="+user+"&fydm="+fydm,
+		url:"${path}/fgYjsCl.do?user="+user+"&fydm="+fydm+"&lclx=flq",
 				
 		columns:[[
 		    {field:'id',title:'流水号',width:100,align:'center',hidden:true,
@@ -59,14 +59,24 @@ $(function(){
 					return id.bh;
 				}
 		    },
-		    {field:'ywlx',title:'业务类型',width:120,align:'center',sortable:"true"},
+		    {field:'lclx',title:'业务类型',width:120,align:'center',sortable:"true",
+		    	formatter:function(lclx){
+					if(lclx=="flq"){
+						return "预约领取";
+					}else if(lclx=="flj"){
+						return "预约提交";
+					}if(lclx=="dzz"){
+						return "主动送件";
+					}
+				}
+		    },
 			{field:'sx',title:'时限',width:120,align:'center'},
 			{field:'ah',title:'案号',width:120,align:'center',sortable:"true"},
 			{field:'sjrBmmc',title:'承办部门',width:100,align:'center'},
 			{field:'sjrXm',title:'承办人',width:80,align:'center'},
 	    	{field:'djr',title:'当事人',width:80,align:'center'},
-	    	{field:'zjr',title:'中心经办人',width:80,align:'center'},
-	    	{field:'zjrq',title:'中心经办日期',width:100,align:'center',sortable:"true"},	
+	    	{field:'zjrXm',title:'中心经办人',width:80,align:'center'},
+	    	{field:'zjrq',title:'中心经办日期',width:100,align:'center'},	
 	    	{field:'action',title:'操作',width:120,align:'center',
 			    formatter:function(value,row,index){
 					var sa = row.id.bh;

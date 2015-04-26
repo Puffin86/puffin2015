@@ -57,14 +57,15 @@ $(document).ready(function(){
 			{field:'sjrBmmc',title:'承办部门',width:100,align:'center'},
 			{field:'sjrXm',title:'承办人',width:50,align:'center'},
 		    {field:'djr',title:'当事人',width:50,align:'center'},
-		    {field:'sx',title:'时限',width:100,align:'center'},
+		    {field:'sx',title:'提交时限',width:100,align:'center'},
+		    {field:'sysx',title:'剩余时限',width:100,align:'center'},
 		    {field:'djrq',title:'递交日期',width:100,align:'center'},	
 		    {field:'action',title:'操作',width:150,align:'center',
 				   formatter:function(value,row,index){
 					var sa=row.id.bh;
-					var s = '<a style="color:red\"'
+					var s = '<a '
 					        +'href=\"djdsrSjsj.do?bh='+sa+'\">确认/退回</a> ';
-					        var f = '<a style="color:red\"'
+					        var f = '<a '
 						        +'href=\"#\" '
 						        +'onClick=\"Open('
 						        +sa+');">扫描</a> ';
@@ -75,7 +76,7 @@ $(document).ready(function(){
 			]],
 			rowStyler:function(index,row){
 				if (row.sfcs==1){//接近1/3
-					return 'background-color:blue;color:blue;font-weight:bold;';
+					return 'background-color:orange;';
 				}else if(row.sfcs==-1){//超时
 					return 'background-color:red;';
 				}

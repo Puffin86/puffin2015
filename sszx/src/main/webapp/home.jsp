@@ -43,7 +43,7 @@
 	<p style="color:#770000"> <%=userXm %>, 您好!</p>
 	<div id="thN">您有<a style="color:red" href="#" onclick="window.parent.addTab('处理退回材料','to_tuiHuiCL.do')">&nbsp;&nbsp;<%=htN %>&nbsp;&nbsp;</a>份材料被退回，请处理。</div> 
     <div id="drN">您有<a style="color:red" href="#" onclick="window.parent.addTab('待接收材料','to_fgJsCl.do')">&nbsp;&nbsp;<%=drN %>&nbsp;&nbsp;</a>份材料待接收，请处理。</div>
-    <div id="jsN">您有<a style="color:red" href="#" onclick="window.parent.addTab('已接收材料','to_fgYjsCl.do')">&nbsp;&nbsp;<%=jsN %>&nbsp;&nbsp;</a>份材料已被接收。</div> 
+    <div id="jsN">您预约当事人领取的材料已有<a style="color:red" href="#" onclick="window.parent.addTab('预约领取已接收材料','to_fgYjsCl.do')">&nbsp;&nbsp;<%=jsN %>&nbsp;&nbsp;</a>份案件被领取！</div>
     <div id="jjlqsx">您有<a style="color:red" href="#" onclick="window.parent.addTab('接近领取时限','to_clsx.do?op=1')">&nbsp;&nbsp;<%=jjlqsx %>&nbsp;&nbsp;</a>份待当事人领取的材料，已接近领取时限。</div> 
     <div id="cglqsx">您有<a style="color:red" href="#" onclick="window.parent.addTab('超过领取时限','to_clsx.do?op=2')">&nbsp;&nbsp;<%=cglqsx %>&nbsp;&nbsp;</a>份待当事人领取的材料，已超过领取时限。</div> 
     <div id="jjtjsx">您有<a style="color:red" href="#" onclick="window.parent.addTab('接近提交时限','to_clsx.do?op=3')">&nbsp;&nbsp;<%=jjtjsx %>&nbsp;&nbsp;</a>份待当事人提交的材料，已接近提交时限。</div> 

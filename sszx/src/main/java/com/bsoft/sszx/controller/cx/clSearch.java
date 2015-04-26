@@ -2,6 +2,7 @@ package com.bsoft.sszx.controller.cx;
 
 import java.io.OutputStream;
 import java.net.URLEncoder;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,6 +27,7 @@ import com.bsoft.sszx.dao.ZjqdDao;
 import com.bsoft.sszx.entity.zjqd.Zjqd;
 import com.bsoft.sszx.util.ExportExcel;
 import com.bsoft.sszx.util.ExportExcelUtil;
+import com.bsoft.sszx.util.GetTime;
 import com.bsoft.sszx.util.HttpHelper;
 import com.bsoft.sszx.util.Tree;
 
@@ -45,7 +47,7 @@ public class clSearch {
 		HttpHelper.renderJson(json.toString(), response);
 	}
 	
-	private List<Zjqd> getZjqd(HttpServletRequest request, HttpSession session){
+	private List<Zjqd> getZjqd(HttpServletRequest request, HttpSession session) throws ParseException{
 		List<Zjqd> al = new ArrayList<Zjqd>();
 		String fydm=(String)session.getAttribute("fydm");
 		String user=(String)session.getAttribute("user");
@@ -90,11 +92,15 @@ public class clSearch {
 			sqlBuf.append(" and lclx like '%").append(ywlx).append("%' ");
 		}
 		if(sx!=null&&!"".equals(sx)){
-			sqlBuf.append(" and sx =").append(Integer.parseInt(sx));
+			sqlBuf.append(" and (TIMESTAMPDIFF(DAY,CURDATE(),sxsj)+1) =").append(sx);
 		}
 		
 		al =(List<Zjqd>) new ZjqdDao().findCljlBySQL(sqlBuf.toString());
-		
+		if(al!=null){
+			for(Zjqd item : al){
+				int len = GetTime.checkOutTime(item);
+			}
+		}
 		return al;
 	}
 	
@@ -119,7 +125,7 @@ public class clSearch {
 	}
 	
 	
-	private List<Zjqd> getZjqdTotal(HttpServletRequest request, HttpSession session){
+	private List<Zjqd> getZjqdTotal(HttpServletRequest request, HttpSession session) throws ParseException{
 		List<Zjqd> al = new ArrayList<Zjqd>();
 		String fydm=(String)session.getAttribute("fydm");
 		String user=(String)session.getAttribute("user");
@@ -163,7 +169,8 @@ public class clSearch {
 			sqlBuf.append(" and lclx like '%").append(ywlx).append("%' ");
 		}
 		if(sx!=null&&!"".equals(sx)){
-			sqlBuf.append(" and sx =").append(Integer.parseInt(sx));
+//			sqlBuf.append(" and sx =").append(Integer.parseInt(sx));
+			sqlBuf.append(" and (TIMESTAMPDIFF(DAY,CURDATE(),sxsj)+1) =").append(sx);
 		}
 		
 		String groupBy=request.getParameter("groupBy");
@@ -175,6 +182,11 @@ public class clSearch {
 		}
 		
 		al =(List<Zjqd>) new ZjqdDao().findCljlTotalBySQL(sqlBuf.toString());
+		if(al!=null){
+			for(Zjqd item : al){
+				int len = GetTime.checkOutTime(item);
+			}
+		}
 		return al;
 	}
 	

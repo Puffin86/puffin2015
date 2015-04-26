@@ -39,6 +39,7 @@ public class Zjqd implements java.io.Serializable {
 	private Timestamp sxsj;
 	private Integer sl;//数量 用于合计
 	private Integer sfcs;//是否超时
+	private Integer sysx;//剩余时限
 
 	// Constructors
 
@@ -319,6 +320,14 @@ public class Zjqd implements java.io.Serializable {
 
 	public void setSfcs(Integer sfcs) {
 		this.sfcs = sfcs;
+	}
+
+	public Integer getSysx() {
+		return sysx;
+	}
+
+	public void setSysx(Integer sysx) {
+		this.sysx = sysx;
 	}
 
 }
