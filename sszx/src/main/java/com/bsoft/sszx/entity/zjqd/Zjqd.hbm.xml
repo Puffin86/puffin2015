@@ -135,5 +135,10 @@
         <property name="sxsj" type="java.sql.Timestamp">
             <column name="sxsj"  />
         </property>
+        <property name="clqd" type="java.lang.String">
+            <column name="clqd" length="2000">
+                <comment>材料清单</comment>
+            </column>
+        </property>
     </class>
 </hibernate-mapping>

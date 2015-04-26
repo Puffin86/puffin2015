@@ -24,7 +24,9 @@ String fydm=(String)session.getAttribute("fydm");
     </table>
     </div>
     
-    
+    <div id="sdhzdiv" style="width:360px;height:100px;">
+    	您需要对送达回证做如下哪种操作？
+    </div>
    
 <script>
 $(document).ready(function(){
@@ -64,7 +66,7 @@ $(document).ready(function(){
 				   formatter:function(value,row,index){
 					var sa=row.id.bh;
 					var s = ' <a '+'href=\"djdsrLqJs.do?bh='+sa+'\">确认/退回</a> ';
-			        var e = ' <a '+'href=\"#\" '+'onClick=\"Word('+sa+');">送达回证</a> ';
+			        var e = ' <a '+'href=\"#\" '+'onClick=\"Pdf();">送达回证</a> ';
 					return e+s;
 					}
 		    }
@@ -105,6 +107,56 @@ $(document).ready(function(){
 </script>
 
 <script>
+
+$('#sdhzdiv').dialog({
+    title:'操作类型',
+    iconCls:'icon-tip',
+    closed:true,
+    buttons:[{
+        text:'打开',
+        iconCls:'icon-open',        
+        handler:function(){
+        	var row = $('#dsrZzSjTable').datagrid('getSelected');
+        	if(row==null) return;
+        	
+        	$.ajax({
+       	     url:'openPdf.do',
+       	     type:'POST',
+       	     data:{
+       	    	 bh : row.id.bh
+       	      },//注意大小写data
+       	     dataType:'json',
+       	     success:function (res) {
+       	    	//url='openPdf.do?bh='+row.id.bh;
+             	url='pdf.jsp';
+             	//url='pdf.jsp';
+             	//window.location.href="${path}/openPdf.do?bh="+row.id.bh;
+            	window.open(url,"new", "height=600px,width=650px,toolbar=no,status=no,menubar=no,scrollbars=yes,resizable=no");
+            	$('#sdhzdiv').dialog('close');
+       	     }
+       });
+        	
+        	
+        }
+    },
+    {
+        text:'下载',
+        iconCls:'icon-upload',
+        handler:function(){
+        	var row = $('#dsrZzSjTable').datagrid('getSelected');
+        	if(row==null) return;
+        	 window.location.href="${path}/downloadPdf.do?bh="+row.id.bh;
+        	 $('#sdhzdiv').dialog('close');
+        }
+    },{
+        text:'取消',
+        iconCls:'icon-cancel',
+        handler:function(){
+        	$('#sdhzdiv').dialog('close');
+        }
+    }]
+});
+
 $('#search').dialog({
     title:'搜索',
     iconCls:'icon-search',
@@ -140,6 +192,11 @@ function Word(bh){
 	 url='word.do?bh='+bh;
 	 window.open(url,"new",
 			 "height=600px,width=650px,toolbar=no,status=no,menubar=no,scrollbars=yes,resizable=yes");
+	
+}
+
+function Pdf(){
+	$('#sdhzdiv').dialog('open');
 	
 }
 </script>

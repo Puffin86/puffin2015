@@ -29,6 +29,7 @@ import com.bsoft.sszx.util.ExportExcel;
 import com.bsoft.sszx.util.ExportExcelUtil;
 import com.bsoft.sszx.util.GetTime;
 import com.bsoft.sszx.util.HttpHelper;
+import com.bsoft.sszx.util.PdfTemplateUtil;
 import com.bsoft.sszx.util.Tree;
 
 import net.sf.json.JSONArray;
@@ -263,5 +264,17 @@ public class clSearch {
 	    ex.exportExcel("汇总列表", headers, fields, dataset, out);
         out.close();  
 	}
+	
+	
+	@ResponseBody
+	@RequestMapping("savepdf")
+	public void savepdf(HttpServletRequest request,
+			HttpServletResponse response, HttpSession session) throws Exception{
+		String templatePath = request.getSession().getServletContext().getRealPath("/scan/template/");
+		String serverRealPath = request.getSession().getServletContext().getRealPath("/scan/jpg/");
+		PdfTemplateUtil.fromPDFTempletToPdfWithValue(templatePath+"/sdhz.pdf", serverRealPath+"/test.pdf",null);
+		System.out.println("sssss");
+	}
+	
 	
 }

@@ -219,6 +219,18 @@ function save(){
     	alert("必须选择当事人！");
     	return;
     }
+    
+    var s='';
+	var arr = $('input[name=clmc]');
+	for(var i=0; i<arr.length; i++){
+		var v = $(arr[i]).val();
+		if(v!=null && v!=''){
+			s+=v+',';
+		}
+	}
+	
+	var clqd = s.substring(0, s.length-1);
+    
 	if(tr==0 && alerString==''){
         $.ajax({
    	     	url:'${path}/saveFlqList.do',
@@ -238,6 +250,7 @@ function save(){
                  ,sjrXm:encodeURI(encodeURI(sjrXm))
                  ,sjrbmMc:encodeURI(encodeURI(sjrbmMc))
                  ,lqsx:encodeURI(encodeURI(lqsx))
+                 ,clqd:encodeURI(encodeURI(clqd))
    	     	},
    	     	dataType:'json',
    	     	success: function(data) {

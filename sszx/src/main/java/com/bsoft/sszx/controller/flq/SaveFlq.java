@@ -223,6 +223,10 @@ public class SaveFlq {
 			cl = URLDecoder.decode(cl, "UTF-8");
 			cl = URLDecoder.decode(cl, "UTF-8");
 			
+			String clqd = request.getParameter("clqd");
+			clqd = URLDecoder.decode(clqd, "UTF-8");
+			clqd = URLDecoder.decode(clqd, "UTF-8");
+			
 			//时限日期
 			SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
 			Date date = sdf.parse(djrq);
@@ -249,7 +253,7 @@ public class SaveFlq {
 				String dsrmc = json.getString("dsrmc");
 				String dsrlxdh = json.getString("dsrlxdh");
 				String dsrsfzhm = json.getString("dsrsfzhm");
-				System.out.println(dsrmc+" "+dsrlxdh+" "+dsrsfzhm);
+//				System.out.println(dsrmc+" "+dsrlxdh+" "+dsrsfzhm);
 				
 				Zjqd Zjqd = new Zjqd();
 				Zjqd.setAh(ah);
@@ -267,6 +271,7 @@ public class SaveFlq {
 				Zjqd.setSxsj(sxsj);
 				Zjqd.setZjrq(zjrq);
 				Zjqd.setLzjl("");
+				Zjqd.setClqd(clqd);
 				
 				
 				ZjqdId zjqdId = new ZjqdId();

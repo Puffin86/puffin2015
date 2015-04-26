@@ -82,7 +82,7 @@ $(function(){
 					var sa = row.id.bh;
 					var s = ' <a style="color:red\"'
 				        +'href=\"#\" '
-				        +'onClick=\"Word('
+				        +'onClick=\"Pdf('
 				        +sa+');">送达回证</a> ';
 					return s;
 			    }
@@ -107,10 +107,19 @@ $(function(){
 	
 });
 
-function Word(bh){
-	 url='${path}/word.do?bh='+bh;
-	 window.open(url,"new",
-			 "height=600px,width=650px,toolbar=no,status=no,menubar=no,scrollbars=yes,resizable=yes");
+function Pdf(bh){
+	$.ajax({
+  	     url:'openPdf.do',
+  	     type:'POST',
+  	     data:{
+  	    	 bh : bh
+  	      },//注意大小写data
+  	     dataType:'json',
+  	     success:function (res) {
+        	url='pdf.jsp';
+       		window.open(url,"new", "height=600px,width=650px,toolbar=no,status=no,menubar=no,scrollbars=yes,resizable=no");
+  	     }
+  });
 	
 }
 </script>

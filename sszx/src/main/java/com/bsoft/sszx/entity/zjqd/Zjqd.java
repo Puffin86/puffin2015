@@ -40,6 +40,7 @@ public class Zjqd implements java.io.Serializable {
 	private Integer sl;//数量 用于合计
 	private Integer sfcs;//是否超时
 	private Integer sysx;//剩余时限
+	private String clqd;//材料清单描述
 
 	// Constructors
 
@@ -59,7 +60,7 @@ public class Zjqd implements java.io.Serializable {
 			String sjrbm, Timestamp sendtime, Integer zt, String htyj,
 			String sjrlxdh, String lclx, String dqcyr, String qscyr,
 			String hscyr, String dsrsfzhm, String lzjl, String sjrXm,
-			String sjrBmmc,Integer ywlx,Integer sx,Timestamp sxsj,Integer sl) {
+			String sjrBmmc,Integer ywlx,Integer sx,Timestamp sxsj,Integer sl,String clqd) {
 		this.id = id;
 		this.ah = ah;
 		this.sjr = sjr;
@@ -86,6 +87,7 @@ public class Zjqd implements java.io.Serializable {
 		this.sx=sx;
 		this.sxsj=sxsj;
 		this.sl = sl;
+		this.clqd = clqd;
 	}
 
 	// Property accessors
@@ -328,6 +330,14 @@ public class Zjqd implements java.io.Serializable {
 
 	public void setSysx(Integer sysx) {
 		this.sysx = sysx;
+	}
+
+	public String getClqd() {
+		return clqd;
+	}
+
+	public void setClqd(String clqd) {
+		this.clqd = clqd;
 	}
 
 }

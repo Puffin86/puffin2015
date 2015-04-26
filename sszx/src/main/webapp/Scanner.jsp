@@ -6,7 +6,7 @@
 <script language="javascript" event="OnScanCmp()" for="scan_ocx">
 	alert("扫描成功");
 </script>
-<body onload="initOCX()">
+<body >
 <%
 String bh=request.getParameter("bh");
 String fydm=request.getParameter("fydm");

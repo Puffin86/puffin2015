@@ -79,18 +79,21 @@ public class EditDsrZjqdQd {
 
 			//时限
 			String lqsx = request.getParameter("lqsx");
-			lqsx = URLDecoder.decode(lqsx, "UTF-8");
-			lqsx = URLDecoder.decode(lqsx, "UTF-8");
-			Zjqd.setSx(Integer.parseInt(lqsx));
+			if(lqsx!=null&& !"".equals(lqsx)){
+				lqsx = URLDecoder.decode(lqsx, "UTF-8");
+				lqsx = URLDecoder.decode(lqsx, "UTF-8");
+				Zjqd.setSx(Integer.parseInt(lqsx));
+				
+				//时限日期
+				SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
+				Date date = sdf.parse(djrq);
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(date);
+				cal.add(Calendar.DATE, Integer.parseInt(lqsx));
+				Timestamp sxsj = new Timestamp(cal.getTimeInMillis());
+				Zjqd.setSxsj(sxsj);
+			}
 			
-			//时限日期
-			SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
-			Date date = sdf.parse(djrq);
-			Calendar cal = Calendar.getInstance();
-			cal.setTime(date);
-			cal.add(Calendar.DATE, Integer.parseInt(lqsx));
-			Timestamp sxsj = new Timestamp(cal.getTimeInMillis());
-			Zjqd.setSxsj(sxsj);
 			
 			
 			String tjrlxdh = request.getParameter("tjrlxdh");
