@@ -62,21 +62,17 @@ $(document).ready(function(){
 		    {field:'action',title:'操作',width:150,align:'center',
 				   formatter:function(value,row,index){
 					var sa=row.id.bh;
-					var s = ' <a style="color:red\"'
-					        +'href=\"djdsrLqJs.do?bh='+sa+'\">确认/退回</a> ';
-			        var e = ' <a style="color:red\"'
-				        +'href=\"#\" '
-				        +'onClick=\"Word('
-				        +sa+');">送达回证</a> ';
+					var s = ' <a '+'href=\"djdsrLqJs.do?bh='+sa+'\">确认/退回</a> ';
+			        var e = ' <a '+'href=\"#\" '+'onClick=\"Word('+sa+');">送达回证</a> ';
 					return e+s;
 					}
 		    }
 			]],
 			rowStyler:function(index,row){
-				if (row.id.bh<2){
-					return 'background-color:pink;color:blue;font-weight:bold;';
-				}else if(row.id.bh==2){
-					return 'background-color:#FF6100;';
+				if (row.sfcs==1){//接近1/3
+					return 'background-color:orange;';
+				}else if(row.sfcs==-1){//超时
+					return 'background-color:red;';
 				}
 			},
 			toolbar:[	        

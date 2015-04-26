@@ -74,10 +74,10 @@ $(document).ready(function(){
 		    }
 			]],
 			rowStyler:function(index,row){
-				if (row.id.bh<2){ 
-					return 'background-color:pink;color:blue;font-weight:bold;';
-				}else if(row.id.bh==2){
-					return 'background-color:#FF6100;';
+				if (row.sfcs==1){//接近1/3
+					return 'background-color:blue;color:blue;font-weight:bold;';
+				}else if(row.sfcs==-1){//超时
+					return 'background-color:red;';
 				}
 			},
 			toolbar:[	        

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.bsoft.sszx.dao.ZjqdDao;
 import com.bsoft.sszx.entity.zjqd.Zjqd;
+import com.bsoft.sszx.util.GetTime;
 import com.bsoft.sszx.util.HttpHelper;
 
 @Controller
@@ -43,7 +44,10 @@ public class Fwzx_djdsrlqcl {
 	ZjqdDao zjqdDao= new ZjqdDao();
 	List<Zjqd> al = zjqdDao.findDsrZzSJbyPage_2(start,number,7,fydm);//每页的数据，放入list 
 	
-	
+	for(Zjqd bean : al){
+		int len = GetTime.checkOutTime(bean);
+		bean.setSfcs(len);
+	}
 	
 	List<Zjqd> all= zjqdDao.findDsrZzSJ_2(7, fydm);
 	map.put("total", all.size());
