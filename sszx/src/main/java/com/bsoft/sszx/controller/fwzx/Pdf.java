@@ -118,7 +118,7 @@ public class Pdf {
 		
 		String ahdm = new ECourtDao().findByAh(Zjqd.getAh()).getAhdm();
 		Edsr edsr = new ECourtDao().findEdsr(ahdm,Zjqd.getDjr());
-		valueMap.put("sddz", edsr.getDz());
+		valueMap.put("sddz", edsr.getSddz());
 //		valueMap.put("sddz", "");
 		
 		PdfTemplateUtil.fromPDFTempletToPdfWithValue(templatePath, serverRealPath+"/"+fileName,valueMap);
