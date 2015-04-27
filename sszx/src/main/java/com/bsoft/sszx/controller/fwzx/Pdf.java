@@ -14,9 +14,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.bsoft.sszx.dao.ClbDao;
+import com.bsoft.sszx.dao.ECourtDao;
 import com.bsoft.sszx.dao.FjDao;
 import com.bsoft.sszx.dao.FyDao;
 import com.bsoft.sszx.dao.ZjqdDao;
+import com.bsoft.sszx.entity.eaj.Eaj;
+import com.bsoft.sszx.entity.edsr.Edsr;
 import com.bsoft.sszx.entity.fjb.Fjb;
 import com.bsoft.sszx.entity.fjb.FjbId;
 import com.bsoft.sszx.entity.zjqd.Zjqd;
@@ -81,12 +84,25 @@ public class Pdf {
 		String serverRealPath = request.getSession().getServletContext().getRealPath("/scan/jpg/");
 		String fileName = fydm+"_"+bh+"_sdhz.pdf";
 		Map<String,String> valueMap = new HashMap<String, String>();
+		
 		valueMap.put("fymc", fymc);
+		
 		valueMap.put("ah", Zjqd.getAh());
-		valueMap.put("ay", "");
+		
 		valueMap.put("ssdr", Zjqd.getDjr());
-		valueMap.put("sddz", "");
+		
 		valueMap.put("clxx", Zjqd.getClqd());
+		
+		ECourtDao ecountDao = new ECourtDao();
+		Eaj eaj = ecountDao.findAyByAh(Zjqd.getAh());
+		valueMap.put("ay", eaj.getAyms());
+//		valueMap.put("ay", "");
+		
+		String ahdm = new ECourtDao().findByAh(Zjqd.getAh()).getAhdm();
+		Edsr edsr = new ECourtDao().findEdsr(ahdm,Zjqd.getDjr());
+		valueMap.put("sddz", edsr.getDz());
+//		valueMap.put("sddz", "");
+		
 		PdfTemplateUtil.fromPDFTempletToPdfWithValue(templatePath, serverRealPath+"/"+fileName,valueMap);
 		
 		FjDao fjDao=new FjDao();			
