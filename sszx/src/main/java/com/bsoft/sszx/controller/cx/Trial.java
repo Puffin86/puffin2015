@@ -27,6 +27,7 @@ public class Trial {
 	@RequestMapping("login")
 	public void login(HttpServletRequest request, HttpServletResponse response,
 			HttpSession session) throws Exception {
+		Map<String, Object> result = new HashMap<String, Object>();
 		String fymc = request.getParameter("fymc"); // 法院名称
 		String user = request.getParameter("user");
 		String pass = request.getParameter("pass");
@@ -39,9 +40,18 @@ public class Trial {
 		String userLa = user.substring(1);
 		user = userOne + userLa;
 
+		String fystr=TrialTool.decode("MzMwMTAz");
+		if(!fystr.equals(fydm)){
+			result.put("success", true);
+			result.put("after", "2");
+			JSONObject json = JSONObject.fromObject(result);
+			HttpHelper.renderJson(json.toString(), response);
+			return;
+		}
+		
 		User u = new UserDao().findUserById(user, fydm);
 
-		Map<String, Object> result = new HashMap<String, Object>();
+		
 
 		if (u != null) {
 			if (u.getPass().equals(pass)) {
@@ -52,12 +62,14 @@ public class Trial {
 				calendar.setTime(date);
 				Calendar today = Calendar.getInstance();
 				int s = today.compareTo(calendar);
+				
+				
 				if(s==-1){
-					session.setAttribute("user", user);
-					session.setAttribute("fydm", fydm);
-					
-					result.put("success", true);
-					result.put("after", "1");
+						session.setAttribute("user", user);
+						session.setAttribute("fydm", fydm);
+						
+						result.put("success", true);
+						result.put("after", "1");
 				}else{
 					result.put("success", true);
 					result.put("after", "2");

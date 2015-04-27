@@ -19,8 +19,8 @@ public class TrialTool {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println(encode("2015-05-02"));
-//		System.out.println(decode("MjAxNS0wNC0yNg=="));
+		System.out.println(encode("2025-05-02"));
+//		System.out.println(decode("MjAxNS0wNS0wMg=="));
 	}
 
 }
