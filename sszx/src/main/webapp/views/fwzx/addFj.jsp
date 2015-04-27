@@ -5,77 +5,87 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>接收材料</title>
+<title>附件列表</title>
 <jsp:include page="/common/include.jsp" />
 </head>
 
 <%
 String fydm=(String)session.getAttribute("fydm");
 String bh=(String)session.getAttribute("fjbh");
-List<Fjb> fjb =(List<Fjb>) new FjDao().fjlist(bh, fydm);
-if(fjb==null)
-	fjb=new ArrayList();
 %>
   
-<body style="font-size:12px;">
-   <div  align="center">     
-     <div id="fjsm" style="font-size:12px;width:250px;">
-              &nbsp;&nbsp;附件名称: <input class="easyui-validatebox" required="true" id="fjmc" style="margin-left:10px;width:150px" type="text"></input>      
-     </div>
-     <div id="fjsc" style="font-size:12px;width:320px;height:150px;">
-     		<form id="fjForm" method="post" enctype="multipart/form-data"  theme="simple">
-     			<input name="bh" style="display:none" type="text" value="<%=bh%>"/>
-   				<table>
-   				<tr>
-     				<td>附件名称：</td>
-     				<td><input class="easyui-validatebox" required="true" id="fjmc2" name="fjmc2" style="margin-left:10px;width:150px" type="text"></input></td>
-     			</tr>
-     			<tr>
-     				<td>选择附件：</td>
-     				<td><input type="file" name="fileToUpload" id="fileToUpload" style="width:200px"/></td>
-     			</tr>
-     			</table>
-			</form>
-     </div>
-     
-     <div style="font-size:12px;" class="fj" id="fjtb">
-        <table style="font-size:12px" width="300" align="center" border="1">
-        <tr style="background-color:#E0ECFF;">
-          <td width="60%"  align="center">附件名称</td>
-          <td width="20%" align="center">下载</td>
-          <td width="20%" align="center">删除</td>
-        </tr>
-        <%for(int i=0;i<fjb.size();i++){
-			Fjb m=(Fjb)fjb.get(i);
-			String path = getServletContext().getRealPath("/scan/jpg/");
-            String name=m.getFjdz();
-            if(!name.contains("."))
-         	   name=name+".jpg";
-            String file=path+"\\"+name;
-		%>
-        <tr style="font-size:12px"> 
-          <td><div align="center"><%=m.getFjmc()%></div></td>
-          <td><div align="center">
-          <a href="${path}/xzFj.do?downloadFile=<%=file%>">下载</a></div></td>       
-          <td><div align="center"><a href="#" onClick="delFj(<%=m.getId().getXh()%>,<%=m.getId().getBh()%>)">删除</a></div></td>
-        </tr>
-        <%}%>
-     </table>
-     </div>
-     <br/>
-     <div align="center">
-          <a id="fj_sm" onclick="$('#fjsm').dialog('open')" iconCls="icon-scan">扫描附件</a>
-          &nbsp;&nbsp;<a id="fj_sc" onclick="uploadFile()" iconCls="icon-upload">上传本地文件</a>
-     </div>
-     
-     
-   </div>
+<body style="font-size:12px;" class="easyui-layout">
+
+	<div id="fjsm" style="font-size:12px;width:250px;">
+             &nbsp;&nbsp;附件名称: <input class="easyui-validatebox" required="true" id="fjmc" style="margin-left:10px;width:150px" type="text"></input>      
+    </div>
+    <div id="fjsc" style="font-size:12px;width:320px;height:150px;">
+    		<form id="fjForm" method="post" enctype="multipart/form-data"  theme="simple">
+    			<input name="bh" style="display:none" type="text" value="<%=bh%>"/>
+  				<table>
+  				<tr>
+    				<td>附件名称：</td>
+    				<td><input class="easyui-validatebox" required="true" id="fjmc2" name="fjmc2" style="margin-left:10px;width:150px" type="text"></input></td>
+    			</tr>
+    			<tr>
+    				<td>选择附件：</td>
+    				<td><input type="file" name="fileToUpload" id="fileToUpload" style="width:200px"/></td>
+    			</tr>
+    			</table>
+		</form>
+    </div>
+
+     <div data-options="region:'center'">
+     	<table id="fjgrid" data-options="fit:true,border:false" ></table>
+     </div> 
    
    <script>
-	   $('#fj_sm').linkbutton({});
-	   $('#fj_sc').linkbutton({});
-	   $('#fj_return').linkbutton({});
-		
+	   $('#fjgrid').datagrid({
+			rownumbers:false,
+			title:'附件列表',
+			singleSelect:true,
+			striped:true,
+			fitColumns:true,
+			idField:'fjmc',
+			border:true,
+			url:"${path}/fjcx.do",
+			queryParams : {
+				bh : '<%=bh%>',
+				fydm : '<%=fydm%>'
+			},
+			columns:[[
+			    {field:'fjmc',title:'附件名称',width:120,align:'center'},
+			    {field:'fjdz',title:'附件',width:120,align:'center'},
+				{field:'action',title:'操作',width:120,align:'center',
+			    	formatter:function(value,row,index){
+						var fjbh=row.id.bh;
+						var fjxh=row.id.xh;
+						var fjdz=row.fjdz;
+						var fjmc=row.fjmc;
+				        var e = "<a href=\"#\" onClick=\"downloadFile('"+fjxh+"','"+fjbh+"');\">下载</a> ";
+						var c = '<a href=\"#\" onClick=\"delFj('+fjxh+','+fjbh+');">删除</a> ';
+						return e+c;
+					}
+				}
+			]],
+			toolbar:[
+				{//工具条
+			        text:'扫描件',
+			        iconCls:'icon-add',
+			        id:'addDsrCL',
+			        handler:function(){
+			        	$('#fjsm').dialog('open');
+			        }
+				},{
+		        	text:'上传附件',
+			        iconCls:'icon-add',
+			        handler:function(){
+			        	uploadFile();
+			        }
+		        }
+        	]
+	   });
+	   
 	   $('#fjsm').dialog({
 			    title:'扫描附件',
 			    iconCls:'icon-add',
@@ -90,7 +100,7 @@ if(fjb==null)
 			        	if(fjmc=="")
 			        		alert("请输入附件名称");
 			            else{
-			            var url='${path}/Scanner.jsp?bh='+bh
+			            var url='${path}/scanonweb.jsp?bh='+bh
 			            		+'&fydm='+fydm+
 			            		'&fjmc='+fjmc;
 			            window.open(url);}
@@ -98,7 +108,11 @@ if(fjb==null)
 			        {
 				        text:'确认',
 				        iconCls:'icon-reload',
-				        id:'smq'}
+				        id:'smq',
+				        handler:function(){
+				        	window.location.href='${path}/fj.do?bh='+<%=bh%>;
+				        }
+			        }
 			        ]
 			        });
 		 
@@ -156,11 +170,10 @@ if(fjb==null)
     	     },//注意大小写data
     	     dataType:'json',
     	     success:function (data) {
-	   	    	 if(data.after==1)
-	      	       alert("删除成功");
-	      	     if(data.after==0)
-	      	       alert("删除失败");    	     
-	     	     window.location.href='${path}/fj.do?bh='+<%=bh%>;
+    	    	 $('#fjgrid').datagrid('load',{
+    	 				bh : '<%=bh%>',
+    	 				fydm : '<%=fydm%>'
+    	 			});
    	     		}
     	     });	   
    }
@@ -169,6 +182,10 @@ if(fjb==null)
 	   $('#fjmc2').val('');
    	   $('#fileToUpload').val('');
 	   $('#fjsc').dialog('open');
+   }
+   
+   function downloadFile(xh,bh){
+	   window.location.href="${path}/xzFj2.do?bh="+bh+"&xh="+xh;
    }
    
    </script>

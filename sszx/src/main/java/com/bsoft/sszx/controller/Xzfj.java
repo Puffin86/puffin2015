@@ -9,6 +9,9 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.bsoft.sszx.controller.fwzx.Fj;
+import com.bsoft.sszx.dao.FjDao;
+import com.bsoft.sszx.entity.fjb.Fjb;
 import com.bsoft.sszx.util.DownloadUtil;
 
 /**
@@ -31,8 +34,25 @@ public class Xzfj {
 		} else {
 			fileName = downloadPath;
 		}
-
+		
 		DownloadUtil.download(fileName, downloadPath, request, response);
+	}
+	
+	
+	@RequestMapping("xzFj2")
+	public void xzFj2(HttpServletRequest request,
+			HttpServletResponse response, HttpSession session)
+			throws IOException {
+
+		String xh = request.getParameter("xh");
+		String bh = request.getParameter("bh");
+		String fydm = (String)session.getAttribute("fydm");
+//		System.out.println(xh+"@"+bh+"fydm"+fydm);
+		
+		Fjb fj = new FjDao().findFjb(bh, xh, fydm); 
+		String downloadPath = request.getSession().getServletContext().getRealPath("/scan/jpg/");
+		String fileName = fj.getFjdz();
+		DownloadUtil.download(fileName, downloadPath+"//"+fileName, request, response);
 	}
 
 }

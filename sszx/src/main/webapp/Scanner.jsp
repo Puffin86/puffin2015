@@ -7,6 +7,7 @@
 	alert("扫描成功");
 </script>
 <body >
+<!-- http://wenku.baidu.com/link?url=O9TE1hFXrvT23biXhQI2GgfSVUE0hD9XwVsz0m7t_7SciuVez_-3qixBsKa10qaI9e8H8DlIcmacdUi2emwbnV6xKFV3aL0FrDeohbr3mGO -->
 <%
 String bh=request.getParameter("bh");
 String fydm=request.getParameter("fydm");
