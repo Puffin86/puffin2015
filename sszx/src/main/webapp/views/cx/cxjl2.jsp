@@ -96,6 +96,13 @@
      	
     </div> 
     
+    
+    <div id="fjdiv" style="width:800px;height:500px;">
+     	<div style="position: absolute;top: 30px;right: 7px;bottom: 5px;left: 7px;">
+	     	<table id="fjgrid" style="width:100%;height:100%"></table> 
+     	</div>
+    </div>
+    
 </body>
 
 <script>
@@ -143,10 +150,52 @@ $('#totalDataDiv').dialog({
     iconCls:'icon-search',
     closed:true}).dialog('close');
 
+$('#fjdiv').dialog({
+    title:'附件信息',
+    modal: true,
+    iconCls:'icon-search',
+    closed:true}).dialog('close');
 
 $('#zxjbsj').datebox({    
     required:false   
 });  
+
+$('#fjgrid').datagrid({
+	rownumbers:false,
+	fit:true,
+	border:true,
+	singleSelect:true,
+	striped:true,
+	fitColumns:true,
+	singleSelect:true,
+	title : '附件列表',
+	url:"${path}/fjcx.do",
+	queryParams : {
+		bh : '',
+		fydm : '<%=fydm%>'
+	},
+	columns:[[
+	    {field:'fjmc',title:'附件名称',width:120,align:'center'},
+	    {field:'fjdz',title:'附件',width:120,align:'center'},
+		{field:'action',title:'操作',width:120,align:'center',
+	    	formatter:function(value,row,index){
+				var fjbh=row.id.bh;
+				var fjxh=row.id.xh;
+				var fjdz=row.fjdz;
+				var fjmc=row.fjmc;
+		        var e = "<a href=\"#\" onClick=\"downloadFile('"+fjxh+"','"+fjbh+"');\">下载</a> ";
+		        var c = "";
+		        var fjdzArr = fjdz.split(".");
+		        if(fjdzArr.length>0 && (fjdzArr[fjdzArr.length-1]=="pdf")){
+		        	c = ' <a href=\"#\" onClick=\"Pdf('+fjxh+','+fjbh+');">打开</a> ';
+		        }
+				
+				return e+c;
+			}
+		}
+	]]
+});
+
 
 $('#totalgrid').datagrid({
 	rownumbers:false,
@@ -232,12 +281,18 @@ $('#grid').datagrid({
 	    {field:'sjrXm',title:'承办人',width:120,align:'center'},
 	    {field:'djr',title:'当事人',width:120,align:'center'},
 	    {field:'zjrXm',title:'中心经办人',width:120,align:'center'},
-	    {field:'zjrq',title:'中心经办日期',width:120,align:'center'},
+	    {field:'zjrq',title:'中心经办日期',width:120,align:'center',
+	    	formatter:function(value,row,index){
+				if(row.zjrq=='undefined')
+					return '';
+				else 
+					return value;
+			 }		
+	    },
 		{field:'action',title:'操作',width:120,align:'center',
 	    	formatter:function(value,row,index){
-				var sa=row.id.bh;
-				var d = '<a style="color:red\"'
-				        +'href=\"${path}/flqTjSsZx.do?bh='+sa+'\">查看附件</a> ';
+				var bh=row.id.bh;
+				var d = '<a href=\"#\" onClick=\"cxFj('+bh+');">查看附件</a> ';
 				return d;
 			 }	
 		}
@@ -434,6 +489,35 @@ function searchUser(){
 	  	     }
 	  	});
 	}
+}
+
+function cxFj(bh){
+	$('#fjgrid').datagrid('load',{
+		bh : bh,
+		fydm : '<%=fydm%>'
+	});
+	$('#fjdiv').dialog('open');
+}
+
+function downloadFile(xh,bh){
+	   window.location.href="${path}/xzFj2.do?bh="+bh+"&xh="+xh;
+}
+
+function Pdf(xh,bh){
+	$.ajax({
+  	     url:'openPdfxh.do',
+  	     type:'POST',
+  	     data:{
+  	    	 bh : bh,
+  	    	 xh : xh
+  	      },//注意大小写data
+  	     dataType:'json',
+  	     success:function (res) {
+        	url='pdf.jsp';
+       		window.open(url,"new", "height=600px,width=650px,toolbar=no,status=no,menubar=no,scrollbars=yes,resizable=no");
+  	     }
+  });
+	
 }
 
 </script>

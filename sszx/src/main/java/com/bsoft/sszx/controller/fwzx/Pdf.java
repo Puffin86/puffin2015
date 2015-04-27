@@ -64,10 +64,28 @@ public class Pdf {
 		
 		String fileName = fydm+"_"+bh+"_sdhz.pdf";
 		session.setAttribute("fileName", fileName);
-//		return "office/pdf";
 		Map result = new HashMap();
-//		result.put("success", true);
-//		result.put("data", fileName);
+		JSONObject json = JSONObject.fromObject(result);
+		HttpHelper.renderJson(json.toString(), response);
+	}
+	
+	@RequestMapping("openPdfxh")
+	public void openPdfxh(HttpServletRequest request,
+			HttpServletResponse response, HttpSession session)
+			throws Exception {
+		String fydm=(String)session.getAttribute("fydm");
+		String bh=request.getParameter("bh");
+		String xh = request.getParameter("xh");
+		
+		FjDao fjDao=new FjDao();		
+		Fjb fj = fjDao.findFjb(bh, xh, fydm);
+		if(fj==null){
+			return ;
+		}
+		
+		String fileName = fj.getFjdz();
+		session.setAttribute("fileName", fileName);
+		Map result = new HashMap();
 		JSONObject json = JSONObject.fromObject(result);
 		HttpHelper.renderJson(json.toString(), response);
 	}
