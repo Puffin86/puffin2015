@@ -69,9 +69,9 @@ int bh=new ZjqdDao().getMaxId(fydm);
    
    <hr/>
    <div align="center">
+     <a id="scan" onclick="Open(<%=bh%>)" iconCls="icon-scan">扫描</a>
      <a id="save" onclick="save()" iconCls="icon-save">保存</a>
-     <!-- <a id="scan" onclick="scan(<%=bh%>)" iconCls="icon-scan">扫描</a> -->
-     <a id="cancel" onclick="window.location.href='${path}/to_jsdsrzdsj.do';" iconCls="icon-cancel">取消</a>
+     <a id="cancel" onclick="cancle()" iconCls="icon-cancel">取消</a>
    </div>
    <script>
    $('#research').linkbutton({});
@@ -111,6 +111,27 @@ int bh=new ZjqdDao().getMaxId(fydm);
    </script>
    
    <script>
+   
+   function cancle(){
+	   $.ajax({
+	   	     url:'canclAddDsrCl.do',
+	   	     type:'POST',
+	   	     data:{
+	   	    	 bh:'<%=bh%>'
+	   	     },//注意大小写data
+	   	     dataType:'json',
+	   	     success:function (data) {
+	   	    	window.location.href='${path}/to_jsdsrzdsj.do';
+	   	     }
+	   });
+	}
+   
+   function Open(bh){
+		 //window.location.href='${path}/fj.do?bh='+bh;
+		 url='${path}/fj.do?bh='+bh;
+		 window.open(url,"new",
+				 "height=600px,width=650px,toolbar=no,status=no,menubar=no,scrollbars=yes,resizable=yes");
+		}
    
    function scan(bh){
 			 url='${path}/fj.do?bh='+bh;

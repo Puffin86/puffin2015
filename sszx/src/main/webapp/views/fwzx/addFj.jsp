@@ -55,7 +55,7 @@ String bh=(String)session.getAttribute("fjbh");
 			},
 			columns:[[
 			    {field:'fjmc',title:'附件名称',width:120,align:'center'},
-			    {field:'fjdz',title:'附件',width:120,align:'center'},
+			    {field:'fjdz',title:'附件',width:120,align:'center',hidden:'true'},
 				{field:'action',title:'操作',width:120,align:'center',
 			    	formatter:function(value,row,index){
 						var fjbh=row.id.bh;

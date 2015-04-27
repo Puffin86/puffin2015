@@ -88,22 +88,22 @@ public class DsrSearch {
 		ah = URLDecoder.decode(ah, "UTF-8");
 		
 		
-//		String ahdm = new ECourtDao().findByAh(ah).getAhdm();
-//		List<Edsr> al = (List<Edsr>) new ECourtDao().findEdsr(ahdm);
-		List<Edsr> al = new ArrayList<Edsr>();
-		Edsr bean = new Edsr();
-		bean.setMc("大大的");
-		bean.setLxdh("12345");
-		bean.setSfzhm("33032490");
-		bean.setLx("09_01001-1");
-		al.add(bean);
-		
-		Edsr bean1 = new Edsr();
-		bean1.setMc("大大的111");
-		bean1.setLxdh("123");
-		bean1.setSfzhm("0000");
-		bean1.setLx("09_01001-3");
-		al.add(bean1);
+		String ahdm = new ECourtDao().findByAh(ah).getAhdm();
+		List<Edsr> al = (List<Edsr>) new ECourtDao().findEdsr(ahdm);
+//		List<Edsr> al = new ArrayList<Edsr>();
+//		Edsr bean = new Edsr();
+//		bean.setMc("大大的");
+//		bean.setLxdh("12345");
+//		bean.setSfzhm("33032490");
+//		bean.setLx("09_01001-1");
+//		al.add(bean);
+//		
+//		Edsr bean1 = new Edsr();
+//		bean1.setMc("大大的111");
+//		bean1.setLxdh("123");
+//		bean1.setSfzhm("0000");
+//		bean1.setLx("09_01001-3");
+//		al.add(bean1);
 		
 		JSONArray resultObj = JSONArray.fromObject(al);
 		HttpHelper.renderJson(resultObj.toString(), response);
