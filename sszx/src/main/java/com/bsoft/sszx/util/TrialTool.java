@@ -1,8 +1,5 @@
 package com.bsoft.sszx.util;
 
-import java.util.Date;
-
-
 import com.google.gdata.util.common.util.Base64;
 import com.google.gdata.util.common.util.Base64DecoderException;
 
@@ -22,8 +19,8 @@ public class TrialTool {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println(encode("2015-12-30"));
-		System.out.println(decode("MjAxNS0wNC0yNg=="));
+		System.out.println(encode("2025-05-02"));
+//		System.out.println(decode("MjAxNS0wNC0yNg=="));
 	}
 
 }

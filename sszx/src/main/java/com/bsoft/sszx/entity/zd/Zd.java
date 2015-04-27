@@ -12,6 +12,7 @@ public class Zd implements java.io.Serializable {
 
 	private String zdbm;
 	private String zdmc;
+	private Integer editable;
 
 	// Constructors
 
@@ -44,6 +45,14 @@ public class Zd implements java.io.Serializable {
 
 	public void setZdmc(String zdmc) {
 		this.zdmc = zdmc;
+	}
+
+	public Integer getEditable() {
+		return editable;
+	}
+
+	public void setEditable(Integer editable) {
+		this.editable = editable;
 	}
 
 }

@@ -12,7 +12,7 @@
 <body style="background-color:#fff;" class="easyui-layout">     
   
   <div id="p1" class="easyui-panel" data-options="region:'west',collapsible:false"   style="width:200px;" title="批量设置">
-  		<ul id="roleList" class="easyui-tree" data-options="url:'${path }/data/roles.json'"></ul>
+  		<ul id="roleList" class="easyui-tree" data-options="url:'${path}/zdmxcx_tree.do?zdbm=js'"></ul>
   </div>
   
   <div id="p" class="easyui-panel" data-options="region:'center'" title="用户权限设置" 

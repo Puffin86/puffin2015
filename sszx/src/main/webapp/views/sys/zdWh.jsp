@@ -63,10 +63,19 @@ $(function(){
 		    valueField:'zdbm',    
 		    textField:'zdmc' ,
 		    onSelect :function(record){
+		    	if(record.editable==0){
+		    		$('#update').hide();
+		    		$('#del').hide();
+		    	}else{
+		    		$('#update').show();
+		    		$('#del').show();
+		    	}
+		    	
 		    	$('#zdmxgrid').datagrid('load',{
 		    		zdbm : record.zdbm,
     				zdmc : record.zdmc
 		    	});
+		    	
 		    },
 		    onLoadSuccess:function(data){
 		    	//if(data.length!=0){
@@ -88,7 +97,16 @@ $(function(){
 		    			    //{field:'id',title:'内码',width:100,align:'center'},
 		    			    {field:'zdmxbm',title:'字典项编码',width:120,align:'center'},
 		    				{field:'zdmxmc',title:'字典项名称',width:120,align:'center'},
-		    				{field:'parent',title:'父编码',width:120,align:'center'}
+		    				{field:'parent',title:'父编码',width:120,align:'center'},
+		    				{field:'isedit',title:'是否可编辑',width:120,align:'center',
+		    					formatter:function(value,row,index){
+		    						if(row.editable==0){
+		    							return "否";
+		    						}else{
+		    							return "是";
+		    						}
+		    					}
+		    				}
 		    			]]
 		    			,toolbar:[{
 		    				text:'新增',
@@ -104,9 +122,11 @@ $(function(){
 		    		        iconCls:'icon-edit',
 		    		        handler:function(){
 		    		        	var row = $('#zdmxgrid').datagrid('getSelected');
-		    		        	$('#zdmxbm').val(row.zdmxbm);
-		    		            $('#zdmxmc').val(row.zdmxmc);
-		    		        	$('#zdmxedit').dialog('open');
+		    		        	if(row.editable==1){
+		    		        		$('#zdmxbm').val(row.zdmxbm);
+			    		            $('#zdmxmc').val(row.zdmxmc);
+			    		        	$('#zdmxedit').dialog('open');
+		    		        	}
 		    		        }
 		    			},{
 		    				text:'删除',
@@ -115,25 +135,27 @@ $(function(){
 		    		        	var row = $('#zdmxgrid').datagrid('getSelected');
 		    		        	var mxbm = row.zdmxbm;
 		    		        	var mxmc = row.zdmxmc;
-		    		        	$.messager.confirm('确认框', '确定要删除该字典项吗？', function(r){
-		    		        		if (r){
-		    		        			$.ajax({
-		    		        	     	     url:'delzdmx.do',
-		    		        	     	     type:'POST',
-		    		        	     	     data:{  
-		    		        	     	    	zdbm:$('#cc').combobox('getValue'),
-		    		        	     	    	zdmxbm:mxbm,
-		    		        	     	    	zdmxmc:mxmc
-		    		        	     	     },
-		    		        	     	     dataType:'json',
-		    		        	     	     success:function (data) {
-		    		        	     	    	$('#zdmxgrid').datagrid('load',{
-		    		        			    		zdbm : $('#cc').combobox('getValue')
-		    		        			    	});
-		    		        	     	     }
-		    		        	     	 });
-		    		        		}
-		    		        	});
+		    		        	if(row.editable==1){
+		    		        		$.messager.confirm('确认框', '确定要删除该字典项吗？', function(r){
+			    		        		if (r){
+			    		        			$.ajax({
+			    		        	     	     url:'delzdmx.do',
+			    		        	     	     type:'POST',
+			    		        	     	     data:{  
+			    		        	     	    	zdbm:$('#cc').combobox('getValue'),
+			    		        	     	    	zdmxbm:mxbm,
+			    		        	     	    	zdmxmc:mxmc
+			    		        	     	     },
+			    		        	     	     dataType:'json',
+			    		        	     	     success:function (data) {
+			    		        	     	    	$('#zdmxgrid').datagrid('load',{
+			    		        			    		zdbm : $('#cc').combobox('getValue')
+			    		        			    	});
+			    		        	     	     }
+			    		        	     	 });
+			    		        		}
+			    		        	});
+		    		        	}
 		    		        }
 		    			},{
 		    				text:'刷新',

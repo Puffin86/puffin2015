@@ -16,5 +16,10 @@
                 <comment>字典名称</comment>
             </column>
         </property>
+        <property name="editable" type="java.lang.Integer">
+            <column name="editable" length="5" >
+                <comment>可编辑</comment>
+            </column>
+        </property>
     </class>
 </hibernate-mapping>
