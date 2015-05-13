@@ -26,7 +26,7 @@
     
 <body class="easyui-layout">
 	<div data-options="region:'north',border:false" style="height:90px;background-color:#f9f9f9;background-image:url('resources/style/images/title.png');">	
-		<a href="${path}/logout.jsp" class="easyui-linkbutton" iconCls='icon-logout' style="position:absolute;top:55px;right:20px;">注销</a>  
+		<a href="${path}/logout.jsp" class="easyui-linkbutton" iconCls='icon-logout' style="position:absolute;top:55px;right:20px;">退出</a>  
 	</div>
     
     <div data-options="region:'west',split:true,title:'菜单导航',iconCls:'icon-menu'" style="width:210px;">

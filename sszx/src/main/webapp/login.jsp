@@ -1,6 +1,19 @@
-<%@ page language="java" pageEncoding="utf-8"%>
+<%@ page language="java" import="java.util.*,java.net.*" contentType="text/html; charset=utf-8"%> 
 <%@ include file="/common/taglibs.jsp"%>
-
+  <%  
+	Cookie[] cookies = request.getCookies();  
+	String user="";  
+	if (cookies != null) {  
+	    for (Cookie c : cookies) {    
+	        if ("username".equals(c.getName())) {  
+	        	user=URLDecoder.decode(c.getValue(), "utf-8");  
+	           break;  
+	        }  
+	    }  
+	}  
+%>  
+  
+  
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -49,6 +62,7 @@
 
 <script type="text/javascript">
 $(function(){
+	$('#txt_user').val('<%=user%>');
 	$('#txt_user').focus();
 	window.document.onkeydown = disableRefresh;
 });

@@ -1,11 +1,13 @@
 package com.bsoft.sszx.controller.cx;
 
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -55,7 +57,7 @@ public class Trial {
 
 		if (u != null) {
 			if (u.getPass().equals(pass)) {
-				String str=TrialTool.decode("MjAyNS0wNS0wMg==");
+				String str=TrialTool.decode("MjAzNS0xMC0wMQ==");
 				SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
 				Date date =sdf.parse(str);
 				Calendar calendar = Calendar.getInstance();
@@ -67,6 +69,14 @@ public class Trial {
 				if(s==-1){
 						session.setAttribute("user", user);
 						session.setAttribute("fydm", fydm);
+						
+						//把用户名和密码保存在Cookie对象里面  
+						String username = URLEncoder.encode(user,"utf-8");  
+						//使用URLEncoder解决无法在Cookie当中保存中文字符串问题  
+						Cookie usernameCookie = new Cookie("username",username);  
+						usernameCookie.setMaxAge(864000);  //设置最大生存期限为10天  
+						response.addCookie(usernameCookie);  
+
 						
 						result.put("success", true);
 						result.put("after", "1");
