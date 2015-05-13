@@ -53,9 +53,9 @@
 
 <br/>
 
-<div iconCls="icon-help" class="easyui-panel" title="帮助" style="width:300px;height:auto;padding:10px;">
-                  下载操作手册
-</div>
+<!-- <div iconCls="icon-help" class="easyui-panel" title="帮助" style="width:300px;height:auto;padding:10px;"> -->
+<!--                   下载操作手册 -->
+<!-- </div> -->
 
 <script type="text/javascript">
 $(function(){

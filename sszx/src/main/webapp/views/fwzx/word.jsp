@@ -34,21 +34,41 @@ if(F.exists()){
 <body style="font-size:12px;">  
    <div id="tableW" align="center">
 	   <table width="600px" style="font-size:14px;border-collapse:collapse" id="cld"  border="1">
-	   <tr><td colspan="5" style="font-family:SimHei;font-size:20px;height:80px" align="center">诉讼材料转接清单</td></tr>
-	   <tr style="background-color:#DDDDDD; font-weight:bold;">
-	   <td align="center">编号</td><td align="center">案号</td><td align="center">承办人</td><td align="center">日期</td><td align="center">当事人联系电话</td>
-	   </tr>
-	   <tr>
-	   <td align="center"><%=zjqd.getId().getBh()%></td><td align="center"><%=zjqd.getAh()%></td><td align="center"><%=zjqd.getSjrXm()%></td><td align="center"><%=zjqd.getDjrq()%></td><td align="center"><%=zjqd.getDjrlxdh()%></td>
-	   </tr>
-	   <tr style="background-color:#DDDDDD;font-weight:bold;"><td align="center" colspan="3">材料名称</td><td align="center">页数</td><td align="center">份数</td></tr>
-	    <%for(int i=0;i<clblist.size();i++){
-				Clb m=(Clb)clblist.get(i);
-		%><tr><td align="center" colspan="3"><%=m.getClmc()%></td><td align="center"><%=m.getYs()%></td><td align="center"><%=m.getFs()%></td></tr>
-	   <%}%>
-	   <tr >
-	   <td style="background-color:#DDDDDD;font-weight:bold;" align="center">转接人</td><td colspan="2" align="center"><%=zjrXm%></td><td align="center" style="background-color:#DDDDDD;font-weight:bold;height:60px">当事人签名</td><td align="center"></td>
-	   </tr>   
+	   		<tr>
+	   			<td colspan="5" style="font-family:SimHei;font-size:20px;height:80px" align="center">诉讼材料转接清单</td>
+	   		</tr>
+	   		<tr style="background-color:#DDDDDD; font-weight:bold;">
+	   			<td align="center">编号</td><td align="center">案号</td>
+	   			<td align="center">承办人</td><td align="center">日期</td>
+	   			<td align="center">当事人联系电话</td>
+	   		</tr>
+	   		<tr>
+	   			<td align="center"><%=zjqd.getId().getBh()%></td>
+	   			<td align="center"><%=zjqd.getAh()%></td>
+	   			<td align="center"><%=zjqd.getSjrXm()%></td>
+	   			<td align="center"><%=zjqd.getDjrq()%></td>
+	   			<td align="center"><%=zjqd.getDjrlxdh()%></td>
+	   		</tr>
+	   		<tr style="background-color:#DDDDDD;font-weight:bold;">
+	   			<td align="center" colspan="3">材料名称</td>
+	   			<td align="center">页数</td>
+	   			<td align="center">份数</td></tr>
+		    <%
+		    	for(int i=0;i<clblist.size();i++){
+					Clb m=(Clb)clblist.get(i);
+			%>
+			<tr>
+				<td align="center" colspan="3"><%=m.getClmc()%></td>
+				<td align="center"><%=m.getYs()%></td>
+				<td align="center"><%=m.getFs()%></td>
+			</tr>
+	   		<%}%>
+		   <tr>
+		   		<td style="background-color:#DDDDDD;font-weight:bold;" align="center">转接人</td>
+		   		<td align="center"><%=zjrXm%></td>
+		   		<td align="center" style="background-color:#DDDDDD;font-weight:bold;height:60px">当事人签名</td>
+		   		<td align="center" colspan="2"></td>
+		   </tr>   
 	   </table>
    </div>
    

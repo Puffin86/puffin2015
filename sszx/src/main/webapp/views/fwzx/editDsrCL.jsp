@@ -334,17 +334,63 @@ ZjqdId zjqdId = zjqd.getId();
    
    </script>
    
+<!--    <div id="dsr_se" style="width:400px;height:300px;"> -->
+<!--     <div style="margin-left:5px;">载入当事人列表：<a id="search_dsr" onclick="searchDsr()" iconCls="icon-search"></a></div> -->
+<!--     <hr/><ul id="dsr_searchList"></ul> -->
+<!--    </div> -->
+   
    <div id="dsr_se" style="width:400px;height:300px;">
-    <div style="margin-left:5px;">载入当事人列表：<a id="search_dsr" onclick="searchDsr()" iconCls="icon-search"></a></div>
-    <hr/><ul id="dsr_searchList"></ul>
+    	<table id="dsrgrid" ></table>
    </div>
    <script>
-   $('#search_dsr').linkbutton({}); 
+   
+   //$('#search_dsr').linkbutton({}); 
+   $('#dsrgrid').datagrid({
+		rownumbers:false,
+		striped:true,
+		fitColumns:true,
+		idField:'ah',
+		border:true,
+		singleSelect:true,
+		url:"dsrSearchList.do",
+		queryParams : {
+			ah : $('input[name=ah]').val()
+		},
+		columns:[[
+			{field:'mc',title:'当事人',width:120,align:'center'},
+			{field:'lx',title:'当事人类型',width:120,align:'center'},
+			{field:'lxdh',title:'联系电话',width:120,align:'center'},
+			{field:'sfzhm',title:'证件(机构)号码',width:120,align:'center'}
+		]]
+  });
    
    $('#dsr_se').dialog({
-	    title:'添加当事人',
+	    title:'当事人列表',
 	    iconCls:'icon-search',
-	    closed:true});
+	    closed:true,
+	    buttons:[{
+			text:'确定',
+			handler:function(){
+				var selRow = $('#dsrgrid').datagrid('getSelected');
+				if(selRow!=null){
+					if(selRow.lx=="09_01001-1"){//自然人
+						$('#changeText').html('当事人证件号码：');
+					}else{//非自然人
+						$('#changeText').html('当事人组织机构代码：');
+					}
+					$('input[name=tjr]').val(selRow.mc);
+					$('input[name=tjrlxdh]').val(selRow.lxdh);
+					$('input[name=djrsfz]').val(selRow.sfzhm);
+				}
+				$('#dsr_se').dialog('close');
+			}
+		},{
+			text:'取消',
+			handler:function(){
+				$('#dsr_se').dialog('close');
+			}
+		}]
+  });
   
   $('#dsr_searchList').tree({  
 	    checkbox: false,
