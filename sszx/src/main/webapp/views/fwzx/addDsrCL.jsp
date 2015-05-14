@@ -19,39 +19,41 @@ int bh=new ZjqdDao().getMaxId(fydm);
        <ul id="searchList"></ul>
     </div>    
 
-    <table width="100%" style="font-size:12px;margin-left:10px;" id="ssclzjqd">
+    <table width="750px" style="font-size:12px;margin-left:10px;" id="ssclzjqd">
      <tr>
-       <td width="20%">案号：</td>
-       <td>
+       <td width="140px">案号：</td>
+       <td width="230px">
 	       <input class="easyui-validatebox" required="true" name="ah" type="text"></input>
 	       <input name="ahdm" style="display:none;" type="text"></input>
 	       <a id="research" onClick="$('#ah_se').dialog('open');" style="margin-top:-5px" iconCls="icon-search"></a>
        </td>
      </tr>
      <tr>
-       <td width="20%" >承办人：</td>
-       <td>
+       <td width="140px" >承办人：</td>
+       <td width="230px">
        		<input class="easyui-validatebox" required="true" readOnly="readOnly" name="sjrXm" type="text"></input>
            	<input style="display:none;" name="sjr" type="text"></input>
        		<a id="cbr_search" style="margin-top:-5px"  iconCls="icon-add" onClick="openSearch()"></a>
        	</td>
-       <td width="20%" >&nbsp;&nbsp;承办部门：</td>
+       <td width="140px" >&nbsp;&nbsp;承办部门：</td>
        <td><input class="easyui-validatebox" required="true"  readOnly="readOnly" name="sjrbmMc" type="text"></input>
            <input style="display:none;" name="sjrbm" type="text"></input>
        </td>
      </tr>
      <tr>
-       <td width="20%" >当事人：</td>
-       <td><input class="easyui-validatebox" required="true" name="tjr" type="text"></input>
-       <input style="display:none;" type="text"></input>
-       <a id="dsr_bt" onClick="searchDsr()" style="margin-top:-5px" iconCls="icon-add"></a></td>
-       <td width="20%">&nbsp;&nbsp;当事人联系电话：</td>
+       <td width="140px" >当事人：</td>
+       <td width="230px">
+       	<input class="easyui-validatebox" required="true" name="tjr" type="text"></input>
+       	<input style="display:none;" type="text"></input>
+       	<a id="dsr_bt" onClick="searchDsr()" style="margin-top:-5px" iconCls="icon-add"></a>
+       	</td>
+       <td width="140px">&nbsp;&nbsp;当事人联系电话：</td>
        <td><input name="tjrlxdh" type="text"></input></td>
      </tr> 
      <tr>
-       <td width="20%" id="changeText">当事人证件号码：</td>
-       <td><input name="djrsfz" type="text"></input></td>
-       <td width="20%">&nbsp;&nbsp;递交日期：</td>
+       <td width="140px" id="changeText">当事人证件号码：</td>
+       <td width="230px"><input name="djrsfz" type="text"></input></td>
+       <td width="140px">&nbsp;&nbsp;递交日期：</td>
        <td><input editable="false" class="easyui-datebox" id="djrq" name="djrq" type="text"></input></td>
      </tr>
      </table>

@@ -23,7 +23,7 @@ ZjqdId zjqdId = zjqd.getId();
        <ul id="searchList"></ul>
     </div>
     
-    <table style="font-size:12px;margin-left:10px;" id="ssclzjqd">
+    <table width="750px" style="font-size:12px;margin-left:10px;" id="ssclzjqd">
      <tr>
        <td width="20%">案号：</td>
        <td><input class="easyui-validatebox" required="true" name="ah" type="text"></input>
