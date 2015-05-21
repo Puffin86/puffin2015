@@ -246,6 +246,7 @@ public class SaveFlq {
 			hibsession.beginTransaction();
 			
 			for(String tjrItemStr : tjrArr){
+				System.out.println("!!!!!!!"+tjrItemStr);
 				if("".equals(tjrItemStr)){
 					continue;
 				}

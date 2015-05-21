@@ -211,7 +211,7 @@ function save(){
     var tjrStr="";
     for(var i=0; i<rows.length;i++){
     	var row = rows[i];
-    	var rowStr = "{dsrmc:'"+row.mc+"',dsrlxdh:"+row.lxdh+",dsrsfzhm:"+row.sfzhm+"}";
+    	var rowStr = "{dsrmc:'"+row.mc+"',dsrlxdh:'"+row.lxdh+"',dsrsfzhm:'"+row.sfzhm+"'}";
     	tjrStr +="@"+rowStr;
     }
     //return;
@@ -535,10 +535,10 @@ function searchDsr(){
 */
 
 function searchDsrList(){
-	var ah=$('input[name=ah]').val();
+	var ah=$('input[name=ahdm]').val();
 	if(ah!=''){
 		$('#dsrgridList').datagrid('load',{
-			ah : $('input[name=ah]').val()
+			ah : $('input[name=ahdm]').val()
 		});
 		$('#dsrgridList').datagrid('clearSelections');
 	}else{

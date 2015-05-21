@@ -346,16 +346,29 @@ int bh=new ZjqdDao().getMaxId(fydm);
 		rownumbers:false,
 		striped:true,
 		fitColumns:true,
-		idField:'ah',
+		idField:'mc',
 		border:true,
 		singleSelect:true,
 		url:"dsrSearchList.do",
 		queryParams : {
-			ah : $('input[name=ah]').val()
+			ah : $('input[name=ahdm]').val()
 		},
 		columns:[[
 			{field:'mc',title:'当事人',width:120,align:'center'},
-			{field:'lx',title:'当事人类型',width:120,align:'center'},
+			{field:'lx',title:'当事人类型',width:120,align:'center',formatter:function(value,row,index){
+				if(value=="09_01001-2"){
+					return "法人";
+				}else if(value=="09_01001-1"){
+					return "自然人";
+				}else if(value=="09_01001-3"){
+					return "非法人组织";
+				}else if(value=="09_01001-4"){
+					return "单位犯罪直接责任人";
+				}else{
+					return "其他";
+				}
+			 }
+			},
 			{field:'lxdh',title:'联系电话',width:120,align:'center'},
 			{field:'sfzhm',title:'证件(机构)号码',width:120,align:'center'}
 		]]
@@ -402,9 +415,12 @@ int bh=new ZjqdDao().getMaxId(fydm);
 	});  
   
   function searchDsr(){
-	    var ah=$('input[name=ah]').val();
+	    var ah=$('input[name=ahdm]').val();
 		if(ah!=''){
-			$('#dsrgrid').datagrid('reload');
+			//$('#dsrgrid').datagrid('reload');
+			$('#dsrgrid').datagrid('load',{
+					ah : $('input[name=ahdm]').val()
+		    });
 			$('#dsrgrid').datagrid('clearSelections');
 			$('#dsr_se').dialog('open');
 		}else{
