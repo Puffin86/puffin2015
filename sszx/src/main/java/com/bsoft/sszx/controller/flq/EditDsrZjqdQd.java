@@ -84,11 +84,11 @@ public class EditDsrZjqdQd {
 			Zjqd.setSx(Integer.parseInt(lqsx));
 			
 			//时限日期
-			SimpleDateFormat sdf= new SimpleDateFormat("yyyy-mm-dd");
+			SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
 			Date date = sdf.parse(djrq);
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(date);
-			cal.add(Calendar.DAY_OF_MONTH, Integer.parseInt(lqsx));
+			cal.add(Calendar.DATE, Integer.parseInt(lqsx));
 			Timestamp sxsj = new Timestamp(cal.getTimeInMillis());
 			Zjqd.setSxsj(sxsj);
 			

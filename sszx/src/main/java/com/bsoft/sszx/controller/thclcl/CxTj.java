@@ -1,6 +1,10 @@
 package com.bsoft.sszx.controller.thclcl;
 
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -66,6 +70,13 @@ public class CxTj  {
 		Zjqd.setLzjl(lzjl);
 		
 		Zjqd.setDjrq(new GetTime().gettime());//修改递交日期
+		int lqsx = Zjqd.getSx();
+		//时限日期
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.DATE, lqsx);
+		Timestamp sxsj = new Timestamp(cal.getTimeInMillis());
+		Zjqd.setSxsj(sxsj);
+		
 		
 		if(Zjqd.getLclx().equals("dzz")){
 		Zjqd.setDqcyr(hscyr);

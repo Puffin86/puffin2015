@@ -57,7 +57,8 @@ $(document).ready(function(){
 			{field:'sjrBmmc',title:'承办部门',width:100,align:'center'},
 			{field:'sjrXm',title:'承办人',width:50,align:'center'},
 		    {field:'djr',title:'当事人',width:50,align:'center'},
-		    {field:'djrq',title:'递交日期',width:100,align:'center'},	
+		    {field:'djrq',title:'递交日期',width:100,align:'center'},
+		    {field:'sx',title:'时限',width:100,align:'center'},	
 		    {field:'action',title:'操作',width:150,align:'center',
 				   formatter:function(value,row,index){
 					var sa=row.id.bh;
@@ -71,7 +72,13 @@ $(document).ready(function(){
 					}
 		    }
 			]],
-			
+			rowStyler:function(index,row){
+				if (row.id.bh<2){
+					return 'background-color:pink;color:blue;font-weight:bold;';
+				}else if(row.id.bh==2){
+					return 'background-color:#FF6100;';
+				}
+			},
 			toolbar:[	        
 			        {text:'查询',
 			        iconCls:'icon-search',

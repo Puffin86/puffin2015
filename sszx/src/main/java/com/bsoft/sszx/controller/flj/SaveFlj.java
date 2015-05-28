@@ -1,6 +1,10 @@
 package com.bsoft.sszx.controller.flj;
 
 import java.net.URLDecoder;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -85,6 +89,21 @@ public class SaveFlj {
 			djrq = URLDecoder.decode(djrq, "UTF-8");
 			djrq = URLDecoder.decode(djrq, "UTF-8");
 			zjqd.setDjrq(djrq);
+			
+			//时限
+			String lqsx = request.getParameter("lqsx");
+			lqsx = URLDecoder.decode(lqsx, "UTF-8");
+			lqsx = URLDecoder.decode(lqsx, "UTF-8");
+			zjqd.setSx(Integer.parseInt(lqsx));
+			
+			//时限日期
+			SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
+			Date date = sdf.parse(djrq);
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(date);
+			cal.add(Calendar.DATE, Integer.parseInt(lqsx));
+			Timestamp sxsj = new Timestamp(cal.getTimeInMillis());
+			zjqd.setSxsj(sxsj);
 
 			String tjrlxdh = request.getParameter("tjrlxdh");
 			tjrlxdh = URLDecoder.decode(tjrlxdh, "UTF-8");

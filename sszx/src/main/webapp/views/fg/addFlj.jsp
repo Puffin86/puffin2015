@@ -173,6 +173,8 @@ function save(){
 			tr+=1;
 	}
 	
+	var lqsx = $('input[name=lqsx]').val();
+	
 	if(tr==0 && alerString==''){
         $.ajax({
 	   	    url:'${path}/saveFlj.do',
@@ -190,6 +192,7 @@ function save(){
                 ,sjrbm:encodeURI(encodeURI(sjrbm))
                 ,sjrXm:encodeURI(encodeURI(sjrXm))
                 ,sjrbmMc:encodeURI(encodeURI(sjrbmMc))
+                ,lqsx:encodeURI(encodeURI(lqsx))
    	     	},
    	     	dataType:'json',
    	     	success:function (data) {

@@ -52,6 +52,12 @@
        <td width="20%">&nbsp;&nbsp;递交日期：</td>
        <td><input class="easyui-datebox" editable="false" id="djrq" name="djrq" type="text"/></td>
      </tr>
+     <tr>
+       <td>提交时限：</td>
+       <td><input name="lqsx" type="text"/></td>
+       <td>&nbsp;</td>
+       <td>&nbsp;</td>
+     </tr>
    </table>
    <hr/> 
      
@@ -97,6 +103,8 @@ $(document).ready(function(){
 	$('input[name=sjrXm]').attr('value',sjrXm);
 	var sjrbmMc="${editFlj.sjrBmmc}";
 	$('input[name=sjrbmMc]').attr('value',sjrbmMc);
+	var sx="${editFlj.sx}";
+	$('input[name=lqsx]').attr('value',sx);
 	
    //绑定添加行按钮的单击事件 
    $(".add").bind("click",	function(){ 
@@ -168,6 +176,7 @@ function save(){
 	var sjrXm=$('input[name=sjrXm]').val();
 	var sjrbmMc=$('input[name=sjrbmMc]').val();
 	var re=$('input.easyui-validatebox').length;
+	var lqsx=$('input[name=lqsx]').val();
 	
 	var tr=0;
 	for(var i=0;i<re;i++){
@@ -194,6 +203,7 @@ function save(){
 				,sjrbm:encodeURI(encodeURI(sjrbm))
 				,sjrXm:encodeURI(encodeURI(sjrXm))
 				,sjrbmMc:encodeURI(encodeURI(sjrbmMc))
+				,lqsx:encodeURI(encodeURI(lqsx))
 	   	     },
 	   	     dataType:'json',
 	   	     success: function (data) {

@@ -25,6 +25,7 @@ public class Zjqd implements java.io.Serializable {
 	private String htyj;
 	private String sjrlxdh;
 	private String lclx;
+	private String lclxText;
 	private String dqcyr;
 	private String qscyr;
 	private String hscyr;
@@ -282,6 +283,14 @@ public class Zjqd implements java.io.Serializable {
 
 	public void setSxsj(Timestamp sxsj) {
 		this.sxsj = sxsj;
+	}
+
+	public String getLclxText() {
+		return lclxText;
+	}
+
+	public void setLclxText(String lclxText) {
+		this.lclxText = lclxText;
 	}
 
 }
