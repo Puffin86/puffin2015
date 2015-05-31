@@ -33,21 +33,27 @@ public class ZjqdDao {
 	}
 
 	public int getMaxId(String fydm) {
+		int maxid = 0;
 		try {
 			session = HibernateUtil.getSession(); // 获取Session
-			session.beginTransaction();
 			String sql = "select max(id.bh) from Zjqd where id.fydm='" + fydm
 					+ "'";
 			List list = session.createQuery(sql).list();
-			session.getTransaction().commit();
-			return (Integer) list.get(0) + 1;
+			
+			if(list==null){
+				maxid =  1;
+			}else if(list.get(0)==null){
+				maxid = 1;
+			}else{
+				maxid = (Integer) list.get(0) + 1;
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();// 打印错误信息
-			return 0;
 		} finally {
 			HibernateUtil.closeSession(session); // 关闭Session
 		}
+		return maxid;
 	}
 
 	@SuppressWarnings("unchecked")
