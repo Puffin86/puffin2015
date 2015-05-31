@@ -140,5 +140,23 @@
                 <comment>材料清单</comment>
             </column>
         </property>
+        
+        <property name="dlr" type="java.lang.String">
+            <column name="dlr" length="100">
+                <comment>代理人</comment>
+            </column>
+        </property>
+        <property name="dlrdh" type="java.lang.String">
+            <column name="dlrdh" length="20">
+                <comment>代理人电话</comment>
+            </column>
+        </property>
+        <property name="zyzh" type="java.lang.String">
+            <column name="zyzh" length="50">
+                <comment>执业证号</comment>
+            </column>
+        </property>
+        
+        
     </class>
 </hibernate-mapping>

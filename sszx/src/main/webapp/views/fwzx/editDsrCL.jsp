@@ -51,10 +51,22 @@ ZjqdId zjqdId = zjqd.getId();
        <td><input name="tjrlxdh" type="text"></input></td>
      </tr> 
      <tr>
-       <td width="20%">当事人证件号码：</td>
-       <td><input name="djrsfz" type="text"></input></td>
-       <td width="20%">&nbsp;&nbsp;递交日期：</td>
-       <td><input editable="false" class="easyui-datebox" required="true" id="djrq" name="djrq" type="text"></input></td>
+       <td width="140px" id="changeText">当事人证件号码：</td>
+       <td width="230px"><input name="djrsfz" type="text"></input></td>
+       <td width="140px">代理人：</td>
+       <td><input name="dlr" type="text"></input></td>
+     </tr>
+     <tr>
+       <td width="140px" id="changeText">代理人联系电话：</td>
+       <td width="230px"><input name="dlrdh" type="text"></input></td>
+       <td width="140px">执业证号：</td>
+       <td><input name="zyzh" type="text"></input></td>
+     </tr>
+     
+     <tr>
+       <td width="140px">&nbsp;&nbsp;递交日期：</td>
+       <td><input editable="false" class="easyui-datebox" id="djrq" name="djrq" type="text"></input></td>
+       <td  colspan="2">&nbsp;</td>
      </tr>
      </table>
      <hr/> 
@@ -116,6 +128,15 @@ ZjqdId zjqdId = zjqd.getId();
 	   //var sjrbmMc="${session.editDsrZzSjZjqd.sjrBmmc}";
 	   var sjrbmMc="<%=zjqd.getSjrBmmc()%>";
 	   $('input[name=sjrbmMc]').attr('value',sjrbmMc);
+	   
+	   var dlr="<%=zjqd.getDlr()%>";
+	   $('input[name=dlr]').attr('value',dlr);
+	   
+	   var dlrdh="<%=zjqd.getDlrdh()%>";
+	   $('input[name=dlrdh]').attr('value',dlrdh);
+	   
+	   var zyzh="<%=zjqd.getZyzh()%>";
+	   $('input[name=zyzh]').attr('value',zyzh);
 	
    //绑定添加行按钮的单击事件 
    $(".add").bind("click",function(){ 
@@ -163,6 +184,10 @@ ZjqdId zjqdId = zjqd.getId();
        var zjr=$('input[name=zjr]').val();
        var zjrq=$('input[name=zjrq]').val();
        var djrsfzhm=$('input[name=djrsfz]').val();
+       
+       var dlr=$('input[name=dlr]').val();
+       var dlrdh=$('input[name=dlrdh]').val();
+       var zyzh=$('input[name=zyzh]').val();
       
        var cl='';
        var alerString='';
@@ -216,6 +241,9 @@ ZjqdId zjqdId = zjqd.getId();
                  ,sjrbm:encodeURI(encodeURI(sjrbm))
                  ,sjrXm:encodeURI(encodeURI(sjrXm))
                  ,sjrbmMc:encodeURI(encodeURI(sjrbmMc))
+                 ,dlr:encodeURI(encodeURI(dlr))
+	             ,dlrdh:encodeURI(encodeURI(dlrdh))
+	             ,zyzh:encodeURI(encodeURI(zyzh))
    	     },//注意大小写data
    	     dataType:'json',
    	     success:function (data) {

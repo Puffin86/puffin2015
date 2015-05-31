@@ -25,8 +25,9 @@
      <tr>
        <td width="15%">案号：</td>
        <td width="35%">
-	       	<input class="easyui-validatebox" required="true" name="ah" type="text"/>
-	       	<input name="ahdm" type="hidden"/>
+	       	<input class="easyui-validatebox" required="true" readOnly="readOnly" name="ah" type="text"/>
+<!-- 	       	<input class="easyui-validatebox" required="true" name="ah" type="text"/> -->
+	       	<input name="ahdm" type="hidden" />
 	       	<a id="research" class="easyui-linkbutton" onClick="$('#ah_se').dialog('open');" iconCls="icon-search"></a>
        </td>
        <td width="15%">&nbsp;</td>
@@ -202,6 +203,10 @@ function save(){
 	}
 	
 	var lqsx = $('input[name=lqsx]').val();
+	if(lqsx==''){
+    	alert("必须输入领取时限！");
+    	return;
+    }
 	
 	var tjrlxdh=$('input[name=tjrlxdh]').val();
     var tjr=$('input[name=tjr]').val();

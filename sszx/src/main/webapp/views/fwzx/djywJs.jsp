@@ -16,21 +16,18 @@ Zjqd zjqd=(Zjqd)session.getAttribute("djywZjqd");
 ZjqdId zjqdId = zjqd.getId();
 String qscyr=zjqd.getQscyr();
 String zjrXm=new UserDao().findUserById(qscyr, fydm).getYhxm();
-
 Dxx dxx=new DxxDao().findByZt(String.valueOf(zjqd.getZt()), fydm);
 String nr=dxx.getNr();
 int lx=dxx.getZdfs();
-
 String uid=(String)session.getAttribute("user");
 String fymc=new FyDao().fymc(fydm);//法院名称
 String dsr=zjqd.getDjr();//当事人姓名
 String lclx = zjqd.getLclx();
 String cbrid = zjqd.getSjr();
 String cbr=zjqd.getSjrXm();//承办人姓名
-int sx = zjqd.getSx();//时限
+int sx = zjqd.getSx()==null?0:zjqd.getSx();//时限
 String ah=zjqd.getAh();//案号
 String zjr=new UserDao().findUserById(uid, fydm).getYhxm();//转交人
-
 String c1="[法院名称]";
 String c2="[当事人]";
 String c3="[承办人]";
@@ -96,7 +93,7 @@ nr=nr.replace(c6, sx+"");
        <div>材料名称：<input name="clmc" type="text"></input>
        &nbsp;&nbsp;份数： <input name="clfs"  style="width:30px" type="text"></input>
        &nbsp;&nbsp;页数： <input name="clys" style="width:30px" type="text"></input>      
-       <a id="cl_remove" class="remove" style="margin-top:-7px" iconCls="icon-remove"></a></div>
+       <a id="cl_remove" class="remove" style="margin-top:-7px" iconCls="icon-cancel"></a></div>
      </div>
    </div>
    

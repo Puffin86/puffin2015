@@ -45,7 +45,7 @@
 	    		<td>中心经办人：</td>
 	    		<td><input style="width:150px"  id="zxjbr" type="text"/></td>
 	    		<td>中心经办时间：</td>
-	    		<td><input editable="false" class="easyui-datebox" id="zxjbsj" type="text"/></td>
+	    		<td><input  class="easyui-datebox" id="zxjbsj" type="text"/></td>
 	    	</tr>
 	    	<tr>
 	    		<td>业务类型：</td>
@@ -444,7 +444,7 @@ function dototal(){
 function exportTotal(){
 	
 	var qx = $("input[name='cb']:checked").map(function () {
-        return $(this).val();
+	        return $(this).val();
     }).get().join('#');
 	
 	var groupBy='';

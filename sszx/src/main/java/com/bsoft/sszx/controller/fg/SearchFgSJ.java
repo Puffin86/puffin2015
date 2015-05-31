@@ -1,5 +1,7 @@
 package com.bsoft.sszx.controller.fg;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,10 +29,16 @@ public class SearchFgSJ {
 	@ResponseBody
 	@RequestMapping("searchFgSJ")
 	public void execute(HttpServletRequest request,
-			HttpServletResponse response, HttpSession session) {
+			HttpServletResponse response, HttpSession session) throws Exception {
 
 		String djr = request.getParameter("djr");
 		String ah = request.getParameter("ah");
+//		ah = URLDecoder.decode(ah, "UTF-8"); 
+//		ah = URLDecoder.decode(ah, "UTF-8"); 
+//		
+//		djr = URLDecoder.decode(djr, "UTF-8"); 
+//		djr = URLDecoder.decode(djr, "UTF-8"); 
+		
 		System.out.println(djr+"@"+ah);
 		int zt = Integer.valueOf(request.getParameter("zt")); // 状态
 

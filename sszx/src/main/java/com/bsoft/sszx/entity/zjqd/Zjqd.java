@@ -41,6 +41,10 @@ public class Zjqd implements java.io.Serializable {
 	private Integer sfcs;//是否超时
 	private Integer sysx;//剩余时限
 	private String clqd;//材料清单描述
+	private String dlr;//材料清单描述
+	private String dlrdh;//材料清单描述
+	private String zyzh;//材料清单描述
+	
 
 	// Constructors
 
@@ -60,7 +64,9 @@ public class Zjqd implements java.io.Serializable {
 			String sjrbm, Timestamp sendtime, Integer zt, String htyj,
 			String sjrlxdh, String lclx, String dqcyr, String qscyr,
 			String hscyr, String dsrsfzhm, String lzjl, String sjrXm,
-			String sjrBmmc,Integer ywlx,Integer sx,Timestamp sxsj,Integer sl,String clqd) {
+			String sjrBmmc,Integer ywlx,Integer sx,Timestamp sxsj,Integer sl,String clqd,
+			String dlr,String dlrdh,String zyzh
+			) {
 		this.id = id;
 		this.ah = ah;
 		this.sjr = sjr;
@@ -88,6 +94,9 @@ public class Zjqd implements java.io.Serializable {
 		this.sxsj=sxsj;
 		this.sl = sl;
 		this.clqd = clqd;
+		this.dlr = dlr;
+		this.dlrdh = dlrdh;
+		this.zyzh = zyzh;
 	}
 
 	// Property accessors
@@ -338,6 +347,30 @@ public class Zjqd implements java.io.Serializable {
 
 	public void setClqd(String clqd) {
 		this.clqd = clqd;
+	}
+
+	public String getDlr() {
+		return dlr;
+	}
+
+	public void setDlr(String dlr) {
+		this.dlr = dlr;
+	}
+
+	public String getDlrdh() {
+		return dlrdh;
+	}
+
+	public void setDlrdh(String dlrdh) {
+		this.dlrdh = dlrdh;
+	}
+
+	public String getZyzh() {
+		return zyzh;
+	}
+
+	public void setZyzh(String zyzh) {
+		this.zyzh = zyzh;
 	}
 
 }

@@ -93,13 +93,29 @@ public class clSearch {
 			sqlBuf.append(" and lclx like '%").append(ywlx).append("%' ");
 		}
 		if(sx!=null&&!"".equals(sx)){
-			sqlBuf.append(" and (TIMESTAMPDIFF(DAY,CURDATE(),sxsj)+1) =").append(sx);
+			if("0".equals(sx)){
+				sqlBuf.append(" and( TIMESTAMPDIFF(DAY,CURDATE(),sxsj) =").append(sx).append(" or sxsj is null )");
+				
+			}else{
+				//sqlBuf.append(" and (TIMESTAMPDIFF(DAY,CURDATE(),sxsj)+1) =").append(sx);
+				sqlBuf.append(" and (TIMESTAMPDIFF(DAY,CURDATE(),sxsj)) =").append(sx);
+			}
 		}
 		
 		al =(List<Zjqd>) new ZjqdDao().findCljlBySQL(sqlBuf.toString());
 		if(al!=null){
 			for(Zjqd item : al){
 				int len = GetTime.checkOutTime(item);
+				
+				String lclx = item.getLclx();
+		    	if("dzz".equals(lclx)){
+		    		item.setLclxText("主动送件");
+		    	}else if("flq".equals(lclx)){
+		    		item.setLclxText("预约领取");
+		    	}else if("flj".equals(lclx)){
+		    		item.setLclxText("预约提交");
+		    	}
+				
 			}
 		}
 		return al;
@@ -186,6 +202,14 @@ public class clSearch {
 		if(al!=null){
 			for(Zjqd item : al){
 				int len = GetTime.checkOutTime(item);
+				String lclx = item.getLclx();
+		    	if("dzz".equals(lclx)){
+		    		item.setLclxText("主动送件");
+		    	}else if("flq".equals(lclx)){
+		    		item.setLclxText("预约领取");
+		    	}else if("flj".equals(lclx)){
+		    		item.setLclxText("预约提交");
+		    	}
 			}
 		}
 		return al;
@@ -199,7 +223,7 @@ public class clSearch {
 		List<Zjqd> dataset =getZjqd(request,session);
 		//获取表头
 	    String[] headers = new String[] {"业务类型", "时限", "案号", "承办部门", "承办人", "当事人","中心经办人", "中心经办日期"};//表头数组
-	    String[] fields = new String[] {"lclx", "sx", "ah", "sjrBmmc", "sjrXm", "djr","zjrXm", "zjrq"};//数据填充数组  
+	    String[] fields = new String[] {"lclxText", "sx", "ah", "sjrBmmc", "sjrXm", "djr","zjrXm", "zjrq"};//数据填充数组  
 	    ExportExcelUtil<Zjqd> ex = new ExportExcelUtil<Zjqd>();
 	    SimpleDateFormat timeFormat = new SimpleDateFormat("yyyyMMddHHmmss");  
 	    String filename = timeFormat.format(new Date())+".xls";  
@@ -207,6 +231,7 @@ public class clSearch {
 	    response.setHeader("Content-Disposition", "attachment;filename=".concat(String.valueOf(URLEncoder.encode(filename, "UTF-8"))));  
 	    OutputStream out = response.getOutputStream();  
 //        ex.exportExcel(headers, dataset, out);  
+	    
 	    ex.exportExcel("数据列表", headers, fields, dataset, out);
         out.close();  
 	}
@@ -226,7 +251,7 @@ public class clSearch {
 			headers = new String[groupByArr.length+1];
 			fields = new String[groupByArr.length+1];
 			for(int i=0;i<groupByArr.length;i++){
-				fields[i]=groupByArr[i];
+				
 				if("lclx".equals(groupByArr[i])){
 					headers[i]="业务类型";
 				}else if("sjrBmmc".equals(groupByArr[i])){
@@ -236,6 +261,13 @@ public class clSearch {
 				}else if("zjrXm".equals(groupByArr[i])){
 					headers[i]="中心经办人";
 				}
+				
+				if("lclx".equals(groupByArr[i])){
+					fields[i]="lclxText";
+				}else{
+					fields[i]=groupByArr[i];
+				}
+				
 			}
 			
 			fields[groupByArr.length]="sl";
@@ -243,7 +275,7 @@ public class clSearch {
 			
 		}else{
 			headers = new String[] {"业务类型", "承办部门", "承办人", "中心经办人", "数量"};//表头数组
-			fields = new String[] {"lclx", "sjrBmmc", "sjrXm", "zjr", "sl"};//数据填充数组  
+			fields = new String[] {"lclxText", "sjrBmmc", "sjrXm", "zjr", "sl"};//数据填充数组  
 		}
 		
 		int total = 0;

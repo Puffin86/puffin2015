@@ -108,8 +108,8 @@ $('#search').dialog({
         	     url:'${path}/searchFgSJ.do',
         	     type:'POST',
         	     data:{
-        	    	 djr:encodeURI(encodeURI($('#djr').val())),
-        	    	 ah:encodeURI(encodeURI($('#ah').val())),
+        	    	 djr: $('#djr').val(),
+        	    	 ah: $('#ah').val(),
         	    	 zt:9
         	     },
         	     dataType:'json',

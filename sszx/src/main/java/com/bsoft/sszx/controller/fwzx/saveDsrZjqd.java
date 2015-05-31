@@ -64,6 +64,22 @@ public class saveDsrZjqd  {
 		sjrbm = URLDecoder.decode(sjrbm, "UTF-8"); 
 		Zjqd.setSjrbm(sjrbm);
 		
+		String dlr=request.getParameter("dlr");
+		dlr = URLDecoder.decode(dlr, "UTF-8"); 
+		dlr = URLDecoder.decode(dlr, "UTF-8"); 
+		Zjqd.setDlr(dlr);
+		
+		String dlrdh=request.getParameter("dlrdh");
+		dlrdh = URLDecoder.decode(dlrdh, "UTF-8"); 
+		dlrdh = URLDecoder.decode(dlrdh, "UTF-8"); 
+		Zjqd.setDlrdh(dlrdh);
+		
+		String zyzh=request.getParameter("zyzh");
+		zyzh = URLDecoder.decode(zyzh, "UTF-8"); 
+		zyzh = URLDecoder.decode(zyzh, "UTF-8"); 
+		Zjqd.setZyzh(zyzh);
+		
+		
 		User user = new UserDao().findUserById(zjr, fydm);
 		Zjqd.setZjr(zjr);//当前用户为转交人
 		Zjqd.setZjrXm(user.getYhxm());

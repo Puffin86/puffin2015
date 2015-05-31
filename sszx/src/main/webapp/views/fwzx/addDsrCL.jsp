@@ -53,9 +53,22 @@ int bh=new ZjqdDao().getMaxId(fydm);
      <tr>
        <td width="140px" id="changeText">当事人证件号码：</td>
        <td width="230px"><input name="djrsfz" type="text"></input></td>
+       <td width="140px">代理人：</td>
+       <td><input name="dlr" type="text"></input></td>
+     </tr>
+     <tr>
+       <td width="140px" id="changeText">代理人联系电话：</td>
+       <td width="230px"><input name="dlrdh" type="text"></input></td>
+       <td width="140px">执业证号：</td>
+       <td><input name="zyzh" type="text"></input></td>
+     </tr>
+     
+     <tr>
        <td width="140px">&nbsp;&nbsp;递交日期：</td>
        <td><input editable="false" class="easyui-datebox" id="djrq" name="djrq" type="text"></input></td>
+       <td  colspan="2">&nbsp;</td>
      </tr>
+     
      </table>
      <hr/> 
      
@@ -151,6 +164,12 @@ int bh=new ZjqdDao().getMaxId(fydm);
        var zjrq=$('input[name=zjrq]').val();
        var djrsfzhm=$('input[name=djrsfz]').val();
        
+       var dlr=$('input[name=dlr]').val();
+       var dlrdh=$('input[name=dlrdh]').val();
+       var zyzh=$('input[name=zyzh]').val();
+       
+       
+       
        var cl='';
        var alerString='';
        if($('input[name=clmc]').length==1){
@@ -201,6 +220,9 @@ int bh=new ZjqdDao().getMaxId(fydm);
 	                 ,sjrbm:encodeURI(encodeURI(sjrbm))
 	                 ,sjrXm:encodeURI(encodeURI(sjrXm))
 	                 ,sjrbmMc:encodeURI(encodeURI(sjrbmMc))
+	                 ,dlr:encodeURI(encodeURI(dlr))
+	                 ,dlrdh:encodeURI(encodeURI(dlrdh))
+	                 ,zyzh:encodeURI(encodeURI(zyzh))
 	   	     },//注意大小写data
 	   	     dataType:'json',
 	   	     success:function (data) {

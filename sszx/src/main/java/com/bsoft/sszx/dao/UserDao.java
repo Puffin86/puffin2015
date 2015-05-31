@@ -72,20 +72,18 @@ public class UserDao {
 	}
 
 	public User findUserById(String uid, String fydm) {
+		User user = null;
 		try {
 			session = HibernateUtil.getSession(); // 获取Session
-			session.beginTransaction();
 			String sql = "from User where id.yhid='" + uid + "' and id.dwdm='"
 					+ fydm + "'";
-			User user = (User) session.createQuery(sql).list().get(0);
-			session.getTransaction().commit();
-			return user;
+			user = (User) session.createQuery(sql).list().get(0);
 		} catch (Exception e) {
 			e.printStackTrace();// 打印错误信息
-			return null;
 		} finally {
 			HibernateUtil.closeSession(session); // 关闭Session
 		}
+		return user;
 	}
 
 	public List<User> findUserAll(String fydm) {

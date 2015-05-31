@@ -43,7 +43,7 @@ public class TuiHuiCL {
 
 		if (thdx.equals("2")) {
 			Zjqd.setLclx("flq");
-			Zjqd.setZt(5);// 退回当事人
+			Zjqd.setZt(6);// 退回当事人
 		}
 
 		if (thdx.equals("3"))
@@ -83,8 +83,8 @@ public class TuiHuiCL {
 
 		if (thdx.equals("2")) {
 			Zjqd.setDqcyr(qscyr);
-			Zjqd.setHscyr("dsr");
-			Zjqd.setQscyr("dsr");
+			Zjqd.setHscyr("sszx");
+			Zjqd.setQscyr(Zjqd.getSjr());
 		}
 
 		if (thdx.equals("3")) {
