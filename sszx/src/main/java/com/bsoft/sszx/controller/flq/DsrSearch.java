@@ -88,34 +88,34 @@ public class DsrSearch {
 		ah = URLDecoder.decode(ah, "UTF-8");
 		
 		
-//		List<Edsr> al = (List<Edsr>) new ECourtDao().findEdsr(ah);
+		List<Edsr> al = (List<Edsr>) new ECourtDao().findEdsr(ah);
+		
+		if(al!=null || al.size()>0){
+			
+			for(Edsr dsr : al){
+				String lx = dsr.getLx();
+				if(!"09_01001-1".equals(lx)){
+					dsr.setSfzhm(dsr.getZzjgdm());
+				}
+			}
+			
+		}
+		
+//		List<Edsr> al = new ArrayList<Edsr>();
 //		
-//		if(al!=null || al.size()>0){
-//			
-//			for(Edsr dsr : al){
-//				String lx = dsr.getLx();
-//				if(!"09_01001-1".equals(lx)){
-//					dsr.setSfzhm(dsr.getZzjgdm());
-//				}
-//			}
-//			
-//		}
-		
-		List<Edsr> al = new ArrayList<Edsr>();
-		
-		Edsr aa = new Edsr();
-		aa.setMc("aa");
-		aa.setLx("lx1");
-		aa.setLxdh("1234");
-		aa.setSfzhm("2352345");
-		al.add(aa);
-		
-		Edsr bb = new Edsr();
-		bb.setMc("bb");
-		bb.setLx("lx2");
-		bb.setLxdh("1234");
-		bb.setSfzhm("2388885");
-		al.add(bb);
+//		Edsr aa = new Edsr();
+//		aa.setMc("aa");
+//		aa.setLx("lx1");
+//		aa.setLxdh("1234");
+//		aa.setSfzhm("2352345");
+//		al.add(aa);
+//		
+//		Edsr bb = new Edsr();
+//		bb.setMc("bb");
+//		bb.setLx("lx2");
+//		bb.setLxdh("1234");
+//		bb.setSfzhm("2388885");
+//		al.add(bb);
 		
 		JSONArray resultObj = JSONArray.fromObject(al);
 		HttpHelper.renderJson(resultObj.toString(), response);
