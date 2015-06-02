@@ -1,0 +1,39 @@
+create table dbo.TS_BZDM (KIND varchar(5) not null, BT varchar(160) null, CODE varchar(15) not null, MC varchar(160) null, FDM varchar(15) null, SFJY varchar(1) null, PXH int null, CODENOW varchar(15) null, VER varchar(3) null, KIN09 varchar(5) null, V2014CODE varchar(15) null, SFKZ varchar(1) null) ;
+alter table dbo.TS_BZDM add constraint TS_BZDM_x primary key nonclustered (KIND, CODE) ;
+
+
+
+create table dbo.TS_BZDM (KIND varchar(5) not null, BT varchar(160) null, CODE varchar(15) not null, MC varchar(160) null, FDM varchar(15) null, SFJY varchar(1) null, PXH int null, CODENOW varchar(15) null, VER varchar(3) null, KIN09 varchar(5) null, V2014CODE varchar(15) null, SFKZ varchar(1) null) ;
+alter table dbo.TS_BZDM add constraint TS_BZDM_x primary key nonclustered (KIND, CODE) ;
+create table dbo.EAJ (AHDM nvarchar(20) not null, AH varchar(50) null, LSAH varchar(50) null, AJSD varchar(1) null, MQZZ varchar(1) null, PQCS smallint null, AJLX varchar(4) null, XLA int null, AJMJ varchar(4) null, AJBS varchar(15) null, FYDM varchar(6) null, ND varchar(4) null, FYJC varchar(15) null, DZ varchar(20) null, XH int null, NDXH int null, SARQ varchar(8) null, LARQ varchar(8) null, JARQ varchar(8) null, SDRQ varchar(8) null, SXRQ varchar(8) null, TJGDRQ varchar(8) null, GDJSRQ varchar(8) null, LAQXJMRQ varchar(8) null, SXQSRQ varchar(8) null, SXJMRQ varchar(8) null, KTRQ varchar(4) null, SATJ varchar(6) null, JATJ varchar(6) null, SXTJ varchar(6) null, TJBH varchar(40) null, AJLY varchar(15) null, SYCX varchar(15) null, SAAY int null, AYMS varchar(100) null, BDJE decimal(14,2) null, YSSX varchar(1) null, JAFS varchar(15) null, JAFSSM varchar(100) null, DSR varchar(255) null, LABM varchar(20) null, SAR varchar(20) null, CBBM1 varchar(20) null, CBBM2 varchar(20) null, CBR varchar(20) null, SPZ varchar(20) null, SJY varchar(20) null, HYCY varchar(40) null, LASTUPDATE datetime null, SCR varchar(20) null, ZTC varchar(100) null, AJLB varchar(1) null, XTAJLX varchar(2) null, SPCX varchar(2) null, FZCJA varchar(1) null, JZXH char(1) not null, PCZT varchar(1) null, SSFW varchar(15) null, AJZT varchar(3) null, AJDJ int null, AJDJYJ varchar(100) null, DQFXDJ varchar(1) null, AJXZ varchar(10) null, WLCBS varchar(1) null, WSLABS varchar(20) null, FGZL varchar(20) null, LDZCBS varchar(20) null, PBJL varchar(1) default '' null, FJM varchar(3) null, ZT varchar(1) null, BCYSFTJ varchar(1) default '0' null, DQYQFXDJ varchar(20) null, SXZT varchar(4) null, AJMC varchar(255) null, LYDQ varchar(255) null, MSWFSDCX varchar(1) null, AHCFXH varchar(20) default '0' null, MSWFSDCXLX varchar(1) null, FLAG varchar(1) null, LYXT varchar(1) null, ZXLB varchar(1) null) ;
+alter table dbo.EAJ add constraint PK_EAJ primary key nonclustered (AHDM) ;
+create unique nonclustered index idx_eaj_fydm_ah_ahcfxh on dbo.EAJ (AH , FYDM , AHCFXH ) ;
+create nonclustered index idx_eaj_fydm_ajlx_nd on dbo.EAJ (FYDM , AJLX , ND ) ;
+create nonclustered index idx_eaj_fydm_lastupdate on dbo.EAJ (LASTUPDATE , FYDM ) ;
+create nonclustered index idx_fydm_xtajlx on dbo.EAJ (FYDM , XTAJLX ) ;
+create nonclustered index ind_eaj_ah on dbo.EAJ (AH ) ;
+create nonclustered index ind_eaj_cbbm1 on dbo.EAJ (CBBM1 ) ;
+create nonclustered index ind_eaj_cbr_cbbm1 on dbo.EAJ (CBBM1 , CBR ) ;
+create nonclustered index ind_eaj_fydm on dbo.EAJ (FYDM ) ;
+create nonclustered index ind_eaj_fydm_nd_ajlx on dbo.EAJ (FYDM , ND , AJLX ) ;
+create nonclustered index ind_eaj_fydm_xla on dbo.EAJ (FYDM , XLA ) ;
+create nonclustered index ind_eaj_fydm_xla_ajzt_spz on dbo.EAJ (FYDM , XLA , AJZT , SPZ ) ;
+create nonclustered index ind_eaj_xla on dbo.EAJ (XLA ) ;
+create nonclustered index ind_eaj_xtlx_satj_zt_fy_bm1 on dbo.EAJ (XTAJLX , SATJ , AJZT , FYDM , CBBM1 ) ;
+create nonclustered index index_eaj_bcysftj on dbo.EAJ (FYDM , AJZT , SATJ , JATJ , BCYSFTJ ) ;
+create nonclustered index index_fydm_ajzt_gdjsrq on dbo.EAJ (FYDM , AJZT , GDJSRQ ) ;
+create nonclustered index index_fydm_ajzt_jatj on dbo.EAJ (FYDM , AJZT , JATJ ) ;
+create nonclustered index index_fydm_ajzt_mqzz on dbo.EAJ (FYDM , AJZT , MQZZ ) ;
+create nonclustered index index_fydm_ajzt_satj on dbo.EAJ (FYDM , AJZT , SATJ ) ;
+create nonclustered index index_fydm_ajzt_satj_jatj on dbo.EAJ (FYDM , AJZT , SATJ , JATJ ) ;
+create nonclustered index index_fydm_ajzt_tjgdrq on dbo.EAJ (FYDM , AJZT , TJGDRQ ) ;
+
+
+
+create table dbo.EDSR (AHDM varchar(20) not null, XH varchar(4) not null, LB varchar(30) null, CXZH varchar(15) null, CXMM varchar(6) null, SSDW1 varchar(15) null, SSDW2 varchar(15) null, SSDW3 varchar(15) null, LY varchar(15) null, BS varchar(20) null, JS varchar(250) null, LX varchar(15) null, MC varchar(100) null, DZ varchar(100) null, YZBM varchar(15) null, LXDH varchar(100) null, DZYX varchar(200) null, QTLXFF varchar(100) null, XWNL varchar(15) null, SSDX varchar(250) null, XBHR varchar(1) null, SWQK varchar(15) null, WZSSJE decimal(14,2) null, SQPCJE decimal(14,2) null, DWJSSFJZYY varchar(15) null, BGRLX varchar(15) null, BGRPXH smallint null, DWFZZJZRR varchar(250) null, HYHLC varchar(15) null, FLYZYY varchar(60) null, HXJSKYQ varchar(1) null, CXHXJS varchar(1) null, SYZXZ varchar(15) null, HY varchar(15) null, SBZQRQ varchar(8) null, SBZQJE decimal(14,2) null, ZCZE decimal(14,2) null, ZWZE decimal(14,2) null, DQZWZE decimal(14,2) null, QYHDQZWZE decimal(14,2) null, FCTZRQ varchar(8) null, QSTZRQ varchar(8) null, SLTZR varchar(40) null, SLTZRQ varchar(8) null, TCYYRQ varchar(8) null, TCYYJMRQ varchar(8) null, GLRLX varchar(15) null, DRGLRZW varchar(15) null, DSRLX varchar(15) null, YHZHLB text null, YGQSLY varchar(15) null, BGZYLDCT varchar(1) null, BGLDXTCL varchar(1) null, PCYWJGLX varchar(15) null, PCJDRQ varchar(8) null, PCJDJE decimal(14,2) null, PCJDWS varchar(4) null, XFRSF varchar(15) null, YDSRGX varchar(20) null, XB varchar(15) null, CSRQ varchar(8) null, NL smallint null, GJ varchar(15) null, MZ varchar(15) null, SF varchar(15) null, SFZHM varchar(30) null, XYJRSF varchar(15) null, JGZWXZ varchar(15) null, JGGBJB varchar(15) null, QTZJZL varchar(15) null, QTZJHM varchar(30) null, ZY varchar(15) null, WHCD varchar(15) null, HYZK varchar(15) null, ZZMM varchar(15) null, XZJB varchar(15) null, SZDW varchar(100) null, ZW varchar(100) null, TSSF varchar(60) null, TSSLHBL varchar(15) null, HJSZD varchar(100) null, JL text null, LDRY varchar(1) null, WCNRJTBJ varchar(15) null, JTJJZK varchar(15) null, GJDQ varchar(15) null, ZZJGDM varchar(15) null, DWXZ varchar(15) null, TSHY varchar(60) null, FDDBR varchar(40) null, DBRZJZL varchar(15) null, DBRZJHM varchar(30) null, LASTUPDATE datetime null, SSDLR varchar(100) null, SSDLRBH varchar(40) null, YUANJI varchar(20) null, ZIBAOSF varchar(1) null, SWHJL varchar(50) null, ZHRS int null, LXQJ varchar(255) null, ZMMS varchar(200) null, LAOJ varchar(1) null, LEIF varchar(15) null, WFJS varchar(1) null, WSD varchar(1) null, FZJE decimal(14,2) null, DSRJC varchar(40) null, BM varchar(40) null, FFSDCWJZ decimal(14,2) null, SJPCJE decimal(14,2) null, FZNL int null, XZQH varchar(6) null, CFZ varchar(1) null, CTZZ varchar(1) null, SDDZ varchar(200) null, YLF varchar(250) null, YDZDBH varchar(1) null, SJHM varchar(20) null, CYM varchar(40) null, SSBDJE decimal(14,2) null, SSAJSLF decimal(14,2) null, XBGRJQS varchar(1) null, SQMSCCZZSYQDX varchar(1) null, SSDWMS varchar(100) null, SFLG varchar(1) null, RZCJ varchar(1) null, FZXT varchar(1) null, GTFZDW varchar(1) null, SFDZSD varchar(1) null, QYTZDUSJ varchar(15) null) ;
+alter table dbo.EDSR add constraint PK_EDSR primary key nonclustered (AHDM, XH) ;
+create nonclustered index ind_edsr_ahdm on dbo.EDSR (AHDM ) ;
+create nonclustered index ind_edsr_dsrjc on dbo.EDSR (DSRJC ) ;
+create nonclustered index ind_edsr_mc on dbo.EDSR (MC ) ;
+create nonclustered index ind_edsr_sfzhm on dbo.EDSR (SFZHM ) ;
+create nonclustered index ind_edsr_zzjgdm on dbo.EDSR (ZZJGDM ) ;
