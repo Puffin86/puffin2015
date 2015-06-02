@@ -1,0 +1,136 @@
+﻿<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>数字化审讯室</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=10" />
+
+  <script type="text/javascript">
+
+	var plugin;
+	function load()
+	{
+		plugin = getPluginObjcet("plugin");
+		//plugin.DisplayToolBar("0");
+	}
+	function isIEBrowser() 
+	{
+		var isAtLeastIE11 = !!(navigator.userAgent.match(/Trident/) && !navigator.userAgent.match(/MSIE/));
+			
+		if(isAtLeastIE11) 
+		{
+			return true;
+		}
+
+    	return (navigator.appName.indexOf("Microsoft Internet") != -1);
+    }
+      
+    function getPluginObjcet(objname)
+	{  
+		if (!isIEBrowser()) 
+		{    
+			if (document.embeds && document.embeds[objname])
+			return document.embeds[objname];
+		} 
+		else
+		{
+			 return document.getElementById(objname);
+		}	
+	}
+
+	function OnLoadPDF()
+	{
+		var FilePath = document.getElementById("PDF").value;
+		var Res = plugin.OpenFile(FilePath);
+	}
+	
+	function HandSign()
+	{
+		var res = plugin.SetSignAccount("xh", "a12345678");
+	    var c = "<sign><signType>1</signType><file><fileType>1</fileType><fileName>";
+		var path = plugin.CurrentCachePath;
+		var d = c.concat(path);
+		var e = d.concat("</fileName><posPage></posPage><posX>240</posX><posY>300</posY><keyword></keyword><posMouse>120</posMouse></file><cert><authType>1</authType><mobile></mobile><userPwd></userPwd><payAccount></payAccount><payPwd></payPwd></cert></sign>");
+		
+		//alert(e);
+		var h = plugin.HandServerSign(e);
+	}
+
+	function FingerprintSign()
+	{
+		var Res = plugin.ControlPDF("4001");
+	}
+
+	function SaveFile()
+	{
+		plugin.ControlPDF("205");
+	}
+
+	function OpenWedFile()
+	{
+		var File = document.getElementById("WebPDF").value;
+		//alert(File);
+		var Res = plugin.OpenWebFile(File);
+		if(Res == 0)
+		{
+			alert("打开网络文件成功");
+		}
+		else
+		{
+			alert("打开网络文件失败，错误码为:"+Res);
+		}
+	}
+
+	function    UpFile()
+	{
+		var ServerIP = document.getElementById("Server").value;
+		var path = plugin.CurrentCachePath;
+
+		var Res = plugin.UpLoadPdfFile(ServerIP,path,"","");
+		if(Res == 0)
+		{
+			alert("上传文件成功");
+		}
+		else
+		{
+			alert("上传文件失败");
+		}
+	}
+
+  </script>
+ </head>
+<body onload="load();">
+  <input type="button" value="打开网络文件" onclick="OpenWedFile()" />
+  <input type="button" value="手写签名" onclick="HandSign()" />
+  <input type="button" value="指纹签名" onclick="FingerprintSign()" />
+  <input type="button" value="上传文件" onclick="UpFile()" />
+
+  <table>
+  <tr>
+	<td align="center" width="100px" class="backColorTest">本地文件路径</td>
+	<td align="left" width="800px"><input type="text" size="50" id="PDF" value = "D:/3.pdf"/></td>
+  </tr>
+  </table>
+
+  <table>
+  <tr>
+	<td align="center" width="100px" class="backColorTest">网络文件路径</td>
+	<td align="left" width="800px"><input type="text" size="50" id="WebPDF" value = "http://read.pudn.com/downloads140/ebook/604821/%BC%C6%CB%E3%B8%C5%C2%DB%D4%C4%B6%C1%B2%C4%C1%CF/%BC%C6%CB%E3%BB%FA%BB%F9%B4%A1%BD%B2%D2%E5.pdf"/></td>
+  </tr>
+  </table>
+
+   <table>
+  <tr>
+	<td align="center" width="100px" class="backColorTest">服务器地址</td>
+	<td align="left" width="800px"><input type="text" size="50" id="Server" value = "http://localhost:52142/webDemo/webDemo/Default.aspx"/></td>
+  </tr>
+  </table>
+
+  <object id="plugin" classid="clsid:EAFFB28E-B6AD-4657-904D-51CD7941A3A4" width="1200" height="900">
+			<embed name="plugin" type="application/nptseal-plugin" width="1200" height="900"></embed></object>  
+ </body>
+</html>
