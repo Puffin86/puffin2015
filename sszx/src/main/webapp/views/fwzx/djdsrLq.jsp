@@ -128,7 +128,8 @@ $('#sdhzdiv').dialog({
        	     dataType:'json',
        	     success:function (res) {
        	    	//url='openPdf.do?bh='+row.id.bh;
-             	url='pdf.jsp';
+             	//url='pdf.jsp';
+             	url='pdf_qz.jsp';
              	//url='pdf.jsp';
              	//window.location.href="${path}/openPdf.do?bh="+row.id.bh;
             	window.open(url,"new", "height=600px,width=650px,toolbar=no,status=no,menubar=no,scrollbars=yes,resizable=no");
