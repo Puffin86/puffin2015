@@ -298,7 +298,8 @@ function Word(){
 	     dataType:'json',
 	     success:function(data){
 	    	 var bh='<%=bh%>';
-	    	 url='word.do?bh='+bh;
+	    	 //url='word.do?bh='+bh;
+	    	 url='word_zjqd.do?bh='+bh;
 	    	 if(data.after==1)
 	    	 window.open(url,"new",
 	    			 "height=600px,width=650px,toolbar=no,status=no,menubar=no,scrollbars=yes,resizable=yes");

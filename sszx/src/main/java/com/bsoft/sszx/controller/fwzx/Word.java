@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.bsoft.sszx.dao.ClbDao;
 import com.bsoft.sszx.dao.ZjqdDao;
 import com.bsoft.sszx.entity.zjqd.Zjqd;
+import com.bsoft.sszx.util.Pdf_zjqd;
 
 @Controller
 public class Word  { 
@@ -33,4 +34,24 @@ public class Word  {
 	session.setAttribute("wordclb",clbList);
 	return "fwzx/word";
 	}
+	
+	
+	@RequestMapping("word_zjqd")
+	public String execute2(HttpServletRequest request,
+			HttpServletResponse response, HttpSession session)
+			throws Exception {
+		String fydm=(String)session.getAttribute("fydm");
+		String bh=request.getParameter("bh");
+		Zjqd Zjqd=new ZjqdDao().findbyid(bh, fydm);
+		List clbList=new ClbDao().findByZjqd(bh, fydm);
+		String serverRealPath = request.getSession().getServletContext().getRealPath("/scan/jpg/");
+		String fileName=Zjqd.getId().getFydm()+"_"+Zjqd.getId().getBh()+"_"+Zjqd.getLclx()+".pdf";  
+		
+		Pdf_zjqd mCreatPDF=new Pdf_zjqd();
+		mCreatPDF.createPDF_zjqd(serverRealPath,fileName,Zjqd,clbList);
+		session.setAttribute("fileName",fileName);
+		
+		return "fwzx/word_zjqd";
+	}
+	
 }
