@@ -237,6 +237,11 @@
 			<version>1.7.12</version>
 		</dependency>
 				
+		<dependency>
+			<groupId>xfire</groupId>
+			<artifactId>xfire</artifactId>
+			<version>1.2.6</version>
+		</dependency>
 		
 		
 	</dependencies>
