@@ -413,7 +413,7 @@ function searchAh(){
 	var ahG=$('#ahG').val();
 	var ahDsr=$('#ahDsr').val();
 	
-	if(ahN != '' && ahG != ''){
+	//if(ahN != '' && ahG != ''){
 		$.ajax({
 	  	     url:'${path}/ahSearch.do',
 	  	     type:'POST',
@@ -434,7 +434,7 @@ function searchAh(){
 	  	    	 }
 	  	     }
 	  	});
-	}
+	//}
 }
 </script>
    <!-- 

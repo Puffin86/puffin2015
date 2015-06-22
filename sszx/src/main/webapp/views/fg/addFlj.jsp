@@ -265,7 +265,7 @@ function openAhSearch(){
 function searchAh(){
 	var ahN=$('#ahN').val();
 	var ahG=$('#ahG').val();
-	if(ahN!=''&&ahG!=''){
+	//if(ahN!=''&&ahG!=''){
 	$.ajax({
   	     url:'${path}/ahSearch.do',
   	     type:'POST',
@@ -279,7 +279,7 @@ function searchAh(){
   	     success:function (data) {
   	       $('#ah_searchList').tree('loadData', data.data);
   	     }});
-	}
+	//}
 }
 </script>
    
@@ -331,9 +331,11 @@ $('#dsrgrid').datagrid({
 }); 
  
 function searchDsr(){
-	var ah=$('input[name=ah]').val();
+	var ah=$('input[name=ahdm]').val();
 	if(ah!=''){
-		$('#dsrgrid').datagrid('reload');
+		$('#dsrgrid').datagrid('load',{
+			ah : ah
+		});
 		$('#dsrgrid').datagrid('clearSelections');
 		$('#dsr_se').dialog('open');
 	}else{

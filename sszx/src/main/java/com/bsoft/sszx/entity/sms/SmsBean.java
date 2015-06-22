@@ -1,15 +1,15 @@
 package com.bsoft.sszx.entity.sms;
 
 public class SmsBean {
-	private String xtbh="";//系统编号
-	private String fsr_fybm = "";//法院编码
-	private String fsr_userid="";//发送人ID 1300-linjd OA中获取
-	private String jssjhm="";//接收手机号码；
-	private String jsrmc="";//接收人名称
-	private String fsnr="";//发送内容
+	private String xtbh="023";//系统编号
+	private String fsr_fybm = "1303";//法院编码
+	private String fsr_userid="1303-zuh";//发送人ID 1300-linjd OA中获取
+	private String jssjhm="13655710068";//接收手机号码；
+	private String jsrmc="AAA";//接收人名称
+	private String fsnr="nrnrnrnr";//发送内容
 	private Object dsfssj=null;//格式2013-11-07 20：02：02 null马上发送
 	private Object fssm=null;//发送说明 可NULL
-	private String id2="";//
+	private String id2="1234";//
 	private String ah="";//案号
 	public String getXtbh() {
 		return xtbh;

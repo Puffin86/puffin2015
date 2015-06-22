@@ -328,7 +328,7 @@ String fydm=(String)session.getAttribute("fydm");
 		var ahN=$('#ahN').val();
 		var ahG=$('#ahG').val();
 		var ahdsr=$('#ahdsr').val();
-		if(ahN!=''&&ahG!=''){
+		//if(ahN!=''&&ahG!=''){
 			$.ajax({
 		  	     url:'ahSearch.do',
 		  	     type:'POST',
@@ -342,7 +342,7 @@ String fydm=(String)session.getAttribute("fydm");
 		  	       $('#ah_searchList').tree('loadData',data.data);
 		  	     }
 		  	 });
-		}
+		//}
 	}
    
    </script>
