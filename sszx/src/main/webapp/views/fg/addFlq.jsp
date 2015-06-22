@@ -354,27 +354,25 @@ function sdhzclqd(){
 }
 </script>
 
-<div id="ah_se" style="width:600px;height:300px;padding:5px;">
-   <table style="font-size:12px" width="100%" border="0" cellpadding="2" cellspacing="0">
-	   	<tr>
-	   		<td>年份：</td>
-	   		<td><input id="ahN" type="text"/></td>
-	   		<td>当事人：</td>
-	   		<td><input id="ahDsr" type="text"/></td>
-	   	</tr>
-	    <tr>
-	    	<td>案号：</td>
-	    	<td>
-		    	<input id="ahG" type="text"/>
-	        </td>
+<div id="ah_se" style="width:400px;height:300px;padding:5px;">
+   <table style="font-size:12px">
+		<tr>
+			<td>年份：</td>
+			<td><input id="ahN" type="text" style="width:100px;margin-left:5px;margin-top:5px"/></td>
+	   		<td>案号：</td>
+			<td>
+				<input id="ahG" type="text" style="width:100px;margin-left:5px;margin-top:5px"/>
+			</td>
+		</tr>
+		<tr>
+			<td>当事人：</td>
+	   		<td><input id="ahDsr" type="text" style="width:100px;margin-left:5px;margin-top:5px"/></td>
 	        <td>
-		        <a id="search_ah" class="easyui-linkbutton" onclick="searchAh()" iconCls="icon-search">查询</a>
-	        </td>
-	        <td>&nbsp;</td>
-	    </tr>
-   </table>
+				<a id="search_ah" onclick="searchAh()" iconCls="icon-search"></a>
+			</td>
+		</tr>
+	</table>
    <hr/>
-   
    <ul id="ah_searchList"></ul>
 </div>
    

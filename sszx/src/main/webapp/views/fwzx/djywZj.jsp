@@ -66,7 +66,13 @@ $(document).ready(function(){
 					}
 		    }
 			]],
-			
+			rowStyler:function(index,row){
+				if (row.sfcs==1){//接近1/3
+					return 'background-color:orange;';
+				}else if(row.sfcs==-1){//超时
+					return 'background-color:red;';
+				}
+			},
 			toolbar:[	        
 			        {text:'查询',
 			        iconCls:'icon-search',

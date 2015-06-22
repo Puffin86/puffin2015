@@ -67,13 +67,9 @@ function isIEBrowser() {
 	{
 		var File = '<%=path%>';
 		//alert(File);
+		plugin.SetFileZoom(200);//设置缩放比例
 		var Res = plugin.OpenWebFile(File);
-		if(Res == 0)
-		{
-			//alert("打开网络文件成功");
-		}
-		else
-		{
+		if(Res != 0){
 			alert("打开网络文件失败，错误码为:"+Res);
 		}
 	}
