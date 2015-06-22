@@ -23,9 +23,10 @@
 		User userBean = userDao.findUserById(user, fydm);
 		String userXm = userBean.getYhxm();
 		String userBm = userBean.getYhbm();
+		String userJs = userBean.getJs();
 		//根据状态获取
-		HomeDao home = new HomeDao();
-		Map<String,Integer> info = home.getHomeData(fydm,user,userBm);
+		HomeDao home = new HomeDao(); 
+		Map<String,Integer> info = home.getHomeData(fydm,user,userBm,userJs);
 		int htN=info.get("htN");
 		int drN=info.get("drN");
 		int jsN=info.get("jsN");
