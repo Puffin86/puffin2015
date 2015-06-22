@@ -374,9 +374,12 @@ function sdhzclqd(){
 	</table>
    <hr/>
    <ul id="ah_searchList"></ul>
+   <div id="errorSearch">无数据...</div>
 </div>
    
 <script>
+$('#errorSearch').hide();
+
 $('#ah_se').dialog({
     title: '添加案号',
     iconCls: 'icon-search',
@@ -422,7 +425,13 @@ function searchAh(){
 	  	     },
 	  	     dataType:'json',
 	  	     success:function (data) {
-	  	        $('#ah_searchList').tree('loadData', data.data);
+	  	    	 if(data.data.length>0){
+	  	    		$('#errorSearch').hide();
+		  	        $('#ah_searchList').tree('loadData', data.data);
+	  	    	 }else{
+	  	    		$('#ah_searchList').hide();
+	  	    		 $('#errorSearch').show();
+	  	    	 }
 	  	     }
 	  	});
 	}
