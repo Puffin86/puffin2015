@@ -26,8 +26,8 @@
        <td width="15%">案号：</td>
        <td width="35%">
 	       <input class="easyui-validatebox" required="true" name="ah" type="text"/>
-	       <input name="ahdm" style="display:none;" type="text"/>
-	       <a id="research" onClick="$('#ah_se').dialog('open');" iconCls="icon-search"></a>
+	       <input name="ahdm" style="display:none;" type="text" />
+	       <a id="research" onClick="openAhSearch()" iconCls="icon-search"></a>
        </td>
        <td width="15%">&nbsp;</td>
        <td width="35%">&nbsp;</td>
@@ -255,6 +255,13 @@ $('#ah_searchList').tree({
     }
 });  
   
+function openAhSearch(){
+	 $('#ahN').val('');
+	 $('#ahG').val('');
+	 $('#ahDsr').val('');
+	 $('#ah_se').dialog('open');
+}
+  
 function searchAh(){
 	var ahN=$('#ahN').val();
 	var ahG=$('#ahG').val();
@@ -290,11 +297,6 @@ $('#dsr_se').dialog({
 		handler:function(){
 			var selRow = $('#dsrgrid').datagrid('getSelected');
 			if(selRow!=null){
-				if(selRow.lx=="09_01001-1"){//自然人
-					$('#changeText').html('当事人证件号码：');
-				}else{//非自然人
-					$('#changeText').html('当事人组织机构代码：');
-				}
 				$('input[name=tjr]').val(selRow.mc);
 				$('input[name=tjrlxdh]').val(selRow.lxdh);
 				$('input[name=djrsfz]').val(selRow.sfzhm);

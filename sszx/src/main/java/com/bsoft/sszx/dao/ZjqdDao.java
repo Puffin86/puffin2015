@@ -294,6 +294,25 @@ public class ZjqdDao {
 		return null;
 	}
 
+	
+	public List<Zjqd> findCljlBySQL(String sql,int start,int number) {
+		List<Zjqd> list = null;
+		try {
+			session = HibernateUtil.getSession(); // 获取Session
+			session.beginTransaction(); // 开启事物
+			Query query = session.createQuery(sql);
+			query.setFirstResult(start);
+			query.setMaxResults(number);
+			list = (List<Zjqd>) query.list();
+			session.getTransaction().commit();// 提交事物
+		} catch (Exception e) {
+			e.printStackTrace(); // 打印错误信息
+		} finally {
+			HibernateUtil.closeSession(session); // 关闭Session
+		}
+		return list;
+	}
+	
 	public List<Zjqd> findCljlBySQL(String sql) {
 		List<Zjqd> list = null;
 		try {

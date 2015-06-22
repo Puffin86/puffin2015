@@ -43,12 +43,23 @@ public class clSearch {
 	public void execute(HttpServletRequest request,
 			HttpServletResponse response, HttpSession session) throws Exception
 	{
-		List<Zjqd> al =getZjqd(request,session);
+		 //当前页  
+		int intPage = request.getParameter("page")==null?1:Integer.parseInt(request.getParameter("page"));
+		 //每页显示条数  
+		int number = request.getParameter("rows")==null?10:Integer.parseInt(request.getParameter("rows"));
+        //每页的开始记录  第一页为1  第二页为number +1   
+        int start = (intPage-1)*number;  
+		
+        String sort = request.getParameter("sort");
+        String order = request.getParameter("order");
+		System.out.println("page:"+intPage+"@rows:"+number+"@sort:"+sort+"@order:"+order);
+        
+		List<Zjqd> al =getZjqd(request,session,start,number,sort,order);
 		JSONArray json = JSONArray.fromObject(al);
 		HttpHelper.renderJson(json.toString(), response);
 	}
 	
-	private List<Zjqd> getZjqd(HttpServletRequest request, HttpSession session) throws ParseException{
+	private List<Zjqd> getZjqd(HttpServletRequest request, HttpSession session,int start, int number,String sort,String order) throws ParseException{
 		List<Zjqd> al = new ArrayList<Zjqd>();
 		String fydm=(String)session.getAttribute("fydm");
 		String user=(String)session.getAttribute("user");
@@ -57,8 +68,8 @@ public class clSearch {
 		String sjrbm=request.getParameter("sjrbm");
 		String lx=request.getParameter("lx");
 		
-		String cbr=request.getParameter("cbr");
-		String cbbm=request.getParameter("cbbm");
+		String cbrText=request.getParameter("cbrText");
+		String cbbmText=request.getParameter("cbbmText");
 		String jbr=request.getParameter("jbr");
 		String jbsj=request.getParameter("jbsj");
 		String ywlx=request.getParameter("ywlx");
@@ -77,11 +88,96 @@ public class clSearch {
 		if(dsr!=null&&!"".equals(dsr)){
 			sqlBuf.append(" and djr like '%").append(dsr).append("%' ");
 		}
-		if(cbr!=null&&!"".equals(cbr)){
-			sqlBuf.append(" and sjr like '%").append(cbr).append("%' ");
+		if(cbrText!=null&&!"".equals(cbrText)){
+			sqlBuf.append(" and sjrxm like '%").append(cbrText).append("%' ");
 		}
-		if(cbbm!=null&&!"".equals(cbbm)){
-//			sqlBuf.append(" and sjrbmbm like '%").append(cbbm).append("' ");
+		if(cbbmText!=null&&!"".equals(cbbmText)){
+			sqlBuf.append(" and sjrbmmc like '%").append(cbbmText).append("' ");
+		}
+		if(jbr!=null&&!"".equals(jbr)){
+			sqlBuf.append(" and zjrXm like '%").append(jbr).append("%' ");
+		}
+		if(jbsj!=null&&!"".equals(jbsj)){
+			sqlBuf.append(" AND STR_TO_DATE(zjrq,'%Y-%c-%d') = STR_TO_DATE('").append(jbsj).append("','%Y-%c-%d')");
+		}
+		if(ywlx!=null&&!"".equals(ywlx)){
+			sqlBuf.append(" and lclx like '%").append(ywlx).append("%' ");
+		}
+		if(sx!=null&&!"".equals(sx)){
+			if("0".equals(sx)){
+				sqlBuf.append(" and( TIMESTAMPDIFF(DAY,CURDATE(),sxsj) =").append(sx).append(" or sxsj is null )");
+				
+			}else{
+				//sqlBuf.append(" and (TIMESTAMPDIFF(DAY,CURDATE(),sxsj)+1) =").append(sx);
+				sqlBuf.append(" and (TIMESTAMPDIFF(DAY,CURDATE(),sxsj)) =").append(sx);
+			}
+		}
+		
+		
+		if(sort!=null){
+			sqlBuf.append("   order by "+sort+" "+order);
+		}
+		
+//		al =(List<Zjqd>) new ZjqdDao().findCljlBySQL(sqlBuf.toString());
+		al =(List<Zjqd>) new ZjqdDao().findCljlBySQL(sqlBuf.toString(),start,number);
+		if(al!=null){
+			for(Zjqd item : al){
+				int len = GetTime.checkOutTime(item);
+				
+				String lclx = item.getLclx();
+		    	if("dzz".equals(lclx)){
+		    		item.setLclxText("主动送件");
+		    	}else if("flq".equals(lclx)){
+		    		item.setLclxText("预约领取");
+		    	}else if("flj".equals(lclx)){
+		    		item.setLclxText("预约提交");
+		    	}
+		    	
+		    	String zjrq = item.getZjrq();
+		    	if("undefined".equals(zjrq))
+		    		item.setZjrq("");
+		    	
+				
+			}
+		}
+		return al;
+	}
+	
+	
+	private List<Zjqd> getZjqd(HttpServletRequest request, HttpSession session) throws ParseException{
+		List<Zjqd> al = new ArrayList<Zjqd>();
+		String fydm=(String)session.getAttribute("fydm");
+		String user=(String)session.getAttribute("user");
+		String ah=request.getParameter("ah");
+		String dsr=request.getParameter("dsr");
+		String sjrbm=request.getParameter("sjrbm");
+		String lx=request.getParameter("lx");
+		
+		String cbrText=request.getParameter("cbrText");
+		String cbbmText=request.getParameter("cbbmText");
+		String jbr=request.getParameter("jbr");
+		String jbsj=request.getParameter("jbsj");
+		String ywlx=request.getParameter("ywlx");
+		String sx=request.getParameter("sx");
+		
+		String sql = "from Zjqd ";
+		StringBuffer sqlBuf = new StringBuffer("from Zjqd ");
+		if (lx.equals("2")||"4".equals(lx)){//法官 内勤
+			sqlBuf.append(" where sjr='").append(user).append("' ");
+		}else if (lx.equals("1") || lx.equals("3")){//管理员 服务中心人员
+			sqlBuf.append(" where 1=1 ");
+		}
+		if(ah!=null && !"".equals(ah)){
+			sqlBuf.append(" and ah like '%").append(ah).append("%' ");
+		}
+		if(dsr!=null&&!"".equals(dsr)){
+			sqlBuf.append(" and djr like '%").append(dsr).append("%' ");
+		}
+		if(cbrText!=null&&!"".equals(cbrText)){
+			sqlBuf.append(" and sjrxm like '%").append(cbrText).append("%' ");
+		}
+		if(cbbmText!=null&&!"".equals(cbbmText)){
+			sqlBuf.append(" and sjrbmmc like '%").append(cbbmText).append("' ");
 		}
 		if(jbr!=null&&!"".equals(jbr)){
 			sqlBuf.append(" and zjrXm like '%").append(jbr).append("%' ");
@@ -115,6 +211,11 @@ public class clSearch {
 		    	}else if("flj".equals(lclx)){
 		    		item.setLclxText("预约提交");
 		    	}
+		    	
+		    	String zjrq = item.getZjrq();
+		    	if("undefined".equals(zjrq))
+		    		item.setZjrq("");
+		    	
 				
 			}
 		}
@@ -151,8 +252,10 @@ public class clSearch {
 		String sjrbm=request.getParameter("sjrbm");
 		String lx=request.getParameter("lx");
 		
-		String cbr=request.getParameter("cbr");
-		String cbbm=request.getParameter("cbbm");
+//		String cbr=request.getParameter("cbr");
+//		String cbbm=request.getParameter("cbbm");
+		String cbrText=request.getParameter("cbrText");
+		String cbbmText=request.getParameter("cbbmText");
 		String jbr=request.getParameter("jbr");
 		String jbsj=request.getParameter("jbsj");
 		String ywlx=request.getParameter("ywlx");
@@ -170,12 +273,20 @@ public class clSearch {
 		if(dsr!=null&&!"".equals(dsr)){
 			sqlBuf.append(" and djr like '%").append(dsr).append("%' ");
 		}
-		if(cbr!=null&&!"".equals(cbr)){
-			sqlBuf.append(" and sjr like '%").append(cbr).append("%' ");
-		}
-		if(cbbm!=null&&!"".equals(cbbm)){
+//		if(cbr!=null&&!"".equals(cbr)){
+//			sqlBuf.append(" and sjr like '%").append(cbr).append("%' ");
+//		}
+//		if(cbbm!=null&&!"".equals(cbbm)){
 //			sqlBuf.append(" and sjrbmbm like '%").append(cbbm).append("' ");
+//		}
+		
+		if(cbrText!=null&&!"".equals(cbrText)){
+			sqlBuf.append(" and sjrXm like '%").append(cbrText).append("%' ");
 		}
+		if(cbbmText!=null&&!"".equals(cbbmText)){
+			sqlBuf.append(" and sjrBmmc like '%").append(cbbmText).append("' ");
+		}
+		
 		if(jbr!=null&&!"".equals(jbr)){
 			sqlBuf.append(" and zjrXm like '%").append(jbr).append("%' ");
 		}

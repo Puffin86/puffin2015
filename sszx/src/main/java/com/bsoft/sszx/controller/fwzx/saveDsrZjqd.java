@@ -148,6 +148,7 @@ public class saveDsrZjqd  {
 		Map result = new HashMap();
 		result.put("success", true);
 		result.put("after", "1");
+		result.put("retbh", bh);
 		JSONObject json = JSONObject.fromObject(result);
 		HttpHelper.renderJson(json.toString(), response);
         }catch (Exception e){	

@@ -25,20 +25,17 @@
 	    	<tr>
 	    		<td>案号：</td>
 	    		<td><input id="ah" style="width:150px" type="text"/></td>
-	    		<td>当事人：</td>
+	    		<td>当事人：</td>	
 	    		<td><input style="width:150px"  id="dsr" type="text"/></td>
 	    	</tr>
 	    	<tr>
 	    		<td>承办人：</td>
 	    		<td>
-	    			<input style="width:150px"  id="cbrText" type="text" readOnly="readOnly"/>
-	    			<a id="cbr_search" style="margin-top:-5px"  iconCls="icon-add" onClick="openSearch()"></a>
-	    			<input   id="cbr" style="display:none;" type="text" />
+	    			<input style="width:150px"  id="cbrText" type="text" />
 	    		</td>
 	    		<td>承办部门：</td>
 	    		<td>
-	    			<input style="width:150px"  id="cbbmText" type="text" readOnly="readOnly"/>
-	    			<input  id="cbbm" type="text" style="display:none;"/>
+	    			<input style="width:150px"  id="cbbmText" type="text" />
 	    		</td>
 	    	</tr>
 	    	<tr>
@@ -58,7 +55,7 @@
 	    			<a id="searchBtn" onclick="searchAj()" >查询</a>
 	    			<a id="exportBtn" onclick="exportAj()" >导出</a>
 	    			<a id="totalBtn" onclick="totalData()" >汇总</a>
-	    			<a id="printBtn" onclick="print()" >打印</a>
+<!-- 	    			<a id="printBtn" onclick="print()" >打印</a> -->
 	    		</td>
 	    	</tr>
 	    </table>
@@ -66,12 +63,6 @@
 			<table id="grid" style="width:100%;height:100%"></table> 
 	    </div>
     </div>
-    
-    <div id="cbr_dg" style="width:250px;height:300px;">
-     <input id="userSearch" style="margin-left:5px;margin-top:5px" type="text">
-       <a id="search_bt" onclick="searchUser()" iconCls="icon-search"></a>
-       <ul id="searchList"></ul>
-    </div> 
     
     <div id="totalDataDiv" style="width:800px;height:500px;">
      	<table width="100%">
@@ -132,17 +123,11 @@ $('#ywlx').combobox({
 $('#searchBtn').linkbutton({});
 $('#exportBtn').linkbutton({}).hide();
 $('#printBtn').linkbutton({}).hide();
-$('#cbr_search').linkbutton({});
-$('#search_bt').linkbutton({});
 $('#totalBtn').linkbutton({}).hide();
 $('#dototalBtn').linkbutton({});
 $('#exportTotalBtn').linkbutton({});
 
 
-$('#cbr_dg').dialog({
-    title:'添加承办人',
-    iconCls:'icon-search',
-    closed:true}).dialog('close');
 
 $('#totalDataDiv').dialog({
     title:'数据汇总',
@@ -211,8 +196,8 @@ $('#totalgrid').datagrid({
 	queryParams : {
 		ah:$('#ah').val(),
 		dsr:$('#dsr').val(),
-		cbr:$('#cbr').val(),
-		cbbm:$('#cbbm').val(),
+		cbrText:$('#cbrText').val(),
+		cbbmText:$('#cbbmText').val(),
 		jbr:$('#zxjbr').val(),
 		jbsj:$('#zxjbsj').datebox('getValue'),
 		ywlx:$('#ywlx').combobox('getValue'),
@@ -234,12 +219,13 @@ $('#grid').datagrid({
 	singleSelect:true,
 	idField:'ah',
 	pagination:true,
+	
 	url:"clSearch.do",
 	queryParams : {
 		ah:$('#ah').val(),
 		dsr:$('#dsr').val(),
-		cbr:$('#cbr').val(),
-		cbbm:$('#cbbm').val(),
+		cbrText:$('#cbrText').val(),
+		cbbmText:$('#cbbmText').val(),
 		jbr:$('#zxjbr').val(),
 		jbsj:$('#zxjbsj').datebox('getValue'),
 		ywlx:$('#ywlx').combobox('getValue'),
@@ -276,10 +262,10 @@ $('#grid').datagrid({
 			 }	
 	    },
 	    {field:'sysx',title:'剩余时限',width:120,align:'center'},
-	    {field:'ah',title:'案号',width:120,align:'center',sortable:"true"},
+	    {field:'ah',title:'案号',width:200,align:'center',sortable:"true"},
 	    {field:'sjrBmmc',title:'承办部门',width:120,align:'center'},
 	    {field:'sjrXm',title:'承办人',width:120,align:'center'},
-	    {field:'djr',title:'当事人',width:120,align:'center'},
+	    {field:'djr',title:'当事人',width:160,align:'center'},
 	    {field:'zjrXm',title:'中心经办人',width:120,align:'center'},
 	    {field:'zjrq',title:'中心经办日期',width:120,align:'center',
 	    	formatter:function(value,row,index){
@@ -299,28 +285,12 @@ $('#grid').datagrid({
 	]]
 });
 
-$('#searchList').tree({  
-    checkbox: false,
-    onClick: function(node){		 
-		if(node.attributes.leaf=="true"){
-			 var name=node.text.split("：");
-			 var bm=name[1];				 
-			 $('input[id=cbbmText]').val(bm);
-			 var xm=name[0];				 
-			 $('input[id=cbrText]').val(xm);
-			 $('input[id=cbbmbm]').val(node.attributes.yhbm);
-			 $('input[id=cbr]').val(node.attributes.yhid);
-			 $('#cbr_dg').dialog('close');
-		 }
-    }
-}); 
-
 function searchAj(){
 	$('#grid').datagrid('load',{
 		ah:$('#ah').val(),
 		dsr:$('#dsr').val(),
-		cbr:$('#cbr').val(),
-		cbbm:$('#cbbm').val(),
+		cbrText:$('#cbrText').val(),
+		cbbmText:$('#cbbmText').val(),
 		jbr:$('#zxjbr').val(),
 		jbsj:$('#zxjbsj').datebox('getValue'),
 		ywlx:$('#ywlx').combobox('getValue'),
@@ -348,15 +318,15 @@ function exportAj(){
 	
 	var ah = $('#ah').val();
 	var dsr=$('#dsr').val();
-	var cbr=$('#cbr').val();
-	var cbbm=$('#cbbm').val();
+	var cbrText=$('#cbrText').val();
+	var cbbmText=$('#cbbmText').val();
 	var jbr=$('#zxjbr').val();
 	var jbsj=$('#zxjbsj').datebox('getValue');
 	var ywlx=$('#ywlx').combobox('getValue');
 	var sx=$('#sx').val();
 	
 	var url = "export_cxjl.do?lx="+<%=lx%>+"&ah="+ah+"&dsr="+dsr
-	+"&cbr="+cbr+"&cbbm="+cbbm+"&jbr="+jbr+"&jbsj="+jbsj
+	+"&cbrText="+cbrText+"&cbbmText="+cbbmText+"&jbr="+jbr+"&jbsj="+jbsj
 	+"&ywlx="+ywlx+"&sx="+sx;
 	window.location.href = url;
 }
@@ -378,8 +348,8 @@ function totalData(){
  	     data:{
  	    	ah:$('#ah').val(),
  			dsr:$('#dsr').val(),
- 			cbr:$('#cbr').val(),
- 			cbbm:$('#cbbm').val(),
+ 			cbrText:$('#cbrText').val(),
+ 			cbbmText:$('#cbbmText').val(),
  			jbr:$('#zxjbr').val(),
  			jbsj:$('#zxjbsj').datebox('getValue'),
  			ywlx:$('#ywlx').combobox('getValue'),
@@ -422,8 +392,8 @@ function dototal(){
 	     data:{
 	    	ah:$('#ah').val(),
 			dsr:$('#dsr').val(),
-			cbr:$('#cbr').val(),
-			cbbm:$('#cbbm').val(),
+			cbrText:$('#cbrText').val(),
+ 			cbbmText:$('#cbbmText').val(),
 			jbr:$('#zxjbr').val(),
 			jbsj:$('#zxjbsj').datebox('getValue'),
 			ywlx:$('#ywlx').combobox('getValue'),
@@ -476,20 +446,6 @@ function exportTotal(){
 	
 }
 
-function searchUser(){
-	var userName=$('#userSearch').val();
-	if(userName!=''){
-		$.ajax({
-	  	     url:'userSearch.do',
-	  	     type:'POST',
-	  	     data:{name:encodeURI(encodeURI(userName))},//注意大小写data
-	  	     dataType:'json',
-	  	     success:function (data) {
-	  	       $('#searchList').tree('loadData',data.data);
-	  	     }
-	  	});
-	}
-}
 
 function cxFj(bh){
 	$('#fjgrid').datagrid('load',{

@@ -10,7 +10,6 @@
 </head>
 <%
 String fydm=(String)session.getAttribute("fydm");
-int bh=new ZjqdDao().getMaxId(fydm);
 %>
 <body style="font-size:12px;">
     <div id="cbr_dg" style="width:250px;height:150px;">
@@ -25,7 +24,7 @@ int bh=new ZjqdDao().getMaxId(fydm);
        <td width="230px">
 	       <input class="easyui-validatebox" required="true" name="ah" type="text"></input>
 	       <input name="ahdm" style="display:none;" type="text"></input>
-	       <a id="research" onClick="$('#ah_se').dialog('open');" style="margin-top:-5px" iconCls="icon-search"></a>
+	       <a id="research" onClick="openAhSearch()" style="margin-top:-5px" iconCls="icon-search"></a>
        </td>
      </tr>
      <tr>
@@ -57,7 +56,7 @@ int bh=new ZjqdDao().getMaxId(fydm);
        <td><input name="dlr" type="text"></input></td>
      </tr>
      <tr>
-       <td width="140px" id="changeText">代理人联系电话：</td>
+       <td width="140px">代理人联系电话：</td>
        <td width="230px"><input name="dlrdh" type="text"></input></td>
        <td width="140px">执业证号：</td>
        <td><input name="zyzh" type="text"></input></td>
@@ -84,7 +83,6 @@ int bh=new ZjqdDao().getMaxId(fydm);
    
    <hr/>
    <div align="center">
-     <a id="scan" onclick="Open(<%=bh%>)" iconCls="icon-scan">扫描</a>
      <a id="save" onclick="save()" iconCls="icon-save">保存</a>
      <a id="cancel" onclick="cancle()" iconCls="icon-cancel">取消</a>
    </div>
@@ -93,7 +91,6 @@ int bh=new ZjqdDao().getMaxId(fydm);
    $('#cl_remove').linkbutton({});
    $('#cl_add').linkbutton({});
    $('#save').linkbutton({});
-   $('#scan').linkbutton({});
    $('#cancel').linkbutton({});
    $('#cbr_search').linkbutton({});
    $('#search_bt').linkbutton({});   
@@ -128,25 +125,8 @@ int bh=new ZjqdDao().getMaxId(fydm);
    <script>
    
    function cancle(){
-	   $.ajax({
-	   	     url:'canclAddDsrCl.do',
-	   	     type:'POST',
-	   	     data:{
-	   	    	 bh:'<%=bh%>'
-	   	     },//注意大小写data
-	   	     dataType:'json',
-	   	     success:function (data) {
-	   	    	window.location.href='${path}/to_jsdsrzdsj.do';
-	   	     }
-	   });
+	   window.location.href='${path}/to_jsdsrzdsj.do';
 	}
-   
-   function Open(bh){
-		 //window.location.href='${path}/fj.do?bh='+bh;
-		 url='${path}/fj.do?bh='+bh;
-		 window.open(url,"new",
-				 "height=600px,width=650px,toolbar=no,status=no,menubar=no,scrollbars=yes,resizable=yes");
-		}
    
    function scan(bh){
 			 url='${path}/fj.do?bh='+bh;
@@ -227,6 +207,7 @@ int bh=new ZjqdDao().getMaxId(fydm);
 	   	     dataType:'json',
 	   	     success:function (data) {
 	   	    	 if(data.after==1){
+	   	    		 var retbh = data.retbh;
 	   	    		$.messager.confirm('确认',
 	   	    				'是否需要添加附件?',
 	   	    				function(r){
@@ -235,7 +216,7 @@ int bh=new ZjqdDao().getMaxId(fydm);
 	   	    						$('#cancel').linkbutton({   
 	   	    							text: '返回'  
 	   	    						});  
-	   	    						scan(<%=bh%>);
+	   	    						scan(retbh);
 	   	    					}else{
 	   	    						window.location.href="${path}/to_jsdsrzdsj.do";
 	   	    					}
@@ -335,6 +316,13 @@ int bh=new ZjqdDao().getMaxId(fydm);
 			 }
 	    }
 	});  
+  
+  function openAhSearch(){
+	  $('#ahN').val('');
+	  $('#ahG').val('');
+	  $('#ahdsr').val('');
+	  $('#ah_se').dialog('open');
+  }
   
   function searchAh(){
 		var ahN=$('#ahN').val();

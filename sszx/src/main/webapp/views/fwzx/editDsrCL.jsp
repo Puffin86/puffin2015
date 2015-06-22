@@ -57,7 +57,7 @@ ZjqdId zjqdId = zjqd.getId();
        <td><input name="dlr" type="text"></input></td>
      </tr>
      <tr>
-       <td width="140px" id="changeText">代理人联系电话：</td>
+       <td width="140px">代理人联系电话：</td>
        <td width="230px"><input name="dlrdh" type="text"></input></td>
        <td width="140px">执业证号：</td>
        <td><input name="zyzh" type="text"></input></td>

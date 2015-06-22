@@ -26,9 +26,8 @@
        <td width="15%">案号：</td>
        <td width="35%">
 	       	<input class="easyui-validatebox" required="true" readOnly="readOnly" name="ah" type="text"/>
-<!-- 	       	<input class="easyui-validatebox" required="true" name="ah" type="text"/> -->
 	       	<input name="ahdm" type="hidden" />
-	       	<a id="research" class="easyui-linkbutton" onClick="$('#ah_se').dialog('open');" iconCls="icon-search"></a>
+	       	<a id="research" class="easyui-linkbutton" onClick="openAhSearch()" iconCls="icon-search"></a>
        </td>
        <td width="15%">&nbsp;</td>
        <td width="35%">&nbsp;</td>
@@ -45,23 +44,6 @@
             <input style="display:none;" name="sjrbm" type="text"/>
        </td>
      </tr>
-     <!-- <tr>
-       <td>当事人：</td>
-       <td>
-	       <input class="easyui-validatebox" required="true" name="tjr" type="text"/>
-	       <input style="display:none;" type="text"/>
-	       <a id="dsr_bt" onClick="searchDsr()" iconCls="icon-add"></a>
-       </td>
-       <td>当事人联系电话：</td>
-       <td><input name="tjrlxdh" type="text"/></td>
-     </tr> 
-     <tr>
-       <td>当事人证件号码：</td>
-       <td><input name="djrsfz" type="text"/></td>
-       <td>&nbsp;</td>
-       <td>&nbsp;</td>
-     </tr>
-      -->
       <tr>
        <td>领取时限：</td>
        <td><input name="lqsx" type="text"/></td>
@@ -418,6 +400,13 @@ $('#ah_searchList').tree({
     }
 });  
  
+ function openAhSearch(){
+	 $('#ahN').val('');
+	 $('#ahG').val('');
+	 $('#ahDsr').val('');
+	 $('#ah_se').dialog('open');
+ }
+ 
 function searchAh(){
 	var ahN=$('#ahN').val();
 	var ahG=$('#ahG').val();
@@ -467,77 +456,6 @@ $('#dsrgridList').datagrid({
 		{field:'sfzhm',title:'证件(机构)号码',width:120,align:'center'}
 	]]
 });
-/*
-$('#dsrgrid').datagrid({
-	rownumbers:false,
-	striped:true,
-	fitColumns:true,
-	idField:'ah',
-	border:true,
-	singleSelect:true,
-	url:"dsrSearchList.do",
-	queryParams : {
-		ah : $('input[name=ah]').val()
-	},
-	columns:[[
-		{field:'mc',title:'当事人',width:120,align:'center'},
-		{field:'lx',title:'当事人类型',width:120,align:'center'},
-		{field:'lxdh',title:'联系电话',width:120,align:'center'},
-		{field:'sfzhm',title:'证件(机构)号码',width:120,align:'center'}
-	]]
-});
-
-
-$('#dsr_se').dialog({
-    title:'当事人列表',
-    iconCls:'icon-search',
-    closed:true,
-    buttons:[{
-		text:'确定',
-		handler:function(){
-			var selRow = $('#dsrgrid').datagrid('getSelected');
-			if(selRow!=null){
-				if(selRow.lx=="09_01001-1"){//自然人
-					$('#changeText').html('当事人证件号码：');
-				}else{//非自然人
-					$('#changeText').html('当事人组织机构代码：');
-				}
-				$('input[name=tjr]').val(selRow.mc);
-				$('input[name=tjrlxdh]').val(selRow.lxdh);
-				$('input[name=djrsfz]').val(selRow.sfzhm);
-			}
-			$('#dsr_se').dialog('close');
-		}
-	},{
-		text:'取消',
-		handler:function(){
-			$('#dsr_se').dialog('close');
-		}
-	}]
-});
-
-$('#dsr_searchList').tree({  
-    checkbox: false,
-    onClick: function(node){		 
-		if(node.attributes.leaf=="true"){				 
-			 $('input[name=tjrlxdh]').val(node.attributes.lxdh);				 			 
-			 $('input[name=djrsfz]').val(node.attributes.sfzhm);
-			 $('input[name=tjr]').val(node.attributes.dsrxm);
-		}
-    }
-});  
-
-function searchDsr(){
-	var ah=$('input[name=ah]').val();
-	if(ah!=''){
-		$('#dsrgrid').datagrid('reload');
-		$('#dsrgrid').datagrid('clearSelections');
-		$('#dsr_se').dialog('open');
-	}else{
-		alert("请先输入案号");
-	} 
-}
-*/
 
 function searchDsrList(){
 	var ah=$('input[name=ahdm]').val();

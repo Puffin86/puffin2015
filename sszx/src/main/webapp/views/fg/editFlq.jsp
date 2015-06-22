@@ -22,7 +22,7 @@
 	       <td colspan="3">
 	       		<input class="easyui-validatebox" required="true" name="ah" type="text"/>
 	       		<input name="ahdm" style="display:none;" type="text"/>
-	       		<a id="research" class="easyui-linkbutton" onClick="$('#ah_se').dialog('open');" style="margin-top:-5px" iconCls="icon-search"></a>
+	       		<a id="research" class="easyui-linkbutton" onClick="openAhSearch()" style="margin-top:-5px" iconCls="icon-search"></a>
 	       </td>
 	     </tr>
 	     <tr>
@@ -42,7 +42,7 @@
 	       <td>
 		       <input class="easyui-validatebox" required="true" name="tjr" type="text"/>
 		       <input style="display:none;" type="text"/>
-		       <a id="dsr_bt" class="easyui-linkbutton" onClick="$('#dsr_se').dialog('open');" style="margin-top:-5px" iconCls="icon-add"></a>
+		       <a id="dsr_bt" onClick="searchDsr()" iconCls="icon-add"></a>
 		   </td>
 	       <td>&nbsp;&nbsp;当事人联系电话：</td>
 	       <td><input name="tjrlxdh" type="text"/></td>
@@ -265,6 +265,12 @@ $('#ah_searchList').tree({
 		}
     }
 });  
+function openAhSearch(){
+	 $('#ahN').val('');
+	 $('#ahG').val('');
+	 $('#ahDsr').val('');
+	 $('#ah_se').dialog('open');
+}
  
 function searchAh(){
 	var ahN=$('#ahN').val();
@@ -288,44 +294,59 @@ function searchAh(){
 }
 </script>
    
-<div id="dsr_se" style="width:400px;height:300px;padding:5px;">
-	<div style="margin-left:5px;">
-	载入当事人列表：<a id="search_dsr" class="easyui-linkbutton" onclick="searchDsr()" iconCls="icon-search"></a>
-	</div>
-	<hr/>
-	<ul id="dsr_searchList"></ul>
+<div id="dsr_se" style="width:400px;height:300px;">
+    	<table id="dsrgrid" ></table>
 </div>
 
 <script>
 $('#dsr_se').dialog({
-	title:'添加当事人',
-	iconCls:'icon-search',
-	closed:true
+    title:'当事人列表',
+    iconCls:'icon-search',
+    closed:true,
+    buttons:[{
+		text:'确定',
+		handler:function(){
+			var selRow = $('#dsrgrid').datagrid('getSelected');
+			if(selRow!=null){
+				$('input[name=tjr]').val(selRow.mc);
+				$('input[name=tjrlxdh]').val(selRow.lxdh);
+				$('input[name=djrsfz]').val(selRow.sfzhm);
+			}
+			$('#dsr_se').dialog('close');
+		}
+	},{
+		text:'取消',
+		handler:function(){
+			$('#dsr_se').dialog('close');
+		}
+	}]
 });
  
-$('#dsr_searchList').tree({  
-   checkbox: false,
-   onClick: function(node){		 
-	 if(node.attributes.leaf=="true"){				 
-		 $('input[name=tjrlxdh]').val(node.attributes.lxdh);				 			 
-		 $('input[name=djrsfz]').val(node.attributes.sfzhm);
-		 $('input[name=tjr]').val(node.attributes.dsrxm);
-	 }
-   }
-});  
+$('#dsrgrid').datagrid({
+	rownumbers:false,
+	striped:true,
+	fitColumns:true,
+	idField:'ah',
+	border:true,
+	singleSelect:true,
+	url:"dsrSearchList.do",
+	queryParams : {
+		ah : $('input[name=ah]').val()
+	},
+	columns:[[
+		{field:'mc',title:'当事人',width:120,align:'center'},
+		{field:'lx',title:'当事人类型',width:120,align:'center'},
+		{field:'lxdh',title:'联系电话',width:120,align:'center'},
+		{field:'sfzhm',title:'证件(机构)号码',width:120,align:'center'}
+	]]
+}); 
  
 function searchDsr(){
-    var ah=$('input[name=ah]').val();
-	if(ah!=null && ah!=''){
-		$.ajax({
-	  	     url:'${path}/dsrSearch.do',
-	  	     type:'POST',
-	  	     data:{ah:encodeURI(encodeURI(ah))},
-	  	     dataType:'json',
-	  	     success:function (data) {
-	  	       $('#dsr_searchList').tree('loadData',data.data);
-	  	     }
-  	    });
+	var ah=$('input[name=ah]').val();
+	if(ah!=''){
+		$('#dsrgrid').datagrid('reload');
+		$('#dsrgrid').datagrid('clearSelections');
+		$('#dsr_se').dialog('open');
 	}else{
 		alert("请先输入案号");
 	}
