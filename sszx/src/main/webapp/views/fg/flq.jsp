@@ -32,8 +32,6 @@ $(document).ready(function(){
 	 var user="${user}";
 	 var fydm="${fydm}";
 
-	 $('#search').dialog('close');
-	 
 	 $('#dsrZzSjTable').datagrid({
 			rownumbers:false,
 			title:'联系当事人取件列表',
@@ -126,7 +124,7 @@ $('#search').dialog({
             $('#search').dialog('close');
         }
     }]
-});
+}).dialog('close');
 </script>
 
 </body>

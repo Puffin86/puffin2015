@@ -107,19 +107,25 @@ public class EditDsrZjqdQd {
 			Zjqd.setDsrsfzhm(djrsfzhm);
 			
 			String dlr=request.getParameter("dlr");
-			dlr = URLDecoder.decode(dlr, "UTF-8"); 
-			dlr = URLDecoder.decode(dlr, "UTF-8"); 
-			Zjqd.setDlr(dlr);
+			if(dlr!=null){
+				dlr = URLDecoder.decode(dlr, "UTF-8"); 
+				dlr = URLDecoder.decode(dlr, "UTF-8"); 
+				Zjqd.setDlr(dlr);
+			}
 			
 			String dlrdh=request.getParameter("dlrdh");
-			dlrdh = URLDecoder.decode(dlrdh, "UTF-8"); 
-			dlrdh = URLDecoder.decode(dlrdh, "UTF-8"); 
-			Zjqd.setDlrdh(dlrdh);
+			if(dlrdh!=null){
+				dlrdh = URLDecoder.decode(dlrdh, "UTF-8"); 
+				dlrdh = URLDecoder.decode(dlrdh, "UTF-8"); 
+				Zjqd.setDlrdh(dlrdh);
+			}
 			
 			String zyzh=request.getParameter("zyzh");
-			zyzh = URLDecoder.decode(zyzh, "UTF-8"); 
-			zyzh = URLDecoder.decode(zyzh, "UTF-8"); 
-			Zjqd.setZyzh(zyzh);
+			if(zyzh!=null){
+				zyzh = URLDecoder.decode(zyzh, "UTF-8"); 
+				zyzh = URLDecoder.decode(zyzh, "UTF-8"); 
+				Zjqd.setZyzh(zyzh);
+			}
 			
 
 			zjqdDao.saveZjqd(Zjqd);

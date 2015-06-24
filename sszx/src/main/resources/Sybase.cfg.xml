@@ -23,8 +23,8 @@
 		<property name="show_sql">true</property>
 		<property name="format_sql">true</property>
 		
-		<mapping resource="com/bsoft/sszx/entity/eaj/Eaj.hbm.xml" />
-		<mapping resource="com/bsoft/sszx/entity/edsr/Edsr.hbm.xml" />
+		<mapping resource="hbm/Eaj.hbm.xml" />
+		<mapping resource="hbm/Edsr.hbm.xml" />
 	</session-factory>
 
 </hibernate-configuration>

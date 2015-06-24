@@ -304,7 +304,8 @@ function Word(){
 	    	 window.open(url,"new",
 	    			 "height=600px,width=650px,toolbar=no,status=no,menubar=no,scrollbars=yes,resizable=yes");
 	     }})
-	    ;}else alert('请输入必输项'+alerString);
+	    ;}else 
+	    	alert('请输入必输项'+alerString);
 };
 </script>
 </body>

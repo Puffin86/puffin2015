@@ -32,7 +32,6 @@ $(document).ready(function(){
 	var user="${user}";
 	var fydm="${fydm}";
 
-	$('#search').dialog('close');
 	 
 	$('#dsrZzSjTable').datagrid({
 			rownumbers:false,
@@ -126,7 +125,7 @@ $('#search').dialog({
             $('#search').dialog('close');
         }
     }]
-});
+}).dialog('close');
 </script>
 
 </body>

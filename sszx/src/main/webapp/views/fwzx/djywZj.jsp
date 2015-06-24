@@ -29,8 +29,6 @@ $(document).ready(function(){
 	 var user="${session.user}";
 	 var fydm='<%=fydm%>';
 
-	 $('#search').dialog('close');
-	 
 	 $('#dsrZzSjTable').datagrid({
 			rownumbers:false,
 			fit:true,
@@ -130,7 +128,7 @@ $('#search').dialog({
             $('#search').dialog('close');
         }
     }]
-});
+}).dialog('close');
 </script>
 
 

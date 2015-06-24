@@ -32,7 +32,6 @@ $(document).ready(function(){
 	 var user = '${user}';
 	 var fydm = '${fydm}';
 
-	 $('#search').dialog('close');
 	 //$('#add_xinming').hide();
 	 
 	 $('#dsrZzSjTable').datagrid({
@@ -145,7 +144,7 @@ $('#search').dialog({
             $('#search').dialog('close');
         }
     }]
-});
+}).dialog('close');
 </script>
 
  <script>

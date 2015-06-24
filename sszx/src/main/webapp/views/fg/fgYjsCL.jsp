@@ -116,7 +116,7 @@ function Pdf(bh){
   	      },//注意大小写data
   	     dataType:'json',
   	     success:function (res) {
-        	url='pdf.jsp';
+        	url='pdf_view.jsp';
        		window.open(url,"new", "height=600px,width=650px,toolbar=no,status=no,menubar=no,scrollbars=yes,resizable=no");
   	     }
   });

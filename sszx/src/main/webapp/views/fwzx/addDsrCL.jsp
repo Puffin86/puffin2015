@@ -22,7 +22,7 @@ String fydm=(String)session.getAttribute("fydm");
      <tr>
        <td width="140px">案号：</td>
        <td width="230px">
-	       <input class="easyui-validatebox" required="true" name="ah" type="text"></input>
+	       <input class="easyui-validatebox" required="true" readOnly="readOnly" name="ah" type="text"></input>
 	       <input name="ahdm" style="display:none;" type="text"></input>
 	       <a id="research" onClick="openAhSearch()" style="margin-top:-5px" iconCls="icon-search"></a>
        </td>

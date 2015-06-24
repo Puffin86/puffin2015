@@ -42,16 +42,21 @@ public class Word  {
 			throws Exception {
 		String fydm=(String)session.getAttribute("fydm");
 		String bh=request.getParameter("bh");
+		String tool=request.getParameter("tool");
 		Zjqd Zjqd=new ZjqdDao().findbyid(bh, fydm);
 		List clbList=new ClbDao().findByZjqd(bh, fydm);
-		String serverRealPath = request.getSession().getServletContext().getRealPath("/scan/jpg/");
+		String serverRealPath = request.getSession().getServletContext().getRealPath("/scan/jpg/")+"\\";
 		String fileName=Zjqd.getId().getFydm()+"_"+Zjqd.getId().getBh()+"_"+Zjqd.getLclx()+".pdf";  
 		
 		Pdf_zjqd mCreatPDF=new Pdf_zjqd();
 		mCreatPDF.createPDF_zjqd(serverRealPath,fileName,Zjqd,clbList);
 		session.setAttribute("fileName",fileName);
-		
+		if(tool==null || "show".equals(tool))
+			session.setAttribute("tool","show");
+		else
+			session.setAttribute("tool","hide");
 		return "fwzx/word_zjqd";
 	}
+	
 	
 }

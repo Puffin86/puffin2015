@@ -34,7 +34,6 @@ $(document).ready(function(){
      //var user="Chenl";
 	 var fydm='<%=fydm%>';
 
-	 $('#search').dialog('close');
 	 //$('#add_xinming').hide();
 	 
 	 $('#dsrZzSjTable').datagrid({
@@ -187,7 +186,7 @@ $('#search').dialog({
             $('#search').dialog('close');
         }
     }]
-});
+}).dialog('close');
 
 function Pdf(){
 	$('#sdhzdiv').dialog('open');

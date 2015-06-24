@@ -1,6 +1,5 @@
-<%@ page import="com.bsoft.sszx.entity.clb.Clb"%>
-<%@ page import="java.util.List"%>
 <%@ page language="java" pageEncoding="utf-8"%>
+<%@ page import="com.bsoft.sszx.entity.clb.Clb,java.util.List"%>
 <%@ include file="/common/taglibs.jsp"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -20,7 +19,7 @@
 	      <tr>
 	       <td width="15%">案号：</td>
 	       <td colspan="3">
-	       		<input class="easyui-validatebox" required="true" name="ah" type="text"/>
+	       		<input class="easyui-validatebox" required="true" readOnly="readOnly" name="ah" type="text"/>
 	       		<input name="ahdm" style="display:none;" type="text"/>
 	       		<a id="research" class="easyui-linkbutton" onClick="openAhSearch()" style="margin-top:-5px" iconCls="icon-search"></a>
 	       </td>
@@ -62,17 +61,16 @@
      </table>
      
      <hr/> 
-     
    <div style="margin-left:10px;">     
      <div>添加材料信息：<a id="cl_add" class="add" iconCls="icon-add"></a></div>
      <div class="cl" id="clmxtr" style="visibility:hidden;margin-top:5px">
-       <div>材料名称：<input name="clmc" type="text"/>
-	       &nbsp;&nbsp;份数： <input name="clfs"  style="width:30px" type="text"/>
-	       &nbsp;&nbsp;页数： <input name="clys" style="width:30px" type="text"/>      
-	       <a id="cl_remove" class="easyui-linkbutton" class="remove" style="margin-top:-7px" iconCls="icon-remove"></a>
-       </div>
+       <div>材料名称：<input name="clmc" type="text"></input>
+       &nbsp;&nbsp;份数： <input name="clfs"  style="width:30px" type="text"></input>
+       &nbsp;&nbsp;页数： <input name="clys" style="width:30px" type="text"></input>      
+       <a id="cl_remove" class="remove" style="margin-top:-7px" iconCls="icon-cancel"></a></div>
      </div>
    </div>
+   
    
    <hr/>
    <div align="center">
@@ -109,39 +107,39 @@ $(document).ready(function(){
 	$('input[name=lqsx]').attr('value',sx);
 	
 	//绑定添加行按钮的单击事件 
-	$(".add").bind("click",function(){ 
-		$s=$('#clmxtr').clone(true);
-		$s.css("visibility","visible");
-		$('#clmxtr').parent().append($s);
-	}); 
+   $(".add").bind("click",function(){ 
+   $s=$('#clmxtr').clone(true);
+   $s.css("visibility","visible");
+   $('#clmxtr').parent().append($s);
+   //$('#clmxtr').css("visibility","hidden");
+   //$('#clmxtr>td:first-child>input').val("");//IDclmxtr元素的最后儿子元素的input表情值为空
+   }); 
 
-	//绑定删除行按钮的单击事件 
-	$(".remove").bind("click",function(){ 
-		//取得table的第一行 
-		if($(".remove").length>1){
-			var td = $(this).parent();
-			td.empty();//清空父元素
-			td.remove();
-		}
-	}); 
-});   
+   //绑定删除行按钮的单击事件 
+   $(".remove").bind("click",function(){ 
+   //取得table的第一行 
+   if($(".remove").length>1){
+   var td = $(this).parent();
+   td.empty();//清空父元素
+   td.remove();}
+   }); 
+   });   
    
-<%
-for(int i=0;i<list.size();i++) {
-	String clmc=list.get(i).getClmc();
-	String clfs=String.valueOf(list.get(i).getFs());
-	String clys=String.valueOf(list.get(i).getYs());
-%>
-    $s=$('#clmxtr').clone(true);
-    $s.css("visibility","visible");
-    $s.find('input[name=clmc]').attr('value','<%=clmc%>');
-    $s.find('input[name=clys]').attr('value','<%=clys%>');
-    $s.find('input[name=clfs]').attr('value','<%=clfs%>');
-    $('#clmxtr').parent().append($s);
-<%}%>
-</script>
-   
-<script>
+   <%for(int i=0;i<list.size();i++) 
+   {
+	   String clmc=list.get(i).getClmc();
+	   String clfs=String.valueOf(list.get(i).getFs());
+	   String clys=String.valueOf(list.get(i).getYs());
+      %>
+       $s=$('#clmxtr').clone(true);
+       $s.css("visibility","visible");
+       $s.find('input[name=clmc]').attr('value','<%=clmc%>');
+       $s.find('input[name=clys]').attr('value','<%=clys%>');
+       $s.find('input[name=clfs]').attr('value','<%=clfs%>');
+       $('#clmxtr').parent().append($s);
+   <%}%>
+
+
 function save(){
    var bh="${editFlq.id.bh}";
    var ah=$('input[name=ah]').val();
@@ -228,24 +226,33 @@ function save(){
 </script>
    
 <div id="ah_se" style="width:400px;height:300px;padding:5px;">
-<table style="font-size:12px">
-	<tr>
-		<td>年份：</td>
-		<td><input id="ahN" style="margin-left:5px;margin-top:5px" type="text"/></td>
-	</tr>
-	<tr>
-		<td>关键字：</td>
-		<td>
-			<input id="ahG" style="margin-left:5px;margin-top:5px" type="text"/>
-			<a id="search_ah" class="easyui-linkbutton" onclick="searchAh()" iconCls="icon-search"></a>
-		</td>
-	</tr>
-</table>
-<hr/>
-<ul id="ah_searchList"></ul>
+	<table style="font-size:12px">
+		<tr>
+			<td>年份：</td>
+			<td><input id="ahN" type="text" style="width:100px;margin-left:5px;margin-top:5px"/></td>
+	   		<td>案号：</td>
+			<td>
+				<input id="ahG" type="text" style="width:100px;margin-left:5px;margin-top:5px"/>
+			</td>
+		</tr>
+		<tr>
+			<td>当事人：</td>
+	   		<td><input id="ahDsr" type="text" style="width:100px;margin-left:5px;margin-top:5px"/></td>
+	        <td>
+				<a id="search_ah" onclick="searchAh()" iconCls="icon-search"></a>
+			</td>
+		</tr>
+	</table>
+	
+	<hr/>
+	<ul id="ah_searchList"></ul>
+	<div id="errorSearch">无数据...</div>
 </div>
 
 <script>
+$('#search_ah').linkbutton({}); 
+$('#errorSearch').hide();
+
 $('#ah_se').dialog({
 	title:'添加案号',
 	iconCls:'icon-search',
@@ -269,28 +276,38 @@ function openAhSearch(){
 	 $('#ahN').val('');
 	 $('#ahG').val('');
 	 $('#ahDsr').val('');
+	 $('#errorSearch').hide();
+	 $('#ah_searchList').hide();
 	 $('#ah_se').dialog('open');
 }
  
 function searchAh(){
 	var ahN=$('#ahN').val();
 	var ahG=$('#ahG').val();
-	
-	if(ahN!=''&&ahG!=''){
+	var ahDsr=$('#ahDsr').val();
+	//if(ahN!=''&&ahG!=''){
 		$.ajax({
 	  	     url:'${path}/ahSearch.do',
 	  	     type:'POST',
 	  	     data:{
 	  	    	ahN:encodeURI(encodeURI(ahN)),
 	  	    	ahG:encodeURI(encodeURI(ahG)),
+	  	    	ahDsr: encodeURI(encodeURI(ahDsr)),
 	  	    	lx:1
 	  	     },
 	  	     dataType:'json',
 	  	     success:function (data) {
-	  	       $('#ah_searchList').tree('loadData', data.data);
+	  	         if(data.data.length>0){
+	  	         	$('#ah_searchList').show();
+	  	    		$('#errorSearch').hide();
+		  	        $('#ah_searchList').tree('loadData', data.data);
+	  	    	 }else{
+	  	    		$('#ah_searchList').hide();
+	  	    		 $('#errorSearch').show();
+	  	    	 }
 	  	     }
   	    });
-	}
+	//}
 }
 </script>
    

@@ -60,7 +60,7 @@
      </tr>
    </table>
    <hr/> 
-     
+     <!--
    <div style="margin-left:10px;">     
      <div>添加材料信息：<a id="cl_add" class="add" iconCls="icon-add"></a></div>
      <div class="cl" id="clmxtr" style="visibility:hidden;margin-top:5px">
@@ -71,6 +71,25 @@
        </div>
      </div>
    </div>
+   -->
+   <div>   
+     <table width="100%" border="0" cellpadding="2" cellspacing="0" style="font-size:12px;">
+     	<tr>
+     		<td width="20%">添加材料信息：<a id="cl_add" class="add" iconCls="icon-add"></a></td>
+     		<td width="80%">&nbsp;</td>
+     	</tr>
+     </table>  
+     
+     <div class="cl" id="clmxtr" style="visibility:hidden;margin-top:5px">
+       <div>
+	       	材料名称：<input name="clmc" type="text"/>&nbsp;&nbsp;
+	       	份数： <input name="clfs"  style="width:30px" type="text"/>&nbsp;&nbsp;
+	       	<input name="clys" style="width:30px;display:none;" type="text" value="0"/>       
+	       	<a id="cl_remove" class="remove" style="margin-top:-7px" iconCls="icon-cancel"></a>
+       </div>
+     </div>
+   </div>
+   
    
    <hr/>
    <div align="center">
@@ -125,21 +144,19 @@ $(document).ready(function(){
 });   
    
    <%
-   for(int i=0;i<list.size();i++){
-	   String clmc=list.get(i).getClmc();
-	   String clfs=String.valueOf(list.get(i).getFs());
-	   String clys=String.valueOf(list.get(i).getYs());
-   %>
-       $s=$('#clmxtr').clone(true);
-       $s.css("visibility","visible");
-       $s.find('input[name=clmc]').attr('value','<%=clmc%>');      
-       $s.find('input[name=clys]').attr('value','<%=clys%>');       
-       $s.find('input[name=clfs]').attr('value','<%=clfs%>');
-       $('#clmxtr').parent().append($s);
-   <%}%>
-</script>
-
-<script>
+	for(int i=0;i<list.size();i++) {
+		String clmc=list.get(i).getClmc();
+		String clfs=String.valueOf(list.get(i).getFs());
+		String clys=String.valueOf(list.get(i).getYs());
+	%>
+	    $s=$('#clmxtr').clone(true);
+	    $s.css("visibility","visible");
+	    $s.find('input[name=clmc]').attr('value','<%=clmc%>');
+	    //$s.find('input[name=clys]').attr('value','<%=clys%>');
+	    $s.find('input[name=clfs]').attr('value','<%=clfs%>');
+	    $('#clmxtr').parent().append($s);
+	<%}%>
+   
 function save(){
  	var bh="${editFlj.id.bh}";
     var ah=$('input[name=ah]').val();
@@ -224,23 +241,29 @@ function save(){
 	<table style="font-size:12px">
 		<tr>
 			<td>年份：</td>
-			<td><input id="ahN" style="margin-left:5px;margin-top:5px" type="text"/></td>
+			<td><input id="ahN" type="text" style="width:100px;margin-left:5px;margin-top:5px"/></td>
+	   		<td>案号：</td>
+			<td>
+				<input id="ahG" type="text" style="width:100px;margin-left:5px;margin-top:5px"/>
+			</td>
 		</tr>
 		<tr>
-			<td>关键字：</td>
-			<td>
-				<input id="ahG" style="margin-left:5px;margin-top:5px" type="text"/>
+			<td>当事人：</td>
+	   		<td><input id="ahDsr" type="text" style="width:100px;margin-left:5px;margin-top:5px"/></td>
+	        <td>
 				<a id="search_ah" onclick="searchAh()" iconCls="icon-search"></a>
 			</td>
 		</tr>
 	</table>
-    <hr/>
-    <ul id="ah_searchList"></ul>
+	
+	<hr/>
+	<ul id="ah_searchList"></ul>
+	<div id="errorSearch">无数据...</div>
 </div>
 
 <script>
 $('#search_ah').linkbutton({}); 
-   
+$('#errorSearch').hide();
 $('#ah_se').dialog({
   title:'添加案号',
   iconCls:'icon-search',
@@ -265,26 +288,37 @@ function openAhSearch(){
 	 $('#ahN').val('');
 	 $('#ahG').val('');
 	 $('#ahDsr').val('');
+	 $('#errorSearch').hide();
+	 $('#ah_searchList').hide();
 	 $('#ah_se').dialog('open');
 }
 
 function searchAh(){
 	var ahN=$('#ahN').val();
 	var ahG=$('#ahG').val();
-	if(ahN!=''&&ahG!=''){
+	var ahDsr=$('#ahDsr').val();
+	//if(ahN!=''&&ahG!=''){
 	$.ajax({
   	     url:'${path}/ahSearch.do',
   	     type:'POST',
   	     data:{
   	    	 ahN:encodeURI(encodeURI(ahN)),
   	    	 ahG:encodeURI(encodeURI(ahG)),
+  	    	 ahDsr: encodeURI(encodeURI(ahDsr)),
   	    	 lx:1
   	     },
   	     dataType:'json',
   	     success:function (data) {
-  	       $('#ah_searchList').tree('loadData', data.data);
+  	       		if(data.data.length>0){
+	  	         	$('#ah_searchList').show();
+	  	    		$('#errorSearch').hide();
+		  	        $('#ah_searchList').tree('loadData', data.data);
+	  	    	 }else{
+	  	    		$('#ah_searchList').hide();
+	  	    		 $('#errorSearch').show();
+	  	    	 }
   	     }});
-	}
+	//}
 }
 </script>
    

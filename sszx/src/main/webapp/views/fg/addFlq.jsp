@@ -139,6 +139,7 @@ $(document).ready(function(){
 </script>
 
 <script>
+
 function save(){
     var ah=$('input[name=ah]').val();
     var sjr=$('input[name=sjr]').val();
@@ -378,6 +379,7 @@ function sdhzclqd(){
 </div>
    
 <script>
+$('#search_ah').linkbutton({}); 
 $('#errorSearch').hide();
 
 $('#ah_se').dialog({
@@ -405,6 +407,8 @@ $('#ah_searchList').tree({
 	 $('#ahN').val('');
 	 $('#ahG').val('');
 	 $('#ahDsr').val('');
+	 $('#errorSearch').hide();
+	 $('#ah_searchList').hide();
 	 $('#ah_se').dialog('open');
  }
  
@@ -426,6 +430,7 @@ function searchAh(){
 	  	     dataType:'json',
 	  	     success:function (data) {
 	  	    	 if(data.data.length>0){
+	  	    	 	$('#ah_searchList').show();
 	  	    		$('#errorSearch').hide();
 		  	        $('#ah_searchList').tree('loadData', data.data);
 	  	    	 }else{

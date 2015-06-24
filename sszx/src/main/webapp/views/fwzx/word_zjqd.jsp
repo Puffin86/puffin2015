@@ -9,6 +9,7 @@
 </head>
 <%
 	String fileName = (String)session.getAttribute("fileName");
+	String tool = (String)session.getAttribute("tool");
 	String webpath = request.getRequestURL().toString() ;
 	int index = webpath.indexOf("sszx");
 	String subpath = webpath.substring(0, index);
@@ -27,11 +28,19 @@
 <script>
 var plugin;
 $(document).ready(function(){
-	
 	$('#handSign').linkbutton({});
 	$('#fingerprintSign').linkbutton({});
 	$('#upLoad').linkbutton({});
-	
+	var toolDis = '<%=tool%>';
+	if(toolDis=='hide'){
+		$('#handSign').hide();
+		$('#fingerprintSign').hide();
+		$('#upLoad').hide();
+	}else{
+		$('#handSign').show();
+		$('#fingerprintSign').show();
+		$('#upLoad').show();
+	}
 	load();
 	OpenWedFile();
 });
@@ -66,8 +75,7 @@ function isIEBrowser() {
    function OpenWedFile()
 	{
 		var File = '<%=path%>';
-		//alert(File);
-		plugin.SetFileZoom(200);//设置缩放比例
+		//plugin.SetFileZoom(200);//设置缩放比例
 		var Res = plugin.OpenWebFile(File);
 		if(Res != 0){
 			alert("打开网络文件失败，错误码为:"+Res);

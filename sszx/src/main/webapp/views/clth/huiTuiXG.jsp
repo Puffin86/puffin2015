@@ -26,7 +26,7 @@ ZjqdId zjqdId = zjqd.getId();
      <tr>
        <td width="140px">案号：</td>
        <td width="230px">
-       <input class="easyui-validatebox" required="true" name="ah" type="text"></input>
+       <input class="easyui-validatebox" required="true" readOnly="readOnly" name="ah" type="text"></input>
        <input name="ahdm" style="display:none;" type="text"></input>
        <a id="research" onClick="$('#ah_se').dialog('open');" style="margin-top:-5px" iconCls="icon-search"></a>
        </td>
@@ -67,7 +67,7 @@ ZjqdId zjqdId = zjqd.getId();
        <div>材料名称：<input name="clmc" type="text"></input>
        &nbsp;&nbsp;份数： <input name="clfs"  style="width:30px" type="text"></input>
        &nbsp;&nbsp;页数： <input name="clys" style="width:30px" type="text"></input>      
-       <a id="cl_remove" class="remove" style="margin-top:-7px" iconCls="icon-remove"></a></div>
+       <a id="cl_remove" class="remove" style="margin-top:-7px" iconCls="icon-cancel"></a></div>
      </div>
    </div>
    <hr/>

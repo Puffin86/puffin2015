@@ -25,7 +25,7 @@
      <tr>
        <td width="15%">案号：</td>
        <td width="35%">
-	       <input class="easyui-validatebox" required="true" name="ah" type="text"/>
+	       <input class="easyui-validatebox" required="true" readOnly="readOnly" name="ah" type="text"/>
 	       <input name="ahdm" style="display:none;" type="text" />
 	       <a id="research" onClick="openAhSearch()" iconCls="icon-search"></a>
        </td>
@@ -160,7 +160,6 @@ function save(){
    	    var clfull=clmc+','+clfs+','+clys+';';	
    		cl+=clfull;	   
    	}
-   	
     var sjrbm=$('input[name=sjrbm]').val();
 	var sjrXm=$('input[name=sjrXm]').val();
 	var sjrbmMc=$('input[name=sjrbmMc]').val();
@@ -230,11 +229,12 @@ function save(){
 	
 	<hr/>
 	<ul id="ah_searchList"></ul>
+	<div id="errorSearch">无数据...</div>
 </div>
 
 <script>
 $('#search_ah').linkbutton({}); 
-
+$('#errorSearch').hide();
 $('#ah_se').dialog({
   title:'添加案号',
   iconCls:'icon-search',
@@ -259,12 +259,15 @@ function openAhSearch(){
 	 $('#ahN').val('');
 	 $('#ahG').val('');
 	 $('#ahDsr').val('');
+	 $('#ah_searchList').hide();
+	 $('#errorSearch').hide();
 	 $('#ah_se').dialog('open');
 }
   
 function searchAh(){
 	var ahN=$('#ahN').val();
 	var ahG=$('#ahG').val();
+	var ahDsr=$('#ahDsr').val();
 	//if(ahN!=''&&ahG!=''){
 	$.ajax({
   	     url:'${path}/ahSearch.do',
@@ -277,7 +280,14 @@ function searchAh(){
   	     },
   	     dataType:'json',
   	     success:function (data) {
-  	       $('#ah_searchList').tree('loadData', data.data);
+  	       		if(data.data.length>0){
+  	       			$('#ah_searchList').show();
+	  	    		$('#errorSearch').hide();
+		  	        $('#ah_searchList').tree('loadData', data.data);
+	  	    	 }else{
+	  	    		$('#ah_searchList').hide();
+	  	    		 $('#errorSearch').show();
+	  	    	 }
   	     }});
 	//}
 }

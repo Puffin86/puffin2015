@@ -15,20 +15,20 @@
 		<property name="show_sql">true</property>
 		<property name="format_sql">true</property>
 
-		<mapping resource="com/bsoft/sszx/entity/user/Bmb.hbm.xml" />
-		<mapping resource="com/bsoft/sszx/entity/user/Fyb.hbm.xml" />
-		<mapping resource="com/bsoft/sszx/entity/user/User.hbm.xml" />
+		<mapping resource="hbm/Bmb.hbm.xml" />
+		<mapping resource="hbm/Fyb.hbm.xml" />
+		<mapping resource="hbm/User.hbm.xml" />
 		
-		<mapping resource="com/bsoft/sszx/entity/zjqd/Zjqd.hbm.xml" />
-		<mapping resource="com/bsoft/sszx/entity/clb/Clb.hbm.xml" />
-		<mapping resource="com/bsoft/sszx/entity/fjb/Fjb.hbm.xml" />
-		<mapping resource="com/bsoft/sszx/entity/clb/Clqd.hbm.xml" />
+		<mapping resource="hbm/Zjqd.hbm.xml" />
+		<mapping resource="hbm/Clb.hbm.xml" />
+		<mapping resource="hbm/Fjb.hbm.xml" />
+		<mapping resource="hbm/Clqd.hbm.xml" />
 		
-		<mapping resource="com/bsoft/sszx/entity/sms/Dxx.hbm.xml" />
-		<mapping resource="com/bsoft/sszx/entity/sms/Sms.hbm.xml" />
+		<mapping resource="hbm/Dxx.hbm.xml" />
+		<mapping resource="hbm/Sms.hbm.xml" />
 		
-		<mapping resource="com/bsoft/sszx/entity/zd/Zd.hbm.xml" />
-		<mapping resource="com/bsoft/sszx/entity/zd/ZdMx.hbm.xml" />
+		<mapping resource="hbm/Zd.hbm.xml" />
+		<mapping resource="hbm/ZdMx.hbm.xml" />
 	</session-factory>
 
 </hibernate-configuration>
