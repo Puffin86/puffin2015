@@ -157,12 +157,12 @@ ZjqdId zjqdId = zjqd.getId();
    }); 
    });   
    
-   <%for(int i=0;i<list.size();i++) 
-   {
+   <%
+   for(int i=0;i<list.size();i++){
 	   String clmc=list.get(i).getClmc();
 	   String clfs=String.valueOf(list.get(i).getFs());
 	   String clys=String.valueOf(list.get(i).getYs());
-      %>
+   %>
        $s=$('#clmxtr').clone(true);
        $s.css("visibility","visible");
        $s.find('input[name=clmc]').attr('value','<%=clmc%>');

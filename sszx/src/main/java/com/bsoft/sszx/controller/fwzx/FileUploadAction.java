@@ -26,6 +26,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.bsoft.sszx.dao.FjDao;
 import com.bsoft.sszx.entity.fjb.Fjb;
 import com.bsoft.sszx.entity.fjb.FjbId;
+import com.bsoft.sszx.util.StringUtil;
 
 @Controller
 public class FileUploadAction   {
@@ -78,7 +79,46 @@ public class FileUploadAction   {
         return flag;
     }
 	
-	
+	@ResponseBody  
+    @RequestMapping("tempfileUpload")  
+    public String pdfUpload(HttpServletRequest request,HttpSession session) {
+		String flag="success";
+        // 转型为MultipartHttpRequest：  
+        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;  
+        Map<String, MultipartFile> fiels =  multipartRequest.getFileMap();
+        String uploadParameters = multipartRequest.getParameter("uploadParameters");
+        System.out.println(uploadParameters);
+        Map<String,Object> parameters = StringUtil.parseStr(uploadParameters);
+        String fydm=(String)parameters.get("fydm");
+		String bh = (String)parameters.get("bh");
+		String fileName = (String)parameters.get("fileName");
+        
+        System.out.println(fiels.size());
+        // 获得文件：  
+        MultipartFile uploadFile = multipartRequest.getFile("tempfile");  
+        // 获得文件名：  
+        String filename = uploadFile.getOriginalFilename();  
+        System.out.println(filename);  
+        // 获得输入流：  
+        SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmssFFF");//设置日期格式
+		String fileNameNew=df.format(new Date());		 
+		String serverRealPath = request.getSession().getServletContext().getRealPath("/scan/jpg/");
+        if (!uploadFile.isEmpty()) {
+        	try {   
+     		    int las=filename.lastIndexOf(".");
+     		    String ext="";
+     		    if(las>0){
+     		    	ext=filename.substring(las);
+     		    }
+     		    String targetFileName=fydm+"_qqq_"+fileNameNew+ext;
+     		   SaveFileFromInputStream(uploadFile.getInputStream(),serverRealPath,targetFileName);   
+        	}catch (IOException e) {   
+        		flag="error";
+                e.printStackTrace();  
+            }  
+         }
+        return flag;
+    }
 	
 	/**保存文件  
      * @param stream  

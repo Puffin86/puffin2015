@@ -85,7 +85,7 @@
 	       	材料名称：<input name="clmc" type="text"/>&nbsp;&nbsp;
 	       	份数： <input name="clfs"  style="width:30px" type="text"/>&nbsp;&nbsp;
 	       	<input name="clys" style="width:30px;display:none;" type="text" value="0"/>       
-	       	<a id="cl_remove" class="remove" style="margin-top:-7px" iconCls="icon-cancel"></a>
+	       	<a id="cl_remove" href="#" class="easyui-linkbutton remove" data-options="iconCls:'icon-cancel'"></a>
        </div>
      </div>
    </div>

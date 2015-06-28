@@ -67,7 +67,8 @@
        <div>材料名称：<input name="clmc" type="text"></input>
        &nbsp;&nbsp;份数： <input name="clfs"  style="width:30px" type="text"></input>
        &nbsp;&nbsp;页数： <input name="clys" style="width:30px" type="text"></input>      
-       <a id="cl_remove" class="remove" style="margin-top:-7px" iconCls="icon-cancel"></a></div>
+       <a id="cl_remove" href="#" class="easyui-linkbutton remove" data-options="iconCls:'icon-cancel'"></a>
+       </div>
      </div>
    </div>
    
@@ -125,12 +126,12 @@ $(document).ready(function(){
    }); 
    });   
    
-   <%for(int i=0;i<list.size();i++) 
-   {
+   <%
+   for(int i=0;i<list.size();i++){
 	   String clmc=list.get(i).getClmc();
 	   String clfs=String.valueOf(list.get(i).getFs());
 	   String clys=String.valueOf(list.get(i).getYs());
-      %>
+   %>
        $s=$('#clmxtr').clone(true);
        $s.css("visibility","visible");
        $s.find('input[name=clmc]').attr('value','<%=clmc%>');
