@@ -24,12 +24,12 @@ public class HomeDao {
 		//超过提交时限
 		int cgtjsx=0;
 		//服务中心人员或者系统管理员
-		if("2".equals(userJs) || "1".equals(userJs)){
+		if("3".equals(userJs) || "1".equals(userJs)){
 			jjlqsx=dao.countjjsx_fwzx(fydm, user,"flq","6,7");
 			cglqsx=dao.countcgsx_fwzx(fydm, user,"flq","6,7");
 			jjtjsx=dao.countjjsx_fwzx(fydm, user,"flj","10");
 			cgtjsx=dao.countcgsx_fwzx(fydm, user,"flj","10");
-		}else{//法官 3
+		}else{//法官 2
 			jjlqsx=dao.countjjsx(fydm, user,"flq","6,7");
 			cglqsx=dao.countcgsx(fydm, user,"flq","6,7");
 			jjtjsx=dao.countjjsx(fydm, user,"flj","10");

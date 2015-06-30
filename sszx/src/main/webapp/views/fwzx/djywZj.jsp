@@ -48,18 +48,17 @@ $(document).ready(function(){
 		    	 formatter:function(id){
 						return id.bh;
 			}},
-			{field:'ah',title:'案号',width:200,align:'center'},
+			{field:'ah',title:'案号',width:200,align:'center',sortable:"true"},
 			{field:'sjrBmmc',title:'承办部门',width:100,align:'center'},
 			{field:'sjrXm',title:'承办人',width:50,align:'center'},
 		    {field:'djr',title:'当事人',width:50,align:'center'},
-		    {field:'djrq',title:'递交日期',width:100,align:'center'},
+		    {field:'djrq',title:'递交日期',width:100,align:'center',sortable:"true"},
 		    {field:'sx',title:'领取时限',width:100,align:'center'},
 		    {field:'sysx',title:'剩余时限',width:100,align:'center'},
 		    {field:'action',title:'操作',width:150,align:'center',
 				   formatter:function(value,row,index){
 					var sa=row.id.bh;
-					var s = '<a style="color:red\"'
-					        +'href=\"djywJs.do?bh='+sa+'\">确认/退回</a>';
+					var s = '<a href=\"djywJs.do?bh='+sa+'\">确认/退回</a>';
 					return s;
 					}
 		    }

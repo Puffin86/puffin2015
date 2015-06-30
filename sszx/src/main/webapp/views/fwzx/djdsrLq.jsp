@@ -54,12 +54,12 @@ $(document).ready(function(){
 		    	 formatter:function(id){
 						return id.bh;
 			}},
-			{field:'ah',title:'案号',width:200,align:'center'},
+			{field:'ah',title:'案号',width:200,align:'center',sortable:"true"},
 			{field:'sjrBmmc',title:'承办部门',width:100,align:'center'},
 			{field:'sjrXm',title:'承办人',width:50,align:'center'},
 		    {field:'djr',title:'当事人',width:50,align:'center'},
 		    {field:'djrq',title:'递交日期',width:100,align:'center'},
-		    {field:'sx',title:'领取时限',width:100,align:'center'},
+		    {field:'sx',title:'领取时限',width:100,align:'center',sortable:"true"},
 		    {field:'sysx',title:'剩余时限',width:100,align:'center'},	
 		    {field:'action',title:'操作',width:150,align:'center',
 				   formatter:function(value,row,index){
@@ -126,11 +126,7 @@ $('#sdhzdiv').dialog({
        	      },//注意大小写data
        	     dataType:'json',
        	     success:function (res) {
-       	    	//url='openPdf.do?bh='+row.id.bh;
-             	//url='pdf.jsp';
              	url='pdf_qz.jsp';
-             	//url='pdf.jsp';
-             	//window.location.href="${path}/openPdf.do?bh="+row.id.bh;
             	window.open(url,"new", "height=600px,width=650px,toolbar=no,status=no,menubar=no,scrollbars=yes,resizable=no");
             	$('#sdhzdiv').dialog('close');
        	     }

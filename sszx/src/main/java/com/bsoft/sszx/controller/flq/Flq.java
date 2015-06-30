@@ -52,7 +52,7 @@ public class Flq {
 
 	@ResponseBody
 	@RequestMapping("flqTable")
-	public void findDsrZdSj(Integer page, Integer rows, String user,
+	public void findDsrZdSj(Integer page, Integer rows,String sort,String order, String user,
 			String fydm, HttpServletResponse response) {
 
 		// 当前页
@@ -65,7 +65,7 @@ public class Flq {
 		Map<String, Object> map = new HashMap<String, Object>();
 
 		ZjqdDao zjqdDao = new ZjqdDao();
-		List<Zjqd> al = zjqdDao.findDsrZzSJbyPage(start, number, user, 5, fydm);// 每页的数据，放入list
+		List<Zjqd> al = zjqdDao.findDsrZzSJbyPage(start, number, user, 5, fydm,sort,order);// 每页的数据，放入list
 		List<Zjqd> all = zjqdDao.findDsrZzSJ(user, 5, fydm);
 
 		map.put("total", all.size());

@@ -59,7 +59,7 @@ public class Pdf {
 		FjDao fjDao=new FjDao();		
 		Fjb fj = fjDao.findFjbByFjmc("送达回证", bh, fydm);
 		if(fj==null){
-			//buildPdf(request,response,session);
+			buildPdf(request,response,session);
 		}
 		
 		String fileName = fydm+"_"+bh+"_sdhz.pdf";

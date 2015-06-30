@@ -52,7 +52,7 @@ public class Flj {
 
 	@ResponseBody
 	@RequestMapping("fljTable")
-	public void findDsrZdSj(Integer page, Integer rows, String user,
+	public void findDsrZdSj(Integer page, Integer rows,String sort,String order, String user,
 			String fydm, HttpServletResponse response) throws Exception {
 		// 当前页
 		int intPage = (page == null || page == 0) ? 1 : page;
@@ -65,7 +65,7 @@ public class Flj {
 
 		ZjqdDao zjqdDao = new ZjqdDao();
 
-		List<Zjqd> al = zjqdDao.findDsrZzSJbyPage(start, number, user, 9, fydm);
+		List<Zjqd> al = zjqdDao.findDsrZzSJbyPage(start, number, user, 9, fydm,sort,order);
 		List<Zjqd> all = zjqdDao.findDsrZzSJ(user, 9, fydm);
 
 		map.put("total", all.size());

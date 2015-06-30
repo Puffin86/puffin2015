@@ -103,7 +103,7 @@ public class FgJsCl {
 	
 	@ResponseBody
 	@RequestMapping("fgJsCl")
-	public void findDsrZdSj(Integer page, Integer rows, String user,
+	public void findDsrZdSj(Integer page, Integer rows,String sort,String order, String user,
 			String fydm, HttpServletResponse response) {
 		// 当前页
 		int intPage = (page == null || page == 0) ? 1 : page;
@@ -115,7 +115,7 @@ public class FgJsCl {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		ZjqdDao zjqdDao = new ZjqdDao();
-		List<Zjqd> al = zjqdDao.findDsrZzSJbyPage(start, number, user, 1, fydm);
+		List<Zjqd> al = zjqdDao.findDsrZzSJbyPage(start, number, user, 1, fydm,sort,order);
 		List<Zjqd> all = zjqdDao.findDsrZzSJ(user, 1, fydm);
 
 		map.put("total", all.size());

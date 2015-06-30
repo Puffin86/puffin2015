@@ -38,7 +38,7 @@ $(document).ready(function(){
 
 function load(){
 	plugin = getPluginObjcet("plugin");
-	//plugin.DisplayToolBar("0");
+	plugin.DisplayToolBar("1");
 }
 function isIEBrowser() {
 	var isAtLeastIE11 = !!(navigator.userAgent.match(/Trident/) && !navigator.userAgent.match(/MSIE/));
@@ -103,7 +103,7 @@ function isIEBrowser() {
 		//var ServerIP = '<%=path%>';
 		var ServerIP = '<%=serverpath%>';
 		var path = plugin.CurrentCachePath;
-		//alert(path);
+		alert(path);
 		var Res = plugin.UpLoadPdfFile(ServerIP,path,"","");
 		if(Res == 0)
 		{

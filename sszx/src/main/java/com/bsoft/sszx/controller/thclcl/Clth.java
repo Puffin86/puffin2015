@@ -47,7 +47,7 @@ public class Clth {
 	
 	@ResponseBody
 	@RequestMapping("tuiHuiCLTable")
-	public void tuiHuiCLTable(Integer page, Integer rows, String user,
+	public void tuiHuiCLTable(Integer page, Integer rows,String sort,String order, String user,
 			String fydm, HttpServletResponse response) {
 		 //当前页  
        int intPage =(page == null || page == 0) ? 1:page;  
@@ -58,7 +58,7 @@ public class Clth {
 	
 		Map map = new HashMap();
 		ZjqdDao zjqdDao= new ZjqdDao();
-		List<Zjqd> al = zjqdDao.findDsrZzSJbyPage(start,number,user,3,fydm);//每页的数据，放入list 
+		List<Zjqd> al = zjqdDao.findDsrZzSJbyPage(start,number,user,3,fydm,sort,order);//每页的数据，放入list 
 		List<Zjqd> all= zjqdDao.findDsrZzSJ(user, 3, fydm);
 		map.put("total", all.size());
 		map.put("rows", al);
