@@ -39,6 +39,12 @@ $(document).ready(function(){
 function load(){
 	plugin = getPluginObjcet("plugin");
 	plugin.DisplayToolBar("1");
+	plugin.DisplayToolButton("400",0);
+	plugin.DisplayToolButton("205",0);
+	plugin.DisplayToolButton("417",0);
+	plugin.DisplayToolButton("483",0);
+	plugin.DisplayToolButton("492",0);
+	plugin.DisplayToolButton("484",0);
 }
 function isIEBrowser() {
 	var isAtLeastIE11 = !!(navigator.userAgent.match(/Trident/) && !navigator.userAgent.match(/MSIE/));
