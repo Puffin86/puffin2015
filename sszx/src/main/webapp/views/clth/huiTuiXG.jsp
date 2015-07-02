@@ -28,7 +28,7 @@ ZjqdId zjqdId = zjqd.getId();
        <td width="230px">
        <input class="easyui-validatebox" required="true" readOnly="readOnly" name="ah" type="text"></input>
        <input name="ahdm" style="display:none;" type="text"></input>
-       <a id="research" onClick="$('#ah_se').dialog('open');" style="margin-top:-5px" iconCls="icon-search"></a>
+       <a id="research" onClick="openAhSearch()" style="margin-top:-5px" iconCls="icon-search"></a>
        </td>
      </tr>
       <tr>
@@ -298,15 +298,31 @@ ZjqdId zjqdId = zjqd.getId();
 	}
    </script>
    
-   <div id="ah_se" style="width:400px;height:300px;">
-   <table style="font-size:12px"><tr><td>年份：</td>
-   <td><input id="ahN" style="margin-left:5px;margin-top:5px" type="text"><br/></td>
-     <tr><td>关键字：</td><td><input id="ahG" style="margin-left:5px;margin-top:5px" type="text">
-       <a id="search_ah" onclick="searchAh()" iconCls="icon-search"></a></td></tr></table>
-       <hr/><ul id="ah_searchList"></ul>
-    </div>
+   <div id="ah_se" style="width:400px;height:300px;padding:5px;">
+   <table style="font-size:12px">
+		<tr>
+			<td>年份：</td>
+			<td><input id="ahN" type="text" style="width:100px;margin-left:5px;margin-top:5px"/></td>
+	   		<td>案号：</td>
+			<td>
+				<input id="ahG" type="text" style="width:100px;margin-left:5px;margin-top:5px"/>
+			</td>
+		</tr>
+		<tr>
+			<td>当事人：</td>
+	   		<td><input id="ahDsr" type="text" style="width:100px;margin-left:5px;margin-top:5px"/></td>
+	        <td>
+				<a id="search_ah" onclick="searchAh()" iconCls="icon-search"></a>
+			</td>
+		</tr>
+	</table>
+   <hr/>
+   <ul id="ah_searchList"></ul>
+   <div id="errorSearch">无数据...</div>
+</div>
    <script>
    $('#search_ah').linkbutton({}); 
+   $('#errorSearch').hide();
    
    $('#ah_se').dialog({
 	    title:'添加案号',
@@ -327,25 +343,44 @@ ZjqdId zjqdId = zjqd.getId();
 	    }
 	});  
   
+  
+  function openAhSearch(){
+		 $('#ahN').val('');
+		 $('#ahG').val('');
+		 $('#ahDsr').val('');
+		 $('#errorSearch').hide();
+		 $('#ah_searchList').hide();
+		 $('#ah_se').dialog('open');
+	 }
+  
   function searchAh(){
 		var ahN=$('#ahN').val();
 		var ahG=$('#ahG').val();
-		//var lclx="${session.editHuiTuiZjqd.lclx}";
+		var ahDsr=$('#ahDsr').val();
 		var lclx="<%=zjqd.getLclx()%>";
 		var lx=0;
 		if(lclx!='dzz') lx=1;
-		if(ahN!=''&&ahG!=''){
-		$.ajax({
-	  	     url:'ahSearch.do',
-	  	     type:'POST',
-	  	     data:{ahN:encodeURI(encodeURI(ahN)),
-	  	    	ahG:encodeURI(encodeURI(ahG)),
-	  	    	lx:lx},//注意大小写data
-	  	     dataType:'json',
-	  	     success:function (data) {
-	  	       $('#ah_searchList').tree('loadData',data.data);
-	  	     }});
-		}
+			$.ajax({
+		  	     url:'${path}/ahSearch.do',
+		  	     type:'POST',
+		  	     data:{
+		  	    	ahN: encodeURI(encodeURI(ahN)),
+		  	    	ahG: encodeURI(encodeURI(ahG)),
+		  	    	ahDsr: encodeURI(encodeURI(ahDsr)),
+		  	    	lx:lx
+		  	     },
+		  	     dataType:'json',
+		  	     success:function (data) {
+		  	    	 if(data.data.length>0){
+		  	    	 	$('#ah_searchList').show();
+		  	    		$('#errorSearch').hide();
+			  	        $('#ah_searchList').tree('loadData', data.data);
+		  	    	 }else{
+		  	    		$('#ah_searchList').hide();
+		  	    		 $('#errorSearch').show();
+		  	    	 }
+		  	     }
+		  	});
 	}
    
    </script>
@@ -354,37 +389,67 @@ ZjqdId zjqdId = zjqd.getId();
     <div style="margin-left:5px;">载入当事人列表：<a id="search_dsr" onclick="searchDsr()" iconCls="icon-search"></a></div>
     <hr/><ul id="dsr_searchList"></ul>
    </div>
+   
+   <div id="dsr_se" style="width:400px;height:300px;">
+    	<table id="dsrgrid" ></table>
+	</div>	
+   
    <script>
    $('#search_dsr').linkbutton({}); 
    
    $('#dsr_se').dialog({
-	    title:'添加当事人',
+	    title:'当事人列表',
 	    iconCls:'icon-search',
-	    closed:true});
+	    closed:true,
+	    buttons:[{
+			text:'确定',
+			handler:function(){
+				var selRow = $('#dsrgrid').datagrid('getSelected');
+				if(selRow!=null){
+					$('input[name=tjr]').val(selRow.mc);
+					$('input[name=tjrlxdh]').val(selRow.lxdh);
+					$('input[name=djrsfz]').val(selRow.sfzhm);
+				}
+				$('#dsr_se').dialog('close');
+			}
+		},{
+			text:'取消',
+			handler:function(){
+				$('#dsr_se').dialog('close');
+			}
+		}]
+	});
   
-  $('#dsr_searchList').tree({  
-	    checkbox: false,
-	    onClick: function(node){		 
-			if(node.attributes.leaf=="true"){				 
-				 $('input[name=tjrlxdh]').val(node.attributes.lxdh);				 			 
-				 $('input[name=djrsfz]').val(node.attributes.sfzhm);
-				 $('input[name=tjr]').val(node.attributes.dsrxm);
-			 }
-	    }
-	});  
+   $('#dsrgrid').datagrid({
+		rownumbers:false,
+		striped:true,
+		fitColumns:true,
+		idField:'ah',
+		border:true,
+		singleSelect:true,
+		url:"dsrSearchList.do",
+		queryParams : {
+			ah : $('input[name=ahdm]').val()
+		},
+		columns:[[
+			{field:'mc',title:'当事人',width:120,align:'center'},
+			{field:'lx',title:'当事人类型',width:120,align:'center'},
+			{field:'lxdh',title:'联系电话',width:120,align:'center'},
+			{field:'sfzhm',title:'证件(机构)号码',width:120,align:'center'}
+		]]
+	}); 
   
-  function searchDsr(){
-	    var ah=$('input[name=ah]').val();
+   function searchDsr(){
+		var ah=$('input[name=ahdm]').val();
 		if(ah!=''){
-		$.ajax({
-	  	     url:'dsrSearch.do',
-	  	     type:'POST',
-	  	     data:{ah:encodeURI(encodeURI(ah))},//注意大小写data
-	  	     dataType:'json',
-	  	     success:function (data) {
-	  	       $('#dsr_searchList').tree('loadData',data.data);
-	  	     }});
-		}else alert("请先输入案号");
+			$('#dsrgrid').datagrid('load',{
+				ah : ah
+			});
+			$('#dsrgrid').datagrid('clearSelections');
+			$('#dsr_se').dialog('open');
+		}else{
+			alert("请先输入案号");
+		}
 	}
    
    </script>

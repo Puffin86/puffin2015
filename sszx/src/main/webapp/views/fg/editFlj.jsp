@@ -17,39 +17,41 @@
 <body style="background:#fff;">
     <table style="font-size:12px;margin-left:10px;" id="ssclzjqd">
       <tr>
-       <td width="20%">案号：</td>
-       <td>
+       <td width="15%">案号：</td>
+       <td  width="35%">
 	       <input class="easyui-validatebox" required="true" name="ah" type="text"/>
 	       <input name="ahdm" style="display:none;" type="text"/>
 	       <a id="research" onClick="openAhSearch()" style="margin-top:-5px" iconCls="icon-search"></a>
        </td>
+        <td width="15%">&nbsp;</td>
+       <td width="35%">&nbsp;</td>
      </tr>
      <tr>
-       <td width="20%" >承办人：</td>
+       <td  >承办人：</td>
        <td>
        	   <input class="easyui-validatebox" required="true" readOnly="readOnly" name="sjrXm" type="text"/>
            <input style="display:none;" name="sjr" type="text"/>
        </td>
-       <td width="20%" >&nbsp;&nbsp;承办部门：</td>
+       <td >&nbsp;&nbsp;承办部门：</td>
        <td>
        	   <input class="easyui-validatebox" required="true" readOnly="readOnly" name="sjrbmMc" type="text"/>
            <input style="display:none;" name="sjrbm" type="text"/>
        </td>
      </tr>
      <tr>
-       <td width="20%" >当事人：</td>
+       <td >当事人：</td>
        <td>
 	       <input class="easyui-validatebox" required="true" name="tjr" type="text"/>
 	       <input style="display:none;" type="text"/>
 	       <a id="dsr_bt" onClick="searchDsr()" style="margin-top:-5px" iconCls="icon-add"></a>
 	   </td>
-       <td width="20%">&nbsp;&nbsp;当事人联系电话：</td>
+       <td >&nbsp;&nbsp;当事人联系电话：</td>
        <td><input name="tjrlxdh" type="text"/></td>
      </tr> 
      <tr>
-       <td width="20%">当事人证件号码：</td>
+       <td >当事人证件号码：</td>
        <td><input name="djrsfz" type="text"/></td>
-       <td width="20%">&nbsp;&nbsp;递交日期：</td>
+       <td >&nbsp;&nbsp;递交日期：</td>
        <td><input class="easyui-datebox" editable="false" id="djrq" name="djrq" type="text"/></td>
      </tr>
      <tr>
@@ -60,26 +62,8 @@
      </tr>
    </table>
    <hr/> 
-     <!--
-   <div style="margin-left:10px;">     
-     <div>添加材料信息：<a id="cl_add" class="add" iconCls="icon-add"></a></div>
-     <div class="cl" id="clmxtr" style="visibility:hidden;margin-top:5px">
-       <div>材料名称：<input name="clmc" type="text"/>
-       	&nbsp;&nbsp;份数： <input name="clfs"  style="width:30px" type="text"/>
-       	<input name="clys" style="width:30px;display:none;" value="0" type="text"/>      
-       	<a id="cl_remove" class="remove" style="margin-top:-7px" iconCls="icon-cancel"></a>
-       </div>
-     </div>
-   </div>
-   -->
    <div>   
-     <table width="100%" border="0" cellpadding="2" cellspacing="0" style="font-size:12px;">
-     	<tr>
-     		<td width="20%">添加材料信息：<a id="cl_add" class="add" iconCls="icon-add"></a></td>
-     		<td width="80%">&nbsp;</td>
-     	</tr>
-     </table>  
-     
+     <div>添加材料信息：<a id="cl_add" class="add" iconCls="icon-add"></a></div>
      <div class="cl" id="clmxtr" style="visibility:hidden;margin-top:5px">
        <div>
 	       	材料名称：<input name="clmc" type="text"/>&nbsp;&nbsp;

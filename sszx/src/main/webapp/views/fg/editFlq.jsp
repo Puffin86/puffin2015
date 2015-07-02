@@ -14,24 +14,26 @@
 	List<Clb> list=(List<Clb>)session.getAttribute("editFlqClb");
 %>
   
-<body style="font-size:12px;background:#fff;">
+<body style="background:#fff;">
     <table width="100%" border="0" cellpadding="2" cellspacing="0" style="font-size:12px;" id="ssclzjqd">
 	      <tr>
 	       <td width="15%">案号：</td>
-	       <td colspan="3">
+	       <td width="35%">
 	       		<input class="easyui-validatebox" required="true" readOnly="readOnly" name="ah" type="text"/>
 	       		<input name="ahdm" style="display:none;" type="text"/>
 	       		<a id="research" class="easyui-linkbutton" onClick="openAhSearch()" style="margin-top:-5px" iconCls="icon-search"></a>
 	       </td>
+	       <td width="15%">&nbsp;</td>
+       	   <td width="35%">&nbsp;</td>
 	     </tr>
 	     <tr>
-	       <td width="15%">承办人：</td>
-	       <td width="35%">
+	       <td >承办人：</td>
+	       <td >
 	       	   <input class="easyui-validatebox" required="true" readOnly="readOnly" name="sjrXm" type="text"/>
 	           <input style="display:none;" name="sjr" type="text"/>
 	       </td>
-	       <td width="15%">&nbsp;&nbsp;承办部门：</td>
-	       <td width="35%">
+	       <td >&nbsp;&nbsp;承办部门：</td>
+	       <td >
 	       	   <input class="easyui-validatebox" required="true" readOnly="readOnly" name="sjrbmMc" type="text"/>
 	           <input style="display:none;" name="sjrbm" type="text"/>
 	       </td>

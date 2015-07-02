@@ -31,6 +31,12 @@ public class Cxjl {
 	public void ywlxcx(HttpServletRequest requst,HttpServletResponse response){
 		ZdDao zdDao = new ZdDao();
 		List<ZdMx> list = zdDao.findZdMx("ywlx");
+		if(list.size()>0){
+			ZdMx allzd = new ZdMx();
+			allzd.setZdmxbm("");
+			allzd.setZdmxmc("全部");
+			list.add(0, allzd);
+		}
 		JSONArray jsonArr = JSONArray.fromObject(list);
 		HttpHelper.renderJson(jsonArr.toString(), response);
 	}
