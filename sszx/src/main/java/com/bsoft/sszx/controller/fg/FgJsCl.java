@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import net.sf.json.JSONObject;
 
@@ -14,8 +15,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bsoft.sszx.dao.UserDao;
 import com.bsoft.sszx.dao.ZdDao;
 import com.bsoft.sszx.dao.ZjqdDao;
+import com.bsoft.sszx.entity.user.User;
 import com.bsoft.sszx.entity.zd.Zd;
 import com.bsoft.sszx.entity.zd.ZdMx;
 import com.bsoft.sszx.entity.zjqd.Zjqd;
@@ -33,7 +36,17 @@ public class FgJsCl {
 	}
 	
 	@RequestMapping("to_fgYjsCl")
-	public String toFgYjsCl(){
+	public String toFgYjsCl(HttpServletRequest request,HttpServletResponse response, HttpSession session){
+		String user = (String) session.getAttribute("user");
+		String fydm = (String) session.getAttribute("fydm");
+		UserDao userDao = new UserDao();
+		User userBean = userDao.findUserById(user, fydm);
+		String userBm = userBean.getYhbm();
+		//案件被领取数量
+		ZjqdDao dao = new ZjqdDao();
+		dao.changesfck1(fydm, userBm, 8);
+		dao.changesfck2(fydm, userBm, 8);
+		
 		return "fg/fgYjsCL";
 	}
 	

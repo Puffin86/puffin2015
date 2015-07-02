@@ -109,7 +109,7 @@ public class ZjqdDao {
 			session = HibernateUtil.getSession(); // 获取Session
 			session.beginTransaction(); // 开启事物
 			String sql = "from Zjqd where sjr='" + user + "' and zt=" + zt
-					+ " and fydm=" + fydm+" and lclx='"+lclx+"'";
+					+ " and fydm=" + fydm+" and sfck=2 and lclx='"+lclx+"'";
 			list = (List<Zjqd>) session.createQuery(sql).list();
 			session.getTransaction().commit();// 提交事物
 		} catch (Exception e) {
@@ -182,7 +182,7 @@ public class ZjqdDao {
 			session = HibernateUtil.getSession(); // 获取Session
 			session.beginTransaction(); // 开启事物
 			String sql = "from Zjqd " + "where sjr='" + user + "' and zt="
-					+ zt + " and id.fydm='" + fydm + "'" +" and lclx='"+lclx+"'";
+					+ zt + " and id.fydm='" + fydm + "' and sfck=2 and lclx='"+lclx+"'";
 			
 			if(sort!=null ||!"".equals(sort)){
 				sql += "  order by "+sort+" "+order;
@@ -507,13 +507,50 @@ public class ZjqdDao {
 		}
 	}
 	
+	//把过渡状态2改变为1--以查看
+	public void changesfck1(String fydm, String user, int zt) {
+		try {
+			session = HibernateUtil.getSession(); // 获取Session
+			session.beginTransaction();
+			String sql = "update zjqd set sfck=1 where fydm='" + fydm + "'"
+					+ " and sjrbm='" + user + "' and zt=" + zt+" and sfck=2";
+			session.createSQLQuery(sql).executeUpdate();
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();// 打印错误信息
+		} finally {
+			HibernateUtil.closeSession(session); // 关闭Session
+		}
+	}
+	
+	//将正在查看的案件变为过渡状态2，便于后面的列表查询
+	public void changesfck2(String fydm, String user, int zt) {
+		try {
+			session = HibernateUtil.getSession(); // 获取Session
+			session.beginTransaction();
+			String sql = "from Zjqd where id.fydm='" + fydm + "'"
+					+ " and sjrbm='" + user + "' and zt=" + zt+" and sfck=0";
+			List<Zjqd> list = (List<Zjqd>)session.createQuery(sql).list();
+			
+			for(Zjqd zjqd : list){
+				zjqd.setSfck(2);
+				session.save(zjqd);
+			}
+			session.getTransaction().commit();
+
+		} catch (Exception e) {
+			e.printStackTrace();// 打印错误信息
+		} finally {
+			HibernateUtil.closeSession(session); // 关闭Session
+		}
+	}
 	
 	public int countByZt8(String fydm, String user, int zt) {
 		try {
 			session = HibernateUtil.getSession(); // 获取Session
 			session.beginTransaction();
 			String sql = "from Zjqd where id.fydm='" + fydm + "'"
-					+ " and sjrbm='" + user + "' and zt=" + zt;
+					+ " and sjrbm='" + user + "' and zt=" + zt +" and sfck=0";
 			List list = session.createQuery(sql).list();
 			session.getTransaction().commit();
 			return list.size();
