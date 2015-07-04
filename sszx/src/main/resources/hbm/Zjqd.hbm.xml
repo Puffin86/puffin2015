@@ -132,6 +132,11 @@
                 <comment>状态（0：主动提交；1：预约领取；2：预约提交；）</comment>
             </column>
         </property>
+        <property name="sfck" type="java.lang.Integer">
+            <column name="sfck" length="2">
+                <comment>领取案件，是否被法官查看  0否 1是</comment>
+            </column>
+        </property>
         <property name="sxsj" type="java.sql.Timestamp">
             <column name="sxsj"  />
         </property>

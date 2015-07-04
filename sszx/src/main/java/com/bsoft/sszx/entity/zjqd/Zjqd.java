@@ -44,7 +44,7 @@ public class Zjqd implements java.io.Serializable {
 	private String dlr;//材料清单描述
 	private String dlrdh;//材料清单描述
 	private String zyzh;//材料清单描述
-	
+	private Integer sfck;//是否查看
 
 	// Constructors
 
@@ -65,7 +65,7 @@ public class Zjqd implements java.io.Serializable {
 			String sjrlxdh, String lclx, String dqcyr, String qscyr,
 			String hscyr, String dsrsfzhm, String lzjl, String sjrXm,
 			String sjrBmmc,Integer ywlx,Integer sx,Timestamp sxsj,Integer sl,String clqd,
-			String dlr,String dlrdh,String zyzh
+			String dlr,String dlrdh,String zyzh,Integer sfck
 			) {
 		this.id = id;
 		this.ah = ah;
@@ -97,6 +97,7 @@ public class Zjqd implements java.io.Serializable {
 		this.dlr = dlr;
 		this.dlrdh = dlrdh;
 		this.zyzh = zyzh;
+		this.sfck = sfck;
 	}
 
 	// Property accessors
@@ -371,6 +372,14 @@ public class Zjqd implements java.io.Serializable {
 
 	public void setZyzh(String zyzh) {
 		this.zyzh = zyzh;
+	}
+
+	public Integer getSfck() {
+		return sfck;
+	}
+
+	public void setSfck(Integer sfck) {
+		this.sfck = sfck;
 	}
 
 }
