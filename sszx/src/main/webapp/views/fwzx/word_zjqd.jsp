@@ -82,7 +82,6 @@ function isIEBrowser() {
    function OpenWedFile()
 	{
 		var File = '<%=path%>';
-		alert(File);
 		plugin.SetFileZoom(75);//设置缩放比例
 		var Res = plugin.OpenWebFile(File);
 		if(Res != 0){

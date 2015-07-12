@@ -82,6 +82,12 @@ String bh=(String)session.getAttribute("fjbh");
 			        handler:function(){
 			        	uploadFile();
 			        }
+		        },{
+		        	text:'刷新',
+			        iconCls:'icon-reload',
+			        handler:function(){
+			        	reloadGrid();
+			        }
 		        }
         	]
 	   });
@@ -177,6 +183,14 @@ String bh=(String)session.getAttribute("fjbh");
    	     		}
     	     });	   
    }
+   
+   function reloadGrid(){
+   		$('#fjgrid').datagrid('load',{
+   			bh : '<%=bh%>',
+			fydm : '<%=fydm%>'
+   		});
+   }
+   
    
    function uploadFile(){
 	   $('#fjmc2').val('');

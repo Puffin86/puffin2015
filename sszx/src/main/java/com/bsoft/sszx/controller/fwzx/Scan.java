@@ -31,25 +31,25 @@ public class Scan {
 		    
 		    FjDao fjDao=new FjDao();			
 			int xh=fjDao.getMaxId(fydm,bh);
-			String fileName = fydm+"_"+bh+"_"+xh+fileFormat;
+			String fileName = fjmc+"_FJSM_"+fydm+"_"+bh+"_"+xh;
+		    System.out.println(fileName);
 		    
-		    sun.misc.BASE64Decoder decode=new sun.misc.BASE64Decoder();
-		    byte[] datas=decode.decodeBuffer(pic_base_64_data.substring(1, pic_base_64_data.length()-2));
 		    File file=new File(savePath+fileName+fileFormat);
-		    OutputStream fos=new FileOutputStream(file);
+	    	sun.misc.BASE64Decoder decode=new sun.misc.BASE64Decoder();
+		    byte[] datas=decode.decodeBuffer(pic_base_64_data.substring(1, pic_base_64_data.length()-2));
+	    	OutputStream fos=new FileOutputStream(file);
 		    fos.write(datas);
 		    fos.close();
-		    
-			Fjb fjb =new Fjb();
-			FjbId FjbId=new FjbId();
-			FjbId.setBh(Integer.valueOf(bh));
-			FjbId.setFydm(fydm);
-			FjbId.setXh(xh);
-			fjb.setId(FjbId);
-			fjb.setFjmc(fjmc);
-			fjb.setFjdz(fileName);
-			fjDao.saveFjb(fjb);
-		    
+	    	
+		    Fjb fjb =new Fjb();
+		    FjbId FjbId=new FjbId();
+		    FjbId.setBh(Integer.valueOf(bh));
+		    FjbId.setFydm(fydm);
+		    FjbId.setXh(xh);
+		    fjb.setId(FjbId);
+		    fjb.setFjmc(fjmc);
+		    fjb.setFjdz(fileName+".tiff");
+		    fjDao.saveFjb(fjb);
 	}
 	
 }
