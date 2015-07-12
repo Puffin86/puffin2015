@@ -48,6 +48,13 @@ $(document).ready(function(){
 function load(){
 	plugin = getPluginObjcet("plugin");
 	//plugin.DisplayToolBar("0");
+	plugin.DisplayToolBar("1");
+	plugin.DisplayToolButton("400",0);
+	plugin.DisplayToolButton("205",0);
+	plugin.DisplayToolButton("417",0);
+	plugin.DisplayToolButton("483",0);
+	plugin.DisplayToolButton("492",0);
+	plugin.DisplayToolButton("484",0);
 }
 function isIEBrowser() {
 	var isAtLeastIE11 = !!(navigator.userAgent.match(/Trident/) && !navigator.userAgent.match(/MSIE/));
@@ -75,7 +82,8 @@ function isIEBrowser() {
    function OpenWedFile()
 	{
 		var File = '<%=path%>';
-		//plugin.SetFileZoom(200);//设置缩放比例
+		alert(File);
+		plugin.SetFileZoom(75);//设置缩放比例
 		var Res = plugin.OpenWebFile(File);
 		if(Res != 0){
 			alert("打开网络文件失败，错误码为:"+Res);
@@ -89,7 +97,7 @@ function isIEBrowser() {
 	    var c = "<sign><signType>1</signType><file><fileType>1</fileType><fileName>";
 		var path = plugin.CurrentCachePath;
 		var d = c.concat(path);
-		var e = d.concat("</fileName><posPage></posPage><posX>240</posX><posY>300</posY><keyword></keyword><posMouse>120</posMouse></file><cert><authType>1</authType><mobile></mobile><userPwd></userPwd><payAccount></payAccount><payPwd></payPwd></cert></sign>");
+		var e = d.concat("</fileName><posPage></posPage><posX>450</posX><posY>670</posY><keyword></keyword><posMouse>120</posMouse></file><cert><authType>1</authType><mobile></mobile><userPwd></userPwd><payAccount></payAccount><payPwd></payPwd></cert></sign>");
 		//alert(e);
 		var h = plugin.HandServerSign(e);
 	}
@@ -103,10 +111,11 @@ function isIEBrowser() {
    function    UpFile()
 	{
 		//var ServerIP = '<%=path%>';
-		var ServerIP = '<%=serverpath%>';
+		//var ServerIP = 'http://localhost:8080/sszx/tempfileUpload.do';
+		var ServerIP = '<%=subpath%>'+'sszx/tempfileUpload.do';
 		var path = plugin.CurrentCachePath;
-		alert(ServerIP);
-		var Res = plugin.UpLoadPdfFile(ServerIP,path,"","");
+		var param= "fileName="+'<%=fileName%>';
+		var Res = plugin.UpLoadPdfFile(ServerIP,path,param,"tempfile");
 		if(Res == 0)
 		{
 			alert("上传文件成功");
@@ -119,6 +128,7 @@ function isIEBrowser() {
 </script>
 
 <body>
+
 <DIV id='showdiv'  style="Z-INDEX: 0; LEFT:10px;  POSITION: absolute; TOP: 30px; bottom:10px;text-align:center"> 
 		<object id="plugin" classid="clsid:EAFFB28E-B6AD-4657-904D-51CD7941A3A4" width="630" height="550">
 			<embed name="plugin" type="application/nptseal-plugin" width="630" height="550"></embed>
@@ -129,5 +139,6 @@ function isIEBrowser() {
 		<a id="fingerprintSign" class="easyui-linkbutton"  onclick="FingerprintSign()">指纹</a>
 		<a id="upLoad" class="easyui-linkbutton"  onclick="UpFile()">上传</a>
 </DIV>
+
 </body>
 </html>

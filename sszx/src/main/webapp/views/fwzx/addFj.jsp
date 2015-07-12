@@ -32,7 +32,7 @@ String bh=(String)session.getAttribute("fjbh");
     				<td><input type="file" name="fileToUpload" id="fileToUpload" style="width:200px"/></td>
     			</tr>
     			</table>
-		</form>
+			</form>
     </div>
 
      <div data-options="region:'center'">

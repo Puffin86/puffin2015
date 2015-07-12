@@ -89,29 +89,23 @@ public class FileUploadAction   {
         String uploadParameters = multipartRequest.getParameter("uploadParameters");
         System.out.println(uploadParameters);
         Map<String,Object> parameters = StringUtil.parseStr(uploadParameters);
-        String fydm=(String)parameters.get("fydm");
-		String bh = (String)parameters.get("bh");
+//        String fydm=(String)parameters.get("fydm");
+//		String bh = (String)parameters.get("bh");
 		String fileName = (String)parameters.get("fileName");
         
         System.out.println(fiels.size());
         // 获得文件：  
         MultipartFile uploadFile = multipartRequest.getFile("tempfile");  
         // 获得文件名：  
-        String filename = uploadFile.getOriginalFilename();  
-        System.out.println(filename);  
+//        String filename = uploadFile.getOriginalFilename();  
+//        System.out.println(filename);  
         // 获得输入流：  
-        SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmssFFF");//设置日期格式
-		String fileNameNew=df.format(new Date());		 
+//        SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmssFFF");//设置日期格式
+//		String fileNameNew=df.format(new Date());		 
 		String serverRealPath = request.getSession().getServletContext().getRealPath("/scan/jpg/");
         if (!uploadFile.isEmpty()) {
         	try {   
-     		    int las=filename.lastIndexOf(".");
-     		    String ext="";
-     		    if(las>0){
-     		    	ext=filename.substring(las);
-     		    }
-     		    String targetFileName=fydm+"_qqq_"+fileNameNew+ext;
-     		   SaveFileFromInputStream(uploadFile.getInputStream(),serverRealPath,targetFileName);   
+     		   SaveFileFromInputStream(uploadFile.getInputStream(),serverRealPath,fileName);   
         	}catch (IOException e) {   
         		flag="error";
                 e.printStackTrace();  

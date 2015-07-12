@@ -79,16 +79,20 @@ public class DsrSearch {
 
 		String fydm = (String) session.getAttribute("fydm");
 		Map<String, Object> map = new HashMap<String, Object>();
-
+		List<Edsr> al = null; 
 		String ah = request.getParameter("ah");
+		String ahText = request.getParameter("ahText");
 		if(ah==null||"".equals(ah)){
 			return;
+		}else{
+			ah = URLDecoder.decode(ah, "UTF-8");
+			ah = URLDecoder.decode(ah, "UTF-8");
+			al=	(List<Edsr>) new ECourtDao().findEdsr(ah);
 		}
-		ah = URLDecoder.decode(ah, "UTF-8");
-		ah = URLDecoder.decode(ah, "UTF-8");
 		
 		
-		List<Edsr> al = (List<Edsr>) new ECourtDao().findEdsr(ah);
+		
+			
 		
 		if(al!=null || al.size()>0){
 			

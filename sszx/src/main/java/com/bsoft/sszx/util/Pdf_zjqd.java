@@ -218,7 +218,7 @@ public class Pdf_zjqd {
 		   table.addCell(cell);
 		   
 		   
-		   cell = new PdfPCell(new Paragraph("AAAA",bodyFont));
+		   cell = new PdfPCell(new Paragraph("",bodyFont));
 		   //cell.setBorder(0);
 		   cell.setFixedHeight(20);
 		   //cell.setColspan(2);//设置合并单元格的列数
@@ -492,7 +492,7 @@ public class Pdf_zjqd {
 		   table.addCell(cell);
 		   
 		   
-		   cell = new PdfPCell(new Paragraph("AAAA",bodyFont));
+		   cell = new PdfPCell(new Paragraph(zjqd.getZjrXm(),bodyFont));
 		   //cell.setBorder(0);
 		   cell.setFixedHeight(20);
 		   //cell.setColspan(2);//设置合并单元格的列数

@@ -73,8 +73,8 @@ function isIEBrowser() {
 	{
 		var File = '<%=path%>';
 		//alert(File);
-		//plugin.SetFileZoom(45);
-		plugin.SetFileZoom(100);
+		plugin.SetFileZoom(45);
+		//plugin.SetFileZoom(100);
 		var Res = plugin.OpenWebFile(File);
 		if(Res == 0)
 		{
@@ -93,7 +93,7 @@ function isIEBrowser() {
 	    var c = "<sign><signType>1</signType><file><fileType>1</fileType><fileName>";
 		var path = plugin.CurrentCachePath;
 		var d = c.concat(path);
-		var e = d.concat("</fileName><posPage></posPage><posX>460</posX><posY>200</posY><keyword></keyword><posMouse>120</posMouse></file><cert><authType>1</authType><mobile></mobile><userPwd></userPwd><payAccount></payAccount><payPwd></payPwd></cert></sign>");
+		var e = d.concat("</fileName><posPage></posPage><posX>460</posX><posY>210</posY><keyword></keyword><posMouse>120</posMouse></file><cert><authType>1</authType><mobile></mobile><userPwd></userPwd><payAccount></payAccount><payPwd></payPwd></cert></sign>");
 		//alert(e);
 		var h = plugin.HandServerSign(e);
 	}
@@ -107,10 +107,11 @@ function isIEBrowser() {
    function    UpFile()
 	{
 		//var ServerIP = '<%=path%>';
-		var ServerIP = '<%=serverpath%>';
+		//var ServerIP = '<%=serverpath%>';
+		var ServerIP = '<%=subpath%>'+'sszx/tempfileUpload.do';
 		var path = plugin.CurrentCachePath;
-		alert(path);
-		var Res = plugin.UpLoadPdfFile(ServerIP,path,"","");
+		var param= "fileName="+'<%=fileName%>';
+		var Res = plugin.UpLoadPdfFile(ServerIP,path,param,"tempfile");
 		if(Res == 0)
 		{
 			alert("上传文件成功");

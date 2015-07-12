@@ -48,7 +48,7 @@ ZjqdId zjqdId = zjqd.getId();
        <td width="230px">
        <input class="easyui-validatebox" required="true" name="tjr" type="text"></input>
        <input style="display:none;" type="text"></input>
-       <a id="dsr_bt" onClick="$('#dsr_se').dialog('open');" style="margin-top:-5px" iconCls="icon-add"></a></td>
+       <a id="dsr_bt" onClick="searchDsr()" style="margin-top:-5px" iconCls="icon-add"></a></td>
        <td width="140px">&nbsp;&nbsp;当事人联系电话：</td>
        <td><input name="tjrlxdh" type="text"></input></td>
      </tr> 
@@ -385,17 +385,13 @@ ZjqdId zjqdId = zjqd.getId();
    
    </script>
      
-     <div id="dsr_se" style="width:400px;height:300px;">
-    <div style="margin-left:5px;">载入当事人列表：<a id="search_dsr" onclick="searchDsr()" iconCls="icon-search"></a></div>
-    <hr/><ul id="dsr_searchList"></ul>
-   </div>
-   
    <div id="dsr_se" style="width:400px;height:300px;">
     	<table id="dsrgrid" ></table>
 	</div>	
    
    <script>
    $('#search_dsr').linkbutton({}); 
+   
    
    $('#dsr_se').dialog({
 	    title:'当事人列表',

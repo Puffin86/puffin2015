@@ -46,7 +46,7 @@ ZjqdId zjqdId = zjqd.getId();
        <td width="20%" >当事人：</td>
        <td><input class="easyui-validatebox" required="true" name="tjr" type="text"></input>
        <input style="display:none;" type="text"></input>
-       <a id="dsr_bt" onClick="$('#dsr_se').dialog('open');" style="margin-top:-5px" iconCls="icon-add"></a></td>
+       <a id="dsr_bt" onClick="searchDsr()" style="margin-top:-5px" iconCls="icon-add"></a></td>
        <td width="20%">&nbsp;&nbsp;当事人联系电话：</td>
        <td><input name="tjrlxdh" type="text"></input></td>
      </tr> 
@@ -295,24 +295,24 @@ ZjqdId zjqdId = zjqd.getId();
 		}
 	}
    </script>
-   
    <div id="ah_se" style="width:400px;height:300px;">
 	   <table style="font-size:12px">
-	   	<tr>
-	   		<td>年份：</td>
-	   		<td><input id="ahN" style="margin-left:5px;margin-top:5px" type="text"></td>
-	   	</tr>
-	    <tr>
-	   		<td>当事人：</td>
-	   		<td><input id="ahdsr" style="margin-left:5px;margin-top:5px" type="text"></td>
-	   	</tr>
-	    <tr>
-	    	<td>关键字：</td>
-	    	<td >
-	    		<input id="ahG" style="margin-left:5px;margin-top:5px" type="text"/>
-	       		<a id="search_ah" onclick="searchAh()" >查询</a>
-	       	</td>
-	     </tr>
+		   	<tr>
+		   		<td>年份：</td>
+		   		<td><input id="ahN" style="width:100px;margin-left:5px;margin-top:5px" type="text"></td>
+		   		<td >案号：</td>
+		    	<td >
+		    		<input id="ahG" style="width:100px;margin-left:5px;margin-top:5px" type="text"/>
+		       	</td>
+		   	</tr>
+		    <tr>
+		   		<td>当事人：</td>
+		   		<td><input id="ahdsr" style="width:100px;margin-left:5px;margin-top:5px" type="text"></td>
+		   		<td>&nbsp;</td>
+		   		<td>
+		       		<a id="search_ah" onclick="searchAh()" iconCls="icon-search">查询</a>
+		       	</td>
+		   	</tr>
 	    </table>
        <hr/>
        <ul id="ah_searchList"></ul>
@@ -343,7 +343,7 @@ ZjqdId zjqdId = zjqd.getId();
 		var ahN=$('#ahN').val();
 		var ahG=$('#ahG').val();
 		var ahdsr=$('#ahdsr').val();
-		if(ahN!=''&&ahG!=''){
+		//if(ahN!=''&&ahG!=''){
 			$.ajax({
 		  	     url:'ahSearch.do',
 		  	     type:'POST',
@@ -357,20 +357,18 @@ ZjqdId zjqdId = zjqd.getId();
 		  	       $('#ah_searchList').tree('loadData',data.data);
 		  	     }
 		  	 });
-		}
+		//}
 	}
    
    </script>
    
-<!--    <div id="dsr_se" style="width:400px;height:300px;"> -->
-<!--     <div style="margin-left:5px;">载入当事人列表：<a id="search_dsr" onclick="searchDsr()" iconCls="icon-search"></a></div> -->
-<!--     <hr/><ul id="dsr_searchList"></ul> -->
-<!--    </div> -->
    
    <div id="dsr_se" style="width:400px;height:300px;">
     	<table id="dsrgrid" ></table>
    </div>
    <script>
+   
+
    
    //$('#search_dsr').linkbutton({}); 
    $('#dsrgrid').datagrid({
@@ -382,7 +380,7 @@ ZjqdId zjqdId = zjqd.getId();
 		singleSelect:true,
 		url:"dsrSearchList.do",
 		queryParams : {
-			ah : $('input[name=ah]').val()
+			ah : $('input[name=ahdm]').val()
 		},
 		columns:[[
 			{field:'mc',title:'当事人',width:120,align:'center'},

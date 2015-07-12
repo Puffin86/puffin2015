@@ -1,4 +1,5 @@
 package com.bsoft.sszx.controller.fwzx;
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
@@ -11,7 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bsoft.sszx.dao.ClbDao;
+import com.bsoft.sszx.dao.FjDao;
 import com.bsoft.sszx.dao.ZjqdDao;
+import com.bsoft.sszx.entity.fjb.Fjb;
+import com.bsoft.sszx.entity.fjb.FjbId;
 import com.bsoft.sszx.entity.zjqd.Zjqd;
 import com.bsoft.sszx.util.Pdf_zjqd;
 
@@ -48,6 +52,25 @@ public class Word  {
 		String serverRealPath = request.getSession().getServletContext().getRealPath("/scan/jpg/")+"\\";
 		String fileName=Zjqd.getId().getFydm()+"_"+Zjqd.getId().getBh()+"_"+Zjqd.getLclx()+".pdf";  
 		
+		File file = new File(serverRealPath+fileName);
+		System.out.println("file.exists()"+file.exists());
+	       if(!file.exists()){
+	    	   FjDao fjDao=new FjDao();			
+	   		int xh=fjDao.getMaxId(fydm,bh);
+	   		Fjb fjb =new Fjb();
+	   		FjbId FjbId=new FjbId();
+	   		FjbId.setBh(Integer.valueOf(bh));
+	   		FjbId.setFydm(fydm);
+	   		FjbId.setXh(xh);
+	   		
+	   		fjb.setId(FjbId);
+	   		fjb.setFjmc("转接清单");
+	   		fjb.setFjdz(fileName);
+	   		
+	   		fjDao.saveFjb(fjb);
+	       }
+		
+		
 		Pdf_zjqd mCreatPDF=new Pdf_zjqd();
 		mCreatPDF.createPDF_zjqd(serverRealPath,fileName,Zjqd,clbList);
 		session.setAttribute("fileName",fileName);
@@ -55,6 +78,7 @@ public class Word  {
 			session.setAttribute("tool","show");
 		else
 			session.setAttribute("tool","hide");
+		
 		return "fwzx/word_zjqd";
 	}
 	

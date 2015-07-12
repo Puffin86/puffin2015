@@ -123,7 +123,7 @@ $(function(){
 	}
 	
 	function Word(bh){
-		 url='${path}/word_zjqd.do?bh='+bh+'&tool=no';
+		 url='${path}/word_zjqd.do?bh='+bh+'&tool=show';
 		 window.open(url,"new",
 				 "height=600px,width=650px,toolbar=no,status=no,menubar=no,scrollbars=yes,resizable=yes");
 		

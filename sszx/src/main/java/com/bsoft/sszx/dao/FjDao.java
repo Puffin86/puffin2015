@@ -53,7 +53,7 @@ public class FjDao {
 					+ "'" + " and id.bh=" + bh;
 			List list = session.createQuery(sql).list();
 			session.getTransaction().commit();
-			return (Integer) list.get(0) + 1;
+			return (list==null?1:(Integer) list.get(0)+1);
 
 		} catch (Exception e) {
 			e.printStackTrace();// 打印错误信息
