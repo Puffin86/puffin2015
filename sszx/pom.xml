@@ -237,11 +237,14 @@
 			<version>1.7.12</version>
 		</dependency>
 				
-<!-- 		<dependency> -->
-<!-- 			<groupId>xfire</groupId> -->
-<!-- 			<artifactId>xfire</artifactId> -->
-<!-- 			<version>1.2.6</version> -->
-<!-- 		</dependency> -->
+		<dependency> 
+		    <groupId>com.pdcss</groupId> 
+		    <artifactId>pdcss_SendSMS</artifactId> 
+		    <version>1</version> 
+		    <type>jar</type> 
+		    <scope>system</scope> 
+		    <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/pdcss_SendSMS.jar</systemPath> 
+		</dependency>
 		
 		
 	</dependencies>
