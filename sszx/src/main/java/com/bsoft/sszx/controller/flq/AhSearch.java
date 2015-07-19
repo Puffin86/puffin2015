@@ -73,11 +73,21 @@ public class AhSearch {
 
 			UserDao userDao = new UserDao();
 
-			String bmmc = userDao.findBm(cbbm, fydm).getBmmc();
-			cbr = cbr.replace(fydm, "");
-			String cbrxm = userDao.findUserById(cbr, fydm).getYhxm();
+			
+			cbr = cbr.replace(fydm, "").replaceAll(" ", "");
+			String cbrxm = "";
+			String text = ah;
+			if(cbr.length()>0){
+				cbrxm = userDao.findUserById(cbr, fydm).getYhxm();
+				text = text + " 承办人：" + cbrxm;
+			}
 
-			String text = ah + " 承办人：" + cbrxm;
+			String bmmc = "";
+			cbbm = cbbm.replaceAll(" ", "");
+			if(cbbm.length()>0){
+				bmmc = userDao.findBm(cbbm, fydm).getBmmc();
+			}
+			
 			leaf.setText(text);
 
 			Map<String, String> attributes = new HashMap<String, String>();

@@ -25,6 +25,7 @@
 var plugin;
 $(document).ready(function(){
 	load();
+	//alert(1)
 	OpenWedFile();
 });
 
@@ -64,7 +65,7 @@ function isIEBrowser() {
    function OpenWedFile()
 	{
 		var File = '<%=path%>';
-		plugin.SetFileZoom(100);
+		plugin.SetFileZoom(80);
 		var Res = plugin.OpenWebFile(File);
 		if(Res != 0){
 			alert("打开网络文件失败，错误码为:"+Res);

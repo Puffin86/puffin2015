@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import net.sf.json.JSONObject;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,6 +28,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.bsoft.sszx.dao.FjDao;
 import com.bsoft.sszx.entity.fjb.Fjb;
 import com.bsoft.sszx.entity.fjb.FjbId;
+import com.bsoft.sszx.util.HttpHelper;
 import com.bsoft.sszx.util.StringUtil;
 
 @Controller
@@ -82,6 +85,12 @@ public class FileUploadAction   {
          }
         return flag;
     }
+	
+//	map.put("total", all.size());
+//	map.put("rows", al);
+//	JSONObject resultObj=JSONObject.fromObject(map); //将map对象转换成为json对象
+//	HttpHelper.renderJson(resultObj.toString(), response);
+	
 	
 	@ResponseBody  
     @RequestMapping("tempfileUpload")  

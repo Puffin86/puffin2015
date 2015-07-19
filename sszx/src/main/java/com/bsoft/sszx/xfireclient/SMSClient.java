@@ -8,6 +8,7 @@ import com.bsoft.sszx.entity.sms.SmsBean;
 
 import dxpt.Client.SearchSMSClient;
 import dxpt.Client.SendSMSClient;
+import dxpt.Client.SendSMSPortType;
 
 public class SMSClient {
 	
@@ -15,7 +16,6 @@ public class SMSClient {
 	private String fsr_fybm = "";//法院编码
 	private String fsr_userid="";//发送人ID 1300-linjd OA中获取
 	private String jssjhm="";//接收手机号码；
-	
 	
 	/**
 	 * 发送短信
@@ -38,8 +38,10 @@ public class SMSClient {
 			smsArr[0][7] = bean.getFssm();
 			smsArr[0][8] = bean.getId2();
 			smsArr[0][9] = bean.getAh();
-			SendSMSClient smsClient  = new SendSMSClient();
-			sendRet = smsClient.SendMessage(smsArr, null);
+
+			SendSMSClient client = new SendSMSClient();
+		    SendSMSPortType service = client.getSendSMSHttpPort();
+			sendRet = service.sendMessage(smsArr, null);
 		}
 		return sendRet;
 //		返回数据也为二维数组：
@@ -70,8 +72,9 @@ public class SMSClient {
 				smsArr[i][9] = bean.getAh();
 			}
 			
-			SendSMSClient smsClient  = new SendSMSClient();
-			sendRet = smsClient.SendMessage(smsArr, null);
+			SendSMSClient client = new SendSMSClient();
+		    SendSMSPortType service = client.getSendSMSHttpPort();
+			sendRet = service.sendMessage(smsArr, null);
 		}
 		return sendRet;
 //		返回数据也为二维数组：
@@ -94,8 +97,9 @@ public class SMSClient {
 	 */
 	public String[][] delSMS(String[] smsIds){
 		boolean serviceFlag = false;
-		SendSMSClient smsClient  = new SendSMSClient();
-		String[][] delRet = smsClient.delSMS("023", smsIds);
+		SendSMSClient client = new SendSMSClient();
+	    SendSMSPortType service = client.getSendSMSHttpPort();
+	    String[][] delRet = service.delSMS("", smsIds);
 		return delRet;
 	}
 	

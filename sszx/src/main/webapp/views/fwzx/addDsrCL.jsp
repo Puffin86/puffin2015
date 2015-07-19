@@ -306,8 +306,9 @@ String fydm=(String)session.getAttribute("fydm");
   $('#ah_searchList').tree({  
 	    checkbox: false,
 	    onClick: function(node){		 
-			if(node.attributes.leaf=="true"){				 
-				 $('input[name=ah]').val(node.attributes.ah);				 			 
+			if(node.attributes.leaf=="true"){
+				 $('input[name=ah]').val(node.attributes.ah);		
+				 
 				 $('input[name=sjrXm]').val(node.attributes.cbrxm);
 				 $('input[name=sjrbm]').val(node.attributes.cbbm);
 				 $('input[name=sjr]').val(node.attributes.cbr);

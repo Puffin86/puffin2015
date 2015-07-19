@@ -247,5 +247,21 @@
 		</dependency>
 		
 		
+		<dependency>
+			<groupId>org.codehaus.xfire</groupId>
+			<artifactId>xfire-all</artifactId>
+			<version>1.2.6</version>
+		</dependency>
+
+		<dependency> 
+		    <groupId>xml-apis</groupId> 
+		    <artifactId>xml-apis</artifactId> 
+		    <version>1.0.b2</version> 
+		    <type>jar</type> 
+		    <scope>system</scope> 
+		    <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/xml-apis-1.0.b2.jar</systemPath> 
+		</dependency>
+		
+		
 	</dependencies>
 </project>
