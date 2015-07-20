@@ -13,12 +13,9 @@ import net.sf.json.JSONObject;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.bsoft.sszx.dao.UserDao;
-import com.bsoft.sszx.dao.ZjqdDao;
 import com.bsoft.sszx.entity.sms.SmsBean;
-import com.bsoft.sszx.entity.zjqd.Zjqd;
-import com.bsoft.sszx.util.GetTime;
 import com.bsoft.sszx.util.HttpHelper;
 import com.bsoft.sszx.xfireclient.SMSClient;
 
@@ -28,10 +25,16 @@ import dxpt.Client.SendSMSPortType;
 @Controller
 public class SMSContorller {
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping("sendsms")
 	public void execute(HttpServletRequest request,
 			HttpServletResponse response, HttpSession session)
 			throws Exception {
+		
+		String fsr_userid = request.getParameter("fsr_userid");
+		String jssjhm = request.getParameter("jssjhm");
+		String jsrmc = request.getParameter("jsrmc");
+		String fsnr = request.getParameter("fsnr");
 		
 		InetAddress addr = InetAddress.getLocalHost();
 		String ip = addr.getHostAddress();
@@ -70,23 +73,39 @@ public class SMSContorller {
 		}
 		System.out.println("Date:"+date);
 		String id2 =ip+date+"00001";
-		System.out.println(id2);
+		System.out.println("ID2:"+id2);
 		SMSClient smsc = new SMSClient();
 		SmsBean bean = new SmsBean();
-		bean.setFsr_userid("1303-Zuh");
-		bean.setJssjhm("13655710066");
-		bean.setJsrmc("zx");
-		bean.setFsnr("ttttteeeeesssstttt");
+		bean.setFsr_userid(fsr_userid);
+		bean.setJssjhm(jssjhm);
+		bean.setJsrmc(jsrmc);
+		bean.setFsnr(fsnr);
 		bean.setId2(id2);
 		
 		String[][] sarr = smsc.sendSMS(bean);
 		System.out.println(sarr[0][0]+"@"+sarr[0][1]);
 		
-//		SendSMSClient client = new SendSMSClient();
-//	    SendSMSPortType service = client.getSendSMSHttpPort();
-//	    String s = service.test("1", "2");
-//	    System.out.println(s);
+		Map result = new HashMap();
+		result.put("msg", sarr[0][0]);
+		JSONObject json = JSONObject.fromObject(result);
+		HttpHelper.renderJson(json.toString(), response);
 		
 	}
+	
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@RequestMapping("sendsmsdemo")
+	@ResponseBody
+	public void execute2(HttpServletRequest request,
+			HttpServletResponse response, HttpSession session)
+			throws Exception {
+		SMSClient smsc = new SMSClient();
+		String str = smsc.smsTest();
+		Map result = new HashMap();
+		result.put("msg", str);
+		JSONObject json = JSONObject.fromObject(result);
+		HttpHelper.renderJson(json.toString(), response);
+	}
+	
 	
 }

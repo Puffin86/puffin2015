@@ -96,11 +96,18 @@ public class SMSClient {
 	 * @return
 	 */
 	public String[][] delSMS(String[] smsIds){
-		boolean serviceFlag = false;
 		SendSMSClient client = new SendSMSClient();
 	    SendSMSPortType service = client.getSendSMSHttpPort();
 	    String[][] delRet = service.delSMS("", smsIds);
 		return delRet;
+	}
+	
+	
+	public String smsTest(){
+		SendSMSClient client = new SendSMSClient();
+	    SendSMSPortType service = client.getSendSMSHttpPort();
+	    String s = service.test("1-test", "2-test");
+		return s;
 	}
 	
 }
