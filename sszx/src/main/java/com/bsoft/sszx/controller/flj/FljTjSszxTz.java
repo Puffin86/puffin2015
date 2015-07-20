@@ -31,7 +31,7 @@ public class FljTjSszxTz {
 	@RequestMapping("fljTjSszxTz")
 	public void execute(HttpServletRequest request,
 			HttpServletResponse response, HttpSession session) throws Exception {
-
+		Map<String, Object> result = new HashMap<String, Object>();
 		String fydm = (String) session.getAttribute("fydm");
 		String id = request.getParameter("bh");
 
@@ -41,8 +41,7 @@ public class FljTjSszxTz {
 		String dqcyr = zjqd.getDqcyr();
 		String dsrlxdh = zjqd.getDjrlxdh();
 
-		String lzjl = zjqd.getLzjl() + "材料由承办人【" + zjqd.getSjrXm() + "】于【"
-				+ GetTime.gettime() + "】通知诉讼服务中心收取材料;";
+		String lzjl = zjqd.getLzjl() + "材料由承办人【" + zjqd.getSjrXm() + "】于【"+ GetTime.gettime() + "】通知诉讼服务中心收取材料;";
 		zjqd.setLzjl(lzjl);
 
 		zjqd.setDqcyr("sszx");
@@ -53,7 +52,7 @@ public class FljTjSszxTz {
 		new ZjqdDao().saveZjqd(zjqd);
 
 		String lx = request.getParameter("sffs");// 存储短信给承办人
-		if (lx.equals("0") && dsrlxdh != null && !dsrlxdh.equals("")) {
+		if (lx.equals("0") && dsrlxdh != null && !dsrlxdh.equals("")) {//发送短信
 			String nr = request.getParameter("sms");
 			nr = URLDecoder.decode(nr, "UTF-8");
 			nr = URLDecoder.decode(nr, "UTF-8");
@@ -63,12 +62,14 @@ public class FljTjSszxTz {
 			sms.setNr(nr);
 			sms.setZt(0);
 			new SmsDao().save(sms);
+			result.put("success", true);
+			result.put("after", "1");
+		}else{
+			result.put("success", false);
+			result.put("after", "0");
+			result.put("msg", "error");
 		}
 
-		Map<String, Object> result = new HashMap<String, Object>();
-		result.put("success", true);
-		result.put("after", "1");
-		
 		JSONObject json = JSONObject.fromObject(result);
 		HttpHelper.renderJson(json.toString(), response);
 	}

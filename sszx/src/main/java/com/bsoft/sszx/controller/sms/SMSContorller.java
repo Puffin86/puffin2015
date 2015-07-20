@@ -78,10 +78,6 @@ public class SMSContorller {
 		bean.setJsrmc("zx");
 		bean.setFsnr("ttttteeeeesssstttt");
 		bean.setId2(id2);
-//		private String fsr_userid="";//发送人Userid（必输项，格式为1300-linjd,为从OA系统获取过来的值）
-//		private String jssjhm="";//接收人手机号码（必输项）
-//		private String jsrmc="";//接收人名称（必输项）
-//		private String fsnr="";//发送内容（必输项）
 		
 		String[][] sarr = smsc.sendSMS(bean);
 		System.out.println(sarr[0][0]+"@"+sarr[0][1]);

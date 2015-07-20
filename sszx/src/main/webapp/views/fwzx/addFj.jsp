@@ -22,15 +22,16 @@ String bh=(String)session.getAttribute("fjbh");
     <div id="fjsc" style="font-size:12px;width:320px;height:150px;">
     		<form id="fjForm" method="post" enctype="multipart/form-data"  theme="simple">
     			<input name="bh" style="display:none" type="text" value="<%=bh%>"/>
+    			<input name="fydm" style="display:none" type="text" value="<%=fydm%>"/>
   				<table>
-  				<tr>
-    				<td>附件名称：</td>
-    				<td><input class="easyui-validatebox" required="true" id="fjmc2" name="fjmc2" style="margin-left:10px;width:150px" type="text"></input></td>
-    			</tr>
-    			<tr>
-    				<td>选择附件：</td>
-    				<td><input type="file" name="fileToUpload" id="fileToUpload" style="width:200px"/></td>
-    			</tr>
+	  				<tr>
+	    				<td>附件名称：</td>
+	    				<td><input class="easyui-validatebox" required="true" id="fjmc2" name="fjmc2" style="margin-left:10px;width:150px" type="text"></input></td>
+	    			</tr>
+	    			<tr>
+	    				<td>选择附件：</td>
+	    				<td><input type="file" name="fileToUpload" id="fileToUpload" style="width:200px"/></td>
+	    			</tr>
     			</table>
 			</form>
     </div>
@@ -143,14 +144,15 @@ String bh=(String)session.getAttribute("fjbh");
 		                    type: 'post',  
 		                    url: "${path}/fileUpload.do" ,  
 		                    success: function(data){
-		                    	if(data=="success"){
-		                    		alert("上传文件成功")
+		                    	var ss = eval("("+data+")");
+		                    	if(ss.after=="success"){
+		                    		alert("上传文件成功");
+			                    	window.location.href='${path}/fj.do?bh='+<%=bh%>;
 		                    	}else{
-		                    		alert("上传文件失败，请重试...")
+		                    		alert("上传文件失败，请重试...");
 		                    	}
-		                    	window.location.href='${path}/fj.do?bh='+<%=bh%>;
 		                    },  
-		                    error: function(XmlHttpRequest, textStatus, errorThrown){  
+		                    error: function(data){  
 		                    	alert("上传文件失败，请重试...")
 		                    	window.location.href='${path}/fj.do?bh='+<%=bh%>;
 		                    }  

@@ -35,9 +35,43 @@ import com.bsoft.sszx.util.StringUtil;
 public class FileUploadAction   {
 	
 	@ResponseBody  
+    @RequestMapping("fileUploadTest")  
+    public void xlsUploadTest(HttpServletRequest request,HttpServletResponse response,HttpSession session) {
+		
+		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;  
+        // 获得文件：  
+        MultipartFile uploadFile = multipartRequest.getFile("fileToUpload");  
+        // 获得文件名：  
+        String filename = uploadFile.getOriginalFilename();  
+        // 获得输入流：  
+        SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmssFFF");//设置日期格式
+		String fileNameNew=df.format(new Date());		 
+		String serverRealPath = request.getSession().getServletContext().getRealPath("/scan/jpg/");
+		Map<String, Object> map = new HashMap<String, Object>();
+		if (!uploadFile.isEmpty()) {
+			try{
+				int las=filename.lastIndexOf(".");
+     		    String ext="";
+     		    if(las>0){
+     		    	ext=filename.substring(las);
+     		    }
+     		    String targetFileName="test"+"_"+fileNameNew+ext;
+     		    SaveFileFromInputStream(uploadFile.getInputStream(),serverRealPath,targetFileName);  
+     		   map.put("flag", "success");
+			}catch(Exception e){
+				map.put("flag", "error");
+				e.printStackTrace();
+			}
+		}
+		
+		JSONObject json = JSONObject.fromObject(map);
+		HttpHelper.renderJson(json.toString(), response);
+	}
+	
+	
+	@ResponseBody  
     @RequestMapping("fileUpload")  
-    public String xlsUpload(HttpServletRequest request,HttpSession session) {
-		String flag="success";
+    public void xlsUpload(HttpServletRequest request,HttpServletResponse response,HttpSession session) {
 		String fydm=(String)session.getAttribute("fydm");
 		String bh = (String)request.getParameter("bh");
 		String fjmc2 = (String)request.getParameter("fjmc2");
@@ -52,6 +86,7 @@ public class FileUploadAction   {
         SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmssFFF");//设置日期格式
 		String fileNameNew=df.format(new Date());		 
 		String serverRealPath = request.getSession().getServletContext().getRealPath("/scan/jpg/");
+		Map<String, Object> map = new HashMap<String, Object>();
         if (!uploadFile.isEmpty()) {
         	try {   
      		    int las=filename.lastIndexOf(".");
@@ -60,10 +95,8 @@ public class FileUploadAction   {
      		    	ext=filename.substring(las);
      		    }
      		    String targetFileName=fydm+"_"+fileNameNew+ext;
-     		    System.out.println("aaaaaaaaaaaaaaaaaaaaaa");
-     		   SaveFileFromInputStream(uploadFile.getInputStream(),serverRealPath,targetFileName);  
-     		  System.out.println("bbbbbbbbbbbbb");
-               FjDao fjDao=new FjDao();			
+     		    SaveFileFromInputStream(uploadFile.getInputStream(),serverRealPath,targetFileName);  
+                FjDao fjDao=new FjDao();			
        			int xh=fjDao.getMaxId(fydm,bh);
        			Fjb fjb =new Fjb();
        			FjbId FjbId=new FjbId();
@@ -76,21 +109,17 @@ public class FileUploadAction   {
        			fjb.setFjdz(targetFileName);
        			
        			fjDao.saveFjb(fjb);
-       			System.out.println("cccccccccccc");
-       			return flag;
+       			map.put("after", "success");
         	}catch (IOException e) {   
-        		flag="error";
+        		map.put("after", "error");
                 e.printStackTrace();  
             }  
+         }else{
+        	 map.put("after", "error");
          }
-        return flag;
+		JSONObject json = JSONObject.fromObject(map);
+		HttpHelper.renderJson(json.toString(), response);
     }
-	
-//	map.put("total", all.size());
-//	map.put("rows", al);
-//	JSONObject resultObj=JSONObject.fromObject(map); //将map对象转换成为json对象
-//	HttpHelper.renderJson(resultObj.toString(), response);
-	
 	
 	@ResponseBody  
     @RequestMapping("tempfileUpload")  

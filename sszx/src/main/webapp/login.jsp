@@ -77,7 +77,6 @@ function disableRefresh(evt){
 function login(){
 	var user = $('#txt_user').val();
 	var pass = $('#txt_pass').val();
-	
 	if(user!='' && pass!=''){
 		$.post('${path}/login.do', {
 			fymc: $('#txt_fymc').val(),
@@ -88,8 +87,10 @@ function login(){
   	    	    window.location.href="${path}/main.jsp";
 			}else if(data.after==0){
        	       alert("用户名或密码不正确！"); 
-			}else{
+			}else if(data.after==2){
 				window.location.href="${path}/trial.jsp";
+			}else{
+				alert("登录出错，请联系管理员"); 
 			}
 		}, 'json');   
 	}else{

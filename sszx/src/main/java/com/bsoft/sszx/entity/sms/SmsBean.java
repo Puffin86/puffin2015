@@ -19,9 +19,10 @@ public class SmsBean {
 	private String jssjhm="";//接收人手机号码（必输项）
 	private String jsrmc="";//接收人名称（必输项）
 	private String fsnr="";//发送内容（必输项）
+	private String id2="";//业务系统短信息唯一ID号(建议设为Ip+含有时分秒的时间+批量发送时的递增号，例如：2031331302242013102907283979239；必输项；最长不能超过45位)
+	
 	private String dsfssj=null;//定时发送时间（传大于当前的时间，需立即发送时传空即可），格式为2013-11-07 20:02:00
 	private String fssm=null;//发送说明（可传空）
-	private String id2="";//业务系统短信息唯一ID号(建议设为Ip+含有时分秒的时间+批量发送时的递增号，例如：2031331302242013102907283979239；必输项；最长不能超过45位)
 	private String ah=null;//案号（审判、执行等系统需传，没有涉及到“案号”的系统在传参时直接传空即可）
 	public String getXtbh() {
 		return xtbh;

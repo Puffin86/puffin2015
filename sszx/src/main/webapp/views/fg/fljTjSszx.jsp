@@ -106,14 +106,17 @@ $('#QR').dialog({
         	     data:{
         	    	 bh:<%=bh%>,
         	    	 fydm:<%=fydm%>,
-        	    	 sffs:lx,
+        	    	 sffs: $('input:radio[name="identity"]').is(":checked"),//lx
         	    	 sms:$('#sms').val()
         	     },
         	     dataType:'json',
         	     success:function (res) {
-		       	       if(res.after==1)
-		       	         	alert("通知成功");
-		       	       window.location.href="${path}/to_flj.do";
+		       	       if(res.after==1){
+		       	       		alert("通知成功");
+			       	        window.location.href="${path}/to_flj.do";
+		       	       }else{
+		       	    	    alert("通知失败");
+		       	       }
         	     }
         	});
         }
