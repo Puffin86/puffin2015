@@ -142,7 +142,7 @@ String bh=(String)session.getAttribute("fjbh");
 		        		$("#fjForm").ajaxSubmit({
 		                    type: 'post',  
 		                    url: "${path}/fileUpload.do" ,  
-		                    success: function(data){  
+		                    success: function(data){
 		                    	if(data=="success"){
 		                    		alert("上传文件成功")
 		                    	}else{

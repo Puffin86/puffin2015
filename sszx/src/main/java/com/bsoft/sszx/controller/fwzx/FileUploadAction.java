@@ -57,7 +57,9 @@ public class FileUploadAction   {
      		    	ext=filename.substring(las);
      		    }
      		    String targetFileName=fydm+"_"+fileNameNew+ext;
-     		   SaveFileFromInputStream(uploadFile.getInputStream(),serverRealPath,targetFileName);   
+     		    System.out.println("aaaaaaaaaaaaaaaaaaaaaa");
+     		   SaveFileFromInputStream(uploadFile.getInputStream(),serverRealPath,targetFileName);  
+     		  System.out.println("bbbbbbbbbbbbb");
                FjDao fjDao=new FjDao();			
        			int xh=fjDao.getMaxId(fydm,bh);
        			Fjb fjb =new Fjb();
@@ -71,6 +73,8 @@ public class FileUploadAction   {
        			fjb.setFjdz(targetFileName);
        			
        			fjDao.saveFjb(fjb);
+       			System.out.println("cccccccccccc");
+       			return flag;
         	}catch (IOException e) {   
         		flag="error";
                 e.printStackTrace();  

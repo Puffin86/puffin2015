@@ -3,6 +3,7 @@ package com.bsoft.sszx.controller.fwzx;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.net.URLDecoder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,7 +28,13 @@ public class Scan {
 		    String fileFormat=request.getParameter("picExt");
 		    String bh = request.getParameter("bh");
 		    String fydm = request.getParameter("fydm");
+		    
 		    String fjmc = request.getParameter("fjmc");
+		    
+		    if(fjmc!=null){
+		    	fjmc = URLDecoder.decode(fjmc, "UTF-8"); 
+		    	fjmc = URLDecoder.decode(fjmc, "UTF-8"); 
+		    }
 		    
 		    FjDao fjDao=new FjDao();			
 			int xh=fjDao.getMaxId(fydm,bh);

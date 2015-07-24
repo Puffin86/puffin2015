@@ -460,20 +460,8 @@ function downloadFile(xh,bh){
 }
 
 function Pdf(xh,bh){
-	$.ajax({
-  	     url:'openPdfxh.do',
-  	     type:'POST',
-  	     data:{
-  	    	 bh : bh,
-  	    	 xh : xh
-  	      },//注意大小写data
-  	     dataType:'json',
-  	     success:function (res) {
-        	url='pdf.jsp';
-       		window.open(url,"new", "height=600px,width=650px,toolbar=no,status=no,menubar=no,scrollbars=yes,resizable=no");
-  	     }
-  });
-	
+	url='openPdfxh_new.do?bh='+bh+"&xh="+xh;
+	window.open(url,"new","height=600px,width=650px,toolbar=no,status=no,menubar=no,scrollbars=yes,resizable=yes");
 }
 
 </script>

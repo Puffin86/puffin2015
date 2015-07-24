@@ -88,12 +88,12 @@ nr=nr.replace(c6, sx+"");
      <hr/> 
      
      <div style="margin-left:10px;">     
-     <div>添加材料信息：<a id="cl_add" class="add" iconCls="icon-add"></a></div>
+     <div id="addclxx">添加材料信息：<a id="cl_add" class="add" iconCls="icon-add"></a></div>
      <div class="cl" id="clmxtr" style="visibility:hidden;margin-top:5px">
        <div>材料名称：<input name="clmc" type="text"></input>
        &nbsp;&nbsp;份数： <input name="clfs"  style="width:30px" type="text"></input>
        &nbsp;&nbsp;页数： <input name="clys" style="width:30px" type="text"></input>      
-       <a id="cl_remove" class="remove" style="margin-top:-7px" iconCls="icon-cancel"></a></div>
+       </div>
      </div>
    </div>
    
@@ -112,7 +112,7 @@ nr=nr.replace(c6, sx+"");
    $('#cancel').linkbutton({});
    $('#cl_remove').linkbutton({});
    $('#cl_add').linkbutton({});
-
+   $('#addclxx').hide();
    $('#thList').combobox({
 	    url:'zdmxcx_thyy.do?zdbm=thyy&cbr='+cbrid+"&lclx="+lclx,    
 	    valueField:'zdmxbm',    
@@ -165,23 +165,6 @@ nr=nr.replace(c6, sx+"");
 	   var lqsx='<%=sx%>';
 	   $('input[name=lqsx]').attr('value',lqsx);
 	   
-	   $(".add").bind("click",function(){ 
-		   $s=$('#clmxtr').clone(true);
-		   $s.css("visibility","visible");
-		   $('#clmxtr').parent().append($s);
-		   //$('#clmxtr').css("visibility","hidden");
-		   //$('#clmxtr>td:first-child>input').val("");//IDclmxtr元素的最后儿子元素的input表情值为空
-		   }); 
-
-		   //绑定删除行按钮的单击事件 
-		   $(".remove").bind("click",function(){ 
-		   //取得table的第一行 
-		   if($(".remove").length>1){
-		   var td = $(this).parent();
-		   td.empty();//清空父元素
-		   td.remove();}
-		   }); 
-		  
    });   
    
    <%for(int i=0;i<list.size();i++) 

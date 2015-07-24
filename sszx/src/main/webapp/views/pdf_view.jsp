@@ -13,13 +13,10 @@
 	int index = webpath.indexOf("sszx");
 	String subpath = webpath.substring(0, index);
 	String path = "";
-	String serverpath="";
 	if(fileName!=null){
 		path=subpath+"sszx/scan/jpg/"+fileName;
-		serverpath = subpath+"sszx/scan/jpg/";
 	}else{
 		path=subpath+"sszx/scan/jpg/test.pdf";
-		serverpath = subpath+"sszx/scan/jpg/";
 	}
 %>
 
@@ -27,18 +24,13 @@
 <script>
 var plugin;
 $(document).ready(function(){
-	
-	$('#handSign').linkbutton({});
-	$('#fingerprintSign').linkbutton({});
-	$('#upLoad').linkbutton({});
-	
 	load();
 	OpenWedFile();
 });
 
 function load(){
 	plugin = getPluginObjcet("plugin");
-	plugin.DisplayToolBar("1");
+	//plugin.DisplayToolBar("0");
 	plugin.DisplayToolButton("400",0);
 	plugin.DisplayToolButton("205",0);
 	plugin.DisplayToolButton("417",0);
@@ -79,51 +71,13 @@ function isIEBrowser() {
 		}
 	}
    
-   //签名
-   function HandSign()
-	{
-		var res = plugin.SetSignAccount("xh", "a12345678");
-	    var c = "<sign><signType>1</signType><file><fileType>1</fileType><fileName>";
-		var path = plugin.CurrentCachePath;
-		var d = c.concat(path);
-		var e = d.concat("</fileName><posPage></posPage><posX>460</posX><posY>200</posY><keyword></keyword><posMouse>120</posMouse></file><cert><authType>1</authType><mobile></mobile><userPwd></userPwd><payAccount></payAccount><payPwd></payPwd></cert></sign>");
-		//alert(e);
-		var h = plugin.HandServerSign(e);
-	}
-   
-   //指纹
-   function FingerprintSign()
-	{
-		var Res = plugin.ControlPDF("4001");
-	}
-   //上传
-   function    UpFile()
-	{
-		var ServerIP = 'http://localhost:8080/sszx/tempfileUpload.do';
-		var path = plugin.CurrentCachePath;
-		//alert(path);
-		var Res = plugin.UpLoadPdfFile(ServerIP,path,"fydm=3111&bh=911&fileName="+<%=fileName%>,"tempfile");
-		if(Res == 0)
-		{
-			alert("上传文件成功");
-		}
-		else
-		{
-			alert("上传文件失败");
-		}
-	}
 </script>
 
 <body>
-<DIV id='showdiv'  style="Z-INDEX: 0; LEFT:10px;  POSITION: absolute; TOP: 30px; bottom:10px;text-align:center"> 
+<DIV id='showdiv'  style="Z-INDEX: 0; LEFT:10px;  POSITION: absolute; TOP: 50px; bottom:10px;text-align:center"> 
 		<object id="plugin" classid="clsid:EAFFB28E-B6AD-4657-904D-51CD7941A3A4" width="630" height="550">
 			<embed name="plugin" type="application/nptseal-plugin" width="630" height="550"></embed>
 		</object>  
-</DIV>
-<DIV id='butdiv' align="center"> 
-		<a id="handSign" class="easyui-linkbutton"  onclick="HandSign()">签章</a>
-		<a id="fingerprintSign" class="easyui-linkbutton"  onclick="FingerprintSign()">指纹</a>
-		<a id="upLoad" class="easyui-linkbutton"  onclick="UpFile()">上传</a>
 </DIV>
 </body>
 </html>

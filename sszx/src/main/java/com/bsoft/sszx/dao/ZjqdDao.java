@@ -453,6 +453,26 @@ public class ZjqdDao {
 		}
 	}
 	
+	public List<Zjqd> findjjsx_fwzx(String fydm, String user,String lclx,int start,int number,String zt) {
+		List<Zjqd> list = new ArrayList<Zjqd>();
+		try {
+			session = HibernateUtil.getSession(); // 获取Session
+			session.beginTransaction();
+			String sql = " FROM Zjqd WHERE TIMESTAMPDIFF(DAY,CURDATE(),sxsj)<=CEILING(sx/3) and TIMESTAMPDIFF(DAY,CURDATE(),sxsj)>=0 and id.fydm='"+fydm+"'  and lclx='"+lclx+"' and zt in("+zt+")";
+			Query query = session.createQuery(sql);
+			query.setFirstResult(start);
+			query.setMaxResults(number);
+			list = (List<Zjqd>)query.list();
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();// 打印错误信息
+		} finally {
+			HibernateUtil.closeSession(session); // 关闭Session
+			return list;
+		}
+	}
+	
+	
 	public int countcgsx(String fydm, String user,String lclx,String zt) {
 		try {
 			session = HibernateUtil.getSession(); // 获取Session
@@ -507,6 +527,26 @@ public class ZjqdDao {
 		}
 	}
 	
+	public List<Zjqd> findcgsx_fwzx(String fydm, String user,String lclx,int start,int number,String zt) {
+		List<Zjqd> list = new ArrayList<Zjqd>();
+		try {
+			session = HibernateUtil.getSession(); // 获取Session
+			session.beginTransaction();
+			String sql = " FROM Zjqd WHERE TIMESTAMPDIFF(DAY,CURDATE(),sxsj)<0 and id.fydm='"+fydm+"' and  lclx='"+lclx+"' and zt in ("+zt+")";
+			Query query = session.createQuery(sql);
+			query.setFirstResult(start);
+			query.setMaxResults(number);
+			list = (List<Zjqd>)query.list();
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();// 打印错误信息
+		} finally {
+			HibernateUtil.closeSession(session); // 关闭Session
+			return list;
+		}
+	}
+	
+	
 	//把过渡状态2改变为1--以查看
 	public void changesfck1(String fydm, String user, int zt) {
 		try {
@@ -529,7 +569,7 @@ public class ZjqdDao {
 			session = HibernateUtil.getSession(); // 获取Session
 			session.beginTransaction();
 			String sql = "from Zjqd where id.fydm='" + fydm + "'"
-					+ " and sjrbm='" + user + "' and zt=" + zt+" and sfck=0";
+					+ " and sjrbm='" + user + "' and zt=" + zt+" and (sfck=0 or sfck is null )";
 			List<Zjqd> list = (List<Zjqd>)session.createQuery(sql).list();
 			
 			for(Zjqd zjqd : list){
@@ -550,7 +590,7 @@ public class ZjqdDao {
 			session = HibernateUtil.getSession(); // 获取Session
 			session.beginTransaction();
 			String sql = "from Zjqd where id.fydm='" + fydm + "'"
-					+ " and sjrbm='" + user + "' and zt=" + zt +" and sfck=0";
+					+ " and sjrbm='" + user + "' and zt=" + zt +" and ( sfck=0 or sfck is null)";
 			List list = session.createQuery(sql).list();
 			session.getTransaction().commit();
 			return list.size();

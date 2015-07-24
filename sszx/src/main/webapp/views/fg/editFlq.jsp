@@ -351,7 +351,7 @@ $('#dsrgrid').datagrid({
 	singleSelect:true,
 	url:"dsrSearchList.do",
 	queryParams : {
-		ah : $('input[name=ah]').val()
+		ah : $('input[name=ahdm]').val()
 	},
 	columns:[[
 		{field:'mc',title:'当事人',width:120,align:'center'},
@@ -362,14 +362,11 @@ $('#dsrgrid').datagrid({
 }); 
  
 function searchDsr(){
-	var ah=$('input[name=ah]').val();
-	if(ah!=''){
-		$('#dsrgrid').datagrid('reload');
+		$('#dsrgrid').datagrid('load',{
+			ah : $('input[name=ahdm]').val()
+		});
 		$('#dsrgrid').datagrid('clearSelections');
 		$('#dsr_se').dialog('open');
-	}else{
-		alert("请先输入案号");
-	}
 }
 </script>
 

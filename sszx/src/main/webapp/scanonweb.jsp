@@ -36,7 +36,7 @@ function save(){
 			},
 			dataType : 'json',
 			success :function(data){
-				alert("上传附件："+'<%=fjmc%>'+"成功~");
+				alert("上传附件成功~");
 				cancel();
 			}
 		});

@@ -30,12 +30,10 @@ public class DownloadUtil {
 			throws IOException {
 
 		response.reset();
-		response.setHeader("Content-Disposition", "attachment;filename="
-				+ URLEncoder.encode(fileName, "UTF-8"));
+		response.setHeader("Content-Disposition", "attachment;filename="+ URLEncoder.encode(fileName, "UTF-8"));
 		response.setContentType("application/x-download");
 
 		File sourceFile = new File(filePath);
-
 		// 兼容迅雷，需加上此设置
 		response.setContentLength((int) sourceFile.length());
 
@@ -45,7 +43,7 @@ public class DownloadUtil {
 			out = response.getOutputStream();
 			in = new FileInputStream(filePath);
 
-			byte[] b = new byte[1024];
+			byte[] b = new byte[1024*5];
 			int i = 0;
 
 			while ((i = in.read(b)) > 0) {

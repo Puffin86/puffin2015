@@ -16,10 +16,10 @@
 	String serverpath="";
 	if(fileName!=null){
 		path=subpath+"sszx/scan/jpg/"+fileName;
-		serverpath = subpath+"sszx/scan/jpg/testpdf/";
+		serverpath = subpath+"sszx/scan/jpg/";
 	}else{
 		path=subpath+"sszx/scan/jpg/test.pdf";
-		serverpath = subpath+"sszx/scan/jpg/testpdf/";
+		serverpath = subpath+"sszx/scan/jpg/";
 	}
 %>
 

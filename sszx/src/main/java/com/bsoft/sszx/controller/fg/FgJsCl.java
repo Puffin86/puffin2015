@@ -93,19 +93,47 @@ public class FgJsCl {
 		int size = 0;
 		List<Zjqd> al = new ArrayList<Zjqd>();
 		
-		if("jj".equals(type)&&"flq".equals(lclx)){
-			al = zjqdDao.findjjsx(fydm, user, lclx,start,number,"6,7");
-			size = zjqdDao.countjjsx(fydm, user, lclx,"6,7");
-		}else if("jj".equals(type)&&"flj".equals(lclx)){
-			al = zjqdDao.findjjsx(fydm, user, lclx,start,number,"10");
-			size = zjqdDao.countjjsx(fydm, user, lclx,"10");
-		}else if("cg".equals(type) && "flq".equals(lclx)){
-			al = zjqdDao.findcgsx(fydm, user, lclx,start,number,"6,7");
-			size = zjqdDao.countcgsx(fydm, user, lclx,"6,7");
-		}else if("cg".equals(type) && "flj".equals(lclx)){
-			al = zjqdDao.findcgsx(fydm, user, lclx,start,number,"10");
-			size = zjqdDao.countcgsx(fydm, user, lclx,"10");
+		UserDao userDao = new UserDao();
+		//用户姓名
+		User userBean = userDao.findUserById(user, fydm);
+		String userXm = userBean.getYhxm();
+		String userBm = userBean.getYhbm();
+		String userJs = userBean.getJs();
+		
+		
+		//服务中心人员或者系统管理员
+		if("3".equals(userJs) || "1".equals(userJs)){
+			if("jj".equals(type)&&"flq".equals(lclx)){
+				al = zjqdDao.findjjsx_fwzx(fydm, user, lclx,start,number,"6,7");
+				size = zjqdDao.countjjsx_fwzx(fydm, user, lclx,"6,7");
+			}else if("jj".equals(type)&&"flj".equals(lclx)){
+				al = zjqdDao.findjjsx_fwzx(fydm, user, lclx,start,number,"10");
+				size = zjqdDao.countjjsx_fwzx(fydm, user, lclx,"10");
+			}else if("cg".equals(type) && "flq".equals(lclx)){
+				al = zjqdDao.findcgsx_fwzx(fydm, user, lclx,start,number,"6,7");
+				size = zjqdDao.countcgsx_fwzx(fydm, user, lclx,"6,7");
+			}else if("cg".equals(type) && "flj".equals(lclx)){
+				al = zjqdDao.findcgsx_fwzx(fydm, user, lclx,start,number,"10");
+				size = zjqdDao.countcgsx_fwzx(fydm, user, lclx,"10");
+			}
+		}else{//法官 2
+			if("jj".equals(type)&&"flq".equals(lclx)){
+				al = zjqdDao.findjjsx(fydm, user, lclx,start,number,"6,7");
+				size = zjqdDao.countjjsx(fydm, user, lclx,"6,7");
+			}else if("jj".equals(type)&&"flj".equals(lclx)){
+				al = zjqdDao.findjjsx(fydm, user, lclx,start,number,"10");
+				size = zjqdDao.countjjsx(fydm, user, lclx,"10");
+			}else if("cg".equals(type) && "flq".equals(lclx)){
+				al = zjqdDao.findcgsx(fydm, user, lclx,start,number,"6,7");
+				size = zjqdDao.countcgsx(fydm, user, lclx,"6,7");
+			}else if("cg".equals(type) && "flj".equals(lclx)){
+				al = zjqdDao.findcgsx(fydm, user, lclx,start,number,"10");
+				size = zjqdDao.countcgsx(fydm, user, lclx,"10");
+			}
 		}
+		
+		
+		
 		
 		map.put("total", size);
 		map.put("rows", al);

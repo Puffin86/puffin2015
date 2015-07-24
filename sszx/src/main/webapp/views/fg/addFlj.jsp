@@ -173,6 +173,10 @@ function save(){
 	}
 	
 	var lqsx = $('input[name=lqsx]').val();
+	if(lqsx==''){
+    	alert("必须输入提交时限！");
+    	return;
+    }
 	
 	if(tr==0 && alerString==''){
         $.ajax({

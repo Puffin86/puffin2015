@@ -430,17 +430,17 @@ ZjqdId zjqdId = zjqd.getId();
 	});  
   
   function searchDsr(){
-	    var ah=$('input[name=ah]').val();
+	    var ah=$('input[name=ahdm]').val();
 		if(ah!=''){
-		$.ajax({
-	  	     url:'dsrSearch.do',
-	  	     type:'POST',
-	  	     data:{ah:encodeURI(encodeURI(ah))},//注意大小写data
-	  	     dataType:'json',
-	  	     success:function (data) {
-	  	       $('#dsr_searchList').tree('loadData',data.data);
-	  	     }});
-		}else alert("请先输入案号");
+			//$('#dsrgrid').datagrid('reload');
+			$('#dsrgrid').datagrid('load',{
+					ah : $('input[name=ahdm]').val()
+		    });
+			$('#dsrgrid').datagrid('clearSelections');
+			$('#dsr_se').dialog('open');
+		}else{
+			alert("请先输入案号");
+		} 
 	}
    
    </script>

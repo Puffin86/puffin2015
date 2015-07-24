@@ -91,6 +91,24 @@ public class Pdf {
 	}
 	
 	
+	@RequestMapping("openPdfxh_new")
+	public String openPdfxh_new(HttpServletRequest request,
+			HttpServletResponse response, HttpSession session)
+			throws Exception {
+		String fydm=(String)session.getAttribute("fydm");
+		String bh=request.getParameter("bh");
+		String xh = request.getParameter("xh");
+		
+		FjDao fjDao=new FjDao();		
+		Fjb fj = fjDao.findFjb(bh, xh, fydm);
+		String fileName = fj.getFjdz();
+		session.setAttribute("fileName", fileName);
+		session.setAttribute("tool","hide");
+		
+		return "pdf_view";
+	}
+	
+	
 	public void buildPdf(HttpServletRequest request,
 			HttpServletResponse response, HttpSession session){
 		String fydm=(String)session.getAttribute("fydm");

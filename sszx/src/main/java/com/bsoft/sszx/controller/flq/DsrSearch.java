@@ -40,32 +40,33 @@ public class DsrSearch {
 		String ahdm = new ECourtDao().findByAh(ah).getAhdm();
 		List<Edsr> al = (List<Edsr>) new ECourtDao().findEdsr(ahdm);
 		List<Tree> tree = (List<Tree>) new ArrayList();
-		for (int i = 0; i < al.size(); i++) {
-			Tree leaf = new Tree();
-			leaf.setId(i+"");
-			leaf.setState("open");
+		if(al!=null){
+			for (int i = 0; i < al.size(); i++) {
+				Tree leaf = new Tree();
+				leaf.setId(i+"");
+				leaf.setState("open");
 
-			String dsrxm = al.get(i).getMc();
-			String sfzhm = al.get(i).getSfzhm();
-			if (sfzhm == null)
-				sfzhm = "";
-			String lxdh = al.get(i).getLxdh();
-			if (lxdh == null)
-				lxdh = "";
+				String dsrxm = al.get(i).getMc();
+				String sfzhm = al.get(i).getSfzhm();
+				if (sfzhm == null)
+					sfzhm = "";
+				String lxdh = al.get(i).getLxdh();
+				if (lxdh == null)
+					lxdh = "";
 
-			String text = ah + " 姓名：" + dsrxm;
-			leaf.setText(text);
+				String text = ah + " 姓名：" + dsrxm;
+				leaf.setText(text);
 
-			Map<String, String> attributes = new HashMap<String, String>();
-			attributes.put("leaf", "true");
-			attributes.put("ah", ah);
-			attributes.put("dsrxm", dsrxm);
-			attributes.put("lxdh", lxdh);
-			attributes.put("sfzhm", sfzhm);
-			leaf.setAttributes(attributes);
-			tree.add(leaf);
+				Map<String, String> attributes = new HashMap<String, String>();
+				attributes.put("leaf", "true");
+				attributes.put("ah", ah);
+				attributes.put("dsrxm", dsrxm);
+				attributes.put("lxdh", lxdh);
+				attributes.put("sfzhm", sfzhm);
+				leaf.setAttributes(attributes);
+				tree.add(leaf);
+			}
 		}
-
 		map.put("data", tree);
 		JSONObject resultObj = JSONObject.fromObject(map);
 		HttpHelper.renderJson(resultObj.toString(), response);
@@ -89,10 +90,6 @@ public class DsrSearch {
 			ah = URLDecoder.decode(ah, "UTF-8");
 			al=	(List<Edsr>) new ECourtDao().findEdsr(ah);
 		}
-		
-		
-		
-			
 		
 		if(al!=null || al.size()>0){
 			

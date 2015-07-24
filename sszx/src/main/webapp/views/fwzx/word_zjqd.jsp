@@ -9,6 +9,7 @@
 </head>
 <%
 	String fileName = (String)session.getAttribute("fileName");
+	int clbSize = (Integer)session.getAttribute("clbSize");
 	String tool = (String)session.getAttribute("tool");
 	String webpath = request.getRequestURL().toString() ;
 	int index = webpath.indexOf("sszx");
@@ -96,8 +97,14 @@ function isIEBrowser() {
 	    var c = "<sign><signType>1</signType><file><fileType>1</fileType><fileName>";
 		var path = plugin.CurrentCachePath;
 		var d = c.concat(path);
-		var e = d.concat("</fileName><posPage></posPage><posX>450</posX><posY>670</posY><keyword></keyword><posMouse>120</posMouse></file><cert><authType>1</authType><mobile></mobile><userPwd></userPwd><payAccount></payAccount><payPwd></payPwd></cert></sign>");
-		//alert(e);
+		
+		var clbNum = <%=clbSize%>;
+		var posY = 670;
+		if(clbNum>1)
+			posY = posY-20*(clbNum-1);
+		//var e = d.concat("</fileName><posPage></posPage><posX>450</posX><posY>650</posY><keyword></keyword><posMouse>120</posMouse></file><cert><authType>1</authType><mobile></mobile><userPwd></userPwd><payAccount></payAccount><payPwd></payPwd></cert></sign>");
+		var e =  d.concat("</fileName><posPage></posPage><posX>450</posX><posY>").concat(posY).concat("</posY><keyword></keyword><posMouse>120</posMouse></file><cert><authType>1</authType><mobile></mobile><userPwd></userPwd><payAccount></payAccount><payPwd></payPwd></cert></sign>");
+		
 		var h = plugin.HandServerSign(e);
 	}
    

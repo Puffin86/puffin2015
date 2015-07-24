@@ -73,6 +73,7 @@ public class Word  {
 		
 		Pdf_zjqd mCreatPDF=new Pdf_zjqd();
 		mCreatPDF.createPDF_zjqd(serverRealPath,fileName,Zjqd,clbList);
+		session.setAttribute("clbSize", clbList==null?0:clbList.size());
 		session.setAttribute("fileName",fileName);
 		if(tool==null || "show".equals(tool))
 			session.setAttribute("tool","show");
