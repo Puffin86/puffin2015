@@ -61,7 +61,7 @@ public class Trial {
 		User u = new UserDao().findUserById(user, fydm);
 		if (u != null) {
 			if (u.getPass().equals(pass)) {
-				String str=TrialTool.decode("MjAxNS0wOC0wMQ==");
+				String str=TrialTool.decode("MjAxNS0wOS0xNQ==");
 				SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
 				Date date =sdf.parse(str);
 				Calendar calendar = Calendar.getInstance();

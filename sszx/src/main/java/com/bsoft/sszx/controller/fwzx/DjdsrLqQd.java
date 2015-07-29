@@ -2,6 +2,7 @@ package com.bsoft.sszx.controller.fwzx;
 
 
 import java.net.URLDecoder;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,9 +18,11 @@ import com.bsoft.sszx.dao.SmsDao;
 import com.bsoft.sszx.dao.UserDao;
 import com.bsoft.sszx.dao.ZjqdDao;
 import com.bsoft.sszx.entity.sms.Sms;
+import com.bsoft.sszx.entity.sms.SmsBean;
 import com.bsoft.sszx.entity.zjqd.Zjqd;
 import com.bsoft.sszx.util.GetTime;
 import com.bsoft.sszx.util.HttpHelper;
+import com.bsoft.sszx.xfireclient.SMSClient;
 
 import net.sf.json.JSONObject;
 
@@ -58,12 +61,28 @@ public class DjdsrLqQd  {
 			String nr=request.getParameter("sms");
 			nr = URLDecoder.decode(nr, "UTF-8"); 
 			nr = URLDecoder.decode(nr, "UTF-8"); 
+			
+			int bh = Zjqd.getId().getBh();
+			Calendar cal = Calendar.getInstance();
+			//案件编号+法院编码+系统编号+年月日时分
+			String id2 = bh+fydm+"023"+cal.get(Calendar.YEAR)+(cal.get(Calendar.MONTH)+1)+cal.get(Calendar.DATE)+cal.get(Calendar.HOUR_OF_DAY)+cal.get(Calendar.MINUTE);
+			SmsBean smsbean = new SmsBean();
+			smsbean.setJsrmc(dqcyrName);
+			smsbean.setJssjhm(cbrlxdh);
+			smsbean.setFsnr(nr);
+			smsbean.setId2(id2);
+			SMSClient sc = new SMSClient();
+			String[][] ret = sc.sendSMS(smsbean);
+			
 			Sms sms=new Sms();
+			sms.setSmszt(ret[0][0]);
+			sms.setBh(bh);
+			sms.setSmsid2(id2);
 			sms.setFydm(fydm);
 			sms.setLxdh(cbrlxdh);
 			sms.setNr(nr);
 			sms.setZt(0);
-			new SmsDao().save(sms);
+			new SmsDao().saveOrUpdate(sms);
 		}		
 		
 		Map result = new HashMap();

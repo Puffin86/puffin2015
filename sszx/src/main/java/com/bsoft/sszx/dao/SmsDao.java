@@ -14,11 +14,11 @@ public class SmsDao {
 	 * @return List
 	 */
 	
-	public void save(Sms Sms){
+	public void saveOrUpdate(Sms Sms){
     	try{
     		session = HibernateUtil.getSession();		//获取Session
 			session.beginTransaction();		
-	    	session.save(Sms);//应用save()方法将留言信息保存到数据
+	    	session.saveOrUpdate(Sms);//应用save()方法将留言信息保存到数据
 	    	session.getTransaction().commit();
     	} catch (Exception e) {
 			e.printStackTrace();						//打印错误信息
@@ -26,5 +26,18 @@ public class SmsDao {
 			HibernateUtil.closeSession(session);		//关闭Session
      } 
    } 
+	
+	
+	public int getMaxId(){
+		try{
+    		session = HibernateUtil.getSession();		//获取Session
+	    	Object maxId = session.createSQLQuery("select max() from sms").uniqueResult();
+    	} catch (Exception e) {
+			e.printStackTrace();						//打印错误信息
+		}finally{
+			HibernateUtil.closeSession(session);		//关闭Session
+		}
+		return 1;
+	}
 
 }

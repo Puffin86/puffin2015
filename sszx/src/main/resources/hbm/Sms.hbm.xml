@@ -35,5 +35,25 @@
                 <comment>法院代码</comment>
             </column>
         </property>
+        
+        <property name="bh" type="java.lang.Integer">
+            <column name="bh">
+                <comment>案件编号</comment>
+            </column>
+        </property>
+        
+        <property name="smsid2" type="java.lang.String">
+            <column name="smsid2" length="100">
+                <comment>短信唯一标示</comment>
+            </column>
+        </property>
+        
+        
+        <property name="smszt" type="java.lang.String">
+            <column name="smszt" length="20">
+                <comment>短信反馈</comment>
+            </column>
+        </property>
+        
     </class>
 </hibernate-mapping>
