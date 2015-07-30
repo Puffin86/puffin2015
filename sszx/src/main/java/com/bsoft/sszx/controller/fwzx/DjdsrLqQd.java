@@ -75,7 +75,7 @@ public class DjdsrLqQd  {
 			String[][] ret = sc.sendSMS(smsbean);
 			
 			Sms sms=new Sms();
-			sms.setSmszt(ret[0][0]);
+			sms.setSmszt(ret[0][1]);
 			sms.setBh(bh);
 			sms.setSmsid2(id2);
 			sms.setFydm(fydm);

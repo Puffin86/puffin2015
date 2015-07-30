@@ -13,10 +13,13 @@
    	     	url:'${path}/sendsms.do',
    	     	type:'POST',
    	     	data:{
+   	     		 xtbh : $('#xtbh').val(),
+    		 	 fsr_fybm : $('#fsr_fybm').val(),
    	     		 fsr_userid : $('#fsr_userid').val(),
    	     		 jssjhm : $('#jssjhm').val(),
    	     		 jsrmc : $('#jsrmc').val(),
-   	     		 fsnr : $('#fsnr').val()
+   	     		 fsnr : $('#fsnr').val(),
+   	     		 dxxh : $('#dxxh').val()
    	     	},
    	     	dataType:'json',
    	     	success: function(data) {
@@ -30,6 +33,8 @@
 	     	url:'${path}/sendsmsdemo.do',
 	     	type:'POST',
 	     	data:{
+	     		 xtbh : $('#xtbh').val(),
+	     		 fsr_fybm : $('#fsr_fybm').val(),
 	     		 fsr_userid : $('#fsr_userid').val(),
 	     		 jssjhm : $('#jssjhm').val(),
 	     		 jsrmc : $('#jsrmc').val(),
@@ -48,8 +53,16 @@
 <DIV id='butdiv' align="center"> 
 <table>
 	<tr>
+		<td>xtbh</td>
+		<td><input class="easyui-validatebox" required="true" id="xtbh" type="text" value='023'/></td>
+	</tr>
+	<tr>
+		<td>fsr_fybm</td>
+		<td><input class="easyui-validatebox" required="true" id="fsr_fybm" type="text" value='1303'/></td>
+	</tr>
+	<tr>
 		<td>fsr_userid</td>
-		<td><input class="easyui-validatebox" required="true" id="fsr_userid" type="text" value='1303-Zuh'/></td>
+		<td><input class="easyui-validatebox" required="true" id="fsr_userid" type="text" value='1303-zuh'/></td>
 	</tr>
 	<tr>
 		<td>jssjhm</td>
@@ -57,11 +70,15 @@
 	</tr>
 	<tr>
 		<td>jsrmc</td>
-		<td><input class="easyui-validatebox" required="true" id="jsrmc" type="text" value='张玺'/></td>
+		<td><input class="easyui-validatebox" required="true" id="jsrmc" type="text" value=''/></td>
 	</tr>
 	<tr>
 		<td>fsnr</td>
-		<td><input class="easyui-validatebox" required="true" id="fsnr" type="text" value='测试短信内容'/></td>
+		<td><input class="easyui-validatebox" required="true" id="fsnr" type="text" value='测试短信内容TTT'/></td>
+	</tr>
+	<tr>
+		<td>短信序号</td>
+		<td><input class="easyui-validatebox" required="true" id="dxxh" type="text" value=''/></td>
 	</tr>
 	<tr>
 		<td colspan="2">

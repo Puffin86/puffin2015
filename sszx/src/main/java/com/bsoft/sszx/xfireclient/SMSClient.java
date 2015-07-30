@@ -38,7 +38,18 @@ public class SMSClient {
 			smsArr[0][7] = bean.getFssm();
 			smsArr[0][8] = bean.getId2();
 			smsArr[0][9] = bean.getAh();
-
+			
+			System.out.println("短信发送参数如下:");
+			System.out.println("xtbh:"+smsArr[0][0]);
+			System.out.println("fsr_fybm:"+smsArr[0][1]);
+			System.out.println("fsr_userid:"+smsArr[0][2]);
+			System.out.println("jssjhm:"+smsArr[0][3]);
+			System.out.println("jsrmc:"+smsArr[0][4]);
+			System.out.println("fsnr:"+smsArr[0][5]);
+			System.out.println("dsfssj:"+smsArr[0][6]);
+			System.out.println("fssm:"+smsArr[0][7]);
+			System.out.println("id2:"+smsArr[0][8]);
+			System.out.println("ah:"+smsArr[0][9]);
 			SendSMSClient client = new SendSMSClient();
 		    SendSMSPortType service = client.getSendSMSHttpPort();
 			sendRet = service.sendMessage(smsArr, null);

@@ -31,51 +31,70 @@ public class SMSContorller {
 			HttpServletResponse response, HttpSession session)
 			throws Exception {
 		
+		String xtbh = request.getParameter("xtbh");
+		String fsr_fybm = request.getParameter("fsr_fybm");
 		String fsr_userid = request.getParameter("fsr_userid");
 		String jssjhm = request.getParameter("jssjhm");
 		String jsrmc = request.getParameter("jsrmc");
 		String fsnr = request.getParameter("fsnr");
+		String dxxh = request.getParameter("dxxh");
 		
-		InetAddress addr = InetAddress.getLocalHost();
-		String ip = addr.getHostAddress();
-		ip = ip.replace(".", "");
-		System.out.println("IP:"+ip);
+//		InetAddress addr = InetAddress.getLocalHost();
+//		String ip = addr.getHostAddress();
+//		ip = ip.replace(".", "");
+//		Calendar cal = Calendar.getInstance();
+//		String date = cal.get(Calendar.YEAR)+"";
+//		if((cal.get(Calendar.MONTH)+1)<10){
+//			date = date+"0"+(cal.get(Calendar.MONTH)+1);
+//		}else{
+//			date = date+(cal.get(Calendar.MONTH)+1);
+//		}
+//		
+//		if(cal.get(Calendar.DATE)<10){
+//			date = date+"0"+(cal.get(Calendar.DATE));
+//		}else{
+//			date = date+(cal.get(Calendar.DATE));
+//		}
+//		
+//		if(cal.get(Calendar.HOUR_OF_DAY)<10){
+//			date = date+"0"+(cal.get(Calendar.HOUR_OF_DAY));
+//		}else{
+//			date = date+(cal.get(Calendar.HOUR_OF_DAY));
+//		}
+//		
+//		if(cal.get(Calendar.MINUTE)<10){
+//			date = date+"0"+(cal.get(Calendar.MINUTE));
+//		}else{
+//			date = date+(cal.get(Calendar.MINUTE));
+//		}
+//		
+//		if(cal.get(Calendar.SECOND)<10){
+//			date = date+"0"+(cal.get(Calendar.SECOND));
+//		}else{
+//			date = date+(cal.get(Calendar.SECOND));
+//		}
+		
 		Calendar cal = Calendar.getInstance();
 		String date = cal.get(Calendar.YEAR)+"";
-		if((cal.get(Calendar.MONTH)+1)<10){
-			date = date+"0"+(cal.get(Calendar.MONTH)+1);
-		}else{
+//		if((cal.get(Calendar.MONTH)+1)<10){
+//			date = date+"0"+(cal.get(Calendar.MONTH)+1);
+//		}else{
 			date = date+(cal.get(Calendar.MONTH)+1);
-		}
+//		}
 		
-		if(cal.get(Calendar.DATE)<10){
-			date = date+"0"+(cal.get(Calendar.DATE));
-		}else{
+//		if(cal.get(Calendar.DATE)<10){
+//			date = date+"0"+(cal.get(Calendar.DATE));
+//		}else{
 			date = date+(cal.get(Calendar.DATE));
-		}
+//		}
 		
-		if(cal.get(Calendar.HOUR_OF_DAY)<10){
-			date = date+"0"+(cal.get(Calendar.HOUR_OF_DAY));
-		}else{
-			date = date+(cal.get(Calendar.HOUR_OF_DAY));
-		}
-		
-		if(cal.get(Calendar.MINUTE)<10){
-			date = date+"0"+(cal.get(Calendar.MINUTE));
-		}else{
-			date = date+(cal.get(Calendar.MINUTE));
-		}
-		
-		if(cal.get(Calendar.SECOND)<10){
-			date = date+"0"+(cal.get(Calendar.SECOND));
-		}else{
-			date = date+(cal.get(Calendar.SECOND));
-		}
-		System.out.println("Date:"+date);
-		String id2 =ip+date+"00001";
-		System.out.println("ID2:"+id2);
+//		String id2 =ip+date+"00001";
+//		System.out.println("ID2:"+id2);
+		String id2 = fsr_fybm+xtbh+date+dxxh;
 		SMSClient smsc = new SMSClient();
 		SmsBean bean = new SmsBean();
+		bean.setXtbh(xtbh);
+		bean.setFsr_fybm(fsr_fybm);
 		bean.setFsr_userid(fsr_userid);
 		bean.setJssjhm(jssjhm);
 		bean.setJsrmc(jsrmc);
@@ -83,7 +102,7 @@ public class SMSContorller {
 		bean.setId2(id2);
 		
 		String[][] sarr = smsc.sendSMS(bean);
-		System.out.println(sarr[0][0]+"@"+sarr[0][1]);
+		System.out.println("短信返回值："+sarr[0][0]+" @@ "+sarr[0][1]);
 		
 		Map result = new HashMap();
 		result.put("msg", sarr[0][0]);
