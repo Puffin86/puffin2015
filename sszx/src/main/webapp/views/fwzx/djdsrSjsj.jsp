@@ -212,7 +212,7 @@ nr=nr.replace(c5, zjr);
    	    	 if(data.after==1)
       	       alert("操作成功");
       	     if(data.after==0)
-      	       alert("操作失败");    	     
+      	       alert("操作失败,"+data.msg);    	     
      	     window.location.href="${path}/to_djdsrSj.do";
    	     }})
    	    ;}else alert('请输入必输项'+alerString);}

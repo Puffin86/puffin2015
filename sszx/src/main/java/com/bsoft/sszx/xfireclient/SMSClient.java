@@ -21,11 +21,13 @@ public class SMSClient {
 	 * 发送短信
 	 * @return
 	 */
+	@SuppressWarnings("finally")
 	public String[][] sendSMS(SmsBean bean){
 		String[][] sendRet = null;
 		if(bean==null || bean.getFsr_userid()==null || bean.getJssjhm()==null 
 				|| bean.getJsrmc()==null || bean.getFsnr()==null){
 			//啥都不干
+			return sendRet;
 		}else{
 			String[][] smsArr = new String[1][10];
 			smsArr[0][0] = bean.getXtbh();
@@ -50,11 +52,17 @@ public class SMSClient {
 			System.out.println("fssm:"+smsArr[0][7]);
 			System.out.println("id2:"+smsArr[0][8]);
 			System.out.println("ah:"+smsArr[0][9]);
-			SendSMSClient client = new SendSMSClient();
-		    SendSMSPortType service = client.getSendSMSHttpPort();
-			sendRet = service.sendMessage(smsArr, null);
+			try{
+				SendSMSClient client = new SendSMSClient();
+			    SendSMSPortType service = client.getSendSMSHttpPort();
+				sendRet = service.sendMessage(smsArr, null);
+			}catch(Exception e){
+				e.printStackTrace();
+			}finally{
+				return sendRet;
+			}
 		}
-		return sendRet;
+		
 //		返回数据也为二维数组：
 //		Arr[i][0] 业务系统短信息唯一id号
 //		Arr[i][1] 发送结果编号（01 发送成功；02 发送人不存在；03 接收人手机号码长度不为11位；04 接收人手机号码没有以指定数字开头 ；05 发送内容超过指定数字（目前限定为600） ；06 定时发送时间格式不准确，格式为2013-11-07 20:02:00；07 必输项填写不完整；08 外省号码；09 其他错误;10 发送内容中有多个'#'，可能是短信模板；11 短信重复，无法发送；12  业务系统短信唯一编号大于45位）

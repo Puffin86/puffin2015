@@ -63,15 +63,25 @@
      </table>
      
      <hr/> 
-   <div style="margin-left:10px;">     
-     <div>添加材料信息：<a id="cl_add" class="add" iconCls="icon-add"></a></div>
+   <div>   
+   	  
+     <table width="100%" border="0" cellpadding="2" cellspacing="0" style="font-size:12px;">
+     	<tr>
+     		<td width="20%">添加材料信息：<a id="cl_add" class="add" iconCls="icon-add"></a></td>
+     		<td width="20%">常用材料清单：<a onclick="choseClqd()" class="easyui-linkbutton">选择</a></td>
+     		<td width="60%">&nbsp;</td>
+     	</tr>
+     </table>  
+     
      <div class="cl" id="clmxtr" style="visibility:hidden;margin-top:5px">
-       <div>材料名称：<input name="clmc" type="text"></input>
-       &nbsp;&nbsp;份数： <input name="clfs"  style="width:30px" type="text"></input>
-       &nbsp;&nbsp;页数： <input name="clys" style="width:30px" type="text"></input>      
-       <a id="cl_remove" href="#" class="easyui-linkbutton remove" data-options="iconCls:'icon-cancel'"></a>
+       <div>
+       		材料名称：<input name="clmc" type="text"></input>&nbsp;&nbsp;
+       		份数： <input name="clfs"  style="width:30px" type="text"></input>&nbsp;&nbsp;
+       		页数： <input name="clys" style="width:30px" type="text"></input>      
+       		<a id="cl_remove" href="#" class="easyui-linkbutton remove" data-options="iconCls:'icon-cancel'"></a>
        </div>
      </div>
+     
    </div>
    
    
@@ -369,6 +379,70 @@ function searchDsr(){
 		$('#dsr_se').dialog('open');
 }
 </script>
+
+<!-- 常用材料清单 -->
+<div id="clqd_dialog" class="easyui-dialog" title="常用材料清单" 
+	style="width:300px;height:200px;" data-options="modal:true,closed:true">  
+    <ul id="clqd_tree" class="easyui-tree" 
+    	data-options="checkbox:true,url:'${path}/zdmxcx_tree.do?zdbm=cyclqd'"></ul>  
+</div> 
+
+<script>
+
+var clqdObj={};//记录已经添加的材料清单
+$('#clqd_dialog').dialog({
+	buttons:[{
+		text:'确定',
+		handler:function(){
+			var arr = $('#clqd_tree').tree('getChecked');
+			for(var i in arr){
+				if(clqdObj[arr[i].id]!=null){
+					continue;
+				}
+				var s = buildClxx(arr[i].text,arr[i].id);
+				$('#clmxtr').parent().append(s);
+			}
+			$('#clqd_dialog').dialog('close');
+		}
+	},{
+		text:'取消',
+		handler:function(){
+			$('#clqd_dialog').dialog('close');
+		}
+	}]
+});
+
+
+function choseClqd(){
+	$('#clqd_dialog').dialog('open');
+}
+
+
+function buildClxx(clmc,cllx){
+	var divclmxtr = $('<div class="cl" id="clmxtr" style="margin-top:5px"></div>');
+	var indivStr = $('<div>'
+		+ '材料名称：<input name="clmc" type="text" value="' +clmc+ '"/>&nbsp;&nbsp;'
+		+ '份数： <input name="clfs"  style="width:30px" type="text"/>&nbsp;&nbsp;'
+    	+ '页数： <input name="clys" style="width:30px" type="text"/>&nbsp;&nbsp;'
+    	+ '</div>');
+	
+	$('<a></a>').text('').appendTo(indivStr).linkbutton({iconCls:'icon-cancel'}).attr('cllx',cllx).on('click',function(){
+		var lx = $(this).attr('cllx');
+		var node = $('#clqd_tree').tree('find',lx);
+		$('#clqd_tree').tree('uncheck',node.target);
+		var td = $(this).parent();
+		td.empty();//清空父元素
+		td.remove();
+		delete clqdObj[lx];
+	});
+	clqdObj[cllx] = cllx;
+	indivStr.appendTo(divclmxtr);
+    return divclmxtr;
+}
+
+
+</script>
+
 
 </body>
 </html>

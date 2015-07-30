@@ -56,6 +56,7 @@ public class DjdsrLqQd  {
 		Zjqd.setZjrq(new GetTime().gettime());
 		new ZjqdDao().saveZjqd(Zjqd);
 		
+		Map result = new HashMap();
 		String lx=request.getParameter("sffs");//存储短信给承办人
 		if(lx.equals("0")&& cbrlxdh!=null&&!cbrlxdh.equals("")){
 			String nr=request.getParameter("sms");
@@ -75,7 +76,10 @@ public class DjdsrLqQd  {
 			String[][] ret = sc.sendSMS(smsbean);
 			
 			Sms sms=new Sms();
-			sms.setSmszt(ret[0][1]);
+			if(ret!=null && ret[0][1]!=null)
+				sms.setSmszt(ret[0][1]);
+			else
+				sms.setSmszt("09");
 			sms.setBh(bh);
 			sms.setSmsid2(id2);
 			sms.setFydm(fydm);
@@ -83,11 +87,14 @@ public class DjdsrLqQd  {
 			sms.setNr(nr);
 			sms.setZt(0);
 			new SmsDao().saveOrUpdate(sms);
+			result.put("success", true);
+			result.put("after", "1");
+		}else{
+			result.put("success", false);
+			result.put("after", "0");
+			result.put("msg", "error:联系电话为空");
 		}		
 		
-		Map result = new HashMap();
-		result.put("success", true);
-		result.put("after", "1");
 		JSONObject json = JSONObject.fromObject(result);
 		HttpHelper.renderJson(json.toString(), response);
 	}

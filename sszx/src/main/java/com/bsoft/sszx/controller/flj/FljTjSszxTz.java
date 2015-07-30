@@ -74,7 +74,10 @@ public class FljTjSszxTz {
 			String[][] ret = sc.sendSMS(smsbean);
 			
 			Sms sms = new Sms();
-			sms.setSmszt(ret[0][1]);
+			if(ret!=null && ret[0][1]!=null)
+				sms.setSmszt(ret[0][1]);
+			else
+				sms.setSmszt("09");
 			sms.setBh(bh);
 			sms.setSmsid2(id2);
 			sms.setFydm(fydm);
@@ -87,7 +90,7 @@ public class FljTjSszxTz {
 		}else{
 			result.put("success", false);
 			result.put("after", "0");
-			result.put("msg", "error");
+			result.put("msg", "error:联系电话为空");
 		}
 
 		JSONObject json = JSONObject.fromObject(result);

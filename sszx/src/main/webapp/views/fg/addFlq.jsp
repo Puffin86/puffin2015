@@ -83,6 +83,7 @@
 	       	<a id="cl_remove" class="remove" style="margin-top:-7px" iconCls="icon-cancel"></a>
        </div>
      </div>
+     
    </div>
    
    <hr/>
