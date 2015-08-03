@@ -78,7 +78,7 @@ $('#QR').dialog({
         	     dataType:'json',
         	     success:function (res) {
         	       if(res.after==1)
-        	         alert("转交成功");
+        	         alert("转交成功"+res.msg);
         	       else
         	       	alert("转交失败:"+res.msg)
         	       window.location.href="${path}/to_jsdsrzdsj.do";

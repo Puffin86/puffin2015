@@ -167,7 +167,7 @@ nr=nr.replace(c5, zjr);
    	     dataType:'json',
    	     success:function (data) {
    	    	 if(data.after==1)
-      	       alert("操作成功");
+      	       alert("操作成功"+data.msg);
       	     if(data.after==0)
       	       alert("操作失败,"+data.msg);    	     
      	     window.location.href="${path}/to_djdsrLq.do";

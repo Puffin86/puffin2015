@@ -112,7 +112,7 @@ $('#QR').dialog({
         	     dataType:'json',
         	     success:function (res) {
 		       	       if(res.after==1){
-		       	       		alert("通知成功");
+		       	       		alert("通知成功"+res.msg);
 			       	        window.location.href="${path}/to_flj.do";
 		       	       }else{
 		       	    	    alert("通知失败,返回后请重新操作");
