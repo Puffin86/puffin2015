@@ -15,6 +15,7 @@ public class ToPlSzJs {
 	public String toPlsz(String roleId,String roleText, Map<String, Object> model){
 		model.put("roleId", roleId);
 		model.put("roleText", roleText);
+		System.out.println("roleText::::"+roleText);
 		return "sys/plsz2";
 	}
 

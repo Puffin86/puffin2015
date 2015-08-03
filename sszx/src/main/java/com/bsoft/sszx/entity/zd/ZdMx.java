@@ -15,7 +15,7 @@ public class ZdMx implements java.io.Serializable {
 	private String zdmxmc;
 	private String parent;
 	private String zdbm;
-	private Integer editable;
+	private Integer editable=1;
 	
 
 	// Constructors

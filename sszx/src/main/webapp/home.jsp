@@ -40,7 +40,7 @@
 			lxdh=1;
 	%>
 
-<div iconCls="icon-tip" class="easyui-panel" title="消息提醒" style="width:300px;height:auto;padding:10px;">
+<div iconCls="icon-tip" class="easyui-panel" title="消息提醒" style="width:310px;height:auto;padding:10px;">
 	<p style="color:#770000"> <%=userXm %>, 您好!</p>
 	<div id="thN">您有<a style="color:red" href="#" onclick="window.parent.addTab('处理退回材料','to_tuiHuiCL.do')">&nbsp;&nbsp;<%=htN %>&nbsp;&nbsp;</a>份材料被退回，请处理。</div> 
     <div id="drN">您有<a style="color:red" href="#" onclick="window.parent.addTab('待接收材料','to_fgJsCl.do')">&nbsp;&nbsp;<%=drN %>&nbsp;&nbsp;</a>份材料待接收，请处理。</div>

@@ -45,14 +45,14 @@ public class EditTuiHuiCL  {
 		ah = URLDecoder.decode(ah, "UTF-8"); 
 		
 		if(!oldAh.equals(ah)){
-			String lzjl = Zjqd.getLzjl()+"材料原相关案号"+oldAh+"号由转交人【"+user.getYhxm()+"】于【"+new GetTime().gettime()+"】调整为"+ah+"号;";
+			String lzjl = Zjqd.getLzjl()+"材料原相关案号"+oldAh+"号由转交人【"+user.getYhxm()+"】于【"+new GetTime().gettime()+"】调整为"+ah;
 			Zjqd.setLzjl(lzjl);
 		}
 		
 		Zjqd.setAh(ah);	
 		
-		Zjqd.setZjr(zjr);
-		Zjqd.setZjrXm(user.getYhxm());
+//		Zjqd.setZjr(zjr);
+//		Zjqd.setZjrXm(user.getYhxm());
 		
 		
 		String sjrXm=request.getParameter("sjrXm");

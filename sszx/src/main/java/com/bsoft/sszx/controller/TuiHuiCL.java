@@ -59,19 +59,26 @@ public class TuiHuiCL {
 		String qscyr = Zjqd.getQscyr();
 
 		String lzjl = "";
+		UserDao userDao = new UserDao();
+		String userid = (String) session.getAttribute("user");
 		if (!thdx.equals("3") && !thdx.equals("5")) {
-			UserDao userDao = new UserDao();
 			String dqcyrName = userDao.findUserById(dqcyr, fydm).getYhxm();
 			String qscyrName = userDao.findUserById(qscyr, fydm).getYhxm();
 
 			lzjl = Zjqd.getLzjl() + "材料由接收人【" + dqcyrName + "】于【"
 					+ GetTime.gettime() + "】退回给转交人【" + qscyrName + "】;";
 		} else if (thdx.equals("3")) {
-			lzjl = Zjqd.getLzjl() + "材料由【诉讼中心】于【" + GetTime.gettime()
+			String zjrxm = userDao.findUserById(userid, fydm).getYhxm();
+			lzjl = Zjqd.getLzjl() + "材料由【"+zjrxm+"】于【" + GetTime.gettime()
 					+ "】退回给承办人【" + Zjqd.getSjrXm() + "】;";
+			Zjqd.setZjr(userid);
+			Zjqd.setZjrXm(zjrxm);
 		} else {
-			lzjl = Zjqd.getLzjl() + "【诉讼中心】于【" + GetTime.gettime() + "】退回承办人【"
+			String zjrxm = userDao.findUserById(userid, fydm).getYhxm();
+			lzjl = Zjqd.getLzjl() + "【"+zjrxm+"】于【" + GetTime.gettime() + "】退回承办人【"
 					+ Zjqd.getSjrXm() + "】的请求;";
+			Zjqd.setZjr(userid);
+			Zjqd.setZjrXm(zjrxm);
 		}
 		Zjqd.setLzjl(lzjl);
 

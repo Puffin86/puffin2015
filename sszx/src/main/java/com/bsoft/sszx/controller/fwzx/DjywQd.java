@@ -92,7 +92,11 @@ public class DjywQd  {
 		
 		Map result = new HashMap();
 		String lx=request.getParameter("sffs");//存储短信给当事人
-		if(lx.equals("0")&& dsrlxdh!=null&&!dsrlxdh.equals("")){
+		if(lx.equals("1")){
+			result.put("success", true);
+			result.put("after", "1");
+			result.put("msg", "");
+		}else if(lx.equals("0")&& dsrlxdh!=null&&!dsrlxdh.equals("")){
 			String nr=request.getParameter("sms");
 			nr = URLDecoder.decode(nr, "UTF-8"); 
 			nr = URLDecoder.decode(nr, "UTF-8"); 
@@ -123,10 +127,14 @@ public class DjywQd  {
 			new SmsDao().saveOrUpdate(sms);
 			result.put("success", true);
 			result.put("after", "1");
+			result.put("msg", "");
+		}else if (lx.equals("0") && (dsrlxdh == null || dsrlxdh.equals(""))){
+			result.put("success", true);
+			result.put("after", "1");
+			result.put("msg", ",当事人电话为空");
 		}else{
-			result.put("success", false);
-			result.put("after", "0");
-			result.put("msg", "当事人联系电话为空");
+			result.put("success", true);
+			result.put("after", "1");
 		}
 		
 		
