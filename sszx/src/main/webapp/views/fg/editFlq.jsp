@@ -202,7 +202,6 @@ function save(){
 		if(content=='')
 			tr+=1;
 	}
-	
 	if(tr==0 && alerString==''){
 		$.ajax({
 			url:'${path}/editDsrZjqdQd.do',

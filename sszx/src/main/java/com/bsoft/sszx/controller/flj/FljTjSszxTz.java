@@ -54,7 +54,6 @@ public class FljTjSszxTz {
 
 		zjqd.setZjrq(GetTime.gettime());
 		new ZjqdDao().saveZjqd(zjqd);
-
 		String lx = request.getParameter("sffs");// 存储短信给当事人
 		if (lx.equals("0") && dsrlxdh != null && !dsrlxdh.equals("")) {//发送短信
 			String nr = request.getParameter("sms");
@@ -90,7 +89,7 @@ public class FljTjSszxTz {
 		}else{
 			result.put("success", false);
 			result.put("after", "0");
-			result.put("msg", "error:联系电话为空");
+			result.put("msg", "当事人联系电话为空");
 		}
 
 		JSONObject json = JSONObject.fromObject(result);

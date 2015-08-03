@@ -402,7 +402,7 @@ public class ZjqdDao {
 		try {
 			session = HibernateUtil.getSession(); // 获取Session
 			session.beginTransaction();
-			String sql = " FROM Zjqd WHERE TIMESTAMPDIFF(DAY,CURDATE(),sxsj)<=CEILING(sx/3) and TIMESTAMPDIFF(DAY,CURDATE(),sxsj)>=0 and id.fydm='"+fydm+"' and sjr='"+user+"' and lclx='"+lclx+"' and zt in("+zt+")";
+			String sql = " FROM Zjqd WHERE TIMESTAMPDIFF(DAY,CURDATE(),sxsj)<=sx/3 and TIMESTAMPDIFF(DAY,CURDATE(),sxsj)>=0 and id.fydm='"+fydm+"' and sjr='"+user+"' and lclx='"+lclx+"' and zt in("+zt+")";
 			List list = session.createQuery(sql).list();
 			session.getTransaction().commit();
 			return list.size();
@@ -420,7 +420,7 @@ public class ZjqdDao {
 		try {
 			session = HibernateUtil.getSession(); // 获取Session
 			session.beginTransaction();
-			String sql = " FROM Zjqd WHERE TIMESTAMPDIFF(DAY,CURDATE(),sxsj)<=CEILING(sx/3) and TIMESTAMPDIFF(DAY,CURDATE(),sxsj)>=0 and id.fydm='"+fydm+"'  and lclx='"+lclx+"' and zt in("+zt+")";
+			String sql = " FROM Zjqd WHERE TIMESTAMPDIFF(DAY,CURDATE(),sxsj)<=sx/3 and TIMESTAMPDIFF(DAY,CURDATE(),sxsj)>=0 and id.fydm='"+fydm+"'  and lclx='"+lclx+"' and zt in("+zt+")";
 			List list = session.createQuery(sql).list();
 			session.getTransaction().commit();
 			return list.size();
@@ -439,7 +439,7 @@ public class ZjqdDao {
 		try {
 			session = HibernateUtil.getSession(); // 获取Session
 			session.beginTransaction();
-			String sql = " FROM Zjqd WHERE TIMESTAMPDIFF(DAY,CURDATE(),sxsj)<=CEILING(sx/3) and TIMESTAMPDIFF(DAY,CURDATE(),sxsj)>=0 and id.fydm='"+fydm+"' and sjr='"+user+"' and lclx='"+lclx+"' and zt in("+zt+")";
+			String sql = " FROM Zjqd WHERE TIMESTAMPDIFF(DAY,CURDATE(),sxsj)<=sx/3 and TIMESTAMPDIFF(DAY,CURDATE(),sxsj)>=0 and id.fydm='"+fydm+"' and sjr='"+user+"' and lclx='"+lclx+"' and zt in("+zt+")";
 			Query query = session.createQuery(sql);
 			query.setFirstResult(start);
 			query.setMaxResults(number);
@@ -458,7 +458,7 @@ public class ZjqdDao {
 		try {
 			session = HibernateUtil.getSession(); // 获取Session
 			session.beginTransaction();
-			String sql = " FROM Zjqd WHERE TIMESTAMPDIFF(DAY,CURDATE(),sxsj)<=CEILING(sx/3) and TIMESTAMPDIFF(DAY,CURDATE(),sxsj)>=0 and id.fydm='"+fydm+"'  and lclx='"+lclx+"' and zt in("+zt+")";
+			String sql = " FROM Zjqd WHERE TIMESTAMPDIFF(DAY,CURDATE(),sxsj)<=sx/3 and TIMESTAMPDIFF(DAY,CURDATE(),sxsj)>=0 and id.fydm='"+fydm+"'  and lclx='"+lclx+"' and zt in("+zt+")";
 			Query query = session.createQuery(sql);
 			query.setFirstResult(start);
 			query.setMaxResults(number);

@@ -92,7 +92,7 @@ public class DjdsrLqQd  {
 		}else{
 			result.put("success", false);
 			result.put("after", "0");
-			result.put("msg", "error:联系电话为空");
+			result.put("msg", "承办人联系电话为空");
 		}		
 		
 		JSONObject json = JSONObject.fromObject(result);

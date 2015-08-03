@@ -106,7 +106,7 @@ $('#QR').dialog({
         	     data:{
         	    	 bh:<%=bh%>,
         	    	 fydm:<%=fydm%>,
-        	    	 sffs: $('input:radio[name="identity"]').is(":checked"),//lx
+        	    	 sffs: $('input[name=identity]:checked').attr('value'),//lx
         	    	 sms:$('#sms').val()
         	     },
         	     dataType:'json',

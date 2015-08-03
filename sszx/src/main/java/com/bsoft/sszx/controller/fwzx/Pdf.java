@@ -18,6 +18,7 @@ import com.bsoft.sszx.dao.ECourtDao;
 import com.bsoft.sszx.dao.FjDao;
 import com.bsoft.sszx.dao.FyDao;
 import com.bsoft.sszx.dao.ZjqdDao;
+import com.bsoft.sszx.entity.clb.Clb;
 import com.bsoft.sszx.entity.eaj.Eaj;
 import com.bsoft.sszx.entity.edsr.Edsr;
 import com.bsoft.sszx.entity.fjb.Fjb;
@@ -127,7 +128,17 @@ public class Pdf {
 		
 		valueMap.put("ssdr", Zjqd.getDjr());
 		
-		valueMap.put("clxx", Zjqd.getClqd());
+		List<Clb> cd = new ClbDao().findByZjqd(bh, fydm);
+		String clxx = "";
+		if(cd!=null && cd.size()>0){
+			for(Clb clb : cd){
+				clxx = clxx+clb.getClmc()+",";
+			}
+		}
+		if(clxx.length()>0)
+			clxx = clxx.substring(0, clxx.length()-1);
+		valueMap.put("clxx", clxx);
+		
 		
 		ECourtDao ecountDao = new ECourtDao();
 		Eaj eaj = ecountDao.findAyByAh(Zjqd.getAh());

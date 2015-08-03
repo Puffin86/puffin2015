@@ -80,7 +80,7 @@ $('#QR').dialog({
         	       if(res.after==1)
         	         alert("转交成功");
         	       else
-        	       	alert("转交失败")
+        	       	alert("转交失败:"+res.msg)
         	       window.location.href="${path}/to_jsdsrzdsj.do";
         	     }
         });

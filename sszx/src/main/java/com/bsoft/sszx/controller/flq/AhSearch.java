@@ -74,7 +74,10 @@ public class AhSearch {
 			UserDao userDao = new UserDao();
 
 			
-			cbr = cbr.replace(fydm, "").replaceAll(" ", "");
+			if(cbr!=null)
+				cbr = cbr.replace(fydm, "").replaceAll(" ", "");
+			else
+				cbr="";
 			String cbrxm = "";
 			String text = ah;
 			if(cbr.length()>0){
@@ -83,7 +86,10 @@ public class AhSearch {
 			}
 
 			String bmmc = "";
-			cbbm = cbbm.replaceAll(" ", "");
+			if(cbbm!=null)
+				cbbm = cbbm.replaceAll(" ", "");
+			else
+				cbbm="";
 			if(cbbm.length()>0){
 				bmmc = userDao.findBm(cbbm, fydm).getBmmc();
 			}
