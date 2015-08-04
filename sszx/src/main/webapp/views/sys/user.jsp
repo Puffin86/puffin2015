@@ -30,7 +30,8 @@ $('#searchAll').linkbutton({});
 $('#roleList').tree({
 	onClick: function(node){
 		//alert(node.id +';'+ node.text);
-		location.href='${path}/to_plsz.do?roleId=' + node.id+"&roleText="+node.text;
+		//location.href='${path}/to_plsz.do?roleId=' + node.id+"&roleText="+node.text;
+		location.href='${path}/to_plsz.do?roleId=' + node.id+"&roleText="+encodeURI(encodeURI(node.text));
 	}
 });
 

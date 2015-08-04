@@ -59,7 +59,7 @@ $(function(){
 	 $('#del').linkbutton({});
 	 
 	 $('#cc').combobox({
-		    url:'zdcx.do',    
+		    url:'zdcx2.do',    
 		    valueField:'zdbm',    
 		    textField:'zdmc' ,
 		    onSelect :function(record){
@@ -190,7 +190,7 @@ $(function(){
 		          	     dataType:'json',
 		          	     success:function (data) {
 		          	    	$('#cc').combobox({
-		          			    url:'zdcx.do',    
+		          			    url:'zdcx2.do',    
 		          			    valueField:'zdbm',    
 		          			    textField:'zdmc' ,
 		          			    onLoadSuccess:function(data){
@@ -286,7 +286,7 @@ $(function(){
 		     	     success:function (data) {
 		     	    	//重新渲染解决combobox的数据删除BUG
 		     	    	$('#cc').combobox({ 
-		     			    url:'zdcx.do',    
+		     			    url:'zdcx2.do',    
 		     			    valueField:'zdbm',    
 		     			    textField:'zdmc',
 		     			   onLoadSuccess : function(data){
