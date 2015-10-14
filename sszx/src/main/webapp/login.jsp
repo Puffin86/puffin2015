@@ -54,7 +54,7 @@
 </div>
 </div>
 <div class="copyright moa">
-<p>测试版1.0</p>
+<p>测试版1.0，仅供试用</p>
 <p>为获得最佳浏览效果，建议使用IE6以上版本及1024*768分辨率</p>
 <p>版权所有&nbsp;&copy;&nbsp;2015-2017</p>
 </div>
