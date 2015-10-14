@@ -179,7 +179,6 @@ $(function(){
 	 
 	 $("#addBtn").bind("click",function(){
 		 var nodes = $('#bmtree').tree('getChecked');
-		 alert('${roleText}');
 		 for(var i=0;i<nodes.length;i++){
 			 var node = nodes[i];
 			 var type = node.attributes.type;

@@ -47,6 +47,33 @@ public class ToZD {
 	}
 	
 	
+	@RequestMapping("zdcx2")
+	public void zdcx2(HttpServletRequest request,
+			HttpServletResponse response, HttpSession session) throws Exception {
+
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		List<Zd> al = (List<Zd>) new ZdDao().findAll();
+		List<Zd> realal = new ArrayList<Zd>();
+		
+		//字典维护界面，隐藏字典列表下拉菜单里的角色、业务类型、状态三个选项。
+		if(al!=null){
+			for(Zd zd : al){
+				String zdbm = zd.getZdbm();
+				if("js".equals(zdbm) || "zt".equals(zdbm) || "ywlx".equals(zdbm)){
+					continue;
+				}
+				realal.add(zd);
+			}
+		}
+		
+		
+		JSONArray resultObj = JSONArray.fromObject(realal);
+		HttpHelper.renderJson(resultObj.toString(), response);
+	}
+	
+	
+	
 	@RequestMapping("editZd")
 	public void editZd(HttpServletRequest request,
 			HttpServletResponse response, HttpSession session) throws Exception {
