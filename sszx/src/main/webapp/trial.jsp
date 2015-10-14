@@ -12,7 +12,7 @@
 </head>
 <body style="background-color:#fff;padding:20px;">
 	<div  iconCls="icon-help" class="easyui-panel" title="帮助" style="width:300px;height:auto;padding:10px;margin:0 auto">
-	                  当前已过试用期或在非授权机构使用，请联系puffin<584852076@qq.com>获取正式版....
+	                  当前已过试用期或在非授权机构使用，请联系I'm QQ<584852076@qq.com>获取正式版....
 	</div>
 </body>
 </html>
