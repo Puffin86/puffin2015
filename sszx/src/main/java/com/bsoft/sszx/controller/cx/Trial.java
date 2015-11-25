@@ -61,31 +61,18 @@ public class Trial {
 		User u = new UserDao().findUserById(user, fydm);
 		if (u != null) {
 			if (u.getPass().equals(pass)) {
-				String str=TrialTool.decode("MjAxNS0wOS0xNQ==");
-				SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
-				Date date =sdf.parse(str);
-				Calendar calendar = Calendar.getInstance();
-				calendar.setTime(date);
-				Calendar today = Calendar.getInstance();
-				int s = today.compareTo(calendar);
+				session.setAttribute("user", user);
+				session.setAttribute("fydm", fydm);
 				
-				if(s==-1){
-						session.setAttribute("user", user);
-						session.setAttribute("fydm", fydm);
-						
-						//把用户名和密码保存在Cookie对象里面  
-						String username = URLEncoder.encode(user,"utf-8");  
-						//使用URLEncoder解决无法在Cookie当中保存中文字符串问题  
-						Cookie usernameCookie = new Cookie("username",username);  
-						usernameCookie.setMaxAge(864000);  //设置最大生存期限为10天  
-						response.addCookie(usernameCookie);  
+				//把用户名和密码保存在Cookie对象里面  
+				String username = URLEncoder.encode(user,"utf-8");  
+				//使用URLEncoder解决无法在Cookie当中保存中文字符串问题  
+				Cookie usernameCookie = new Cookie("username",username);  
+				usernameCookie.setMaxAge(864000);  //设置最大生存期限为10天  
+				response.addCookie(usernameCookie);  
 
-						result.put("success", true);
-						result.put("after", "1");
-				}else{
-					result.put("success", false);
-					result.put("after", "2");
-				}
+				result.put("success", true);
+				result.put("after", "1");
 			} else {
 				result.put("success", false);
 				result.put("after", "0");
