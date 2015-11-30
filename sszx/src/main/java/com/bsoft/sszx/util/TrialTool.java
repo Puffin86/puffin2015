@@ -19,7 +19,7 @@ public class TrialTool {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println(encode("2112313"));//MjAxNS131230wOSsd0xNQ==
+		System.out.println(encode("2015-11-30"));//MjAxNS131230wOSsd0xNQ==
 //		System.out.println(decode("MjAxNS0wNS0wMg=="));
 	}
 
