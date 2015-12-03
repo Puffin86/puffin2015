@@ -19,6 +19,11 @@
                 <comment>案号</comment>
             </column>
         </property>
+        <property name="ahdm" type="java.lang.String">
+            <column name="ahdm" length="100">
+                <comment>案号代码</comment>
+            </column>
+        </property>
         <property name="sjr" type="java.lang.String">
             <column name="sjr" length="100">
                 <comment>收件人</comment>

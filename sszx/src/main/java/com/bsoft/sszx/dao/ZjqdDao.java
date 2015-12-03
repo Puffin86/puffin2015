@@ -36,10 +36,11 @@ public class ZjqdDao {
 		int maxid = 0;
 		try {
 			session = HibernateUtil.getSession(); // 获取Session
+			session.beginTransaction();
 			String sql = "select max(id.bh) from Zjqd where id.fydm='" + fydm
 					+ "'";
 			List list = session.createQuery(sql).list();
-			
+			session.getTransaction().commit();
 			if(list==null){
 				maxid =  1;
 			}else if(list.get(0)==null){

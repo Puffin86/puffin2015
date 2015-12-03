@@ -46,7 +46,7 @@
      </tr>
       <tr>
        <td>领取时限：</td>
-       <td><input name="lqsx" type="text"/></td>
+       <td><input name="lqsx" type="text"/>天内</td>
        
        <td>递交日期：</td>
        <td><input editable="false" class="easyui-datebox" id="djrq" name="djrq" type="text"/></td>
@@ -143,6 +143,7 @@ $(document).ready(function(){
 
 function save(){
     var ah=$('input[name=ah]').val();
+    var ahdm=$('input[name=ahdm]').val();
     var sjr=$('input[name=sjr]').val();
     var djrq=$('input[name=djrq]').val();
     var zjr=$('input[name=zjr]').val();
@@ -226,6 +227,7 @@ function save(){
    	     	type:'POST',
    	     	data:{
    	     		 ah:encodeURI(encodeURI(ah))
+   	     		 ,ahdm:encodeURI(encodeURI(ahdm))
                  ,sjr:encodeURI(encodeURI(sjr))
                  ,tjrStr:encodeURI(encodeURI(tjrStr))
                  //,tjr:encodeURI(encodeURI(tjr))
@@ -358,6 +360,10 @@ function sdhzclqd(){
 
 <div id="ah_se" style="width:400px;height:300px;padding:5px;">
    <table style="font-size:12px">
+   		<tr>
+	   		<td>案件类型：</td>
+	   		<td colspan="3"><input name="ajly"  type="radio" checked="checked" value="sp">审判</input><input name="ajly"  type="radio" value="zx">执行</input></td>
+	   	</tr>
 		<tr>
 			<td>年份：</td>
 			<td><input id="ahN" type="text" style="width:100px;margin-left:5px;margin-top:5px"/></td>
@@ -417,7 +423,7 @@ function searchAh(){
 	var ahN=$('#ahN').val();
 	var ahG=$('#ahG').val();
 	var ahDsr=$('#ahDsr').val();
-	
+	var ajly = $("input[name='ajly']:checked").val(); 
 	//if(ahN != '' && ahG != ''){
 		$.ajax({
 	  	     url:'${path}/ahSearch.do',
@@ -426,6 +432,7 @@ function searchAh(){
 	  	    	ahN: encodeURI(encodeURI(ahN)),
 	  	    	ahG: encodeURI(encodeURI(ahG)),
 	  	    	ahDsr: encodeURI(encodeURI(ahDsr)),
+	  	    	ajly : ajly,
 	  	    	lx:1
 	  	     },
 	  	     dataType:'json',
@@ -459,7 +466,8 @@ $('#dsrgridList').datagrid({
 	border:true,
 	url:"dsrSearchList.do",
 	queryParams : {
-		ah : $('input[name=ah]').val()
+		ah : $('input[name=ahdm]').val(),
+		cbbm : $('input[name=sjrbm]').val()
 	},
 	columns:[[
 	    {field:'ck',checkbox:true }, 
@@ -474,7 +482,8 @@ function searchDsrList(){
 	var ah=$('input[name=ahdm]').val();
 	if(ah!=''){
 		$('#dsrgridList').datagrid('load',{
-			ah : $('input[name=ahdm]').val()
+			ah : $('input[name=ahdm]').val(),
+			cbbm : $('input[name=sjrbm]').val()
 		});
 		$('#dsrgridList').datagrid('clearSelections');
 	}else{

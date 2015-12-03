@@ -117,9 +117,11 @@ public class FjDao {
 	public Fjb findFjbByFjmc(String fjmc, String bh, String fydm) {
 		try {
 			session = HibernateUtil.getSession(); // 获取Session
+			session.beginTransaction();
 			String sql = "from Fjb where id.fydm='" + fydm + "'"
 					+ " and fjmc='" + fjmc + "' and id.bh=" + bh;
 			List<Fjb> bm = (List<Fjb>) session.createQuery(sql).list();
+			session.getTransaction().commit();
 			if (bm.size() > 0)
 				return bm.get(0);
 		} catch (Exception e) {

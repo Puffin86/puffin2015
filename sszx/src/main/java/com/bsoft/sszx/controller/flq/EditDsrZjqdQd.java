@@ -50,6 +50,11 @@ public class EditDsrZjqdQd {
 			ah = URLDecoder.decode(ah, "UTF-8");
 			ah = URLDecoder.decode(ah, "UTF-8");
 			Zjqd.setAh(ah);
+			
+			String ahdm = request.getParameter("ahdm");
+			ahdm = URLDecoder.decode(ahdm, "UTF-8");
+			ahdm = URLDecoder.decode(ahdm, "UTF-8");
+			Zjqd.setAhdm(ahdm);
 
 			String sjrXm = request.getParameter("sjrXm");
 			sjrXm = URLDecoder.decode(sjrXm, "UTF-8");

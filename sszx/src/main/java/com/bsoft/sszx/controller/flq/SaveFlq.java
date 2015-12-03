@@ -57,6 +57,11 @@ public class SaveFlq {
 			ah = URLDecoder.decode(ah, "UTF-8");
 			ah = URLDecoder.decode(ah, "UTF-8");
 			Zjqd.setAh(ah);
+			
+			String ahdm = request.getParameter("ahdm");
+			ahdm = URLDecoder.decode(ahdm, "UTF-8");
+			ahdm = URLDecoder.decode(ahdm, "UTF-8");
+			Zjqd.setAhdm(ahdm);;
 
 			String sjrXm = request.getParameter("sjrXm");
 			sjrXm = URLDecoder.decode(sjrXm, "UTF-8");
@@ -185,6 +190,10 @@ public class SaveFlq {
 			ah = URLDecoder.decode(ah, "UTF-8");
 			ah = URLDecoder.decode(ah, "UTF-8");
 			
+			String ahdm = request.getParameter("ahdm");
+			ahdm = URLDecoder.decode(ahdm, "UTF-8");
+			ahdm = URLDecoder.decode(ahdm, "UTF-8");
+			
 			String sjrXm = request.getParameter("sjrXm");
 			sjrXm = URLDecoder.decode(sjrXm, "UTF-8");
 			sjrXm = URLDecoder.decode(sjrXm, "UTF-8");
@@ -246,7 +255,7 @@ public class SaveFlq {
 			hibsession.beginTransaction();
 			
 			for(String tjrItemStr : tjrArr){
-				System.out.println("!!!!!!!"+tjrItemStr);
+//				System.out.println("!!!!!!!"+tjrItemStr);
 				if("".equals(tjrItemStr)){
 					continue;
 				}
@@ -258,6 +267,7 @@ public class SaveFlq {
 				
 				Zjqd Zjqd = new Zjqd();
 				Zjqd.setAh(ah);
+				Zjqd.setAhdm(ahdm);
 				Zjqd.setSjrXm(sjrXm);
 				Zjqd.setSjrBmmc(sjrbmMc);
 				Zjqd.setSjrbm(sjrbm);

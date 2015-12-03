@@ -75,9 +75,11 @@ public class UserDao {
 		User user = null;
 		try {
 			session = HibernateUtil.getSession(); // 获取Session
+			session.beginTransaction();
 			String sql = "from User where id.yhid='" + uid + "' and id.dwdm='"
 					+ fydm + "'";
 			user = (User) session.createQuery(sql).list().get(0);
+			session.getTransaction().commit();
 		} catch (Exception e) {
 			e.printStackTrace();// 打印错误信息
 		} finally {
@@ -118,6 +120,26 @@ public class UserDao {
 			HibernateUtil.closeSession(session); // 关闭Session
 		}
 		return null;
+	}
+	
+	
+	@SuppressWarnings("finally")
+	public User findSimpleUserByName(String fydm, String name) {
+		User user = null;
+		try {
+			session = HibernateUtil.getSession(); // 获取Session
+			session.beginTransaction();
+			String sql = "from User where dwdm=" + fydm + " and yhxm = "
+					+ "'" + name + "'";
+			user = (User) session.createQuery(sql).list().get(0);
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace(); // 打印错误信息
+		} finally {
+			HibernateUtil.closeSession(session); // 关闭Session
+			return user;
+		}
+		
 	}
 
 	public List<User> findUserByBm(String bm, String fydm) {
@@ -212,6 +234,7 @@ public class UserDao {
 	public List<BmBean> findBm(String fydm) {
 		try {
 			session = HibernateUtil.getSession(); // 获取Session
+			session.beginTransaction();
 			String sql = "select dwdm,bmdm,bmmc from bmb where dwdm='" + fydm+"'";
 			SQLQuery query = session.createSQLQuery(sql);
 			query.addScalar("dwdm",Hibernate.STRING);
@@ -219,6 +242,7 @@ public class UserDao {
 			query.addScalar("bmmc",Hibernate.STRING);
 			query.setResultTransformer(Transformers.aliasToBean(BmBean.class));
 			List<BmBean> BmbList = (List<BmBean>) query.list();
+			session.getTransaction().commit();
 			return BmbList;
 		} catch (Exception e) {
 			e.printStackTrace(); // 打印错误信息

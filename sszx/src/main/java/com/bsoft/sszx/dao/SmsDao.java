@@ -9,7 +9,7 @@ import com.bsoft.sszx.hibernate.HibernateUtil;
 public class SmsDao {
 	Session session = null;	//Session对象
 	Transaction tx = null;	//事物
-	/** shaobt 邵佰通 版权所有 2015-08-03
+	/** shaobt  版权所有 2015-08-03
 	 * 本源码不对外开放、商业用途
 	 * 查询所有图书
 	 * @return List
@@ -32,7 +32,9 @@ public class SmsDao {
 	public int getMaxId(){
 		try{
     		session = HibernateUtil.getSession();		//获取Session
+    		session.beginTransaction();
 	    	Object maxId = session.createSQLQuery("select max() from sms").uniqueResult();
+	    	session.getTransaction().commit();
     	} catch (Exception e) {
 			e.printStackTrace();						//打印错误信息
 		}finally{

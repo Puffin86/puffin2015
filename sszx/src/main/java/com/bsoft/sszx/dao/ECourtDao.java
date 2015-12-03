@@ -22,8 +22,10 @@ public class ECourtDao {
 		List list = null;
 		try {
 			session = HibernateSybase.getSession();
+			Transaction tx = session.beginTransaction();
 			Query query = session.createQuery("from Eaj where ah like '%" +  AnHao + "%' and dsr like '%"+dsr+"%' and nd like '%"+cxn+"%'");
 			list = query.list();
+			tx.commit();
 		} catch (Exception e) {
 			e.printStackTrace(); // 打印错误信息
 		} finally {
@@ -36,9 +38,11 @@ public class ECourtDao {
 		Eaj eaj = null;
 		try {
 			session = HibernateSybase.getSession();
+			Transaction tx = session.beginTransaction();
 			Query query = session.createQuery("from Eaj where ah =" + "'" + ah
 					+ "'");
 			eaj = (Eaj) query.list().get(0);
+			tx.commit();
 		} catch (Exception e) {
 			e.printStackTrace(); // 打印错误信息
 		} finally {
@@ -51,9 +55,11 @@ public class ECourtDao {
 		List list = null;
 		try {
 			session = HibernateSybase.getSession();
+			Transaction tx = session.beginTransaction();
 			Query query = session.createQuery("from Edsr where id.ahdm =" + "'"
 					+ ahdm + "'");
 			list = query.list();
+			tx.commit();
 		} catch (Exception e) {
 			e.printStackTrace(); // 打印错误信息
 		} finally {
@@ -66,9 +72,11 @@ public class ECourtDao {
 		Edsr edsr = null;
 		try {
 			session = HibernateSybase.getSession();
+			Transaction tx = session.beginTransaction();
 			Query query = session.createQuery("from Edsr where id.ahdm =" + "'"
 					+ ahdm + "'");
 			edsr = (Edsr)query.list().get(0);
+			tx.commit();
 		} catch (Exception e) {
 			e.printStackTrace(); // 打印错误信息
 		} finally {
@@ -81,8 +89,10 @@ public class ECourtDao {
 		List list = null;
 		try {
 			session = HibernateSybase.getSession();
+			Transaction tx = session.beginTransaction();
 			Query query = session.createQuery("from Eaj where ah " + "like '%"+ AnHao + "%'" + " and cbr like '%" + user + "%' and dsr like '%"+dsr+"%'" +" and nd like '%"+cxn+"%'");
 			list = query.list();
+			tx.commit();
 		} catch (Exception e) {
 			e.printStackTrace(); // 打印错误信息
 		} finally {
@@ -96,8 +106,10 @@ public class ECourtDao {
 		Eaj eaj = null;
 		try {
 			session = HibernateSybase.getSession();
+			Transaction tx = session.beginTransaction();
 			Query query = session.createQuery("from Eaj where ah ='" + ah+ "'");
 			eaj = (Eaj) query.list().get(0);
+			tx.commit();
 		} catch (Exception e) {
 			e.printStackTrace(); // 打印错误信息
 		} finally {

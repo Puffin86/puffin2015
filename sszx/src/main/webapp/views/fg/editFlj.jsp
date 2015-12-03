@@ -45,7 +45,7 @@
 	       <input style="display:none;" type="text"/>
 	       <a id="dsr_bt" onClick="searchDsr()" style="margin-top:-5px" iconCls="icon-add"></a>
 	   </td>
-       <td >&nbsp;&nbsp;当事人联系电话：</td>
+       <td >&nbsp;&nbsp;当事人手机号码：</td>
        <td><input name="tjrlxdh" type="text"/></td>
      </tr> 
      <tr>
@@ -56,7 +56,7 @@
      </tr>
      <tr>
        <td>提交时限：</td>
-       <td><input name="lqsx" type="text"/></td>
+       <td><input name="lqsx" type="text"/>天内</td>
        <td>&nbsp;</td>
        <td>&nbsp;</td>
      </tr>
@@ -91,9 +91,13 @@ $(document).ready(function(){
 	$('#dsr_bt').linkbutton({});
 
 	var ah="${editFlj.ah}";
-	$('input[name=ah]').attr('value',ah);	   
+	$('input[name=ah]').attr('value',ah);	
+	var ahdm="${editFlj.ahdm}";
+	$('input[name=ahdm]').attr('value',ahdm);	
 	var sjr="${editFlj.sjr}";
 	$('input[name=sjr]').attr('value',sjr);
+	var sjrbm = "${editFlj.sjrbm}";
+	$('input[name=sjrbm]').attr('value',sjrbm);
 	var tjr="${editFlj.djr}";
 	$('input[name=tjr]').attr('value',tjr);
 	var tjrlxdh="${editFlj.djrlxdh}";
@@ -148,6 +152,11 @@ function save(){
     var tjr=$('input[name=tjr]').val();
     var djrq=$('input[name=djrq]').val();
     var tjrlxdh=$('input[name=tjrlxdh]').val();
+    var phone = /^1([38]\d|4[57]|5[0-35-9]|7[06-8]|8[89])\d{8}$/;
+    if(!phone.test(tjrlxdh)){
+        alert("当事人手机号码输入有误，请检查！");
+        return;
+    }
     var zjr=$('input[name=zjr]').val();
     var zjrq=$('input[name=zjrq]').val();
     var djrsfzhm=$('input[name=djrsfz]').val();
@@ -224,6 +233,10 @@ function save(){
 <div id="ah_se" style="width:400px;height:300px;padding:5px;">
 	<table style="font-size:12px">
 		<tr>
+	   		<td>案件类型：</td>
+	   		<td colspan="3"><input name="ajly"  type="radio" checked="checked" value="sp">审判</input><input name="ajly"  type="radio" value="zx">执行</input></td>
+	   	</tr>
+		<tr>
 			<td>年份：</td>
 			<td><input id="ahN" type="text" style="width:100px;margin-left:5px;margin-top:5px"/></td>
 	   		<td>案号：</td>
@@ -281,6 +294,7 @@ function searchAh(){
 	var ahN=$('#ahN').val();
 	var ahG=$('#ahG').val();
 	var ahDsr=$('#ahDsr').val();
+	var ajly = $("input[name='ajly']:checked").val(); 
 	//if(ahN!=''&&ahG!=''){
 	$.ajax({
   	     url:'${path}/ahSearch.do',
@@ -289,6 +303,7 @@ function searchAh(){
   	    	 ahN:encodeURI(encodeURI(ahN)),
   	    	 ahG:encodeURI(encodeURI(ahG)),
   	    	 ahDsr: encodeURI(encodeURI(ahDsr)),
+  	    	ajly : ajly,
   	    	 lx:1
   	     },
   	     dataType:'json',
@@ -344,7 +359,8 @@ $('#dsrgrid').datagrid({
 	singleSelect:true,
 	url:"dsrSearchList.do",
 	queryParams : {
-		ah : $('input[name=ahdm]').val()
+		ah : $('input[name=ahdm]').val(),
+		cbbm : $('input[name=sjrbm]').val()
 	},
 	columns:[[
 		{field:'mc',title:'当事人',width:120,align:'center'},
@@ -357,7 +373,8 @@ $('#dsrgrid').datagrid({
 
 function searchDsr(){
 		$('#dsrgrid').datagrid('load',{
-			ah : $('input[name=ahdm]').val()
+			ah : $('input[name=ahdm]').val(),
+			cbbm : $('input[name=sjrbm]').val()
 		});
 		$('#dsrgrid').datagrid('clearSelections');
 		$('#dsr_se').dialog('open');

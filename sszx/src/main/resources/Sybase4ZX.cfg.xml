@@ -9,7 +9,7 @@
 	<session-factory>
 		<property name="myeclipse.connection.profile">Sybase</property>
 		<property name="connection.url">
-			jdbc:sybase:Tds:203.130.16.141:5000/ecourt_2009?charset=cp936
+			jdbc:sybase:Tds:203.130.16.150:8765/ecourt_2009?charset=cp936
 		</property>
 		<property name="connection.username">sa</property>
 		<property name="connection.password"></property>

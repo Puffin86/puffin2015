@@ -1,5 +1,6 @@
 package com.bsoft.sszx.controller.flq;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,7 +15,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bsoft.sszx.dao.ECourt4ZXDao;
 import com.bsoft.sszx.dao.ECourtDao;
+import com.bsoft.sszx.entity.eaj.Eaj4ZX;
 import com.bsoft.sszx.entity.edsr.Edsr;
 import com.bsoft.sszx.util.HttpHelper;
 import com.bsoft.sszx.util.Tree;
@@ -82,17 +85,32 @@ public class DsrSearch {
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<Edsr> al = null; 
 		String ah = request.getParameter("ah");
+		String cbbm = request.getParameter("cbbm");
 		String ahText = request.getParameter("ahText");
 		if(ah==null||"".equals(ah)){
 			return;
 		}else{
 			ah = URLDecoder.decode(ah, "UTF-8");
 			ah = URLDecoder.decode(ah, "UTF-8");
-			al=	(List<Edsr>) new ECourtDao().findEdsr(ah);
+			if(cbbm!=null && "33010361".equals(cbbm)){//执行局
+				al=	getDsrListFromZX(ah);
+			}else{
+				al=	getDsrListFromSP(ah);
+			}
+			
 		}
 		
-		if(al!=null || al.size()>0){
-			
+		JSONArray resultObj = JSONArray.fromObject(al);
+		HttpHelper.renderJson(resultObj.toString(), response);
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	private List<Edsr> getDsrListFromSP(String ah){
+		List<Edsr> al = null; 
+		al=	(List<Edsr>) new ECourtDao().findEdsr(ah);
+	
+		if(al!=null && al.size()>0){
 			for(Edsr dsr : al){
 				String lx = dsr.getLx();
 				if(!"09_01001-1".equals(lx)){
@@ -101,29 +119,34 @@ public class DsrSearch {
 			}
 			
 		}
-		
-//		List<Edsr> al = new ArrayList<Edsr>();
-//		
-//		Edsr aa = new Edsr();
-//		aa.setMc("aa");
-//		aa.setLx("lx1");
-//		aa.setLxdh("1234");
-//		aa.setSfzhm("2352345");
-//		al.add(aa);
-//		
-//		Edsr bb = new Edsr();
-//		bb.setMc("bb");
-//		bb.setLx("lx2");
-//		bb.setLxdh("1234");
-//		bb.setSfzhm("2388885");
-//		al.add(bb);
-		
-		JSONArray resultObj = JSONArray.fromObject(al);
-		HttpHelper.renderJson(resultObj.toString(), response);
+		return al;
 	}
 	
+	@SuppressWarnings("unchecked")
+	private List<Edsr> getDsrListFromZX(String ah) {
+		List<Edsr> al = new ArrayList<Edsr>(); 
+		List<Eaj4ZX> list =	(List<Eaj4ZX>) new ECourt4ZXDao().findEdsr(ah);
 	
-	
-	
+		if(list!=null && list.size()>0){
+			
+			for(Eaj4ZX eaj : list){
+				Edsr edsr = new Edsr();
+				edsr.setMc(eaj.getMc());
+				edsr.setDz(eaj.getDz());
+				edsr.setLxdh(eaj.getDh());
+				edsr.setLx("");
+				edsr.setSfzhm("");
+				al.add(edsr);
+			}
+//			for(Edsr dsr : al){
+//				String lx = dsr.getLx();
+//				if(!"09_01001-1".equals(lx)){
+//					dsr.setSfzhm(dsr.getZzjgdm());
+//				}
+//			}
+			
+		}
+		return al;
+	}
 
 }

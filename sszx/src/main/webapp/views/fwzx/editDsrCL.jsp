@@ -47,7 +47,7 @@ ZjqdId zjqdId = zjqd.getId();
        <td><input class="easyui-validatebox" required="true" name="tjr" type="text"></input>
        <input style="display:none;" type="text"></input>
        <a id="dsr_bt" onClick="searchDsr()" style="margin-top:-5px" iconCls="icon-add"></a></td>
-       <td width="20%">&nbsp;&nbsp;当事人联系电话：</td>
+       <td width="20%">&nbsp;&nbsp;当事人手机号码：</td>
        <td><input name="tjrlxdh" type="text"></input></td>
      </tr> 
      <tr>
@@ -99,11 +99,17 @@ ZjqdId zjqdId = zjqd.getId();
    //文档加载完成后要执行的内容 
    $(document).ready(function(){ 
 	   var ah = "<%=zjqd.getAh()%>";
-	   $('input[name=ah]').attr('value',ah);	   
+	   $('input[name=ah]').attr('value',ah);
+	   
+	   var ahdm = "<%=zjqd.getAhdm()%>";
+	   $('input[name=ahdm]').attr('value',ahdm);
 	   
 	   //var sjr="${session.editDsrZzSjZjqd.sjr}";
 	   var sjr="<%=zjqd.getSjr()%>";
 	   $('input[name=sjr]').attr('value',sjr);
+	   
+	   var sjrbm = "<%=zjqd.getSjrbm()%>";
+	   $('input[name=sjrbm]').attr('value',sjrbm);
 	   
 	   //var tjr="${session.editDsrZzSjZjqd.djr}";
 	   var tjr="<%=zjqd.getDjr()%>";
@@ -177,10 +183,17 @@ ZjqdId zjqdId = zjqd.getId();
 	   //var bh="${session.editDsrZzSjZjqd.id.bh}";
 	   var bh = "<%=zjqdId.getBh()%>";
        var ah=$('input[name=ah]').val();
+       var ahdm=$('input[name=ahdm]').val();
        var sjr=$('input[name=sjr]').val();
        var tjr=$('input[name=tjr]').val();
        var djrq=$('input[name=djrq]').val();
        var tjrlxdh=$('input[name=tjrlxdh]').val();
+       var phone = /^1([38]\d|4[57]|5[0-35-9]|7[06-8]|8[89])\d{8}$/;
+       if(!phone.test(tjrlxdh)){
+           alert("当事人手机号码输入有误，请检查！");
+           return;
+       }
+       
        var zjr=$('input[name=zjr]').val();
        var zjrq=$('input[name=zjrq]').val();
        var djrsfzhm=$('input[name=djrsfz]').val();
@@ -230,6 +243,7 @@ ZjqdId zjqdId = zjqd.getId();
    	     type:'POST',
    	     data:{  bh:bh
    	    	     ,ah:encodeURI(encodeURI(ah))
+   	    	     ,ahdm:encodeURI(encodeURI(ahdm))
                  ,sjr:encodeURI(encodeURI(sjr))
                  ,tjr:encodeURI(encodeURI(tjr))
                  ,djrq:encodeURI(encodeURI(djrq))
@@ -297,6 +311,10 @@ ZjqdId zjqdId = zjqd.getId();
    </script>
    <div id="ah_se" style="width:400px;height:300px;">
 	   <table style="font-size:12px">
+		   <tr>
+		   		<td>案件类型：</td>
+		   		<td colspan="3"><input name="ajly"  type="radio" checked="checked" value="sp">审判</input><input name="ajly"  type="radio" value="zx">执行</input></td>
+		   	</tr>
 		   	<tr>
 		   		<td>年份：</td>
 		   		<td><input id="ahN" style="width:100px;margin-left:5px;margin-top:5px" type="text"></td>
@@ -343,6 +361,7 @@ ZjqdId zjqdId = zjqd.getId();
 		var ahN=$('#ahN').val();
 		var ahG=$('#ahG').val();
 		var ahdsr=$('#ahdsr').val();
+		var ajly = $("input[name='ajly']:checked").val(); 
 		//if(ahN!=''&&ahG!=''){
 			$.ajax({
 		  	     url:'ahSearch.do',
@@ -351,6 +370,7 @@ ZjqdId zjqdId = zjqd.getId();
 		  	     	ahN:encodeURI(encodeURI(ahN)),
 		  	    	ahG:encodeURI(encodeURI(ahG)),
 		  	    	ahDsr:encodeURI(encodeURI(ahdsr)),
+		  	    	ajly : ajly,
 		  	    	lx:0},//注意大小写data
 		  	     dataType:'json',
 		  	     success:function (data) {
@@ -380,7 +400,8 @@ ZjqdId zjqdId = zjqd.getId();
 		singleSelect:true,
 		url:"dsrSearchList.do",
 		queryParams : {
-			ah : $('input[name=ahdm]').val()
+			ah : $('input[name=ahdm]').val(),
+			cbbm : $('input[name=sjrbm]').val()
 		},
 		columns:[[
 			{field:'mc',title:'当事人',width:120,align:'center'},
@@ -430,11 +451,12 @@ ZjqdId zjqdId = zjqd.getId();
 	});  
   
   function searchDsr(){
-	    var ah=$('input[name=ahdm]').val();
-		if(ah!=''){
+	    var ahdm=$('input[name=ahdm]').val();
+		if(ahdm!=''){
 			//$('#dsrgrid').datagrid('reload');
 			$('#dsrgrid').datagrid('load',{
-					ah : $('input[name=ahdm]').val()
+				ah : $('input[name=ahdm]').val(),
+					cbbm : $('input[name=sjrbm]').val()
 		    });
 			$('#dsrgrid').datagrid('clearSelections');
 			$('#dsr_se').dialog('open');

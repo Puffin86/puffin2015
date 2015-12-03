@@ -12,6 +12,7 @@ public class Zjqd implements java.io.Serializable {
 
 	private ZjqdId id;
 	private String ah;
+	private String ahdm;
 	private String sjr;
 	private String djr;
 	private String djrq;
@@ -65,7 +66,7 @@ public class Zjqd implements java.io.Serializable {
 			String sjrlxdh, String lclx, String dqcyr, String qscyr,
 			String hscyr, String dsrsfzhm, String lzjl, String sjrXm,
 			String sjrBmmc,Integer ywlx,Integer sx,Timestamp sxsj,Integer sl,String clqd,
-			String dlr,String dlrdh,String zyzh,Integer sfck
+			String dlr,String dlrdh,String zyzh,Integer sfck,String ahdm
 			) {
 		this.id = id;
 		this.ah = ah;
@@ -98,6 +99,7 @@ public class Zjqd implements java.io.Serializable {
 		this.dlrdh = dlrdh;
 		this.zyzh = zyzh;
 		this.sfck = sfck;
+		this.ahdm = ahdm;
 	}
 
 	// Property accessors
@@ -380,6 +382,14 @@ public class Zjqd implements java.io.Serializable {
 
 	public void setSfck(Integer sfck) {
 		this.sfck = sfck;
+	}
+
+	public String getAhdm() {
+		return ahdm;
+	}
+
+	public void setAhdm(String ahdm) {
+		this.ahdm = ahdm;
 	}
 
 }

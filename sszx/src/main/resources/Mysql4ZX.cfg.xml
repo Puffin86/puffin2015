@@ -9,10 +9,10 @@
 	<session-factory>
 		<property name="myeclipse.connection.profile">MySQL</property>
 		<property name="connection.url">
-			jdbc:mysql://localhost:3306/sszx?useUnicode=true&amp;characterEncoding=utf8
+			jdbc:mysql://localhost:3306/test?useUnicode=true&amp;characterEncoding=utf8
 		</property>
-		<property name="connection.username">root</property>
-		<property name="connection.password">root</property>
+		<property name="connection.username">shaobt86</property>
+		<property name="connection.password">shaobt86</property>
 		<property name="connection.driver_class">
 			com.mysql.jdbc.Driver
 		</property>

@@ -64,7 +64,7 @@ nr=nr.replace(c5, zjr);
      <tr>
        <td width="20%" >当事人：</td>
        <td><input name="tjr" type="text"></input></td>
-       <td width="25%">&nbsp;&nbsp;当事人联系电话：</td>
+       <td width="25%">&nbsp;&nbsp;当事人手机号码：</td>
        <td><input name="tjrlxdh" type="text"></input></td>
      </tr> 
      <tr>
