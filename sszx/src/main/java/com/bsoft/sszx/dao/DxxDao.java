@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import com.bsoft.sszx.entity.clb.Clb;
 import com.bsoft.sszx.entity.sms.Dxx;
 import com.bsoft.sszx.hibernate.HibernateUtil;
 
@@ -50,6 +51,25 @@ public class DxxDao {
         } 
         return null;
     } 
+	
+	
+	public Dxx findByZt(String zt,String fydm,String bh){
+		Dxx dxx = null;
+		dxx = findByZt(zt,fydm);
+		String nr = dxx.getNr();
+		ClbDao clbdao = new ClbDao();
+		List<Clb> clList = clbdao.findByZjqd(bh,fydm);
+		String clnr = "材料清单：";
+		if(clList.size()>0){
+			for(Clb cl : clList){
+				String clmc = cl.getClmc();
+				clnr = clnr + clmc+",";
+			}
+		}
+		nr = nr + clnr.substring(0, clnr.length()-1);
+		dxx.setNr(nr);
+		return dxx;
+	}
 	
 	public Dxx findByZt(String zt,String fydm){
     	try{

@@ -26,6 +26,7 @@ import com.itextpdf.text.pdf.PdfWriter;
  */
 public class Pdf_zjqd {
 	
+	private String currentUser="";
 	 /**
 	  * 生成PDF的方法
 	  * @return boolean
@@ -491,8 +492,11 @@ public class Pdf_zjqd {
 		   cell.setMinimumHeight(40f);//设置单元格最小高度
 		   table.addCell(cell);
 		   
-		   
-		   cell = new PdfPCell(new Paragraph(zjqd.getZjrXm(),bodyFont));
+		   String zjrxm = zjqd.getZjrXm()==null?"":zjqd.getZjrXm();
+		   if("".equals(zjrxm)){
+			   zjrxm = this.currentUser;
+		   }
+		   cell = new PdfPCell(new Paragraph(zjrxm,bodyFont));
 		   //cell.setBorder(0);
 		   cell.setFixedHeight(20);
 		   //cell.setColspan(2);//设置合并单元格的列数
@@ -542,5 +546,15 @@ public class Pdf_zjqd {
 	  mCreatPDF.createPDF_zjqd("e:/","test.pdf");
 
 	 }
+
+
+	public String getCurrentUser() {
+		return currentUser;
+	}
+
+
+	public void setCurrentUser(String currentUser) {
+		this.currentUser = currentUser;
+	}
 	
 }

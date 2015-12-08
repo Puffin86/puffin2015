@@ -91,6 +91,8 @@ public class EditTuiHuiCL  {
 		djrsfzhm = URLDecoder.decode(djrsfzhm, "UTF-8"); 
 		Zjqd.setDsrsfzhm(djrsfzhm);
 		
+		String sftj=request.getParameter("sftj");
+		
 		zjqdDao.saveZjqd(Zjqd);
 		
 		//开始保存材料清单
@@ -123,14 +125,20 @@ public class EditTuiHuiCL  {
 		}}		
 		
 		Map result = new HashMap();
+		if("tj_again".equals(sftj)){
+			CxTj cxtj = new CxTj();
+			cxtj.tjAgain(bh, fydm);
+			result.put("after", "11");
+		}else{
+			result.put("after", "1");
+		}
 		result.put("success", true);
-		result.put("after", "1");
 		JSONObject json = JSONObject.fromObject(result);
 		HttpHelper.renderJson(json.toString(), response);
         }catch (Exception e){	
         	e.printStackTrace();
         	Map result = new HashMap();
-    		result.put("success", true);
+    		result.put("success", false);
     		result.put("after", "0");
     		JSONObject json = JSONObject.fromObject(result);
     		HttpHelper.renderJson(json.toString(), response);

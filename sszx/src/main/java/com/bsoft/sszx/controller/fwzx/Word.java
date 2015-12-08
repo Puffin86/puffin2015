@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bsoft.sszx.dao.ClbDao;
 import com.bsoft.sszx.dao.FjDao;
+import com.bsoft.sszx.dao.UserDao;
 import com.bsoft.sszx.dao.ZjqdDao;
 import com.bsoft.sszx.entity.fjb.Fjb;
 import com.bsoft.sszx.entity.fjb.FjbId;
+import com.bsoft.sszx.entity.user.User;
 import com.bsoft.sszx.entity.zjqd.Zjqd;
 import com.bsoft.sszx.util.Pdf_zjqd;
 
@@ -45,6 +47,7 @@ public class Word  {
 			HttpServletResponse response, HttpSession session)
 			throws Exception {
 		String fydm=(String)session.getAttribute("fydm");
+		String user=(String)session.getAttribute("user");
 		String bh=request.getParameter("bh");
 		String tool=request.getParameter("tool");
 		Zjqd Zjqd=new ZjqdDao().findbyid(bh, fydm);
@@ -70,8 +73,12 @@ public class Word  {
 	   		fjDao.saveFjb(fjb);
 	       }
 		
-		
+	    
+	   	UserDao userDao=new UserDao();
+	   	User Us=userDao.findUserById(user, fydm);
+	   	String userXm=Us.getYhxm();
 		Pdf_zjqd mCreatPDF=new Pdf_zjqd();
+		mCreatPDF.setCurrentUser(userXm);
 		mCreatPDF.createPDF_zjqd(serverRealPath,fileName,Zjqd,clbList);
 		session.setAttribute("clbSize", clbList==null?0:clbList.size());
 		session.setAttribute("fileName",fileName);
