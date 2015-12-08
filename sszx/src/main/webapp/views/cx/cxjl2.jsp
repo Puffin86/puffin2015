@@ -88,7 +88,7 @@
     </div> 
     
     
-    <div id="fjdiv" style="width:800px;height:500px;">
+    <div id="fjdiv" style="width:600px;height:300px;">
      	<div style="position: absolute;top: 30px;right: 7px;bottom: 5px;left: 7px;">
 	     	<table id="fjgrid" style="width:100%;height:100%"></table> 
      	</div>

@@ -61,22 +61,44 @@ ZjqdId zjqdId = zjqd.getId();
      </table>
      <hr/> 
      
-     <div style="margin-left:10px;">     
-     <div>添加材料信息：<a id="cl_add" class="add" iconCls="icon-add"></a></div>
-     <div class="cl" id="clmxtr" style="visibility:hidden;margin-top:5px">
-       <div>材料名称：<input name="clmc" type="text"></input>
-       &nbsp;&nbsp;份数： <input name="clfs"  style="width:30px" type="text"></input>
-       &nbsp;&nbsp;页数： <input name="clys" style="width:30px" type="text"></input>      
-       <a id="cl_remove" class="remove" style="margin-top:-7px" iconCls="icon-cancel"></a></div>
-     </div>
-   </div>
+<!--      <div style="margin-left:10px;">      -->
+<!-- 	     <div>添加材料信息：<a id="cl_add" class="add" iconCls="icon-add"></a></div> -->
+<!-- 	     <div class="cl" id="clmxtr" style="visibility:hidden;margin-top:5px"> -->
+<!-- 	       <div>材料名称：<input name="clmc" type="text"></input> -->
+<!-- 	       &nbsp;&nbsp;份数： <input name="clfs"  style="width:30px" type="text"></input> -->
+<!-- 	       &nbsp;&nbsp;页数： <input name="clys" style="width:30px" type="text"></input>       -->
+<!-- 	       <a id="cl_remove" class="remove" style="margin-top:-7px" iconCls="icon-cancel"></a></div> -->
+<!-- 	     </div> -->
+<!-- 	   </div> -->
+	   
+	   <div>   
+	     <table width="100%" border="0" cellpadding="2" cellspacing="0" style="font-size:12px;">
+	     	<tr>
+	     		<td width="20%">添加材料信息：<a id="cl_add" class="add" iconCls="icon-add"></a></td>
+	     		<td width="20%">常用材料清单：<a onclick="choseClqd()" class="easyui-linkbutton">选择</a></td>
+	     		<td width="60%">&nbsp;</td>
+	     	</tr>
+	     </table>  
+	     
+	     <div class="cl" id="clmxtr" style="visibility:hidden;margin-top:5px">
+	       <div>
+		       	材料名称：<input name="clmc" type="text"/>&nbsp;&nbsp;
+		       	份数： <input name="clfs"  style="width:30px" type="text"/>&nbsp;&nbsp;
+		       	页数： <input name="clys" style="width:30px" type="text"/>&nbsp;&nbsp;      
+		       	<a id="cl_remove" class="remove" style="margin-top:-7px" iconCls="icon-cancel"></a>
+	       </div>
+	     </div>
+	     
+	   </div>
+	   
    <hr/>
    <div style="margin-left:10px;">   
    <div id="clfjT">编辑附件： <a id="clfj" iconCls="icon-edit" href="#" onClick="Open();"></a>
    </div></div>
    <hr/>
    <div align="center">
-     <a id="save" onclick="save()" iconCls="icon-save">保存</a>
+     <a id="save" onclick="save('')" iconCls="icon-save">保存</a>
+     <a id="tj2" onclick="tj()" iconCls="icon-cancel">重新提交</a>
      <a id="cancel" onclick="cancel()" iconCls="icon-cancel">取消</a>
    </div>
    <!-- <a onclick="test()">test</a> -->
@@ -85,6 +107,7 @@ ZjqdId zjqdId = zjqd.getId();
    $('#cl_remove').linkbutton({});
    $('#cl_add').linkbutton({});
    $('#save').linkbutton({});
+   $('#tj2').linkbutton({});
    $('#cancel').linkbutton({});
    $('#cbr_search').linkbutton({});
    $('#search_bt').linkbutton({});   
@@ -175,9 +198,71 @@ ZjqdId zjqdId = zjqd.getId();
        $('#clmxtr').parent().append($s);
    <%}%>
    </script>
-   
+   <!-- 常用材料清单 -->
+<div id="clqd_dialog" class="easyui-dialog" title="常用材料清单" style="width:300px;height:200px;" data-options="modal:true,closed:true">  
+    <ul id="clqd_tree" class="easyui-tree" 
+    	data-options="checkbox:true,url:'${path}/zdmxcx_tree.do?zdbm=cyclqd'"></ul>  
+</div> 
+
    <script>
-   function save(){
+   var clqdObj={};//记录已经添加的材料清单
+   $('#clqd_dialog').dialog({
+   	buttons:[{
+   		text:'确定',
+   		handler:function(){
+   			var arr = $('#clqd_tree').tree('getChecked');
+   			for(var i in arr){
+   				if(clqdObj[arr[i].id]!=null){
+   					continue;
+   				}
+   				var s = buildClxx(arr[i].text,arr[i].id);
+   				$('#clmxtr').parent().append(s);
+   			}
+   			$('#clqd_dialog').dialog('close');
+   		}
+   	},{
+   		text:'取消',
+   		handler:function(){
+   			$('#clqd_dialog').dialog('close');
+   		}
+   	}]
+   });
+   
+   function buildClxx(clmc,cllx){
+		var divclmxtr = $('<div class="cl" id="clmxtr" style="margin-top:5px"></div>');
+		var indivStr = $('<div>'
+			+ '材料名称：<input name="clmc" type="text" value="' +clmc+ '"/>&nbsp;&nbsp;'
+			+ '份数： <input name="clfs"  style="width:30px" type="text"/>&nbsp;&nbsp;'
+	    	+ '页数： <input name="clys" style="width:30px" type="text"/>&nbsp;&nbsp;'
+	    	+ '</div>');
+		
+		$('<a></a>').text('').appendTo(indivStr).linkbutton({iconCls:'icon-cancel'}).attr('cllx',cllx).on('click',function(){
+			var lx = $(this).attr('cllx');
+			var node = $('#clqd_tree').tree('find',lx);
+			$('#clqd_tree').tree('uncheck',node.target);
+			var td = $(this).parent();
+			td.empty();//清空父元素
+			td.remove();
+			delete clqdObj[lx];
+		});
+		clqdObj[cllx] = cllx;
+		indivStr.appendTo(divclmxtr);
+	    return divclmxtr;
+	}
+
+   function choseClqd(){
+   	$('#clqd_dialog').dialog('open');
+   }
+   
+   function tj(){
+	   $.messager.confirm('是否提交', '确认提交？', function(r){
+			if (r){
+				save("tj_again");
+			}
+		});
+   }
+   
+   function save(sftj){
 	   //var bh="${session.editHuiTuiZjqd.id.bh}";
 	   var bh="<%=zjqdId.getBh()%>";
        var ah=$('input[name=ah]').val();
@@ -237,16 +322,21 @@ ZjqdId zjqdId = zjqd.getId();
                  ,sjrbm:encodeURI(encodeURI(sjrbm))
                  ,sjrXm:encodeURI(encodeURI(sjrXm))
                  ,sjrbmMc:encodeURI(encodeURI(sjrbmMc))
+                 ,sftj : sftj
    	     },//注意大小写data
    	     dataType:'json',
    	     success:function (data) {
-   	    	 if(data.after==1)
+   	    	 if(data.after==11){
+   	    		 alert("提交成功")
+   	    	 }else if(data.after==1)
       	       alert("保存成功");
-      	     if(data.after==0)
-      	       alert("保存失败");    	     
+   	    	 else if(data.after==0)
+      	       alert("保存/提交失败...");    	     
      	     window.location.href="${path}/to_tuiHuiCL.do";
    	     }})
-   	  ;}else alert('请输入必输项'+alerString);}
+   	  ;}else 
+   		  alert('请输入必输项'+alerString);
+	}
    
    function cancel(){
 	   window.location.href="${path}/to_tuiHuiCL.do";
@@ -300,6 +390,13 @@ ZjqdId zjqdId = zjqd.getId();
    
    <div id="ah_se" style="width:400px;height:300px;padding:5px;">
    <table style="font-size:12px">
+   			<tr>
+		   		<td>案件类型：</td>
+		   		<td colspan="3">
+		   			<input name="ajly"  type="radio" checked="checked" value="sp">审判</input>
+		   			<input name="ajly"  type="radio" value="zx">执行</input>
+		   		</td>
+		   	</tr>
 		<tr>
 			<td>年份：</td>
 			<td><input id="ahN" type="text" style="width:100px;margin-left:5px;margin-top:5px"/></td>
@@ -357,6 +454,7 @@ ZjqdId zjqdId = zjqd.getId();
 		var ahN=$('#ahN').val();
 		var ahG=$('#ahG').val();
 		var ahDsr=$('#ahDsr').val();
+		var ajly = $("input[name='ajly']:checked").val(); 
 		var lclx="<%=zjqd.getLclx()%>";
 		var lx=0;
 		if(lclx!='dzz') lx=1;
@@ -367,6 +465,7 @@ ZjqdId zjqdId = zjqd.getId();
 		  	    	ahN: encodeURI(encodeURI(ahN)),
 		  	    	ahG: encodeURI(encodeURI(ahG)),
 		  	    	ahDsr: encodeURI(encodeURI(ahDsr)),
+		  	    	ajly : ajly,
 		  	    	lx:lx
 		  	     },
 		  	     dataType:'json',

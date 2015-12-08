@@ -223,7 +223,10 @@ function save(){
 	<table style="font-size:12px">
 		<tr>
 	   		<td>案件类型：</td>
-	   		<td colspan="3"><input name="ajly"  type="radio" checked="checked" value="sp">审判</input><input name="ajly"  type="radio" value="zx">执行</input></td>
+	   		<td colspan="3">
+	   			<input name="ajly"  type="radio" checked="checked" value="sp">审判</input>
+	   			<input name="ajly"  type="radio" value="zx">执行</input>
+	   		</td>
 	   	</tr>
 		<tr>
 			<td>年份：</td>

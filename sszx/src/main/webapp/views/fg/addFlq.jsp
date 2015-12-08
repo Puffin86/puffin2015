@@ -67,24 +67,24 @@
      <hr/> 
      
      <div>   
-     <table width="100%" border="0" cellpadding="2" cellspacing="0" style="font-size:12px;">
-     	<tr>
-     		<td width="20%">添加材料信息：<a id="cl_add" class="add" iconCls="icon-add"></a></td>
-     		<td width="20%">常用材料清单：<a onclick="choseClqd()" class="easyui-linkbutton">选择</a></td>
-     		<td width="60%">&nbsp;</td>
-     	</tr>
-     </table>  
-     
-     <div class="cl" id="clmxtr" style="visibility:hidden;margin-top:5px">
-       <div>
-	       	材料名称：<input name="clmc" type="text"/>&nbsp;&nbsp;
-	       	份数： <input name="clfs"  style="width:30px" type="text"/>&nbsp;&nbsp;
-	       	页数： <input name="clys" style="width:30px" type="text"/>&nbsp;&nbsp;      
-	       	<a id="cl_remove" class="remove" style="margin-top:-7px" iconCls="icon-cancel"></a>
-       </div>
-     </div>
-     
-   </div>
+	     <table width="100%" border="0" cellpadding="2" cellspacing="0" style="font-size:12px;">
+	     	<tr>
+	     		<td width="20%">添加材料信息：<a id="cl_add" class="add" iconCls="icon-add"></a></td>
+	     		<td width="20%">常用材料清单：<a onclick="choseClqd()" class="easyui-linkbutton">选择</a></td>
+	     		<td width="60%">&nbsp;</td>
+	     	</tr>
+	     </table>  
+	     
+	     <div class="cl" id="clmxtr" style="visibility:hidden;margin-top:5px">
+	       <div>
+		       	材料名称：<input name="clmc" type="text"/>&nbsp;&nbsp;
+		       	份数： <input name="clfs"  style="width:30px" type="text"/>&nbsp;&nbsp;
+		       	页数： <input name="clys" style="width:30px" type="text"/>&nbsp;&nbsp;      
+		       	<a id="cl_remove" class="remove" style="margin-top:-7px" iconCls="icon-cancel"></a>
+	       </div>
+	     </div>
+	     
+	   </div>
    
    <hr/>
    <div align="center">
@@ -362,7 +362,10 @@ function sdhzclqd(){
    <table style="font-size:12px">
    		<tr>
 	   		<td>案件类型：</td>
-	   		<td colspan="3"><input name="ajly"  type="radio" checked="checked" value="sp">审判</input><input name="ajly"  type="radio" value="zx">执行</input></td>
+	   		<td colspan="3">
+	   			<input name="ajly"  type="radio" checked="checked" value="sp">审判</input>
+	   			<input name="ajly"  type="radio" value="zx">执行</input>
+	   		</td>
 	   	</tr>
 		<tr>
 			<td>年份：</td>

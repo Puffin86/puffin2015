@@ -19,7 +19,8 @@
 	String bh=String.valueOf(zjdq.getId().getBh());
 	String fydm=zjdq.getId().getFydm();
 	
-	Dxx dxx=new DxxDao().findByZt(String.valueOf(zjdq.getZt()), fydm);
+	//Dxx dxx=new DxxDao().findByZt(String.valueOf(zjdq.getZt()), fydm);
+	Dxx dxx=new DxxDao().findByZt(String.valueOf(zjdq.getZt()), fydm,bh);
 	String nr=dxx.getNr();
 	int lx=dxx.getZdfs();
 	
