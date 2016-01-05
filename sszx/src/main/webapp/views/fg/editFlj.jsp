@@ -148,6 +148,7 @@ $(document).ready(function(){
 function save(){
  	var bh="${editFlj.id.bh}";
     var ah=$('input[name=ah]').val();
+    var ahdm=$('input[name=ahdm]').val();
     var sjr=$('input[name=sjr]').val();
     var tjr=$('input[name=tjr]').val();
     var djrq=$('input[name=djrq]').val();
@@ -202,6 +203,7 @@ function save(){
 	   	     data:{  
 				bh:bh
 				,ah:encodeURI(encodeURI(ah))
+				,ahdm:encodeURI(encodeURI(ahdm))
 				,sjr:encodeURI(encodeURI(sjr))
 				,tjr:encodeURI(encodeURI(tjr))
 				,djrq:encodeURI(encodeURI(djrq))

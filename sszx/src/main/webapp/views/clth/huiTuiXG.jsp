@@ -120,10 +120,16 @@ ZjqdId zjqdId = zjqd.getId();
 	   //var ah="${session.editHuiTuiZjqd.ah}";
 	   var ah="<%=zjqd.getAh()%>";
 	   $('input[name=ah]').attr('value',ah);	
+	   
+	   var ahdm="<%=zjqd.getAhdm()%>";
+	   $('input[name=ahdm]').attr('value',ahdm);	
 	      
 	   //var sjr="${session.editHuiTuiZjqd.sjr}";
 	   var sjr="<%=zjqd.getSjr()%>";
 	   $('input[name=sjr]').attr('value',sjr);
+	   
+	   var sjrbm = "<%=zjqd.getSjrbm()%>";
+		$('input[name=sjrbm]').attr('value',sjrbm);
 	   
 	   //var tjr="${session.editHuiTuiZjqd.djr}";
 	   var tjr="<%=zjqd.getDjr()%>";
@@ -538,7 +544,8 @@ ZjqdId zjqdId = zjqd.getId();
 		var ah=$('input[name=ahdm]').val();
 		if(ah!=''){
 			$('#dsrgrid').datagrid('load',{
-				ah : ah
+				ah : $('input[name=ahdm]').val(),
+				cbbm : $('input[name=sjrbm]').val()
 			});
 			$('#dsrgrid').datagrid('clearSelections');
 			$('#dsr_se').dialog('open');
