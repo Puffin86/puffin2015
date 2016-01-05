@@ -25,10 +25,12 @@ public class Eaj4ZX implements java.io.Serializable {
 	public Eaj4ZX() {
 	}
 //
-//	/** minimal constructor */
-//	public Eaj4ZX(String ahbs) {
-//		this.ajbs = ajbs;
-//	}
+	/** minimal constructor */
+	public Eaj4ZX(String ah,String ajbs,String cbr) {
+		this.ajbs = ajbs;
+		this.ah = ah;
+		this.cbr = cbr;
+	}
 	
 	/** full constructor */
 	public Eaj4ZX(String ajbs,String ajnh,String cbr,

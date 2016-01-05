@@ -90,7 +90,9 @@ public class ECourtDao {
 		try {
 			session = HibernateSybase.getSession();
 			Transaction tx = session.beginTransaction();
-			Query query = session.createQuery("from Eaj where ah " + "like '%"+ AnHao + "%'" + " and cbr like '%" + user + "%' and dsr like '%"+dsr+"%'" +" and nd like '%"+cxn+"%'");
+			Query query = session.createQuery("from Eaj where ah " + "like '%"+ AnHao + "%'" 
+					+ " and cbr like '%" + user + "%' and dsr like '%"+dsr+"%'" 
+					+" and nd like '%"+cxn+"%'");
 			list = query.list();
 			tx.commit();
 		} catch (Exception e) {

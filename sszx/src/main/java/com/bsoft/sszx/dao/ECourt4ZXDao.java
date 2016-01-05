@@ -8,8 +8,10 @@ import java.util.Map;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.transform.Transformers;
 
 import com.bsoft.sszx.entity.eaj.Eaj;
+import com.bsoft.sszx.entity.eaj.Eaj4ZX;
 import com.bsoft.sszx.entity.edsr.Edsr;
 import com.bsoft.sszx.hibernate.HibernateSybase4ZX;
 
@@ -24,7 +26,8 @@ public class ECourt4ZXDao {
 		try {
 			session = HibernateSybase4ZX.getSession();
 			Transaction tx = session.beginTransaction();
-			Query query = session.createQuery("from Eaj4ZX where ah like '%" +  AnHao + "%' and mc like '%"+dsr+"%' and ajnh like '%"+cxn+"%'");
+			Query query = session.createQuery("select distinct new Eaj4ZX(ah ,ajbs,cbr) from Eaj4ZX where ah like '%" +  AnHao + "%' and mc like '%"+dsr+"%' and ajnh like '%"+cxn+"%'");
+//			query.setResultTransformer(Transformers.aliasToBean(Eaj4ZX.class));
 			list = query.list();
 			tx.commit();
 		} catch (Exception e) {
@@ -93,7 +96,9 @@ public class ECourt4ZXDao {
 		try {
 			session = HibernateSybase4ZX.getSession();
 			Transaction tx = session.beginTransaction();
-			Query query = session.createQuery("from Eaj4ZX where ah " + "like '%"+ AnHao + "%'" + " and cbr like '%" + user + "%' and mc like '%"+dsr+"%'" +" and ajnh like '%"+cxn+"%'");
+			Query query = session.createQuery("select distinct new Eaj4ZX(ah ,ajbs,cbr) from Eaj4ZX where ah " + "like '%"+ AnHao + "%'" 
+					+ " and cbr like '%" + user + "%' and mc like '%"
+					+dsr+"%'" +" and ajnh like '%"+cxn+"%'");
 			list = query.list();
 			tx.commit();
 		} catch (Exception e) {

@@ -19,6 +19,7 @@ import com.bsoft.sszx.dao.ECourtDao;
 import com.bsoft.sszx.dao.UserDao;
 import com.bsoft.sszx.entity.eaj.Eaj;
 import com.bsoft.sszx.entity.eaj.Eaj4ZX;
+import com.bsoft.sszx.entity.user.User;
 import com.bsoft.sszx.util.HttpHelper;
 import com.bsoft.sszx.util.Tree;
 
@@ -60,7 +61,8 @@ public class AhSearch {
 		List<Tree> tree = new ArrayList<Tree>();
 		if("zx".equals(ajly)){//执行系统
 			String user = (String) session.getAttribute("user");
-			tree = getAjFromZX(lx,fydm,ahN,ahG,ahDsr,user);
+			User dlry = new UserDao().findUserById(user, fydm);
+			tree = getAjFromZX(lx,fydm,ahN,ahG,ahDsr,dlry.getYhxm());
 		}else{//审判系统
 			String user = fydm + (String) session.getAttribute("user");
 			tree = getAjFromSP(lx,fydm,ahN,ahG,ahDsr,user);
@@ -130,10 +132,10 @@ public class AhSearch {
 	}
 	
 	@SuppressWarnings("unchecked")
-	private List<Tree> getAjFromZX(String lx,String fydm,String ahN,String ahG,String ahDsr,String user){
+	private List<Tree> getAjFromZX(String lx,String fydm,String ahN,String ahG,String ahDsr,String userName){
 		List<Eaj4ZX> al = null;
 		if (lx.equals("1")) {
-			al = (List<Eaj4ZX>) new ECourt4ZXDao().findAhByUser(ahN, ahG, ahDsr, user);
+			al = (List<Eaj4ZX>) new ECourt4ZXDao().findAhByUser(ahN, ahG, ahDsr, userName);
 		} else {
 			al = (List<Eaj4ZX>) new ECourt4ZXDao().findAh(ahN, ahG,ahDsr);
 		}
