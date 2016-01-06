@@ -11,8 +11,8 @@
 		<property name="connection.url">
 			jdbc:sybase:Tds:203.130.16.150:8765/ecourt_2009?charset=cp936
 		</property>
-		<property name="connection.username">sa</property>
-		<property name="connection.password"></property>
+		<property name="connection.username">ZXNEW</property>
+		<property name="connection.password">AAAAAA</property>
 		<property name="connection.driver_class">
 			com.sybase.jdbc3.jdbc.SybDataSource
 		</property>
