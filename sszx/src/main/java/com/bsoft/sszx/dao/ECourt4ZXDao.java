@@ -73,20 +73,20 @@ public class ECourt4ZXDao {
 	}
 	
 	@SuppressWarnings("finally")
-	public Edsr findEdsr(String ahdm,String dsrmc) {
-		Edsr edsr = null;
+	public Eaj4ZX findEdsr(String ahdm,String dsrmc) {
+		Eaj4ZX eaj = null;
 		try {
 			session = HibernateSybase4ZX.getSession();
 			Transaction tx = session.beginTransaction();
 			Query query = session.createQuery("from Eaj4ZX where ajbs =" + "'"
 					+ ahdm + "' and mc='"+dsrmc+"'");
-			edsr = (Edsr)query.list().get(0);
+			eaj = (Eaj4ZX)query.list().get(0);
 			tx.commit();
 		} catch (Exception e) {
 			e.printStackTrace(); // 打印错误信息
 		} finally {
 			HibernateSybase4ZX.closeSession(session);
-			return edsr;
+			return eaj;
 		}
 	}
 

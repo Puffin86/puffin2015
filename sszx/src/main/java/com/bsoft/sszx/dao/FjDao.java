@@ -14,6 +14,11 @@ public class FjDao {
 	Transaction tx = null; // 事物
 
 	public List<Fjb> fjlist(String bh, String fydm) {
+		System.out.println("BH::::::::::::"+bh);
+		if("".equals(bh) || bh==null){
+			return null;
+		}
+		
 		try {
 			session = HibernateUtil.getSession(); // 获取Session
 			session.beginTransaction();

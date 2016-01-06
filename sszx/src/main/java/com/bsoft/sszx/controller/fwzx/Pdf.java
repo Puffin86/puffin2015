@@ -14,12 +14,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.bsoft.sszx.dao.ClbDao;
+import com.bsoft.sszx.dao.ECourt4ZXDao;
 import com.bsoft.sszx.dao.ECourtDao;
 import com.bsoft.sszx.dao.FjDao;
 import com.bsoft.sszx.dao.FyDao;
 import com.bsoft.sszx.dao.ZjqdDao;
 import com.bsoft.sszx.entity.clb.Clb;
 import com.bsoft.sszx.entity.eaj.Eaj;
+import com.bsoft.sszx.entity.eaj.Eaj4ZX;
 import com.bsoft.sszx.entity.edsr.Edsr;
 import com.bsoft.sszx.entity.fjb.Fjb;
 import com.bsoft.sszx.entity.fjb.FjbId;
@@ -140,15 +142,35 @@ public class Pdf {
 		valueMap.put("clxx", clxx);
 		
 		
-		ECourtDao ecountDao = new ECourtDao();
-		Eaj eaj = ecountDao.findAyByAh(Zjqd.getAh());
-		valueMap.put("ay", eaj.getAyms());
-//		valueMap.put("ay", "");
+		String ah = Zjqd.getAh();
+		System.out.println("案号："+ah);
+		if(ah.indexOf("执")!=-1){
+			System.out.println("执行~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+//			ECourt4ZXDao ecountDao = new ECourt4ZXDao();
+//			Eaj eaj = ecountDao.findAyByAh(Zjqd.getAh());
+//			valueMap.put("ay", eaj.getAyms());
+			valueMap.put("ay", "");
+			
+//			String ahdm = new ECourtDao().findByAh(Zjqd.getAh()).getAhdm();
+			String ahdm  = Zjqd.getAhdm();
+//			Edsr edsr = new ECourtDao().findEdsr(ahdm,Zjqd.getDjr());
+			Eaj4ZX eaj = new ECourt4ZXDao().findEdsr(ahdm, Zjqd.getDjr());
+			valueMap.put("sddz", eaj.getDz());
+//			valueMap.put("sddz", "");
+		}else{
+			System.out.println("审判~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+			ECourtDao ecountDao = new ECourtDao();
+			Eaj eaj = ecountDao.findAyByAh(Zjqd.getAh());
+			valueMap.put("ay", eaj.getAyms());
+//			valueMap.put("ay", "");
+			
+			String ahdm = new ECourtDao().findByAh(Zjqd.getAh()).getAhdm();
+			Edsr edsr = new ECourtDao().findEdsr(ahdm,Zjqd.getDjr());
+			valueMap.put("sddz", edsr.getSddz());
+//			valueMap.put("sddz", "");
+		}
 		
-		String ahdm = new ECourtDao().findByAh(Zjqd.getAh()).getAhdm();
-		Edsr edsr = new ECourtDao().findEdsr(ahdm,Zjqd.getDjr());
-		valueMap.put("sddz", edsr.getSddz());
-//		valueMap.put("sddz", "");
+		
 		
 		PdfTemplateUtil.fromPDFTempletToPdfWithValue(templatePath, serverRealPath+"/"+fileName,valueMap);
 		

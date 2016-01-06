@@ -134,7 +134,7 @@ public class DsrSearch {
 				edsr.setMc(eaj.getMc());
 				edsr.setDz(eaj.getDz());
 				edsr.setLxdh(eaj.getDh());
-				edsr.setLx("");
+				edsr.setLx(eaj.getSsdw());
 				edsr.setSfzhm("");
 				al.add(edsr);
 			}

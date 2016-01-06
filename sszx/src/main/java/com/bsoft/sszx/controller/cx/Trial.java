@@ -60,7 +60,10 @@ public class Trial {
 		
 		User u = new UserDao().findUserById(user, fydm);
 		if (u != null) {
-			if (u.getPass().equals(pass)) {
+			if("0".equals(u.getJs())){
+				result.put("success", false);
+				result.put("after", "99");
+			}else if (u.getPass().equals(pass)) {
 				session.setAttribute("user", user);
 				session.setAttribute("fydm", fydm);
 				

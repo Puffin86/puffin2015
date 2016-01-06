@@ -89,10 +89,12 @@ public class clSearch {
 		
 		String sql = "from Zjqd ";
 		StringBuffer sqlBuf = new StringBuffer("from Zjqd ");
+		
+		sqlBuf.append(" where 1=1 ");
 		if (lx.equals("2")||"4".equals(lx)){//法官 内勤
-			sqlBuf.append(" where sjr='").append(user).append("' ");
+			sqlBuf.append(" and sjr='").append(user).append("' ");
 		}else if (lx.equals("1") || lx.equals("3")){//管理员 服务中心人员
-			sqlBuf.append(" where 1=1 ");
+			sqlBuf.append(" and  2=2 ");
 		}
 		if(ah!=null && !"".equals(ah)){
 			sqlBuf.append(" and ah like '%").append(ah).append("%' ");
@@ -173,10 +175,11 @@ public class clSearch {
 		
 		String sql = "from Zjqd ";
 		StringBuffer sqlBuf = new StringBuffer("from Zjqd ");
+		sqlBuf.append(" where 1=1 ");
 		if (lx.equals("2")||"4".equals(lx)){//法官 内勤
-			sqlBuf.append(" where sjr='").append(user).append("' ");
+			sqlBuf.append(" and sjr='").append(user).append("' ");
 		}else if (lx.equals("1") || lx.equals("3")){//管理员 服务中心人员
-			sqlBuf.append(" where 1=1 ");
+			sqlBuf.append(" and 2=2 ");
 		}
 		if(ah!=null && !"".equals(ah)){
 			sqlBuf.append(" and ah like '%").append(ah).append("%' ");
