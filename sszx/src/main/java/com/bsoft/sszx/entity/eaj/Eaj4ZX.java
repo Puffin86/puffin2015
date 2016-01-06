@@ -14,6 +14,7 @@ public class Eaj4ZX implements java.io.Serializable {
 	private String ajnh;
 	private String cbr;
 	private String ah;
+	private String ay;
 	private Timestamp larq;
 	private String mc;
 	private String ssdw;
@@ -116,6 +117,12 @@ public class Eaj4ZX implements java.io.Serializable {
 
 	public void setDz(String dz) {
 		this.dz = dz;
+	}
+	public String getAy() {
+		return ay;
+	}
+	public void setAy(String ay) {
+		this.ay = ay;
 	}
 
 

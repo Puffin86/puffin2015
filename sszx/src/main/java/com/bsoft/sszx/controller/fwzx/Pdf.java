@@ -143,31 +143,22 @@ public class Pdf {
 		
 		
 		String ah = Zjqd.getAh();
-		System.out.println("案号："+ah);
 		if(ah.indexOf("执")!=-1){
 			System.out.println("执行~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-//			ECourt4ZXDao ecountDao = new ECourt4ZXDao();
-//			Eaj eaj = ecountDao.findAyByAh(Zjqd.getAh());
-//			valueMap.put("ay", eaj.getAyms());
-			valueMap.put("ay", "");
-			
-//			String ahdm = new ECourtDao().findByAh(Zjqd.getAh()).getAhdm();
+//			valueMap.put("ay", "");
 			String ahdm  = Zjqd.getAhdm();
-//			Edsr edsr = new ECourtDao().findEdsr(ahdm,Zjqd.getDjr());
 			Eaj4ZX eaj = new ECourt4ZXDao().findEdsr(ahdm, Zjqd.getDjr());
 			valueMap.put("sddz", eaj.getDz());
-//			valueMap.put("sddz", "");
+			valueMap.put("ay", eaj.getAy()==null?"":eaj.getAy());
 		}else{
 			System.out.println("审判~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 			ECourtDao ecountDao = new ECourtDao();
 			Eaj eaj = ecountDao.findAyByAh(Zjqd.getAh());
 			valueMap.put("ay", eaj.getAyms());
-//			valueMap.put("ay", "");
 			
 			String ahdm = new ECourtDao().findByAh(Zjqd.getAh()).getAhdm();
 			Edsr edsr = new ECourtDao().findEdsr(ahdm,Zjqd.getDjr());
 			valueMap.put("sddz", edsr.getSddz());
-//			valueMap.put("sddz", "");
 		}
 		
 		

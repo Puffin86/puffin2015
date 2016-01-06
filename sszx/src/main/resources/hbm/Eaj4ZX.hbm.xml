@@ -21,6 +21,9 @@
 		<property name="ajnh" type="java.lang.String">
 			<column name="AJNH" length="10" />
 		</property>
+		<property name="ay" type="java.lang.String">
+			<column name="AY" length="200" />
+		</property>
 		<property name="cbr" type="java.lang.String">
 			<column name="CBR" length="50" />
 		</property>
