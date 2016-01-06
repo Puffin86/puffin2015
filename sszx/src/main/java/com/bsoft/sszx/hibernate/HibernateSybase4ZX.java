@@ -18,8 +18,8 @@ public class HibernateSybase4ZX {
 
 	static {
 		try {
-//			Configuration config = new Configuration().configure("/Sybase4ZX.cfg.xml");
-			Configuration config = new Configuration().configure("/Mysql4ZX.cfg.xml");
+			Configuration config = new Configuration().configure("/Sybase4ZX.cfg.xml");
+//			Configuration config = new Configuration().configure("/Mysql4ZX.cfg.xml");
 			sessionFactoryO = config.buildSessionFactory();
 		} catch (Exception e) {
 			System.out.println("Sybase4ZX#static块出现错误:" + e.getMessage());
