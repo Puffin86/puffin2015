@@ -392,6 +392,10 @@ String fydm=(String)session.getAttribute("fydm");
 					return "自然人";
 				}else if(value=="09_01001-3"){
 					return "非法人组织";
+				}else if(value=="申请执行人"){
+					return "申请执行人";
+				}else if(value=="被执行人"){
+					return "被执行人";
 				}else if(value=="09_01001-4"){
 					return "单位犯罪直接责任人";
 				}else{

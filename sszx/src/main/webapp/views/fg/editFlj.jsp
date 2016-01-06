@@ -369,7 +369,23 @@ $('#dsrgrid').datagrid({
 	},
 	columns:[[
 		{field:'mc',title:'当事人',width:120,align:'center'},
-		{field:'lx',title:'当事人类型',width:120,align:'center'},
+		{field:'lx',title:'当事人类型',width:120,align:'center',formatter:function(value,row,index){
+			if(value=="09_01001-2"){
+				return "法人";
+			}else if(value=="09_01001-1"){
+				return "自然人";
+			}else if(value=="09_01001-3"){
+				return "非法人组织";
+			}else if(value=="申请执行人"){
+				return "申请执行人";
+			}else if(value=="被执行人"){
+				return "被执行人";
+			}else if(value=="09_01001-4"){
+				return "单位犯罪直接责任人";
+			}else{
+				return "其他";
+			}
+		 }},
 		{field:'lxdh',title:'联系电话',width:120,align:'center'},
 		{field:'sfzhm',title:'证件(机构)号码',width:120,align:'center'}
 	]]

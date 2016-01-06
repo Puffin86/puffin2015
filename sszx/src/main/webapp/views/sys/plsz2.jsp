@@ -23,6 +23,10 @@
 				<a id="searchBtn"  iconCls="icon-search_sel">查询</a>
 				&nbsp;&nbsp;
 				<a id="searchAllBtn"  iconCls="icon-search_sel">全部</a>
+				&nbsp;&nbsp;
+				<a id="saveBtn"  iconCls="icon-save">保存</a>
+				&nbsp;&nbsp;
+				<a id="cancleBtn"  iconCls="icon-return" href="${path}/to_user.do">返回</a>
 			</td>
 		</tr>
 	</table>
@@ -30,7 +34,7 @@
 		<table>
 			<tr>
 				<td width="220px;">
-					<div id="bmdiv" title="部门列表" class="easyui-panel" style="width:220px;height:410px;">
+					<div id="bmdiv" title="部门列表" class="easyui-panel" style="width:220px;height:350px;">
 						<ul id="bmtree"></ul>  
 					</div>
 				</td>
@@ -44,19 +48,6 @@
 				</td>
 				<td width="350px;">
 					<table id="usergrid" data-options="fit:true,border:false"></table> 
-				</td>
-			</tr>
-		</table>
-	</div>
-	<div style="height:40px;">
-		<table>
-			<tr>
-				<td width="200px"></td>
-				<td>
-				<br/>
-					<a id="saveBtn"  iconCls="icon-save">保存</a>
-					&nbsp;&nbsp;
-					<a id="cancleBtn"  iconCls="icon-return" href="${path}/to_user.do">返回</a>
 				</td>
 			</tr>
 		</table>

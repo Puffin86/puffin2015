@@ -83,10 +83,13 @@ function login(){
 			user: user,
  	    	pass: pass
 		}, function(data){
+			alert(data.after);
 			if(data.after==1){
   	    	    window.location.href="${path}/main.jsp";
 			}else if(data.after==0){
        	       alert("用户名或密码不正确！"); 
+			}else if(data.after==99){
+				alert("登录出错，您无权限使用本系统，请联系管理员修改系统角色"); 
 			}else if(data.after==2){
 				window.location.href="${path}/trial.jsp";
 			}else{

@@ -4,17 +4,17 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
 	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
-	<!-- 解决Jetty启动后不能修改静态文件问题，发布时去掉 
-	<servlet>
-		<servlet-name>default</servlet-name>
-		<servlet-class>org.mortbay.jetty.servlet.DefaultServlet</servlet-class>
-		<init-param>
-			<param-name>useFileMappedBuffer</param-name>
-			<param-value>false</param-value>
-		</init-param>
-		<load-on-startup>0</load-on-startup>
-	</servlet>
-	-->
+	<!-- 解决Jetty启动后不能修改静态文件问题，发布时去掉  -->
+<!-- 	<servlet> -->
+<!-- 		<servlet-name>default</servlet-name> -->
+<!-- 		<servlet-class>org.mortbay.jetty.servlet.DefaultServlet</servlet-class> -->
+<!-- 		<init-param> -->
+<!-- 			<param-name>useFileMappedBuffer</param-name> -->
+<!-- 			<param-value>false</param-value> -->
+<!-- 		</init-param> -->
+<!-- 		<load-on-startup>0</load-on-startup> -->
+<!-- 	</servlet> -->
+
 	
 	<!-- Log4J的配置信息 -->
 	<context-param>
