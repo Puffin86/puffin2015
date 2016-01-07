@@ -83,7 +83,6 @@ function login(){
 			user: user,
  	    	pass: pass
 		}, function(data){
-			alert(data.after);
 			if(data.after==1){
   	    	    window.location.href="${path}/main.jsp";
 			}else if(data.after==0){
