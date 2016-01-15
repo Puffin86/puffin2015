@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ims.mappers.PartMapper">
+
+  <resultMap id="BaseResultMap" type="Part">
+    <id column="code" jdbcType="VARCHAR" property="code" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+  </resultMap>
+  
+  <resultMap id="SaleResultMap" type="Sale" >
+    <id column="sale_code" property="code" jdbcType="VARCHAR" />
+    <result column="sale_sales" property="sales" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <resultMap id="UserResultMap" type="User">
+    <id column="user_id" jdbcType="INTEGER" property="id" />
+    <result column="user_userName" jdbcType="VARCHAR" property="userName" />
+    <result column="user_password" jdbcType="VARCHAR" property="password" />
+    <result column="user_age" jdbcType="INTEGER" property="age" />
+    <result column="user_part" jdbcType="VARCHAR" property="part" />
+  </resultMap>
+  
+  <resultMap id="MutilResultMapTest" type="Part">
+    <id column="part_code" jdbcType="VARCHAR" property="code" />
+    <result column="part_name" jdbcType="VARCHAR" property="name" />
+	<association property="sale" column="sale_code" javaType="Sale" resultMap="SaleResultMap"/>
+    <collection property="users" ofType="User" resultMap="UserResultMap"/> 
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    code, name
+  </sql>
+  
+  <select id="selectAllByPrimaryKey" parameterType="java.lang.String" resultMap="MutilResultMapTest">
+    select 
+    	t1.code as part_code,
+    	t1.name as part_name,
+    	t2.id as user_id,
+    	t2.user_name as user_userName,
+    	t2.password as user_password,
+    	t2.age as user_age,
+    	t2.part as user_part,
+    	t3.code as sale_code,
+    	t3.sales as sale_sales
+    from part_t t1,user_t t2,sale_t t3
+    where t1.code=t3.code
+    and t1.code = t2.part
+    and t1.code = #{id}
+  </select>
+  
+  <select id="selectAllByPrimaryKeyMap" parameterType="java.lang.String" resultType="hashmap">
+    select 
+    	t1.code as part_code,
+    	t1.name as part_name,
+    	t3.code as sale_code,
+    	t3.sales as sale_sales
+    from part_t t1,sale_t t3
+    where t1.code=t3.code
+    and t1.code = #{id}
+  </select>
+  
+  <select id="selectNum"  resultType="int">
+    select 
+    	count(*) as num
+    from part_t 
+  </select>
+  
+  <update id="dynamicDDLSQL" >
+    ${sql}
+  </update>
+  
+  <update id="dropTable" >
+        drop table ${tableName}
+    </update>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from part_t
+    where code = #{code,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from part_t
+    where code = #{code,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="Part">
+    insert into part_t (code, name)
+    values (#{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="Part">
+    insert into part_t
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="code != null">
+        code,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="Part">
+    update part_t
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where code = #{code,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="Part">
+    update part_t
+    set name = #{name,jdbcType=VARCHAR}
+    where code = #{code,jdbcType=VARCHAR}
+  </update>
+</mapper>

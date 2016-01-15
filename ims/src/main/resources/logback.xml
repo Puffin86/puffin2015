@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- configuration file for LogBack (slf4J implementation)
+See here for more details: http://gordondickens.com/wordpress/2013/03/27/sawing-through-the-java-loggers/ -->
+<configuration scan="true" scanPeriod="30 seconds">
+	<property name="logBase" value="logs" />  
+    <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+        <resetJUL>true</resetJUL>
+    </contextListener>
+
+    <!-- To enable JMX Management -->
+    <jmxConfigurator/>
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%-5level %logger{0} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">   
+	    <Encoding>UTF-8</Encoding> 
+	    <File>${logBase}/logFile.log</File>	
+	    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">   
+	      <fileNamePattern>${logBase}/logFile.%d{yyyy-MM-dd}.log</fileNamePattern>   
+	      <maxHistory>30</maxHistory>    
+	    </rollingPolicy>   
+	   
+	    <encoder>   
+	      <pattern>%date [%thread] %-5level %logger{35} - %msg%n</pattern>   <!-- %M 方法名  输出执行日志请求的方法名。尽量避免使用，除非执行速度不造成任何问题。 -->
+	    </encoder>   
+	  </appender>  
+
+	<logger name="org.hibernate" level="debug"/>
+	<logger name="org.springframework" level="debug"/>
+	<logger name="org.apache.ibatis" level="debug"/>
+         
+<!--     <root level="info"> -->
+<!--         <appender-ref ref="console"/> -->
+<!--     </root> -->
+    <root level="debug">
+    	<appender-ref ref="console"/>
+        <appender-ref ref="FILE"/>
+    </root>
+</configuration>
